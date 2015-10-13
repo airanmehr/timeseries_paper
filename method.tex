@@ -1,1 +1,41 @@
 \section{Methods}
+In this section we formally present describe RNN model and a Naive method which takes $\Oc(1)$ computations as baseline performance.
+
+\subsection{Notation}
+Let $\bfX \in [0,1]^{R \times T \times L}$  be the 3D array (Tensor) of containing allele frequencies of the population for which $\bfX_{r,t,l}$ is the allele frequency of population for $r^{th}$ replication, time $t$ and location $l$ an d $R$ is the number of experimental replicates, $T$ is the number of observations along time, and $L$ is the number of sites. Since replicates are identically and independently distributed (iid), and we will consider single locus model, all computations on different replicates and loci are independent and to simplify our notation in we define $\bfx\in [0,1]^{T}$ as vector of allele frequencies for a replicate and loci of , $X^{(t)}\in [0,1]^L$ allele frequencies at time $t$ and $X_l\in [0,1]^T$ is the sequence of allele frequencies at loci $l$. Since
+
+\subsection{Wright-Fisher Process}
+For simplicity, in this paper we use deterministic bi-allelic single-locus Wright-Fisher (WF) model \cite{book-mathpopgen}. Under this model allele frequency the allele frequencies evolve
+\beq
+x_{t+1} = f(x_t;s,h) 
+\eeq
+where $h$ is the overdominance and transition function is defined 
+\beq
+f(x)=\frac{(1+s)x^2 + (1+hs)x(1-x)}{(1+s)x^2 + 2(1+hs)x(1-x) + x(1-x)}=x+\frac{s(h+(1-2h)x)x(1-x)}{1+sx(2h+(1-2h)x))}
+\eeq
+by setting $h=0.5$ we have
+\beq
+f(x)=x+\frac{sx(1-x)}{2+2sx}
+\eeq
+
+
+\subsection{Gaussian Process}
+The Gaussian Process optimizes
+\beq
+\underset{\theta}{ \arg \max} \ \ \Lc(\bfX | \theta)
+\eeq
+where $\Lc$ is Gaussian distribution log-likelihood, i.e. negative weighted least-squares loss. Mean and covariance functions of the GP at any $t,l$ are functionally dependent to parameter of interest $\theta$, and computed using transition function of the WF process \cite{EandR-GP}.
+\subsection{Recurrent Neural Network}
+\cite{ilya-thesis}
+\citep{backprop}
+
+\subsection{Naive Method}
+\cite{multilocus-hitchhike}
+
+\beq
+x_t=\frac{x_0}{x_0 +(1-x_0)e^{-st/2}}
+\eeq
+where solving for $s$ we have
+\beq
+s=2 t \log \left( \frac{x_t (1-x_0)}{x_0 (1-x_t)} \right)
+\eeq
