@@ -33,43 +33,27 @@ and we can find $s$ by solving
 s^*=\underset{s}{\arg \min} \sum_{t=1}^T \| y_{\tau_t}(s)- x_{t} \|^2
 \eeq
 On the other hand, using ordinary differential equations (ODE), \eqref{eq:trans0} can be written as \cite{multilocus-hitchhike}:
-
+zz
 \beq
 y_t(s)=\frac{x_0}{x_0 +(1-x_0)e^{-st/2}}= \frac{1}{1+ce^{-st/2}} = \sigma(-st/2)
 \eeq
 where $c=(1-x_0)/x_0$ is constant and $\sigma(.)$ is modified sigmoid function (due to presence of $c$). Therefore, we have
 \beq
-s^*=\underset{s}{\arg \min} \sum_{t=1}^T \| \sigma(s\tau_t/2)- x_{t} \|^2
+s^*=\underset{s}{\arg \min} \sum_{t=1}^T \frac{1}{2} \| \sigma(s\tau_t/2)- x_{t} \|^2 + \frac{\lambda }{2}s^2
 \eeq
-which is a standard 1-d nonlinear least squares optimization and can be solved iteratively .
+which is a standard 1-d nonlinear regularized least squares optimization problem. To solve it we need to use iterative optimization algorithms which require computing gradient\footnote{$\sigma'(s)=\sigma(s)(1-\sigma(s))$} w.r.t. $s$
+\beq
+g= \sum_{t=1}^T \frac{\tau_t}{2} ( \sigma(s\tau_t/2)- x_{t} ) \sigma(s\tau_t/2) (1-\sigma(s\tau_t/2))
+\eeq
+By taking into account of all replicates, the gradient descent update is
+\beq
+s\leftarrow s - \eta \sum_{r=1}^R g_i
+\eeq
+where $\eta$ is learning rate. Also, since this problem is not convex, we use Nestrov's Accelerated Gradient (NAG) descent algorithm which which has shown to be successful on many nonconvex problems. Also it should be noted that each iteration of the optimization takes $\Oc(TR)$ computation which make the algorithm tractable.
 
-\newpage
-
-
-%\subsection{Gaussian Process}
-%The Gaussian Process optimizes
-%\beq
-%\underset{\theta}{ \arg \max} \ \ \Lc(\bfX | \theta)
-%\eeq
-%where $\Lc$ is Gaussian distribution log-likelihood, i.e. negative weighted least-squares loss. Mean and covariance functions of the GP at any $t,l$ are functionally dependent to parameter of interest $\theta$, and computed using transition function of the WF process \cite{EandR-GP}.
-%\newpage
-%\cite{ilya-thesis} Backpropagation algorithm\citep{backprop}
-%
-%
-%We define the notation $y_t=f^{(t)}(x_0)$ applying the function $f$ 
-%
-%
-%Given $x_0$ we define $y_t$ as predicted allele frequency 
-%
-%\begin{figure}[h!]
-%  \centering
-%    \includegraphics[width=0.7\textwidth]{EandRRNN.png}
-%      \caption{RNN}
-%\end{figure}
-%
-%\subsection{Naive Method}
-%
-%where solving for $s$ leads to
-%\beq
-%s=2 t \log \left( \frac{x_t (1-x_0)}{x_0 (1-x_t)} \right)
-%\eeq
+\subsection{Gaussian Process}
+The Gaussian Process optimizes
+\beq
+\underset{\theta}{ \arg \max} \ \ \Lc(\bfX | \theta)
+\eeq
+where $\Lc$ is Gaussian distribution log-likelihood, i.e. negative weighted least-squares loss. Mean and covariance functions of the GP at any $t,l$ are functionally dependent to parameter of interest $\theta$, and computed using transition function of the WF process \cite{EandR-GP}.
