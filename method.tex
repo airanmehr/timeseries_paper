@@ -2,40 +2,74 @@
 In this section we formally present describe RNN model and a Naive method which takes $\Oc(1)$ computations as baseline performance.
 
 \subsection{Notation}
-Let $\bfX \in [0,1]^{R \times T \times L}$  be the 3D array (Tensor) of containing allele frequencies of the population for which $\bfX_{r,t,l}$ is the allele frequency of population for $r^{th}$ replication, time $t$ and location $l$ an d $R$ is the number of experimental replicates, $T$ is the number of observations along time, and $L$ is the number of sites. Since replicates are identically and independently distributed (iid), and we will consider single locus model, all computations on different replicates and loci are independent and to simplify our notation in we define $\bfx\in [0,1]^{T}$ as vector of allele frequencies for a replicate and loci of , $X^{(t)}\in [0,1]^L$ allele frequencies at time $t$ and $X_l\in [0,1]^T$ is the sequence of allele frequencies at loci $l$. Since
+In this paper, we denote Tensor with bold-faced capital letter, matrices with capital letter, vectors with bold-faced small letter, and scalars with small letters. Let $\bfX \in [0,1]^{R \times T \times L}$  be the Tensor of containing allele frequencies of the population where $R,L,T$ are number of experimental replicates, samples in time, segregating sites, respectively. Also, in our simplified notation $X_r=[\bfx_1 ,\cdots, \bfx_L]\in  [0,1]^ {T \times L}$  data matrix for replicate $r$,  $\bfx_l =[x_1,\cdots,x_T]$ is the observation at locus $i$ for a given replicate, and $x_t\in [0,1]$ is the allele frequency at time $t$ for a given replicate and locus. It should be noted that $T=|\Tc|$ where $\Tc=\{\tau_1,\tau_2,\cdot, \tau_T \}$ is the set of times (generations) of samples which pool sequencing data is collected. For examples $\Tc=\{2,18,25\}$ denotes that the dataset contains allele frequency of the population at 2nd, 18th and 25th generations.
 
-\subsection{Wright-Fisher Process}
-For simplicity, in this paper we use deterministic bi-allelic single-locus Wright-Fisher (WF) model \cite{book-mathpopgen}. Under this model allele frequency the allele frequencies evolve
-\beq
-x_{t+1} = f(x_t;s,h) 
+
+
+\subsection{Recurrent Neural Network}
+For simplicity, in this paper we consider bi-allelic single-locus Wright-Fisher (WF) model with no mutations \cite{book-mathpopgen} which assumes  discrete generation, random mating etc. Under finite population size\footnote{In infinite population size we have $x_{t+1} = f(x_t;s,h)$.} assumption allele frequency at each generation is a random variable
+\beq\label{eq:trans0}
+x_{t+1} = f(x_t;s,h)  + \epsilon_t
 \eeq
-where $h$ is the overdominance and transition function is defined 
+where $h$ is the overdominance, $\epsilon_t$ is random noise due to genetic drift at generation $t$ and $f: [0,1] \mapsto [0,1]$ is the transition function:
 \beq
 f(x)=\frac{(1+s)x^2 + (1+hs)x(1-x)}{(1+s)x^2 + 2(1+hs)x(1-x) + x(1-x)}=x+\frac{s(h+(1-2h)x)x(1-x)}{1+sx(2h+(1-2h)x))}
 \eeq
-by setting $h=0.5$ we have
+Since the transition function depend on both $s$ and $h$, we can estimate both of them at the same time by solving a 2-dimensional optimization problem. However, for the sake of simplicity of notation we aim to only estimate $s$ and set $h=0.5$ 
 \beq
 f(x)=x+\frac{sx(1-x)}{2+2sx}
 \eeq
-
-
-\subsection{Gaussian Process}
-The Gaussian Process optimizes
-\beq
-\underset{\theta}{ \arg \max} \ \ \Lc(\bfX | \theta)
+Given $x_t$, we can consider \ref{eq:trans0} as a nonlinear function of $s$ and finding $s$ can be formulated as a classical a 1-dimensional non-linear least-squares problem \cite{•}
+\beq \label{eq:nlls0}
+s^*=\underset{s}{\arg \min} \| x_{t+1} -f(x_t;s,h)\|^2
 \eeq
-where $\Lc$ is Gaussian distribution log-likelihood, i.e. negative weighted least-squares loss. Mean and covariance functions of the GP at any $t,l$ are functionally dependent to parameter of interest $\theta$, and computed using transition function of the WF process \cite{EandR-GP}.
-\subsection{Recurrent Neural Network}
-\cite{ilya-thesis}
-\citep{backprop}
-
-\subsection{Naive Method}
-\cite{multilocus-hitchhike}
+which can be solved by iterative optimization algorithms. 
+However, \eqref{eq:nlls0} does not account for dependence of $x_t,x_{t-1}, \cdots$ to $s$. To incorporate this dependence, we introduce the notation
+\beq
+y_t(s)= \underbrace{f(\cdots f(}_tx_0;s))
+\eeq
+and we can find $s$ by solving
+\beq
+s^*=\underset{s}{\arg \min} \sum_{t=1}^T \| y_{\tau_t}(s)- x_{t} \|^2
+\eeq
+On the other hand, using ordinary differential equations (ODE), \eqref{eq:trans0} can be written as \cite{multilocus-hitchhike}:
 
 \beq
-x_t=\frac{x_0}{x_0 +(1-x_0)e^{-st/2}}
+y_t(s)=\frac{x_0}{x_0 +(1-x_0)e^{-st/2}}= \frac{1}{1+ce^{-st/2}} = \sigma(-st/2)
 \eeq
-where solving for $s$ we have
+where $c=(1-x_0)/x_0$ is constant and $\sigma(.)$ is modified sigmoid function (due to presence of $c$). Therefore, we have
 \beq
-s=2 t \log \left( \frac{x_t (1-x_0)}{x_0 (1-x_t)} \right)
+s^*=\underset{s}{\arg \min} \sum_{t=1}^T \| \sigma(s\tau_t/2)- x_{t} \|^2
 \eeq
+which is a standard 1-d nonlinear least squares optimization and can be solved iteratively .
+
+\newpage
+
+
+%\subsection{Gaussian Process}
+%The Gaussian Process optimizes
+%\beq
+%\underset{\theta}{ \arg \max} \ \ \Lc(\bfX | \theta)
+%\eeq
+%where $\Lc$ is Gaussian distribution log-likelihood, i.e. negative weighted least-squares loss. Mean and covariance functions of the GP at any $t,l$ are functionally dependent to parameter of interest $\theta$, and computed using transition function of the WF process \cite{EandR-GP}.
+%\newpage
+%\cite{ilya-thesis} Backpropagation algorithm\citep{backprop}
+%
+%
+%We define the notation $y_t=f^{(t)}(x_0)$ applying the function $f$ 
+%
+%
+%Given $x_0$ we define $y_t$ as predicted allele frequency 
+%
+%\begin{figure}[h!]
+%  \centering
+%    \includegraphics[width=0.7\textwidth]{EandRRNN.png}
+%      \caption{RNN}
+%\end{figure}
+%
+%\subsection{Naive Method}
+%
+%where solving for $s$ leads to
+%\beq
+%s=2 t \log \left( \frac{x_t (1-x_0)}{x_0 (1-x_t)} \right)
+%\eeq
