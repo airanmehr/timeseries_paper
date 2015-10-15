@@ -32,13 +32,12 @@ and we can find $s$ by solving
 \beq
 s^*=\underset{s}{\arg \min} \sum_{t=1}^T \| y_{\tau_t}(s)- x_{t} \|^2
 \eeq
-On the other hand, by diffrentiating \eqref{eq:trans0} w.r.t $t$
-\beq \label{eq:ode}
-\frac{d x_{t}}{d t} &=\frac{sx_t(1-x_t)}{2+2sx_t} \approx \frac{s}{2} x_t(1-x_t)
-\eeq
-
-solving \eqref{eq:ode} we have
+On the other hand, under infinite population size and $h=0.5$  we have
 \beq
+x_{t+1}=x_t+\frac{sx_t(1-x_t)}{2+2sx_t} \Rightarrow \frac{dx_t}{dt}= \frac{sx_t(1-x_t)}{2+2sx_t} \approx \frac{s}{2} x_t(1-x_t)
+\eeq
+which is a Ordinary Differential Equation (ODE) and can be readily solved for $x_t$
+\beq \label{eq:inf-pop}
 x_t =\frac{1}{1+ce^{-s\tau_t/2}} = \sigma(-s\tau_t/2)
 \eeq
 where $c=(1-x_0)/x_0$ is constant \cite{multilocus-hitchhike} and $\sigma(.)$ is modified sigmoid function (due to presence of $c$). Therefore, by setting  $y_t(s)=\sigma(-s\tau_t/2)$ we have
@@ -46,14 +45,14 @@ where $c=(1-x_0)/x_0$ is constant \cite{multilocus-hitchhike} and $\sigma(.)$ is
 s^*=\underset{s}{\arg \min} \sum_{t=1}^T \frac{1}{2} \| \sigma(s\tau_t/2)- x_{t} \|^2 + \frac{\lambda }{2}s^2
 \eeq
 which is a standard 1-d nonlinear regularized nonlinear least squares (RNLLS) optimization problem. To solve it we need to use iterative optimization algorithms which require computing gradient\footnote{$\sigma'(s)=\sigma(s)(1-\sigma(s))$} w.r.t. $s$
-\beq
+\beq \label{eq:grad}
 g= \sum_{t=1}^T \frac{\tau_t}{2} ( \sigma(s\tau_t/2)- x_{t} ) \sigma(s\tau_t/2) (1-\sigma(s\tau_t/2)) + \lambda s
 \eeq
-By taking into account of all replicates, the gradient descent update is
+By taking into account of all replicates, i.e., computing \ref{eq:grad} for every replicate\footnote{Since all the replicates are iid, we can just sum them up in the objective function.}, the gradient descent update is
 \beq
-s\leftarrow s - \eta \sum_{r=1}^R g_i
+s\leftarrow s - \eta \sum_{r=1}^R g_r
 \eeq
-where $\eta$ is learning rate. Also, since this problem is not convex, we use Nestrov's Accelerated Gradient (NAG) descent algorithm which which has shown to be successful on many nonconvex problems. Also it should be noted that each iteration of the optimization takes $\Oc(TR)$ computation which make the algorithm tractable.
+where $\eta$ is learning rate and $g_r$ is the gradient of the objective for $r^{th}$ replicate data at examining loci. Also, since this problem is not convex, we use Nestrov's Accelerated Gradient (NAG) descent algorithm \cite{•} which which has shown to be successful on many nonconvex problems. Also it should be noted that each iteration of the optimization takes $\Oc(TR)$ computation which make the algorithm tractable.
 
 \subsection{Gaussian Process}
 The Gaussian Process optimizes
@@ -63,11 +62,7 @@ The Gaussian Process optimizes
 where $\Lc$ is Gaussian distribution log-likelihood, i.e. negative weighted least-squares loss. Mean and covariance functions of the GP at any $t,l$ are functionally dependent to parameter of interest $\theta$, and computed using transition function of the WF process \cite{EandR-GP}.
 
 \subsection{Naive Method}
-To have a baseline performance,  in this subsection we consider a scenario with infinite population size, i.e., 
-\beq
-x_t(s)=\frac{1}{ 1+c e^{-s\tau_t/2}}
-\eeq
-Since $s$ assumed to be constant, we can solve for $s$
+To have a baseline performance,  in this subsection we consider a scenario with infinite population size, \eqref{eq:inf-pop}. Also, since $s$ assumed to be constant, we can solve for \eqref{eq:inf-pop} $s$ 
 \beq
 s_t=\frac{2}{\tau_t} \log \left( \frac{x_t (1-x_0)}{x_0 (1-x_t)} \right)
 \eeq
