@@ -13,7 +13,7 @@ x_{t+1} = f(x_t;s,h)  + \epsilon_t
 \eeq
 where $h$ is the overdominance, $\epsilon_t$ is random noise due to genetic drift at generation $t$ and $f: [0,1] \mapsto [0,1]$ is the transition function:
 \beq
-f(x)=\frac{(1+s)x^2 + (1+hs)x(1-x)}{(1+s)x^2 + 2(1+hs)x(1-x) + x(1-x)}=x+\frac{s(h+(1-2h)x)x(1-x)}{1+sx(2h+(1-2h)x))}
+f(x)=\frac{(1+s)x^2 + (1+hs)x(1-x)}{(1+s)x^2 + 2(1+hs)x(1-x) + (1-x)^2}=x+\frac{s(h+(1-2h)x)x(1-x)}{1+sx(2h+(1-2h)x))}
 \eeq
 Since the transition function depend on both $s$ and $h$, we can estimate both of them at the same time by solving a 2-dimensional optimization problem. However, for the sake of simplicity of notation we aim to only estimate $s$ and set $h=0.5$ 
 \beq
@@ -32,12 +32,16 @@ and we can find $s$ by solving
 \beq
 s^*=\underset{s}{\arg \min} \sum_{t=1}^T \| y_{\tau_t}(s)- x_{t} \|^2
 \eeq
-On the other hand, using ordinary differential equations (ODE), \eqref{eq:trans0} can be written as \cite{multilocus-hitchhike}:
-
-\beq
-y_t(s)=\frac{x_0}{x_0 +(1-x_0)e^{-s\tau_t/2}}= \frac{1}{1+ce^{-s\tau_t/2}} = \sigma(-s\tau_t/2)
+On the other hand, by diffrentiating \eqref{eq:trans0} w.r.t $t$
+\beq \label{eq:ode}
+\frac{d x_{t}}{d t} &=\frac{sx_t(1-x_t)}{2+2sx_t} \approx \frac{s}{2} x_t(1-x_t)
 \eeq
-where $c=(1-x_0)/x_0$ is constant and $\sigma(.)$ is modified sigmoid function (due to presence of $c$). Therefore, we have
+
+solving \eqref{eq:ode} we have
+\beq
+x_t =\frac{1}{1+ce^{-s\tau_t/2}} = \sigma(-s\tau_t/2)
+\eeq
+where $c=(1-x_0)/x_0$ is constant \cite{multilocus-hitchhike} and $\sigma(.)$ is modified sigmoid function (due to presence of $c$). Therefore, by setting  $y_t(s)=\sigma(-s\tau_t/2)$ we have
 \beq
 s^*=\underset{s}{\arg \min} \sum_{t=1}^T \frac{1}{2} \| \sigma(s\tau_t/2)- x_{t} \|^2 + \frac{\lambda }{2}s^2
 \eeq
@@ -61,7 +65,7 @@ where $\Lc$ is Gaussian distribution log-likelihood, i.e. negative weighted leas
 \subsection{Naive Method}
 To have a baseline performance,  in this subsection we consider a scenario with infinite population size, i.e., 
 \beq
-x_t(s)=\frac{x_0}{x_0 +(1-x_0)e^{-s\tau_t/2}}
+x_t(s)=\frac{1}{ 1+c e^{-s\tau_t/2}}
 \eeq
 Since $s$ assumed to be constant, we can solve for $s$
 \beq
