@@ -6,7 +6,7 @@ In this paper, we denote Tensor with bold-faced capital letter, matrices with ca
 
 
 
-\subsection{Recurrent Neural Network}
+\subsection{Regularized Nonlinear Least Squares}
 For simplicity, in this paper we consider bi-allelic single-locus Wright-Fisher (WF) model with no mutations \cite{book-mathpopgen} which assumes  discrete generation, random mating etc. Under finite population size\footnote{In infinite population size we have $x_{t+1} = f(x_t;s,h)$.} assumption allele frequency at each generation is a random variable
 \beq\label{eq:trans0}
 x_{t+1} = f(x_t;s,h)  + \epsilon_t
@@ -33,17 +33,17 @@ and we can find $s$ by solving
 s^*=\underset{s}{\arg \min} \sum_{t=1}^T \| y_{\tau_t}(s)- x_{t} \|^2
 \eeq
 On the other hand, using ordinary differential equations (ODE), \eqref{eq:trans0} can be written as \cite{multilocus-hitchhike}:
-zz
+
 \beq
-y_t(s)=\frac{x_0}{x_0 +(1-x_0)e^{-st/2}}= \frac{1}{1+ce^{-st/2}} = \sigma(-st/2)
+y_t(s)=\frac{x_0}{x_0 +(1-x_0)e^{-s\tau_t/2}}= \frac{1}{1+ce^{-s\tau_t/2}} = \sigma(-s\tau_t/2)
 \eeq
 where $c=(1-x_0)/x_0$ is constant and $\sigma(.)$ is modified sigmoid function (due to presence of $c$). Therefore, we have
 \beq
 s^*=\underset{s}{\arg \min} \sum_{t=1}^T \frac{1}{2} \| \sigma(s\tau_t/2)- x_{t} \|^2 + \frac{\lambda }{2}s^2
 \eeq
-which is a standard 1-d nonlinear regularized least squares optimization problem. To solve it we need to use iterative optimization algorithms which require computing gradient\footnote{$\sigma'(s)=\sigma(s)(1-\sigma(s))$} w.r.t. $s$
+which is a standard 1-d nonlinear regularized nonlinear least squares (RNLLS) optimization problem. To solve it we need to use iterative optimization algorithms which require computing gradient\footnote{$\sigma'(s)=\sigma(s)(1-\sigma(s))$} w.r.t. $s$
 \beq
-g= \sum_{t=1}^T \frac{\tau_t}{2} ( \sigma(s\tau_t/2)- x_{t} ) \sigma(s\tau_t/2) (1-\sigma(s\tau_t/2))
+g= \sum_{t=1}^T \frac{\tau_t}{2} ( \sigma(s\tau_t/2)- x_{t} ) \sigma(s\tau_t/2) (1-\sigma(s\tau_t/2)) + \lambda s
 \eeq
 By taking into account of all replicates, the gradient descent update is
 \beq
@@ -57,3 +57,17 @@ The Gaussian Process optimizes
 \underset{\theta}{ \arg \max} \ \ \Lc(\bfX | \theta)
 \eeq
 where $\Lc$ is Gaussian distribution log-likelihood, i.e. negative weighted least-squares loss. Mean and covariance functions of the GP at any $t,l$ are functionally dependent to parameter of interest $\theta$, and computed using transition function of the WF process \cite{EandR-GP}.
+
+\subsection{Naive Method}
+To have a baseline performance,  in this subsection we consider a scenario with infinite population size, i.e., 
+\beq
+x_t(s)=\frac{x_0}{x_0 +(1-x_0)e^{-s\tau_t/2}}
+\eeq
+Since $s$ assumed to be constant, we can solve for $s$
+\beq
+s_t=\frac{2}{\tau_t} \log \left( \frac{x_t (1-x_0)}{x_0 (1-x_t)} \right)
+\eeq
+and finally to reduce the variance we can average all the naive estimates:
+\beq
+s_{Naive}=\sum_{t=1}^T\frac{2}{\tau_t} \log \left( \frac{x_t (1-x_0)}{x_0 (1-x_t)} \right)
+\eeq

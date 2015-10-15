@@ -1,6 +1,6 @@
-\section{Experiment}
-
-where solving for $s$ leads to
-\beq
-s=2 t \log \left( \frac{x_t (1-x_0)}{x_0 (1-x_t)} \right)
-\eeq
+\section{Experiments}
+In this part we compare RNLLS with GP and Naive method. 
+\subsection{Data}
+\subsubsection{Synthetic}
+Synthetic datasets are created as follows. Firs using msms prgram, we created a population for $F$ founding haplotypes. Then a population of n homozygote diploid individuals are randomly created as initial population for each simulation. Given initial population, we used simuPop to perform forward simulation by randomly choosing the site under selection. Allele frequency of the populations at generations 10,20,30,40,50 are recorded, i.e. $\Tc=\{10,20,30,40,50\}$
+\subsubsection{Real}
