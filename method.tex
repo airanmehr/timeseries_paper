@@ -1,58 +1,143 @@
 \section{Methods}
 In this section we formally present describe RNN model and a Naive method which takes $\Oc(1)$ computations as baseline performance.
 
-\subsection{Notation}
-In this paper, we denote Tensor with bold-faced capital letter, matrices with capital letter, vectors with bold-faced small letter, and scalars with small letters. Let $\bfX \in [0,1]^{R \times T \times L}$  be the Tensor of containing allele frequencies of the population where $R,L,T$ are number of experimental replicates, samples in time, segregating sites, respectively. Also, in our simplified notation $X_r=[\bfx_1 ,\cdots, \bfx_L]\in  [0,1]^ {T \times L}$  data matrix for replicate $r$,  $\bfx_l =[x_1,\cdots,x_T]$ is the observation at locus $i$ for a given replicate, and $x_t\in [0,1]$ is the allele frequency at time $t$ for a given replicate and locus. It should be noted that $T=|\Tc|$ where $\Tc=\{\tau_1,\tau_2,\cdot, \tau_T \}$ is the set of times (generations) of samples which pool sequencing data is collected. For examples $\Tc=\{2,18,25\}$ denotes that the dataset contains allele frequency of the population at 2nd, 18th and 25th generations.
+\paragraph{Notation.}
+\sout{In this paper, we denote Tensor with bold-faced capital letter,
+  matrices with capital letter, vectors with bold-faced small letter,
+  and scalars with small letters.}
 
+The allele frequencies of a population are given by the tensor $\bfX
+\in [0,1]^{R \times L \times T}$, where $R,L,T$ represent the number
+of experimental replicates, segregating sites, and samples in time,
+respectively. Correspondingly, let $X_r=[\bfx_1 ,\ldots, \bfx_L]\in
+[0,1]^ {T \times L}$ denote the data matrix for replicate $r$. Note
+that the sampling times may not be not equally spaced, but are given
+by the set $\Tc=\{\tau_1,\tau_2,\cdot, \tau_T \}$. For each locus
+$\ell$, $\bfx_{\ell} =[x_{\tau_1},\ldots,x_{\tau_T}]$ represent the
+observed allele frequencies at different time points (measured in
+generations). \sout{In the discussion below, we use $x_t\in [0,1]$ to
+  denote the allele frequency at time $\tau_t$ for a specific
+  replicate and locus. As an example, if $\Tc=\{2,18,25\}$, then
+  $x_1,x_2,x_3$ denote the allele frequencies at the $2$nd, $18$th and
+  $25$th generation, respectively.}
 
+\VB{Some confusion in notation here, because $x_t$ was used to denote
+  allele frequency at time $\tau_t$, but in the discussion below, it
+  referred to allele frequency at time $t$. We should just use
+  $x_t$ to denote allele frequency at time $t$}.
 
-\subsection{Regularized Nonlinear Least Squares}
-For simplicity, in this paper we consider bi-allelic single-locus Wright-Fisher (WF) model with no mutations \cite{book-mathpopgen} which assumes  discrete generation, random mating etc. Under finite population size\footnote{In infinite population size we have $x_{t+1} = f(x_t;s,h)$.} assumption allele frequency at each generation is a random variable
+\paragraph{Allele frequencies under selection.}
+Consider a bi-allelic single-locus (Wright-Fisher like) model with no
+mutations \cite{book-mathpopgen}, discrete generations, random mating
+etc. With finite population size, the allele frequencies from
+generation to generation are described 
 \beq\label{eq:trans0}
-x_{t+1} = f(x_t;s,h)  + \epsilon_t
+x_{t+1} = f(x_t;s,h)  + \epsilon_t\footnote{In infinite population
+  size we have $x_{t+1} = f(x_t;s,h)$.} 
 \eeq
-where $h$ is the overdominance, $\epsilon_t$ is random noise due to genetic drift at generation $t$ and $f: [0,1] \mapsto [0,1]$ is the transition function:
+
+where $h$ is the overdominance, $\epsilon_t$ is random noise due to
+genetic drift at generation $t$ and $f: [0,1] \mapsto [0,1]$ is the
+transition function:
+
 \beq
 f(x)=\frac{(1+s)x^2 + (1+hs)x(1-x)}{(1+s)x^2 + 2(1+hs)x(1-x) + (1-x)^2}=x+\frac{s(h+(1-2h)x)x(1-x)}{1+sx(2h+(1-2h)x))}
 \eeq
-Since the transition function depend on both $s$ and $h$, we can estimate both of them at the same time by solving a 2-dimensional optimization problem. However, for the sake of simplicity of notation we aim to only estimate $s$ and set $h=0.5$ 
+
+We simplify notation by setting $h=0.5$, so that
 \beq
 f(x)=x+\frac{sx(1-x)}{2+2sx}
 \eeq
-Given $x_t$, we can consider \ref{eq:trans0} as a nonlinear function of $s$ and finding $s$ can be formulated as a classical a 1-dimensional non-linear least-squares problem \cite{•}
+
+Our goal is to estimate $s$ given the observed frequencies. Note that
+the dependence on $s$ is non-linear. Specifically, at time $t+\delta
+t$, define the auxiliary continuous variable $y_t$ as follows:
+$y_0=x_0$, and:
+\begin{eqnarray}
+  y_{t+\delta t} &=& y_t+\frac{y_t(1-y_t)s\delta t}{2+2s\delta t y_t}\\
+  \frac{dy_t}{dt} &=&\lim_{\delta t\rightarrow 0}\frac{y_{t+\delta t} -y_t}{\delta t}\\
+   &=&\lim_{\delta t\rightarrow 0}\frac{sy_t(1-y_t)}{2+2y_ts\delta t}\\
+   &=& \frac{s}{2}y_t(1-y_t) 
+  \label{eq:ode}
+\end{eqnarray}
+The ODE can be readily solved for $y_t$ as
+\beq
+y_t =\frac{1}{1+\frac{1-x_0}{x_0}e^{-st/2}} = \sigma(c-st/2) 
+\label{eq:inf-pop} 
+\eeq
+
+where $c=\ln\left(\frac{1-x_0}{x_0}\right)$ is constant
+\cite{multilocus-hitchhike} and $\sigma(.)$ is a sigmoid
+function. Finally, we note that for $y_t=\mathbb{E}[x_t]$ for all $t$,
+and therefore, can be used to estimate $x_t$. Our goal is to compute
+$s$ so that the observed and expected scores best match.
+
+\paragraph{Naive two-point optimization.} 
+For each $t\in \Tc$, we use \eqref{eq:inf-pop} to provide a naive
+estimate $s(t)$ for the selection coefficient as
+
+\beq 
+s(t)=\frac{2}{t} \log \left( \frac{x_t(1-x_0)}{x_0 (1-x_t)} \right) 
+\eeq
+
+To reduce the variance we can average all the naive estimates: 
+
+\beq
+s_{N}=\frac{1}{|\Tc|}\sum_{t\in \Tc}\frac{2}{t} \log \left( \frac{x_t
+    (1-x_0)}{x_0 (1-x_t)} \right) 
+\label{eq:naive}
+\eeq
+
+
+\paragraph{Regularized Nonlinear Least Squares.}
+For a given value of $s$, we have the estimated allele frequencies at
+a locus $\ell$ given by
+\[
+{\bf y_{\ell}} = [y_{\tau_1},\ldots,y_{\tau_T}]
+\]
+where $y_t=\sigma(c-st/2)$. The observed allele frequencies are
+given by
+\[
+{\bf x_{\ell}} = [x_{\tau_1},\ldots,x_{\tau_T}]
+\]
+
+Our goal is to compute:
+
 \beq \label{eq:nlls0}
-s^*=\underset{s}{\arg \min} \| x_{t+1} -f(x_t;s,h)\|^2
+s^*=\underset{s}{\arg \min} \parallel {\bf y_{\ell}(s) -  x_{\ell}} \parallel_2
 \eeq
-which can be solved by iterative optimization algorithms. 
-However, \eqref{eq:nlls0} does not account for dependence of $x_t,x_{t-1}, \cdots$ to $s$. To incorporate this dependence, we introduce the notation
+
+Setting $y_t(s)=\sigma(c-st/2)$, and $L_2$ regularization, we compute
+
 \beq
-y_t(s)= \underbrace{f(\cdots f(}_tx_0;s))
+s^*=\underset{s}{\arg \min} \sum_{t\in \Tc} \frac{1}{2} \vert \sigma(c-st/2)- x_{t} \vert^2 + \frac{\lambda }{2}s^2
 \eeq
-and we can find $s$ by solving
-\beq
-s^*=\underset{s}{\arg \min} \sum_{t=1}^T \| y_{\tau_t}(s)- x_{t} \|^2
-\eeq
-On the other hand, under infinite population size and $h=0.5$  we have
-\beq
-x_{t+1}=x_t+\frac{sx_t(1-x_t)}{2+2sx_t} \Rightarrow \frac{dx_t}{dt}= \frac{sx_t(1-x_t)}{2+2sx_t} \approx \frac{s}{2} x_t(1-x_t)
-\eeq
-which is a Ordinary Differential Equation (ODE) and can be readily solved for $x_t$
-\beq \label{eq:inf-pop}
-x_t =\frac{1}{1+ce^{-s\tau_t/2}} = \sigma(-s\tau_t/2)
-\eeq
-where $c=(1-x_0)/x_0$ is constant \cite{multilocus-hitchhike} and $\sigma(.)$ is modified sigmoid function (due to presence of $c$). Therefore, by setting  $y_t(s)=\sigma(-s\tau_t/2)$ we have
-\beq
-s^*=\underset{s}{\arg \min} \sum_{t=1}^T \frac{1}{2} \| \sigma(s\tau_t/2)- x_{t} \|^2 + \frac{\lambda }{2}s^2
-\eeq
-which is a standard 1-d nonlinear regularized nonlinear least squares (RNLLS) optimization problem. To solve it we need to use iterative optimization algorithms which require computing gradient\footnote{$\sigma'(s)=\sigma(s)(1-\sigma(s))$} w.r.t. $s$
+
+which is a standard 1-d nonlinear regularized nonlinear least squares
+(RNLLS) optimization problem. To solve it we need to use iterative
+optimization algorithms which require computing
+gradient\footnote{$\sigma'(s)=\sigma(s)(1-\sigma(s))$} w.r.t. $s$
+
 \beq \label{eq:grad}
-g= \sum_{t=1}^T \frac{\tau_t}{2} ( \sigma(s\tau_t/2)- x_{t} ) \sigma(s\tau_t/2) (1-\sigma(s\tau_t/2)) + \lambda s
+g= \sum_{t\in \Tc} \frac{t}{2} ( \sigma(st/2)- x_{t} ) \sigma(st/2) (1-\sigma(st/2)) + \lambda s
 \eeq
-By taking into account of all replicates, i.e., computing \ref{eq:grad} for every replicate\footnote{Since all the replicates are iid, we can just sum them up in the objective function.}, the gradient descent update is
+
+By taking into account of all replicates, i.e., computing
+\ref{eq:grad} for every replicate\footnote{Since all the replicates
+  are iid, we can just sum them up in the objective function.}, the
+gradient descent update is
+
 \beq
 s\leftarrow s - \eta \sum_{r=1}^R g_r
 \eeq
-where $\eta$ is learning rate and $g_r$ is the gradient of the objective for $r^{th}$ replicate data at examining loci. Also, since this problem is not convex, we use Nestrov's Accelerated Gradient (NAG) descent algorithm \cite{•} which which has shown to be successful on many nonconvex problems. Also it should be noted that each iteration of the optimization takes $\Oc(TR)$ computation which make the algorithm tractable.
+
+where $\eta$ is learning rate and $g_r$ is the gradient of the
+objective for $r^{th}$ replicate data at examining loci. Also, since
+this problem is not convex, we use Nestrov's Accelerated Gradient
+(NAG) descent algorithm \cite{•} which which has shown to be
+successful on many nonconvex problems. Also it should be noted that
+each iteration of the optimization takes $\Oc(TR)$ computation which
+make the algorithm tractable.
 
 \subsection{Gaussian Process}
 The Gaussian Process optimizes
@@ -62,11 +147,3 @@ The Gaussian Process optimizes
 where $\Lc$ is Gaussian distribution log-likelihood, i.e. negative weighted least-squares loss. Mean and covariance functions of the GP at any $t,l$ are functionally dependent to parameter of interest $\theta$, and computed using transition function of the WF process \cite{EandR-GP}.
 
 \subsection{Naive Method}
-To have a baseline performance,  in this subsection we consider a scenario with infinite population size, \eqref{eq:inf-pop}. Also, since $s$ assumed to be constant, we can solve for \eqref{eq:inf-pop} $s$ 
-\beq
-s_t=\frac{2}{\tau_t} \log \left( \frac{x_t (1-x_0)}{x_0 (1-x_t)} \right)
-\eeq
-and finally to reduce the variance we can average all the naive estimates:
-\beq
-s_{Naive}=\sum_{t=1}^T\frac{2}{\tau_t} \log \left( \frac{x_t (1-x_0)}{x_0 (1-x_t)} \right)
-\eeq
