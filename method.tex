@@ -2,29 +2,9 @@
 In this section we formally present describe RNN model and a Naive method which takes $\Oc(1)$ computations as baseline performance.
 
 \paragraph{Notation.}
-\sout{In this paper, we denote Tensor with bold-faced capital letter,
-  matrices with capital letter, vectors with bold-faced small letter,
-  and scalars with small letters.}
-
-The allele frequencies of a population are given by the tensor $\bfX
-\in [0,1]^{R \times L \times T}$, where $R,L,T$ represent the number
-of experimental replicates, segregating sites, and samples in time,
-respectively. Correspondingly, let $X_r=[\bfx_1 ,\ldots, \bfx_L]\in
-[0,1]^ {T \times L}$ denote the data matrix for replicate $r$. Note
-that the sampling times may not be not equally spaced, but are given
-by the set $\Tc=\{\tau_1,\tau_2,\cdot, \tau_T \}$. For each locus
-$\ell$, $\bfx_{\ell} =[x_{\tau_1},\ldots,x_{\tau_T}]$ represent the
-observed allele frequencies at different time points (measured in
-generations). \sout{In the discussion below, we use $x_t\in [0,1]$ to
-  denote the allele frequency at time $\tau_t$ for a specific
-  replicate and locus. As an example, if $\Tc=\{2,18,25\}$, then
-  $x_1,x_2,x_3$ denote the allele frequencies at the $2$nd, $18$th and
-  $25$th generation, respectively.}
-
-\VB{Some confusion in notation here, because $x_t$ was used to denote
-  allele frequency at time $\tau_t$, but in the discussion below, it
-  referred to allele frequency at time $t$. We should just use
-  $x_t$ to denote allele frequency at time $t$}.
+In this paper, we aim to model random process $\{x_t\}$ for every loci, where  $x_t$ is the population allele frequency at generation $t$. The model have access to finite number of observations in time for each locus, where the sampling times are given by the set $\Tc=\{\tau_1,\tau_2,\cdots, \tau_T \}$ such that $\tau_1<\tau_2,\cdots<\tau_T$. We also assume that measurements are taken up for $R$ experimental replicates for $L$ loci. Thus, The allele frequencies of a population are given by the tensor $\bfX
+\in [0,1]^{R \times L \times T}$, where $X_{r,\ell,t}$ stores the
+observed of allele frequency at replicate $r$, locus $\ell$ and generation $\tau_t$.
 
 \paragraph{Allele frequencies under selection.}
 Consider a bi-allelic single-locus (Wright-Fisher like) model with no
@@ -36,7 +16,7 @@ x_{t+1} = f(x_t;s,h)  + \epsilon_t\footnote{In infinite population
   size we have $x_{t+1} = f(x_t;s,h)$.} 
 \eeq
 
-where $h$ is the overdominance, $\epsilon_t$ is random noise due to
+where $h$ is the overdominance, $\epsilon_t \sim \Nc(0,1)$ is random noise due to
 genetic drift at generation $t$ and $f: [0,1] \mapsto [0,1]$ is the
 transition function:
 
@@ -62,15 +42,15 @@ $y_0=x_0$, and:
 \end{eqnarray}
 The ODE can be readily solved for $y_t$ as
 \beq
-y_t =\frac{1}{1+\frac{1-x_0}{x_0}e^{-st/2}} = \sigma(c-st/2) 
+y_t =\frac{1}{1+\frac{1-x_0}{x_0}e^{-st/2}} = \sigma(st/2-c) 
 \label{eq:inf-pop} 
 \eeq
 
-where $c=\ln\left(\frac{1-x_0}{x_0}\right)$ is constant
+where $c=\log\left(\frac{1-x_0}{x_0}\right)$ is constant
 \cite{multilocus-hitchhike} and $\sigma(.)$ is a sigmoid
-function. Finally, we note that for $y_t=\mathbb{E}[x_t]$ for all $t$,
-and therefore, can be used to estimate $x_t$. Our goal is to compute
-$s$ so that the observed and expected scores best match.
+function. Finally, we note that for $x_t\sim\Nc(y_t,1)$ for all $t$, 
+and therefore observations $x_t$ can be used to fine Maximum Likelihood Estimate of $y_t$ and since sigmoid is a one-to-one function, we can find MLE for 
+$s$.
 
 \paragraph{Naive two-point optimization.} 
 For each $t\in \Tc$, we use \eqref{eq:inf-pop} to provide a naive
@@ -89,37 +69,35 @@ s_{N}=\frac{1}{|\Tc|}\sum_{t\in \Tc}\frac{2}{t} \log \left( \frac{x_t
 \eeq
 
 
-\paragraph{Regularized Nonlinear Least Squares.}
+\paragraph{Maximum Likelihood Estimate.}
 For a given value of $s$, we have the estimated allele frequencies at
 a locus $\ell$ given by
 \[
 {\bf y_{\ell}} = [y_{\tau_1},\ldots,y_{\tau_T}]
 \]
-where $y_t=\sigma(c-st/2)$. The observed allele frequencies are
+where $y_t=\sigma(st/2-c)$. The observed allele frequencies are
 given by
 \[
 {\bf x_{\ell}} = [x_{\tau_1},\ldots,x_{\tau_T}]
 \]
-
-Our goal is to compute:
-
+By assuming that the random noise due to genetic drift at each generation is independent of other generations, i.e. $\Sigma_\epsilon = I$, the problem of finding MLE for $s$ amounts to optimizing the negative-log-likelihood function with respect to $s$:
 \beq \label{eq:nlls0}
-s^*=\underset{s}{\arg \min} \parallel {\bf y_{\ell}(s) -  x_{\ell}} \parallel_2
+s^*=\underset{s}{\arg \min} \frac{1}{2} \parallel {\bf y_{\ell}(s) -  x_{\ell}} \parallel_2^2
 \eeq
-
-Setting $y_t(s)=\sigma(c-st/2)$, and $L_2$ regularization, we compute
+which is an instance of non-linear least squares optimization.
+Setting $y_t(s)=\sigma(st/2-c)$, and $L_2$ regularization\footnote{In addition to statistical and optimization advantages, $L_2$ regularization here posits an assumption that the model is agnostic to strong selections. This completely make sense, since large values of $s$ rapidly drives $x$ to fixation.}, we compute
 
 \beq
-s^*=\underset{s}{\arg \min} \sum_{t\in \Tc} \frac{1}{2} \vert \sigma(c-st/2)- x_{t} \vert^2 + \frac{\lambda }{2}s^2
+s^*=\underset{s}{\arg \min} \frac{1}{2} \sum_{t\in \Tc} \left( \sigma(st/2-c)- x_{t} \right)^2 + \frac{\lambda }{2}s^2
 \eeq
 
 which is a standard 1-d nonlinear regularized nonlinear least squares
-(RNLLS) optimization problem. To solve it we need to use iterative
+(RNLLS) optimization problem and $\lambda$ is the regularization hyperparameter to trade-off between minimizing error and regularizing $s$. To solve it we need to use iterative
 optimization algorithms which require computing
 gradient\footnote{$\sigma'(s)=\sigma(s)(1-\sigma(s))$} w.r.t. $s$
 
 \beq \label{eq:grad}
-g= \sum_{t\in \Tc} \frac{t}{2} ( \sigma(st/2)- x_{t} ) \sigma(st/2) (1-\sigma(st/2)) + \lambda s
+g= \frac{t}{2} \sum_{t\in \Tc}  ( \sigma(st/2-c)- x_{t} ) \sigma(st/2-c) (1-\sigma(st/2)) + \lambda s
 \eeq
 
 By taking into account of all replicates, i.e., computing
@@ -140,10 +118,10 @@ each iteration of the optimization takes $\Oc(TR)$ computation which
 make the algorithm tractable.
 
 \subsection{Gaussian Process}
-The Gaussian Process optimizes
+The single locus Gaussian Process optimizes
 \beq
-\underset{\theta}{ \arg \max} \ \ \Lc(\bfX | \theta)
+\underset{s}{ \arg \max} \ \ \Lc(\bfX_{:,\ell,:}| s)
 \eeq
-where $\Lc$ is Gaussian distribution log-likelihood, i.e. negative weighted least-squares loss. Mean and covariance functions of the GP at any $t,l$ are functionally dependent to parameter of interest $\theta$, and computed using transition function of the WF process \cite{EandR-GP}.
+where $\Lc$ is Gaussian distribution log-likelihood, i.e. negative weighted least-squares loss. Mean and covariance functions of the GP at any $t,\ell$ are functionally dependent to parameter of interest $\theta$, and computed using transition function of the WF process \cite{EandR-GP}.
 
 \subsection{Naive Method}
