@@ -184,14 +184,14 @@ find that
   \label{eq:hafscorepooled}
 \end{align}
 Rearranging terms, we can estimate $\nu_t$ using
-\[
+\begin{equation}
 \arg\min_{\nu_t} \left  \vert \theta \nu_t \left(\frac{\nu_t+1}{2} - \frac{1}{(1-\nu_t)n+1}\right) + \theta (1-\nu_t)\left(\frac{1}{2}+\frac{1}{2n}-\frac{1}{(1-\nu_t)n+1}\right) -\parallel \mathbf{x}\parallel^2 \right \vert
-\]
+  \label{eq:pooledfrequency}
+\end{equation}
 
 Additionally,
 \begin{equation}
   \frac{d\nu_t}{dt} = \frac{s}{2}\nu_t(1-\nu_t)   
-  \label{eq:pooledfrequency}
 \end{equation}
 Therefore, we can estimate $s$ using
 \begin{equation}
@@ -199,6 +199,13 @@ Therefore, we can estimate $s$ using
   \label{eq:labeledpooled_s}
 \end{equation}
 
+\VB{Arya, can you use
+  equations~\ref{eq:pooledfrequency}.~\ref{eq:labeledpooled_s} to get
+  new estimates of $s$, and see if they are better. Also, in the
+  figure, please write a caption as you can, and see if you can
+  write
+
+}.
 
 
 
