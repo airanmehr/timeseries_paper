@@ -1,10 +1,25 @@
 \section{Methods}
-In this section we formally present describe RNN model and a Naive method which takes $\Oc(1)$ computations as baseline performance.
+\sout{In this section we formally present describe RNN model and a
+  Naive method which takes $\Oc(1)$ computations as baseline
+  performance.}  
 
-\paragraph{Notation.}
-In this paper, we aim to model random process $\{x_t\}$ for every loci, where  $x_t$ is the population allele frequency at generation $t$. The model have access to finite number of observations in time for each locus, where the sampling times are given by the set $\Tc=\{\tau_1,\tau_2,\cdots, \tau_T \}$ such that $\tau_1<\tau_2,\cdots<\tau_T$. We also assume that measurements are taken up for $R$ experimental replicates for $L$ loci. Thus, The allele frequencies of a population are given by the tensor $\bfX
-\in [0,1]^{R \times L \times T}$, where $X_{r,\ell,t}$ stores the
-observed of allele frequency at replicate $r$, locus $\ell$ and generation $\tau_t$.
+We start with a description of `single locus multiple-time point'
+models in which each locus is analyzed independently for evidence of a
+selection constraint. In the subsequent section, we extend the
+methodology to `linked-loci, multiple time' models where we consider
+all linked loci within a small recombination-free window.
+
+\subsection*{Single Locus Models}
+We model random process $\{x_t\}$ for every loci, where $x_t$ is the
+population allele frequency at generation $t$. The model have access
+to finite number of observations in time for each locus, where the
+sampling times are given by the set $\Tc=\{\tau_1,\tau_2,\cdots,
+\tau_T \}$ such that $\tau_1<\tau_2,\cdots<\tau_T$. We also assume
+that measurements are taken up for $R$ experimental replicates for $L$
+loci. Thus, The allele frequencies of a population are given by the
+tensor $\bfX \in [0,1]^{R \times L \times T}$, where $X_{r,\ell,t}$
+stores the observed of allele frequency at replicate $r$, locus $\ell$
+and generation $\tau_t$.
 
 \paragraph{Allele frequencies under selection.}
 Consider a bi-allelic single-locus (Wright-Fisher like) model with no
@@ -112,16 +127,78 @@ s\leftarrow s - \eta \sum_{r=1}^R g_r
 where $\eta$ is learning rate and $g_r$ is the gradient of the
 objective for $r^{th}$ replicate data at examining loci. Also, since
 this problem is not convex, we use Nestrov's Accelerated Gradient
-(NAG) descent algorithm \cite{•} which which has shown to be
-successful on many nonconvex problems. Also it should be noted that
-each iteration of the optimization takes $\Oc(TR)$ computation which
-make the algorithm tractable.
+(NAG) descent algorithm~\cite{XXX} which has shown to be successful on
+many nonconvex problems. Also it should be noted that each iteration
+of the optimization takes $\Oc(TR)$ computation which make the
+algorithm tractable.
 
-\subsection{Gaussian Process}
-The single locus Gaussian Process optimizes
+\paragraph{Sinle Locus Gaussian Process.}
+The single locus Gaussian Process~\cite{XXX} optimizes
 \beq
 \underset{s}{ \arg \max} \ \ \Lc(\bfX_{:,\ell,:}| s)
 \eeq
 where $\Lc$ is Gaussian distribution log-likelihood, i.e. negative weighted least-squares loss. Mean and covariance functions of the GP at any $t,\ell$ are functionally dependent to parameter of interest $\theta$, and computed using transition function of the WF process \cite{EandR-GP}.
 
-\subsection{Naive Method}
+\subsection*{Linked-loci model}
+Similar to single loci, we denote allele frequencies at locus $\ell$ by
+\[
+{\bf x_{\ell}} = [x_{\ell,\tau_1},\ldots,x_{\ell,\tau_T}]
+\]
+Note that we added the locus to the subscripts to help with the
+exposition of multiple loci. Consider a collection of $m$ linked
+loci. Represent the derived allele frequencies at time $t\in \Tc$
+using:
+\[
+{\bf x_t} = [x_{1,t},x_{2,t}\ldots,x_{m,t}]^T 
+\]
+At any time $t$, suppose we have a sample of $n$ individual haplotypes
+that were described by the $n\times m$ matrix $M_t$. Each row of $M_t$
+represents a haplotype from the sample, and is denoted by vector
+$\mathbf{h} \in \{0,1\}^m$. Let ${\bf e} = [1]^{(n)}$ denote the
+$n$-dimensional unit vector. In Pooled sequencing, $M_t$ is hidden,
+but by definition,
+\[
+ \mathbf{x_t} = \frac{1}{n} M_t^T\mathbf{e}
+\]
+We recently devised the $1\dHAF$ statistic~\cite{Ronen2015} for a
+haplotype, and proved some bounds on its expected value during neutral
+evolution, and under selection constraints. In the current notation,
+the $1\dHAF$ score of haplotype $h$ is given by
+\begin{equation}
+1\dHAF(\mathbf{h})=n\mathbf{x_t} \cdot \mathbf{h}
+\;.
+\label{Seq:1-HAF_SNPmatrix}
+\end{equation}
+The average $1\dHAF$ score at time $t$ can be estimated as:
+\begin{equation}
+\mathbb{E}[1\dHAF(t)]=\frac{1}{n}\sum_h 1\dHAF(\mathbf{h}) = n\parallel \mathbf{x_t}\parallel^2
+\end{equation} 
+However, in an ongoing selective sweep, the expected $1\dHAF$ score is
+a function of the selection coefficient $s$, and the frequency $\nu$
+of the carriers of the favored mutation. From~\cite{Ronen2015}, we
+find that
+
+\begin{align}
+  \mathbb{E}[1\dHAF(t)]\approx\;\; & \theta n \nu_t \left(\frac{\nu_t+1}{2} - \frac{1}{(1-\nu_t)n+1}\right) +\\
+   & \theta n(1-\nu_t)\left(\frac{1}{2}+\frac{1}{2n}-\frac{1}{(1-\nu_t)n+1}\right) \\.
+  \label{eq:hafscorepooled}
+\end{align}
+Rearranging terms, we can estimate $\nu_t$ using
+\[
+\arg\min_{\nu_t} \left  \vert \theta \nu_t \left(\frac{\nu_t+1}{2} - \frac{1}{(1-\nu_t)n+1}\right) + \theta (1-\nu_t)\left(\frac{1}{2}+\frac{1}{2n}-\frac{1}{(1-\nu_t)n+1}\right) -\parallel \mathbf{x}\parallel^2 \right \vert
+\]
+
+Additionally,
+\begin{equation}
+  \frac{d\nu_t}{dt} = \frac{s}{2}\nu_t(1-\nu_t)   
+  \label{eq:pooledfrequency}
+\end{equation}
+Therefore, we can estimate $s$ using
+\begin{equation}
+  \nu_t =\frac{1}{1+\frac{1-\nu_0}{\nu_0}e^{-st/2}} = \sigma(st/2-c) 
+  \label{eq:labeledpooled_s}
+\end{equation}
+
+
+
+
