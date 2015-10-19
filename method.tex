@@ -169,10 +169,10 @@ the $1\dHAF$ score of haplotype $h$ is given by
 \begin{equation}
 1\dHAF(\mathbf{h})=n\mathbf{x_t} \cdot \mathbf{h}
 \;.
-\label{Seq:1-HAF_SNPmatrix}
+\label{eq:1-HAF_SNPmatrix}
 \end{equation}
 The average $1\dHAF$ score at time $t$ can be estimated as:
-\begin{equation}
+\begin{equation} 
 \mathbb{E}[1\dHAF(t)]=\frac{1}{n}\sum_h 1\dHAF(\mathbf{h}) = n\parallel \mathbf{x_t}\parallel^2
 \end{equation} 
 However, in an ongoing selective sweep, the expected $1\dHAF$ score is
@@ -197,16 +197,32 @@ Additionally,
 \end{equation}
 Therefore, we can estimate $s$ using
 \begin{equation}
-  \nu_t =\frac{1}{1+\frac{1-\nu_0}{\nu_0}e^{-st/2}} = \sigma(st/2-c) 
+  \nu_t =\frac{1}{1+\frac{1-\nu_0}{\nu_0}e^{-st/2}} = \sigma(st/2-d) 
   \label{eq:labeledpooled_s}
 \end{equation}
+where $d=\log\left(\frac{1-\nu_0}{\nu_0}\right)$.
 
-%\VB{Arya, can you use
-%  equations~\ref{eq:pooledfrequency}.~\ref{eq:labeledpooled_s} to get
-%  new estimates of $s$, and see if they are better. Also, in the
-%  figure, please write a caption as you can, and see if you can
-%  write
-%
-%}.
+\Arya{I'm changing Vineet's notation. I explain it using my notation, we'll integrate it if see it's correct.}
 
+Let $M_{r,\tau_t}\in \{0,1\}^{m\times n }$ be SNP matrix ($m$ individual, $n$ mutations) at generation $\tau_t$ and replicate $r$. We have $x_{r,t,\ell}=\bfone^T\bfm_{r,t,\ell}$ where $\bfm_{r,t,\ell}$ is $\ell^{th}$ column of $M_{r,\tau_t}$. \eqref{eq:1-HAF_SNPmatrix} defined $h_{r,t}=\bfone^T M_{r,\tau_t} M_{r,\tau_t}^T \bfone= \|M_{r,\tau_t}\|^2_F$
 
+\beqq
+\bfh_{r} =[h_{r,\tau_1},\ldots,h_{r,\tau_T}] \\
+\bfnu(s) = [z_{\tau_1},\ldots,z_{\tau_T}]
+\eeqq
+
+\beq \label{eq:nlls1}
+s^*=\underset{s}{\arg \min} \frac{1}{2} \sum_{r=1}^R \parallel {\bfnu(s) -  \bfh_{r}} \parallel_2^2
+\eeq
+
+In other words we have
+\beq
+h_{r,t}=<\bfx_{r,t},\bfh_{r,t}> =\bfx_{r,t}^T\bfh_{r,t}
+\eeq
+which $<.,.>$ is standard (Cartesian) dot product, which does not incorporate correlations between axes (bases in $n$-dimensional space ). We can incorporate such a correlation, i.e. Linkage Disequilibrium, by performing weighted dot product
+\beq
+h_{r,t}=<\bfx_{r,t},\bfh_{r,t}>_{C_{r,t}} = \bfx_{r,t}^TC_{r,t}\bfh_{r,t}
+\eeq
+where $C_{r,t}\in [-1,1]^{n \times n}$ is the LD matrix between all the sites.
+
+\Arya{we'll talk about it in the Monday's meeting, I gotta prepare some results :)}
