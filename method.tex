@@ -71,24 +71,29 @@ s_{N}=\frac{1}{|\Tc|}\sum_{t\in \Tc}\frac{2}{t} \log \left( \frac{x_t
 
 \paragraph{Maximum Likelihood Estimate.}
 For a given value of $s$, we have the estimated allele frequencies at
-a locus $\ell$ given by
+a locus $\ell$  and replicate $r$ given by
 \[
-{\bf y_{\ell}} = [y_{\tau_1},\ldots,y_{\tau_T}]
+{\bfy_{\ell}(s)} = [y_{\tau_1},\ldots,y_{\tau_T}]
 \]
-where $y_t=\sigma(st/2-c)$. The observed allele frequencies are
+where\footnote{Note that since $x_0$ is the same for all the replicates, so is $c$. Therefore $\bfy(s)$ is equal for all $r$. } $y_{t}=\sigma(st/2-c)$. The observed allele frequencies are
 given by
 \[
-{\bf x_{\ell}} = [x_{\tau_1},\ldots,x_{\tau_T}]
+{\bfx_{r,\ell}} = [x_{r,\ell,\tau_1},\ldots,x_{r,\ell,\tau_T}]
 \]
-By assuming that the random noise due to genetic drift at each generation is independent of other generations, i.e. $\Sigma_\epsilon = I$, the problem of finding MLE for $s$ amounts to optimizing the negative-log-likelihood function with respect to $s$:
+
+By assuming that the random noise due to genetic drift at each generation is independent of other generations\footnote{I think it $\Sigma(\epsilon_{\tau_1},\epsilon_{\tau_2})$ should depend on $N_e$ and $|\tau_1-\tau_2|$. Song, uses $\Sigma(\epsilon_{\tau_1},\epsilon_{\tau_2}) \approx |\tau_1-\tau_2|(1-\frac{|\tau_1-\tau_2|}{4N})$}, i.e. $\Sigma_\epsilon = I$, and the fact that replicates are iid, the Gaussian likelihood function is
+\beq
+\Lc_G(s|\bfx_{1,\ell}, \dots, \bfx_{R,\ell}) = \prod_{r=1}^R \Pr(\bfx_{r,\ell}| \mu=\bfy_\ell(s), \Sigma= I)
+\eeq
+where $\bfx_{r,\ell} \sim \Nc(\bfy(s),I)$. By taking log and removing constant values, the problem of finding MLE for $s$ amounts to optimizing the negative-log-likelihood function with respect to $s$:
 \beq \label{eq:nlls0}
-s^*=\underset{s}{\arg \min} \frac{1}{2} \parallel {\bf y_{\ell}(s) -  x_{\ell}} \parallel_2^2
+s^*=\underset{s}{\arg \min} \frac{1}{2} \sum_{r=1}^R \parallel {\bfy_{\ell}(s) -  \bfx_{r,\ell}} \parallel_2^2
 \eeq
 which is an instance of non-linear least squares optimization.
 Setting $y_t(s)=\sigma(st/2-c)$, and $L_2$ regularization\footnote{In addition to statistical and optimization advantages, $L_2$ regularization here posits an assumption that the model is agnostic to strong selections. This completely make sense, since large values of $s$ rapidly drives $x$ to fixation.}, we compute
 
 \beq
-s^*=\underset{s}{\arg \min} \frac{1}{2} \sum_{t\in \Tc} \left( \sigma(st/2-c)- x_{t} \right)^2 + \frac{\lambda }{2}s^2
+s^*=\underset{s}{\arg \min} \frac{1}{2}  \sum_{r=1}^R\sum_{t\in \Tc} \left( \sigma(st/2-c)- x_{r,\ell,t} \right)^2 + \frac{\lambda }{2}s^2
 \eeq
 
 which is a standard 1-d nonlinear regularized nonlinear least squares
@@ -97,31 +102,25 @@ optimization algorithms which require computing
 gradient\footnote{$\sigma'(s)=\sigma(s)(1-\sigma(s))$} w.r.t. $s$
 
 \beq \label{eq:grad}
-g= \frac{t}{2} \sum_{t\in \Tc}  ( \sigma(st/2-c)- x_{t} ) \sigma(st/2-c) (1-\sigma(st/2)) + \lambda s
+g_\ell= \frac{t}{2}  \sum_{r=1}^R \sum_{t\in \Tc}  ( \sigma(st/2-c)- x_{r,\ell,t} ) \sigma(st/2-c) (1-\sigma(st/2)) + \lambda s
 \eeq
 
-By taking into account of all replicates, i.e., computing
-\ref{eq:grad} for every replicate\footnote{Since all the replicates
-  are iid, we can just sum them up in the objective function.}, the
-gradient descent update is
+the gradient descent update is
 
 \beq
-s\leftarrow s - \eta \sum_{r=1}^R g_r
+s\leftarrow s - \eta  g_\ell
 \eeq
 
-where $\eta$ is learning rate and $g_r$ is the gradient of the
-objective for $r^{th}$ replicate data at examining loci. Also, since
+where $\eta$ is learning rate. Also, since
 this problem is not convex, we use Nestrov's Accelerated Gradient
 (NAG) descent algorithm \cite{•} which which has shown to be
 successful on many nonconvex problems. Also it should be noted that
 each iteration of the optimization takes $\Oc(TR)$ computation which
 make the algorithm tractable.
 
-\subsection{Gaussian Process}
+\paragraph{Gaussian Process}
 The single locus Gaussian Process optimizes
 \beq
-\underset{s}{ \arg \max} \ \ \Lc(\bfX_{:,\ell,:}| s)
+\Lc_{GP}(s|\bfx_{1,\ell}, \dots, \bfx_{R,\ell})
 \eeq
-where $\Lc$ is Gaussian distribution log-likelihood, i.e. negative weighted least-squares loss. Mean and covariance functions of the GP at any $t,\ell$ are functionally dependent to parameter of interest $\theta$, and computed using transition function of the WF process \cite{EandR-GP}.
-
-\subsection{Naive Method}
+where $\Lc_{GP}$ is the likelihood function  of Gaussian process. Mean and covariance functions of the GP at any $t,\ell$ are functionally dependent to parameter of interest $\theta$, and computed using transition function of the WF process \cite{EandR-GP}.
