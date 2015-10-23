@@ -7,11 +7,11 @@ all linked loci within a small recombination-free window.
 
 \subsection*{Single Locus Models}
 Consider a bi-allelic single-locus (Wright-Fisher like) model with no
-mutations \cite{book-mathpopgen}, discrete generations, random mating
+mutations \cite{Ewens2012}, discrete generations, random mating
 etc. With finite population size, the allele frequencies from
 generation to generation are described by the random process
 $\{x_{\ell,t}\}$ which denotes the population allele frequency at
-locus $\ell}$ at time generation $t$. The model has access to finite
+locus $\ell$ at time generation $t$. The model has access to finite
 number of observations in time for each locus, where the sampling
 times are given by the set $\Tc=\{\tau_1,\tau_2,\cdots, \tau_T \}$
 such that $\tau_1<\tau_2,\cdots<\tau_T$. We also assume that
@@ -72,7 +72,7 @@ The ODE can be readily solved for $\nu_t$ as
 \end{equation}
 
 where $c=\log\left(\frac{1-x_0}{x_0}\right)$ is constant
-\cite{multilocus-hitchhike} and $\sigma(.)$ is a sigmoid
+\cite{Stephan2006} and $\sigma(.)$ is a sigmoid
 function. Finally, we note that for $x_t\sim\Nc(\nu_t,1)$ for all $t$,
 and therefore observations $x_t$ can be used to fine Maximum
 Likelihood Estimate of $y_t$ and since sigmoid is a one-to-one
@@ -139,7 +139,7 @@ s\leftarrow s - \eta  g_\ell
 
 where $\eta$ is learning rate. Also, since
 this problem is not convex, we use Nestrov's Accelerated Gradient
-(NAG) descent algorithm~\cite{XXX} which has shown to be successful on
+(NAG) descent algorithm~\cite{sutskever2013} which has shown to be successful on
 many nonconvex problems. Also it should be noted that each iteration
 of the optimization takes $\Oc(TR)$ computation which make the
 algorithm tractable.
@@ -150,7 +150,7 @@ The single locus Gaussian Process \cite{} optimizes
 \beq
 \Lc_{GP}(s|\bfx_{1,\ell}, \dots, \bfx_{R,\ell})
 \eeq
-where $\Lc_{GP}$ is the likelihood function  of Gaussian process. Mean and covariance functions of the GP at any $t,\ell$ are functionally dependent to parameter of interest $\theta$, and computed using transition function of the WF process \cite{EandR-GP}.
+where $\Lc_{GP}$ is the likelihood function  of Gaussian process. Mean and covariance functions of the GP at any $t,\ell$ are functionally dependent to parameter of interest $\theta$, and computed using transition function of the WF process \cite{Terhorst15}.
 
 \subsection*{Linked-loci model}
 Similar to single loci, we denote allele frequencies at locus $\ell$ by
@@ -167,11 +167,11 @@ using:
 At any time $t$, suppose we have a sample of $n$ individual haplotypes
 that were described by the $n\times m$ matrix $M_t$. Each row of $M_t$
 represents a haplotype from the sample, and is denoted by vector
-$\mathbf{h} \in \{0,1\}^m$. Let ${\bf e} = [1]^{(n)}$ denote the
+$\mathbf{h} \in \{0,1\}^m$. Let $\bfone$ denote the
 $n$-dimensional unit vector. In Pooled sequencing, $M_t$ is hidden,
 but by definition,
 \[
- \mathbf{x_t} = \frac{1}{n} M_t^T\mathbf{e}
+ \mathbf{x_t} = \frac{1}{n} M_t^T\bfone
 \]
 We recently devised the $1\dHAF$ statistic~\cite{Ronen2015} for a
 haplotype, and proved some bounds on its expected value during neutral
