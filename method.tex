@@ -196,11 +196,11 @@ The average $1\dHAF$ score at time $t$ can be estimated as:
 However, in an ongoing selective sweep, the expected $1\dHAF$ score is
 a function of the selection coefficient $s$, and the frequency $\nu$
 of the carriers of the favored mutation. From~\cite{Ronen2015}, we
-find that $ \mathbb{E}[1\dHAF(t)]\approx z(\nu_t)$ where
+find that $ \mathbb{E}[1\dHAF(t)]\approx nz(\nu_t)$ where
 
 \beq
-z(\nu_t)= \theta n \nu_t \left(\frac{\nu_t+1}{2} - \frac{1}{(1-\nu_t)n+1}\right) +
- \theta n(1-\nu_t)\left(\frac{n+1}{2n}-\frac{1}{(1-\nu_t)n+1}\right)
+z(\nu_t)= \theta \nu_t \left(\frac{\nu_t+1}{2} - \frac{1}{(1-\nu_t)n+1}\right) +
+ \theta (1-\nu_t)\left(\frac{n+1}{2n}-\frac{1}{(1-\nu_t)n+1}\right)
   \label{eq:hafscorepooled}
 \eeq
 
