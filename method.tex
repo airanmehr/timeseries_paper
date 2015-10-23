@@ -1,8 +1,4 @@
 \section{Methods}
-\sout{In this section we formally present describe RNN model and a
-  Naive method which takes $\Oc(1)$ computations as baseline
-  performance.}  
-
 We start with a description of `single locus multiple-time point'
 models in which each locus is analyzed independently for evidence of a
 selection constraint. In the subsequent section, we extend the
@@ -10,62 +6,77 @@ methodology to `linked-loci, multiple time' models where we consider
 all linked loci within a small recombination-free window.
 
 \subsection*{Single Locus Models}
-We model random process $\{x_t\}$ for every loci, where $x_t$ is the
-population allele frequency at generation $t$. The model have access
-to finite number of observations in time for each locus, where the
-sampling times are given by the set $\Tc=\{\tau_1,\tau_2,\cdots,
-\tau_T \}$ such that $\tau_1<\tau_2,\cdots<\tau_T$. We also assume
-that measurements are taken up for $R$ experimental replicates for $L$
-loci. Thus, The allele frequencies of a population are given by the
-tensor $\bfX \in [0,1]^{R \times L \times T}$, where $X_{r,\ell,t}$
-stores the observed of allele frequency at replicate $r$, locus $\ell$
-and generation $\tau_t$.
-
-\paragraph{Allele frequencies under selection.}
 Consider a bi-allelic single-locus (Wright-Fisher like) model with no
 mutations \cite{book-mathpopgen}, discrete generations, random mating
 etc. With finite population size, the allele frequencies from
-generation to generation are described 
-\beq\label{eq:trans0}
-x_{t+1} = f(x_t;s,h)  + \epsilon_t\footnote{In infinite population
-  size we have $x_{t+1} = f(x_t;s,h)$.} 
-\eeq
+generation to generation are described by the random process
+$\{x_{\ell,t}\}$ which denotes the population allele frequency at
+locus $\ell}$ at time generation $t$. The model has access to finite
+number of observations in time for each locus, where the sampling
+times are given by the set $\Tc=\{\tau_1,\tau_2,\cdots, \tau_T \}$
+such that $\tau_1<\tau_2,\cdots<\tau_T$. We also assume that
+measurements are taken up for $R$ experimental replicates for $L$
+loci. Thus, The allele frequencies of a population are given by the
+tensor $\bfX \in [0,1]^{R \times L \times T}$, where $X_{r,\ell,t}$
+stores the observed of allele frequency at replicate $r$, locus $\ell$
+and generation $\tau_t$. However, we often omit $r$ for clarity of
+exposition. A neutrally evolving allele `drifts', and for a finite
+population,
+\beq x_{t+1} = x_t + \epsilon_t\; .\footnote{With infinite population size
+  we have $x_{t+1} = x_t$, a restatement of Hardy-Weinberg
+  equilibrium.}
+\label{eq:drift}
+\eeq where $\epsilon_t \sim \Nc(0,1)$ is a change due to genetic drift
+in generation $t$.
 
-where $h$ is the overdominance, $\epsilon_t \sim \Nc(0,1)$ is random noise due to
-genetic drift at generation $t$ and $f: [0,1] \mapsto [0,1]$ is the
-transition function:
+\paragraph{Allele frequencies under selection.}
+Consider next, a locus under selection with coefficient $s (0\le s\le
+1)$, overdominance and parameter $h (0\le h\le 1)$, so that the
+probability of inheriting two favored alleles is $\approx (1+s)$, one
+favored allele $\approx (1+hs)$ relative to approximating $0$ favored
+alleles. Then,
 
-\beq
-f(x)=\frac{(1+s)x^2 + (1+hs)x(1-x)}{(1+s)x^2 + 2(1+hs)x(1-x) + (1-x)^2}=x+\frac{s(h+(1-2h)x)x(1-x)}{1+sx(2h+(1-2h)x))}
-\eeq
+
+\begin{equation}
+x_{t+1} = f(x_t;s,h) + \epsilon_t
+\label{eq:trans0} 
+\end{equation}
+where $f: [0,1] \mapsto [0,1]$ is the
+transition function given by:
+
+\begin{equation}
+f(x)=\frac{(1+s)x^2 + (1+hs)x(1-x)}{(1+s)x^2 + 2(1+hs)x(1-x) + (1-x)^2}
+    =x+\frac{s(h+(1-2h)x)x(1-x)}{1+sx(2h+(1-2h)x))}
+\end{equation}
 
 We simplify notation by setting $h=0.5$, so that
 \beq
 f(x)=x+\frac{sx(1-x)}{2+2sx}
 \eeq
 
-Our goal is to estimate $s$ given the observed frequencies. Note that
-the dependence on $s$ is non-linear. Specifically, at time $t+\delta
-t$, define the auxiliary continuous variable $y_t$ as follows:
-$y_0=x_0$, and:
+Our goal is to estimate $s$ given allele frequencies, and/or to decide
+if $s>0$. Note that the dependence on $s$ is non-linear. To model it
+define an auxiliary continuous (in time) variable $\nu_t$ as follows:
+$\nu_0=x_0$, and:
 \begin{eqnarray}
-  y_{t+\delta t} &=& y_t+\frac{y_t(1-y_t)s\delta t}{2+2s\delta t y_t}\\
-  \frac{dy_t}{dt} &=&\lim_{\delta t\rightarrow 0}\frac{y_{t+\delta t} -y_t}{\delta t}\\
-   &=&\lim_{\delta t\rightarrow 0}\frac{sy_t(1-y_t)}{2+2y_ts\delta t}\\
-   &=& \frac{s}{2}y_t(1-y_t) 
+  \nu_{t+\delta t} &=& \nu_t+\frac{\nu_t(1-\nu_t)s\delta t}{2+2s\delta t \nu_t}\\
+  \frac{d\nu_t}{dt} &=&\lim_{\delta t\rightarrow 0}\frac{\nu_{t+\delta t} -\nu_t}{\delta t}\\
+   &=&\lim_{\delta t\rightarrow 0}\frac{s\nu_t(1-\nu_t)}{2+2\nu_ts\delta t}\\
+   &=& \frac{s}{2}\nu_t(1-\nu_t) 
   \label{eq:ode}
 \end{eqnarray}
-The ODE can be readily solved for $y_t$ as
-\beq
-y_t =\frac{1}{1+\frac{1-x_0}{x_0}e^{-st/2}} = \sigma(st/2-c) 
-\label{eq:inf-pop} 
-\eeq
+The ODE can be readily solved for $\nu_t$ as
+\begin{equation}
+  \nu_t =\frac{1}{1+\frac{1-x_0}{x_0}e^{-st/2}} = \sigma(st/2-c) 
+  \label{eq:inf-pop}
+\end{equation}
 
 where $c=\log\left(\frac{1-x_0}{x_0}\right)$ is constant
 \cite{multilocus-hitchhike} and $\sigma(.)$ is a sigmoid
-function. Finally, we note that for $x_t\sim\Nc(y_t,1)$ for all $t$, 
-and therefore observations $x_t$ can be used to fine Maximum Likelihood Estimate of $y_t$ and since sigmoid is a one-to-one function, we can find MLE for 
-$s$.
+function. Finally, we note that for $x_t\sim\Nc(\nu_t,1)$ for all $t$,
+and therefore observations $x_t$ can be used to fine Maximum
+Likelihood Estimate of $y_t$ and since sigmoid is a one-to-one
+function, we can find MLE for $s$.
 
 \paragraph{Naive two-point optimization.} 
 For each $t\in \Tc$, we use \eqref{eq:inf-pop} to provide a naive
