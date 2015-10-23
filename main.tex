@@ -80,7 +80,7 @@
 %%%%%%%%%%%%%%%%%%% TITLE %%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title{Genomic Time-Series Modeling Using Recurrent Neural Networks}
+\title{Detecting Selection in Experimental Evolution experiments.}
 \author[1]{Arya Iranmehr}
 \author[1]{Ali Akbari}
 \author[2]{Vineet Bafna}
@@ -90,7 +90,22 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-The advent of Next Generation Sequencing (NGS) has made it possible to study genomic data throughout time. This modern paradigm, Evolve-and-Resequence (E\&R), enables us to make more accurate and robust inferences, i.e. estimate model parameters, using multiple observations along generations. In this paper, we consider the recently repopularized Recurrent Neural Networks (RNN) to model the genomic time series of E\&R. In fact, RNN is used as a generative model which for a initial estate and a choice of model parameter generates a sequence. Parameter estimation procedure involves a (non-convex) optimization of least square loss between observed sequence data and RNN-generated sequence with respect to model parameter. Backpropagation-in-time, is effectively used to compute gradients of objective function, and stochastic gradient descent with momentum algorithm is used for  optimization. Experimental study on simulated data shows RNN provides significantly more accurate and robust estimates in shorter times.
+  Experimental evolution experiments are a powerful tool for observing
+  molecular evolution at work in a controlled environment. The
+  availability of next generation sequencing has made it possible to
+  look at the genetic trajectory of the population at different time
+  points, and methods for investigating time-series genomic data are
+  under active development, including recent work by Terhorst et al,
+  that uses a Gaussian process approximation to a multi-locus Wright
+  Fisher process. In this paper, we revisit the problem of estimating
+  model parameters using a direct (non-convex) optimization method
+  that simplifies and speeds up the computation while significantly
+  improving the quality of estimation. In a second step, we improve
+  upon our approach by drawing a connection between linked multi-locus
+  allele frequencies and the haplotype allele frequency (HAF)
+  statistic proposed recently by Ronen et al. We use the estimated
+  expected HAF score and its dependency on selection parameters, for a
+  maximum likelihood estimation of selection parameters.
 \end{abstract}
 \input{intro}
 
