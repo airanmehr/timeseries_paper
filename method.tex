@@ -1,10 +1,3 @@
-\section{OLD Introduction}
-Until very recently, biological data analysis has been considered processing a snapshot of data. However, the emergence of NGS and related technologies has made it possible to not only create larger datasets but also to measure multiple observations of the same quantity in the course of time. In many cases, such as population genetics, it is of the great interest to model the evolutionary process and make inferences, predictions and retrospective studies. Indeed, a random process is better explained by time series data than a single observation.
-
-In addition to inexpensive data availability, over last two decades, a large amount of efforts is dedicated to High-Performance Computing (HPC), which re-popularized and re-branded computationally intensive algorithms such as Neural Networks. The first properly proposed neural network model to exploit full potential of multi layer neural networks published by \cite{deep-DR, deep-belief} and its spectacular performance on image processing problems immediately spawned the field of Deep Neural Networks (DNN), aka Deep Learning. Shortly after, DNNs went beyond the tasks that they are initially indented to accomplish \cite{deep-imagenet} and had breakthroughs in  time-series DNN models, aka RNNs, such as generative models \cite{deep-generative}, speech processing \cite{deep-speech} etc. 
-
-In this paper we aim to use the tools and machinery that has been developed for RNNs, to model times-series biological data. In particular, we consider the population genetics problem of finding loci (locus) under selection given observation of allele frequency of a population in different generations of a Wright-Fisher model. This problem has been previously treated by using Gaussian Processes \cite{EnadR-GP}, spectral methods \cite{EandR-spectral}
-
 \section{Methods}
 We start with a description of `single locus multiple-time point'
 models in which each locus is analyzed independently for evidence of a
@@ -39,9 +32,10 @@ in generation $t$.
 \paragraph{Allele frequencies under selection.}
 Consider next, a locus under selection with coefficient $s (0\le s\le
 1)$, overdominance and parameter $h (0\le h\le 1)$, so that the
-probability of inheriting two favored alleles is $\approx (1+s)$, one
-favored allele $\approx (1+hs)$ relative to approximating $0$ favored
-alleles. Then,
+probability of an individual inheriting $2$ favored alleles is
+$\propto (1+s)$, relative to inheriting $0$ favored
+alleles. Respectively, the probability of favoring $1$ favored allele
+$\propto (1+hs)$ Then,
 
 
 \begin{equation}
@@ -50,85 +44,89 @@ x_{t+1} = f(x_t;s,h) + \epsilon_t
 \end{equation}
 where $f: [0,1] \mapsto [0,1]$ is the
 transition function given by:
-
 \begin{equation}
-f(x)=\frac{(1+s)x^2 + (1+hs)x(1-x)}{(1+s)x^2 + 2(1+hs)x(1-x) + (1-x)^2}
-    =x+\frac{s(h+(1-2h)x)x(1-x)}{1+sx(2h+(1-2h)x))}
+f(x;s,h)=\frac{(1+s)x^2 + (1+hs)x(1-x)}{(1+s)x^2 + 2(1+hs)x(1-x) + (1-x)^2}
+    =x+\frac{s(h+(1-2h)x)x(1-x)}{1+sx(2h+(1-2h)x))}\;.
 \end{equation}
-
 We simplify notation by setting $h=0.5$, so that
-\beq
-f(x)=x+\frac{sx(1-x)}{2+2sx}
-\eeq
-
+\begin{equation}
+  f(x;s,0.5)=x+\frac{sx(1-x)}{2+2sx}\;.
+  \label{eq:hequalshalf}
+\end{equation}
 Our goal is to estimate $s$ given allele frequencies, and/or to decide
-if $s>0$. Note that the dependence on $s$ is non-linear. To model it
-define an auxiliary continuous (in time) variable $\nu_t$ as follows:
-$\nu_0=x_0$, and:
+if $s>0$. Note that the dependence on $s$ is non-linear. Define an
+auxiliary continuous (in time) function $\nu_t(s)$ as follows:
+$\nu_0(s)=x_0$ for all $s$, and:
 \begin{eqnarray}
-  \nu_{t+\delta t} &=& \nu_t+\frac{\nu_t(1-\nu_t)s\delta t}{2+2s\delta t \nu_t}\\
-  \frac{d\nu_t}{dt} &=&\lim_{\delta t\rightarrow 0}\frac{\nu_{t+\delta t} -\nu_t}{\delta t}\\
-   &=&\lim_{\delta t\rightarrow 0}\frac{s\nu_t(1-\nu_t)}{2+2\nu_ts\delta t}\\
-   &=& \frac{s}{2}\nu_t(1-\nu_t) 
+  \nu_{t+\delta t}(s) &=& \nu_t(s)+\frac{\nu_t(s)(1-\nu_t(s))s\delta t}{2+2s\delta t \nu_t(s)}\;,\\
+  \frac{d\nu_t(s)}{dt} &=&\lim_{\delta t\rightarrow 0}\frac{\nu_{t+\delta t}(s) -\nu_t(s)}{\delta t}\\
+   &=&\lim_{\delta t\rightarrow 0}\frac{s\nu_t(s)(1-\nu_t(s))}{2+2\nu_t(s)s\delta t}\\
+   &=& \frac{s}{2}\nu_t(s)(1-\nu_t(s)) \;.
   \label{eq:ode}
 \end{eqnarray}
-The ODE can be readily solved for $\nu_t$ as
+The ODE can be readily solved for $\nu_t(s)$ as
 \begin{equation}
-  \nu_t =\frac{1}{1+\frac{1-x_0}{x_0}e^{-st/2}} = \sigma(st/2-c) 
+  \nu_t(s) =\frac{1}{1+\frac{1-x_0}{x_0}e^{-st/2}} = \sigma(st/2-c) 
   \label{eq:inf-pop}
 \end{equation}
+where $c=\ln\left(\frac{1-x_0}{x_0}\right)$ is
+constant\cite{Stephan2006} and $\sigma(.)$ is the sigmoid
+function. Note that $x_t\sim\Nc(\nu_t,1)$ for all discrete times $t$,
+and therefore observations $x_t$ can be used to find Maximum
+Likelihood Estimate of $\nu_t$. Finally, as the sigmoid is a
+one-to-one function, we can find MLE for $s$ given {\bf $\nu$}.
 
-where $c=\log\left(\frac{1-x_0}{x_0}\right)$ is constant
-\cite{Stephan2006} and $\sigma(.)$ is a sigmoid
-function. Finally, we note that for $x_t\sim\Nc(\nu_t,1)$ for all $t$,
-and therefore observations $x_t$ can be used to fine Maximum
-Likelihood Estimate of $y_t$ and since sigmoid is a one-to-one
-function, we can find MLE for $s$.
-
-\paragraph{Naive two-point optimization.} 
-For each $t\in \Tc$, we use \eqref{eq:inf-pop} to provide a naive
-estimate $s(t)$ for the selection coefficient as
-
-\beq 
-s(t)=\frac{2}{t} \log \left( \frac{x_t(1-x_0)}{x_0 (1-x_t)} \right) 
-\eeq
-
+\paragraph{Naive two-point optimization.} We start with a simplified
+scheme to serve as a baseline for results.  For each $t\in \Tc$, we
+use \eqref{eq:inf-pop} to provide a naive estimate $s(t)$ for the
+selection coefficient as
+\begin{equation}
+  s^*(t)=\frac{2}{t} \log \left( \frac{x_t(1-x_0)}{x_0 (1-x_t)} \right) 
+  \label{eq:naive2point}
+\end{equation}
 To reduce the variance we can average all the naive estimates: 
-
-\beq
-s_{N}=\frac{1}{|\Tc|}\sum_{t\in \Tc}\frac{2}{t} \log \left( \frac{x_t
-    (1-x_0)}{x_0 (1-x_t)} \right) 
-\label{eq:naive}
-\eeq
+\begin{equation}
+  s^*=\frac{1}{|\Tc|}\sum_{t\in \Tc}\frac{2}{t} \log \left( \frac{x_t
+      (1-x_0)}{x_0 (1-x_t)} \right) 
+  \label{eq:naive}
+\end{equation}
 
 
 \paragraph{Maximum Likelihood Estimate.}
-For a given value of $s$, we have the estimated allele frequencies at
-a locus $\ell$  and replicate $r$ given by
-\[
-{\bfy_{\ell}(s)} = [y_{\tau_1},\ldots,y_{\tau_T}]
-\]
-where\footnote{Note that since $x_0$ is the same for all the replicates, so is $c$. Therefore $\bfy(s)$ is equal for all $r$. } $y_{t}=\sigma(st/2-c)$. The observed allele frequencies are
-given by
+For locus $\ell$  and replicate $r$, the observed time-series of 
+allele frequencies are given by:
 \[
 {\bfx_{r,\ell}} = [x_{r,\ell,\tau_1},\ldots,x_{r,\ell,\tau_T}]
 \]
-
-By assuming that the random noise due to genetic drift at each generation is independent of other generations\footnote{I think it $\Sigma(\epsilon_{\tau_1},\epsilon_{\tau_2})$ should depend on $N_e$ and $|\tau_1-\tau_2|$. Song, uses $\Sigma(\epsilon_{\tau_1},\epsilon_{\tau_2}) \approx |\tau_1-\tau_2|(1-\frac{|\tau_1-\tau_2|}{4N})$}, i.e. $\Sigma_\epsilon = I$, and the fact that replicates are iid, the Gaussian likelihood function is
-\beq
-\Lc_G(s|\bfx_{1,\ell}, \dots, \bfx_{R,\ell}) = \prod_{r=1}^R \Pr(\bfx_{r,\ell}| \mu=\bfy_\ell(s), \Sigma= I)
-\eeq
-where $\bfx_{r,\ell} \sim \Nc(\bfy(s),I)$. By taking log and removing constant values, the problem of finding MLE for $s$ amounts to optimizing the negative-log-likelihood function with respect to $s$:
-\beq \label{eq:nlls0}
-s^*=\underset{s}{\arg \min} \frac{1}{2} \sum_{r=1}^R \parallel {\bfy_{\ell}(s) -  \bfx_{r,\ell}} \parallel_2^2
-\eeq
+When the locus is under selection with coefficient $s$, let the allele
+frequencies at times $t\in \Tc$ be described by
+\[
+\vecbold{\nu}(s) = [\nu_{\tau_1}(s),\ldots,\nu_{\tau_T}(s)]
+\]
+We assume that the noise due to genetic drift at each generation is
+Gaussian, and independent of other generations. In addition, $x_0$ is
+the same for all the replicates, and $c$. Therefore, using the
+independence of replicates, $\bfx_{r,\ell,t} \sim \Nc(\bf\nu_t(s),I)$
+for all replicates $r$. The likelihood of the observed allele
+frequencies is given by the Gaussian
+\begin{equation}
+  \Lc_G(s|\bfx_{1,\ell}, \dots,\bfx_{R,\ell}) = \prod_{r=1}^R \Pr(\bfx_{r,\ell}| \vecbold{\mu}=\vecbold{\nu}(s),
+\Sigma= I) 
+\end{equation}
+Taking logarithms and removing constant values, the problem of finding
+MLE for $s$ amounts to minimizing the negative-log-likelihood function
+with respect to $s$: 
+\begin{equation}
+  s^*=\underset{s}{\arg \min} \frac{1}{2} \sum_{r=1}^R \parallel {\vecbold{\nu}(s) -
+  \bfx_{r,\ell}} \parallel_2^2
+  \label{eq:nlls0}
+\end{equation}
 which is an instance of non-linear least squares optimization.
-Setting $y_t(s)=\sigma(st/2-c)$, and $L_2$ regularization\footnote{In addition to statistical and optimization advantages, $L_2$ regularization here posits an assumption that the model is agnostic to strong selections. This completely make sense, since large values of $s$ rapidly drives $x$ to fixation.}, we compute
-
-\beq
-s^*=\underset{s}{\arg \min} \frac{1}{2}  \sum_{r=1}^R\sum_{t\in \Tc} \left( \sigma(st/2-c)- x_{r,\ell,t} \right)^2 + \frac{\lambda }{2}s^2
-\eeq
-
+Setting $y_t(s)=\sigma(st/2-c)$, and using $L_2$ regularization, we
+compute
+\begin{equation}
+  s^*=\underset{s}{\arg \min} \frac{1}{2}  \sum_{r=1}^R\sum_{t\in \Tc} \left( \sigma(st/2-c)- x_{r,\ell,t} \right)^2 + \frac{\lambda }{2}s^2
+\end{equation}
 which is a standard 1-d nonlinear regularized nonlinear least squares
 (RNLLS) optimization problem and $\lambda$ is the regularization hyperparameter to trade-off between minimizing error and regularizing $s$. To solve it we need to use iterative
 optimization algorithms which require computing
@@ -229,4 +227,3 @@ Let for each replicate we have
 \beq \label{eq:nlls1}
 s^*=\underset{s}{\arg \min} \frac{1}{2} \sum_{r=1}^R \parallel {\bfz_r(s) -  \xbb_{r}} \parallel_2^2
 \eeq
-
