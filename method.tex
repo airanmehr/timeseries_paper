@@ -128,34 +128,24 @@ compute
   s^*=\underset{s}{\arg \min} \frac{1}{2}  \sum_{r=1}^R\sum_{t\in \Tc} \left( \sigma(st/2-c)- x_{r,\ell,t} \right)^2 + \frac{\lambda }{2}s^2
 \end{equation}
 which is a standard 1-d nonlinear regularized nonlinear least squares
-(RNLLS) optimization problem and $\lambda$ is the regularization hyperparameter to trade-off between minimizing error and regularizing $s$. To solve it we need to use iterative
-optimization algorithms which require computing
+(RNLLS) optimization problem and $\lambda$ is the regularization
+hyperparameter to trade-off between minimizing error and regularizing
+$s$. To solve it we need to use iterative optimization algorithms
+which require computing the 
 gradient\footnote{$\sigma'(s)=\sigma(s)(1-\sigma(s))$} w.r.t. $s$
-
-\beq \label{eq:grad}
-g_\ell= \frac{t}{2}  \sum_{r=1}^R \sum_{t\in \Tc}  ( \sigma(st/2-c)- x_{r,\ell,t} ) \sigma(st/2-c) (1-\sigma(st/2)) + \lambda s
-\eeq
-
-the gradient descent update is
-
-\beq
-s\leftarrow s - \eta  g_\ell
-\eeq
-
-where $\eta$ is learning rate. Also, since
-this problem is not convex, we use Nestrov's Accelerated Gradient
-(NAG) descent algorithm~\cite{sutskever2013} which has shown to be successful on
-many nonconvex problems. Also it should be noted that each iteration
-of the optimization takes $\Oc(TR)$ computation which make the
-algorithm tractable.
-
-
-\paragraph{Gaussian Process}
-The single locus Gaussian Process \cite{} optimizes
-\beq
-\Lc_{GP}(s|\bfx_{1,\ell}, \dots, \bfx_{R,\ell})
-\eeq
-where $\Lc_{GP}$ is the likelihood function  of Gaussian process. Mean and covariance functions of the GP at any $t,\ell$ are functionally dependent to parameter of interest $\theta$, and computed using transition function of the WF process \cite{Terhorst15}.
+\begin{equation}
+g_\ell= \frac{t}{2}  \sum_{r=1}^R \sum_{t\in \Tc}  ( \sigma(st/2-c)- x_{r,\ell,t} ) \sigma(st/2-c) (1-\sigma(st/2)) + \lambda s\; .
+  \label{eq:grad}
+\end{equation}
+The gradient descent update is given by
+\begin{equation}
+  s\leftarrow s - \eta  g_\ell\;,
+\end{equation}
+where $\eta$ is the learning rate. Also, since this problem is not
+convex, we use Nestrov's Accelerated Gradient (NAG) descent
+algorithm~\cite{sutskever2013} which has shown to be successful on
+many nonconvex problems. Each iteration of the optimization takes
+$\Oc(TR)$ computations which make the algorithm tractable in practice
 
 \subsection*{Linked-loci model}
 Similar to single loci, we denote allele frequencies at locus $\ell$ by
@@ -203,11 +193,10 @@ z(\nu_t)= \theta \nu_t \left(\frac{\nu_t+1}{2} - \frac{1}{(1-\nu_t)n+1}\right) +
 \eeq
 
 Rearranging terms, we can estimate $\nu_t$ using
-\beq
+\begin{equation}
 \hspace{-0.1in}\nu_t^*=\arg\min_{\nu_t}   \left( z(\nu_t) -\parallel \mathbf{x}_t\parallel^2  \right)^2
   \label{eq:pooledfrequency}
-\eeq
-
+\end{equation}
 Additionally, the ODE 
 \begin{equation}
   \frac{d\nu_t}{dt} = \frac{s}{2}\nu_t(1-\nu_t)   
