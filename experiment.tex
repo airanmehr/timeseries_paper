@@ -17,7 +17,14 @@ However we can not invert \ref{eq:exactODE} in closed form to get $\nu_t$ in ter
 
 also $c \approx  \log(F)$ when minor allele is used for selection, i.e., $\nu_0=1/F$
 
-In this part we compare MLE with GP and Naive method. 
+\subsection{Understanding the difficulty of estimating $s$}
+\subsubsection{Information Theory}
+Signal to Noise Ration(SNR) is high when $s \rightarrow 0$ can be alleviated eliminating noise of genetic drift, i.e.  more replicates. 
+
+\subsubsection{Functional Analysis}
+The slope of sigmoid become close to zero as $s \rightarrow 0$, and can be alleviated by right choice of sampling in time.
+
+
 \subsection{Data}
 \subsubsection{Simulations}
 For each experiment a diploid population is created and evolved as follows. 
