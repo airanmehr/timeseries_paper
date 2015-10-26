@@ -1,10 +1,22 @@
-\section{Methods (Arya)}
-\beq
-  \frac{d\nu_t(s)}{dt} &=\frac{s}{2}\nu_t(s)(1-\nu_t(s))\frac{1}{1+s\nu_t(s)} \\
-  \frac{st}{2}-c&=\log\left(\frac{\nu_0}{(1-\nu_0)^{1+s}}\right)
-  
-\eeq
 \section{Experiments}
+\subsection{Estimated Frequencies}
+Roughly, estimated frequencies follow sigmoid growth. The exact growth is given by applying the transition function $t$ times.
+\href{http://www.wolframalpha.com/input/?i=dx%2Fdt+%3D+s%2F2+%28x%281-x%29%29+%281%2F%281%2Bsx%29%29}{Writhing the ODE and Solving it gives}%
+\beqn
+  \frac{d\nu_t(s)}{dt} &=\frac{s}{2}\nu_t(s)(1-\nu_t(s))\frac{1}{1+s\nu_t(s)} \\
+  \frac{st}{2}-c&=\log\left(\frac{\nu_t}{(1-\nu_t)^{1+s}}\right)   \label{eq:eactODE}
+\eeqn
+However we can not invert \ref{eq:exactODE} in closed form to get $\nu_t$ in terms of other quantities. In other words, the blue curve in the Figure \ref{fig:sigmoid} left, does not have a closed form inverse. But we can compute exact value of $\nu_t$ (and gradients of objective function w.r.t. $s$ ) in $\Oc(T)$. So no need to approximate even though the error is not significant Figure \ref{fig:sigmoid} Right.
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=\textwidth]{apprx}
+  \caption{Rank}
+  \label{fig:sigmoid}
+\end{figure}
+
+also $c \approx  \log(F)$ when minor allele is used for selection, i.e., $\nu_0=1/F$
+
 In this part we compare MLE with GP and Naive method. 
 \subsection{Data}
 \subsubsection{Simulations}
