@@ -64,30 +64,14 @@ Detecting selection in the whole genome is a non-trivial task in real world and 
 
 \begin{figure}[H]
   \centering
-    \includegraphics[width=\textwidth]{{roc0.01A0.01}.png}
-  \caption{Rank}
+  \begin{tabular}{cc}
+      \includegraphics[width=0.5\textwidth]{{roc0.01A0.01}.png} &    \includegraphics[width=0.5\textwidth]{{roc0.02A0.01}.png}\\
+          \includegraphics[width=0.5\textwidth]{{roc0.05A0.01}.png}
+&    \includegraphics[width=0.5\textwidth]{{roc0.1A0.1}.png}  
+  \end{tabular}
+
+  \caption{ROC}
   \label{fig:Fig3a}
-\end{figure}
-
-\begin{figure}[H]
-  \centering
-    \includegraphics[width=\textwidth]{{roc0.02A0.01}.png}
-  \caption{Rank}
-  \label{fig:Fig3b}
-\end{figure}
-
-\begin{figure}[H]
-  \centering
-    \includegraphics[width=\textwidth]{{roc0.05A0.01}.png}
-  \caption{Rank}
-  \label{fig:Fig3c}
-\end{figure}
-
-\begin{figure}[H]
-  \centering
-    \includegraphics[width=\textwidth]{{roc0.1A0.1}.png}
-  \caption{Rank}
-  \label{fig:Fig3d}
 \end{figure}
 
 \begin{table}
@@ -115,27 +99,15 @@ Gaussian Process & 5 & 6 & 2 & 3\\
 \paragraph{Rank}
 \begin{figure}[H]
   \centering
-    \includegraphics[width=\textwidth]{rank}
-  \caption{Rank}
-  \label{fig:Fig3}
+    \begin{tabular}{c}
+        \includegraphics[width=0.8\textwidth]{rank}\\
+  		    \includegraphics[width=0.8\textwidth]{mrr}\\
+  		        \includegraphics[width=0.8\textwidth]{ap}
+  \end{tabular}
+  \caption{Rank (Top), Mean Reciprocal Rank (Middle) Mean Average Precision (Bottom)}
+  \label{fig:rank}
 \end{figure}
 
-\paragraph{Mean Reciprocal Rank(MRR)}
-\begin{figure}[H]
-  \centering
-    \includegraphics[width=\textwidth]{mrr}
-  \caption{Mean Reciprocal}
-  \label{fig:Fig2}
-\end{figure}
-
-
-\paragraph{Mean Average Precision (MAP)}
-\begin{figure}[hh]
-  \centering
-    \includegraphics[width=\textwidth]{ap}
-  \caption{Mean Average Precision (MAP)}
-  \label{fig:Fig5}
-\end{figure}
 
 
 \subsubsection{Estimating Strength of Selection}
