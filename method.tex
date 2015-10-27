@@ -148,8 +148,9 @@ many nonconvex problems. Each iteration of the optimization takes
 $\Oc(TR)$ computations which make the algorithm tractable in practice
 
 \subsection*{Linked-locus model}
-Consider a collection of $m$ linked loci. Represent the derived allele
-frequencies at time $t\in \Tc$ using:
+Consider a collection of $m$ linked loci. Omitting replicate
+information, we represent the derived allele frequencies at time $t\in
+\Tc$ using:
 \[
 {\bf x_t} = [x_{1,t},x_{2,t}\ldots,x_{m,t}]^T 
 \]
@@ -200,7 +201,7 @@ can be solve to express $\nu_t$ as a function $s$ and $t$:
   \nu_t(s) =\frac{1}{1+\frac{1-\nu_0}{\nu_0}e^{-st/2}} = \sigma(st/2-d) 
   \label{eq:labeledpooled_s}
 \end{equation}
-where $d=\log\left(\frac{1-\nu_0}{\nu_0}\right)$.
+where $d=\ln\left(\frac{1-\nu_0}{\nu_0}\right)$.
 Let for each replicate we have
 \beq
 \xbb &=[\|\bfx_{\tau_1}\|^2 , \ldots, \|\bfx_{\tau_T}\|^2]^T\\
