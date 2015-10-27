@@ -1,11 +1,30 @@
-\section{Methods (Arya)}
-\beq
-  \frac{d\nu_t(s)}{dt} &=\frac{s}{2}\nu_t(s)(1-\nu_t(s))\frac{1}{1+s\nu_t(s)} \\
-  \frac{st}{2}-c&=\log\left(\frac{\nu_0}{(1-\nu_0)^{1+s}}\right)
-  
-\eeq
 \section{Experiments}
-In this part we compare MLE with GP and Naive method. 
+\subsection{Estimated Frequencies}
+Roughly, estimated frequencies follow sigmoid growth. The exact growth is given by applying the transition function $t$ times.
+\href{http://www.wolframalpha.com/input/?i=dx%2Fdt+%3D+s%2F2+%28x%281-x%29%29+%281%2F%281%2Bsx%29%29}{Writhing the ODE and Solving it gives}%
+\beqn
+  \frac{d\nu_t(s)}{dt} &=\frac{s}{2}\nu_t(s)(1-\nu_t(s))\frac{1}{1+s\nu_t(s)} \\
+  \frac{st}{2}-c&=\log\left(\frac{\nu_t}{(1-\nu_t)^{1+s}}\right)   \label{eq:eactODE}
+\eeqn
+However we can not invert \ref{eq:exactODE} in closed form to get $\nu_t$ in terms of other quantities. In other words, the blue curve in the Figure \ref{fig:sigmoid} left, does not have a closed form inverse. But we can compute exact value of $\nu_t$ (and gradients of objective function w.r.t. $s$ ) in $\Oc(T)$. So no need to approximate even though the error is not significant Figure \ref{fig:sigmoid} Right.
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=\textwidth]{apprx}
+  \caption{Rank}
+  \label{fig:sigmoid}
+\end{figure}
+
+also $c \approx  \log(F)$ when minor allele is used for selection, i.e., $\nu_0=1/F$
+
+\subsection{Understanding the difficulty of estimating $s$}
+\subsubsection{Information Theory}
+Signal to Noise Ration(SNR) is high when $s \rightarrow 0$ can be alleviated eliminating noise of genetic drift, i.e.  more replicates. 
+
+\subsubsection{Functional Analysis}
+The slope of sigmoid become close to zero as $s \rightarrow 0$, and can be alleviated by right choice of sampling in time.
+
+
 \subsection{Data}
 \subsubsection{Simulations}
 For each experiment a diploid population is created and evolved as follows. 
@@ -45,30 +64,14 @@ Detecting selection in the whole genome is a non-trivial task in real world and 
 
 \begin{figure}[H]
   \centering
-    \includegraphics[width=\textwidth]{{roc0.01A0.01}.png}
-  \caption{Rank}
+  \begin{tabular}{cc}
+      \includegraphics[width=0.5\textwidth]{{roc0.01A0.01}.png} &    \includegraphics[width=0.5\textwidth]{{roc0.02A0.01}.png}\\
+          \includegraphics[width=0.5\textwidth]{{roc0.05A0.01}.png}
+&    \includegraphics[width=0.5\textwidth]{{roc0.1A0.1}.png}  
+  \end{tabular}
+
+  \caption{ROC}
   \label{fig:Fig3a}
-\end{figure}
-
-\begin{figure}[H]
-  \centering
-    \includegraphics[width=\textwidth]{{roc0.02A0.01}.png}
-  \caption{Rank}
-  \label{fig:Fig3b}
-\end{figure}
-
-\begin{figure}[H]
-  \centering
-    \includegraphics[width=\textwidth]{{roc0.05A0.01}.png}
-  \caption{Rank}
-  \label{fig:Fig3c}
-\end{figure}
-
-\begin{figure}[H]
-  \centering
-    \includegraphics[width=\textwidth]{{roc0.1A0.1}.png}
-  \caption{Rank}
-  \label{fig:Fig3d}
 \end{figure}
 
 \begin{table}
@@ -96,27 +99,15 @@ Gaussian Process & 5 & 6 & 2 & 3\\
 \paragraph{Rank}
 \begin{figure}[H]
   \centering
-    \includegraphics[width=\textwidth]{rank}
-  \caption{Rank}
-  \label{fig:Fig3}
+    \begin{tabular}{c}
+        \includegraphics[width=0.8\textwidth]{rank}\\
+  		    \includegraphics[width=0.8\textwidth]{mrr}\\
+  		        \includegraphics[width=0.8\textwidth]{ap}
+  \end{tabular}
+  \caption{Rank (Top), Mean Reciprocal Rank (Middle) Mean Average Precision (Bottom)}
+  \label{fig:rank}
 \end{figure}
 
-\paragraph{Mean Reciprocal Rank(MRR)}
-\begin{figure}[H]
-  \centering
-    \includegraphics[width=\textwidth]{mrr}
-  \caption{Mean Reciprocal}
-  \label{fig:Fig2}
-\end{figure}
-
-
-\paragraph{Mean Average Precision (MAP)}
-\begin{figure}[hh]
-  \centering
-    \includegraphics[width=\textwidth]{ap}
-  \caption{Mean Average Precision (MAP)}
-  \label{fig:Fig5}
-\end{figure}
 
 
 \subsubsection{Estimating Strength of Selection}
@@ -124,7 +115,13 @@ Gaussian Process & 5 & 6 & 2 & 3\\
   \centering
     \includegraphics[width=\textwidth]{bias}
   \caption{Bias}
-  \label{fig:Fig4}
+  \label{fig:bias}
 \end{figure}
 
 \subsection{Computational Performance}
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=0.6\textwidth]{times}
+  \caption{Bias}
+  \label{fig:bias}
+\end{figure}
