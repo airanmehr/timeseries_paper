@@ -1,0 +1,335 @@
+%\documentclass[handout]{beamer} % \pause disabled
+\documentclass[t]{beamer} % \pause enabled
+\input{macros-arya}
+\usepackage{datetime}
+\def\vecbold#1{{\boldsymbol#1}}
+
+\newdateformat{monthyeardate}{%
+  \monthname[\THEMONTH], \THEYEAR}
+
+\usepackage[linesnumbered,ruled]{algorithm2e}
+\usetheme{Madrid}
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshortauthor
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+    \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\makeatother
+\title{Genomic Time-Series Data Analysis}
+\subtitle{}
+\author[Arya Iranmehr]
+{%
+  \texorpdfstring{
+      \centering
+      Arya Iranmehr\\
+      \href{mailto:airanmehr@ucsd.edu}{airanmehr@ucsd.edu}
+  }
+  {Arya Iranmehr}
+}
+%\email{}
+\institute{
+Bafna's Lab\\
+University of California, San Diego}
+\date{
+\monthyeardate\today}
+\subject{Optimization}
+\usefonttheme{serif} % default family is serif
+\AtBeginSection[]
+  {
+     \begin{frame}<beamer>
+     \frametitle{Agenda}
+     \tableofcontents[currentsection,currentsubsection]
+     \end{frame}
+  }
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>{Outline}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+\begin{document}
+\begin{frame}
+  \titlepage
+\end{frame}
+\begin{frame}{Outline}
+  \tableofcontents
+\end{frame}
+
+
+\section{Introduction}
+\subsection{Motivation}
+\begin{frame}{Motivation I: Importance of  Genetic adaptation}
+\begin{itemize}
+\item Genetic adaptation is the central evolutionary process which is at the core of some of the challenges facing humanity
+\item The challenge arises from the fact that adversary organism's ability to adapt to drugs. For instance
+\begin{itemize}
+\item Parasite: Malaria may have killed half of all the people that ever lived\footnote{John Whitfield, Portrait of a serial killer, Nature News, 2002.}.
+\item Bacteria: The world, is poised to enter a ‘post-antibiotic’ era\footnote{Antibiotic resistance sweeping developing world, Nature News, 2014.}.
+\item Virus: HIV
+\item Pests: Crop pests
+\item Cancer Tumors
+\item etc.
+\end{itemize}
+\item Identifying genes or regions under selection is the first step to a better drug design.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Motivation II: NGS, PoolSeq, HPC}
+\begin{itemize}
+\item {\bf Data Availability:} Next Generation Sequencing (NGS) has made genomic data available at reasonable cost \emphr{for each individual}.
+\pause
+\item {\bf Population Statistics:} 
+\begin{itemize}
+\item Most of population genetics algorithms for analysing adaptation process population Allele Frequency (AF) at each site.
+\item To compute AF, typically all the individuals are sequenced separately and the population AF is computed for each site.
+\item For model (small) organisms where a single animal does not provide enough DNA, it is more effective to pool them together and then sequence.
+\item \emphr{PoolSeq} offers a more cost-effective way of computing AF, by sequencing whole population together and computing AF directly. 
+\end{itemize}
+\pause
+\item {\bf Computational Power:} High Performance Computing (\emphr{HPC}) lets us fit more complicated models such as Nonlinear Least-Squares and Gaussian Processes on larger datasets.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Motivation III : (Modern) Experimental Evolution}
+\begin{itemize}
+\item  Experimental evolution (EE) is a very old tradition in biology, which researchers expose an evolving population to a \emphr{selective pressure}, and study the response in a \emphr{controlled environment} at \emphr{different generations}.
+\item Modern EE makes inference based on on molecular data.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Motivation IV : Evolve and Re-Sequence Paradigm}
+\begin{itemize}
+\item  In short,   {\bf EE + PoolSeq = Evolve \& ReSequence (E\&R)}
+\item E\&R enables us to analyse \emphr{multiple observations of population statistics} in time instead of one, leading to more accurate prediction and identifying more complex adaptations.
+\item E.g., Haddad'd lab \footnote{\tiny Zhou et al., Experimental selection for Drosophila survival in extremely low O2 environment, PLoS One,2007.} evolved flies to adapt to hypoxia for over 300 generations, and identified many genes involved in hypoxia tolerance.
+\item E.g., dark pigmentation in response to UV radiation \footnote{\tiny Schlötterer, C., et al. "Combining experimental evolution with next-generation sequencing: a powerful tool to study adaptation from standing genetic variation." Heredity , 2014.}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+\includegraphics[trim={0 2.1in 0 0},clip, scale=0.65]{eg.jpg} 
+\end{figure}
+
+\end{frame}
+\subsection{Goal}
+\begin{frame}{Goal}
+Given Population Statistics (e.g. AF) at different generations (e.g. 10,20,30,40,50) we would like to have a better parametric model for explaining data (Maximum Likelihood) in order to answer
+
+\begin{enumerate}[(i)]
+\item Is there a selection happening?
+\item If so, where is it?
+\item what is the strength of selection?
+\item ...
+\end{enumerate}
+\end{frame}
+\subsection{Background}
+\begin{frame}{Background}
+\begin{itemize}
+\item Traditionally, methods for detecting selection  process an snapshot of genome to detect a Selective Sweep.
+\item Selective Sweep is rapid expansion of adaptive alleles in populations leading to reduction of polymorphisms.
+\item Tajima’s D is the classical test that measures reduction of polymorphisms
+\item HKA, LRH, EHH, SFS tests are based on similar objective to detect selection \emphr{after fixation}.
+\end{itemize}
+\end{frame}
+\section{Method}
+\subsection{notation}
+\begin{frame}{Notation}
+\begin{itemize}
+\item We consider diploid bi-allelic single-locus Wright-Fisher model with no mutations.
+\item At each loci, AFs from generation to generation are described by the random process $\{x_{t}\}$	 for which 
+\begin{equation}
+x_{t+1} = f(x_t;s,h) + \epsilon_t
+\label{eq:trans0} 
+\end{equation}
+$s$ is selection strength, $h$ is over-dominance and $\epsilon_t \sim \Nc(0,\sigma^2_0)$ is the random noise due to genetic drift and we have
+\begin{equation}
+  f(x;s,0.5)=x+\frac{sx(1-x)}{2+2sx}\;.
+  \label{eq:hequalshalf}
+\end{equation}
+\item Initial AF at $L$ sites is evolved in $R$ independent replicates and $T$ samples are taken for each replicate, i.e., problem data is $\bfX \in [0,1]^{R \times L \times T}$.
+\end{itemize}
+\end{frame}
+\subsection{Related Work}
+\begin{frame}{Gaussian Process \footnote{\tiny Terhorst et. al. "Multi-locus analysis of genomic time series data from experimental evolution." (2015)}}
+\begin{itemize}
+\item Gaussian Process(GP) is generalization of multivariate Gaussian distribution which assumes any subset of observations are jointly Gaussian.
+\item GP is fully determined by mean function $\mu(t;s,x_0)$ and covariance function $\Sigma(t_1,t_2;s,x_0)$.
+\item using Mathematica they derived closed form approximation for mean and covariance functions and performed maximum likelihood
+\beq
+s_\ell^* = \underset{s}{\arg \max} \Lc(s|X_{:,\ell,:})
+\eeq
+and for each site likelihood ratio is given by
+\beq
+\Lambda_\ell=\frac{\Lc(s=s_l^*|X_{:,\ell,:})}{\Lc(s=0|X_{:,\ell,:})}
+\eeq
+\end{itemize}
+\end{frame}
+
+\subsection{Proposed Methods}
+\begin{frame}{Analysis of transition function}
+\begin{itemize}
+\item By differentiating update equations ($x_{t+1}=x_t+\frac{sx_t(1-x_t)}{2+2sx_t}$ w.r.t. and solving differential equation, we have
+\beq
+\nu_t(s)=\frac{1}{1+e^{-st/2+c}}
+\eeq
+where $c=\log\left(x_0/(1-x_0)\right)$
+\end{itemize}
+\hspace{-0.6in}\includegraphics[scale=0.2]{sigmoid}
+\end{frame}
+\begin{frame}{Naive Method}
+\begin{itemize}
+\item If we observe $x_t$, we can solve the sigmoid equation for $s$
+\begin{equation}
+  s^*(t)=\frac{2}{t} \log \left( \frac{x_t(1-x_0)}{x_0 (1-x_t)} \right) 
+  \label{eq:naive2point}
+\end{equation}
+To reduce the variance we can average all the naive estimates for all times 
+\begin{equation}
+  s^*=\frac{1}{|\Tc|}\sum_{t\in \Tc}\frac{2}{t} \log \left( \frac{x_t
+      (1-x_0)}{x_0 (1-x_t)} \right) 
+  \label{eq:naive}
+\end{equation}
+where $\Tc=\{\tau_1,\tau_2,\cdots, \tau_T \}$ is sampling times.
+\end{itemize}
+\end{frame}
+\begin{frame}{Nonlinear Gaussian Model}
+\begin{itemize}
+\item Assuming genetic drift noise is Gaussian with zero mean and unit variance, we have
+\beq
+x_t \sim \Nc(\nu_t,1)
+\eeq
+where by defining 
+\[
+\vecbold{\nu}(s) = [\nu_{\tau_1}(s),\ldots,\nu_{\tau_T}(s)]
+\]
+for all $r$ we have $\bfX_{r,l,:}\sim \Nc(\vecbold{\nu},I)$.
+\item Finding Maximum Likelihood Estimate of the nonlinear Gaussian model amounts to solve the nonlinear least-squares problem
+\begin{equation}
+  s_\ell^*=\underset{s}{\arg \min} \frac{1}{2} \sum_{r=1}^R \parallel {\vecbold{\nu}(s) -
+  \bfX_{r,\ell,:}} \parallel_2^2
+  \label{eq:nlls0}
+\end{equation}
+\end{itemize}
+\end{frame}
+\section{Results}
+\begin{frame}{Predictors}
+\begin{itemize}
+\item For detecting selection we computed the max-likelihood-ratio in genome:
+\beq
+\Lambda = \underset{\ell}{\max} \Lambda_\ell(s^*_\ell)
+\eeq
+\item For locating selection
+\beq
+position = \underset{\ell}{\arg \max} \Lambda_\ell(s^*_\ell)
+\eeq
+\end{itemize}
+\end{frame}
+\begin{frame}{Settings}
+\begin{enumerate}[(i)]
+\item For each experiment, population of $F=200$ founder lines is created in  \texttt{msms} program with parameters 
+\begin{itemize}
+\item Length of genome $L=10^5$.
+\item Recombination rate $\rho=10^{-8}$.
+\item Scaled mutation rate $\theta = 17$.
+\end{itemize}
+
+\item Using $F=200$ founder lines a population of $N=1000$ diploid homozygote individuals are created.
+\item Using \texttt{SimuPop}, the initial population is forward simulated for $R=3$ replicates and AF is recorded at generations $\Tc=\{10,20,30,40,50\}$.
+\end{enumerate}
+\end{frame}
+\begin{frame}{Detecting Selection for s=0.01}
+\centering
+      \includegraphics[width=0.7\textwidth]{{roc0.01A0.01}.png} 
+      \end{frame}
+      \begin{frame}{Detecting Selection for s=0.02}
+        \centering
+       \includegraphics[width=0.7\textwidth]{{roc0.02A0.01}.png}
+      \end{frame}
+      \begin{frame}{Detecting Selection for s=0.05}
+        \centering
+          \includegraphics[width=0.7\textwidth]{{roc0.05A0.01}.png}
+          \end{frame}
+          \begin{frame}{Detecting Selection for s=0.1}
+  \centering
+\includegraphics[width=0.7\textwidth]{{roc0.1A0.1}.png}  
+
+
+\end{frame}
+\begin{frame}{Locating The Site Under Selection: Distance}
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=\textwidth]{dist}
+\end{figure}
+\end{frame}
+\begin{frame}{Locating The Site Under Selection: Rank I}
+  \includegraphics[scale=0.22]{rank}
+\end{frame}
+\begin{frame}{Locating The Site Under Selection: Rank II}
+Mean Reciprocal Rank = 1/Rank of the First Hit
+\begin{figure}[H]
+  \centering
+    \begin{tabular}{c}
+  		    \includegraphics[width=\textwidth]{mrr}
+  \end{tabular}
+\end{figure}
+\end{frame}
+
+
+
+\begin{frame}{Computational Performance}
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=0.6\textwidth]{times}
+\end{figure}
+\end{frame}
+
+
+
+
+
+\section{Summary \& Future Work}
+\begin{frame}{Summary}
+\begin{itemize}
+\item We proposed  a Naive method and a nonlinear Gaussian method which outperforms state-of-the-art Gaussian process method on single locus.
+\item Performance on the cases with weaker selection is not satisfactory.
+\end{itemize}
+\end{frame}
+\begin{frame}{Future Works}
+\begin{enumerate}[I]
+\item In addition to low signal-to-noise ratio, fixed sampling through time has led to poor performance in weak selection scenarios. In real world scenario we do not have a priori about strength of selection to set a resolution for sampling.
+\begin{itemize}
+\item We will address this issue by an adaptive sampling issue. I.e., we decide when to take next sample by observing changes in AF, so far.
+\end{itemize}
+\item Currently we are using single locus, and the linkage between sites is ignored. 
+\begin{itemize}
+\item The model is extended by observing multi-locus population statistic. I.e., we aim to estimate the random process of average HAF\footnote{Ronen, Roy, et al. "Haplotype Allele Frequency (HAF) Score: Predicting Carriers of Ongoing Selective Sweeps Without Knowledge of the Adaptive Allele." 2015.} for every sliding window.
+\end{itemize}
+
+\end{enumerate}
+
+
+\end{frame}
+\begin{frame}{.}
+\vspace{1	in}
+\begin{center}
+	\huge{Thanks!}\\
+		\huge{Questions?}\\
+\end{center}
+
+\end{frame}
+\end{document}
+
+
