@@ -54,74 +54,45 @@ In addition to LRT, the value of $s^*$ itself can be regarded as a signal for de
 \eeq
 will take into account of two different objectives, 1)model discrepancy from neutral model 2)strength of selection under non-neutral model. In the  results we show that the modified-LRT makes more accurate predictions.
 
-\subsection{Results}
-In this part we compare the computational and predictive performance of the proposed method in detecting selection, locating selection in the genome, and estimating strength of selection with Gaussian process and the outlined naive method.
-
-\subsubsection{Detecting Selection}
-Detecting selection in the whole genome is a non-trivial task in real world and can be regarded as a application for the proposed algorithm. To provide a fair and unbiased comparison, we computed the test statistic for 1000 simulations and computed Receiver Operative Characteristic curve and Area Under Curve (AUC) for each method.
 
 
+\section{Detecting Selection, $F=200,\ N_e=10^6,\ ,e=2*10^{-9}, \mu=10^{-9}$}
+
+\subsection{Fixed time sampling}
+Hopeless, because in hard sweep (selection on the site with minimum AF=1/F= 0.005) 50 generations for all $s$ the trajectory is Neutral. 
+
+
+They did it for soft sweep and they showed that for $\nu_0>0.1$ performance increases.
+
+Anyway I'll do it.
+\begin{figure}[H]
+  \centering
+  \includegraphics[trim={ 3in 0 3in 0},clip,scale=0.3]{sigmoidHard.png}
+\end{figure}
+\subsection{L=50Kb, $\theta=200$, $\Ebb[m]=\sum_{i=1}^n\frac{\theta}{i}=1174$ ,$\rho=4N_erL=4000$}
 
 \begin{figure}[H]
   \centering
-  \begin{tabular}{cc}
-      \includegraphics[width=0.5\textwidth]{{roc0.01A0.01}.png} &    \includegraphics[width=0.5\textwidth]{{roc0.02A0.01}.png}\\
-          \includegraphics[width=0.5\textwidth]{{roc0.05A0.01}.png}
-&    \includegraphics[width=0.5\textwidth]{{roc0.1A0.1}.png}  
-  \end{tabular}
-
-  \caption{ROC}
-  \label{fig:Fig3a}
+  \includegraphics[trim={ 3in 0 3in 0},clip,scale=0.3]{{CalibratedTime.s0.1.t200.L50K}.png}
 \end{figure}
 
-\begin{table}
-\centering
-\begin{tabular}{ l |c c c c }
-$s$& 0.01 &0.02 & 0.05 & 0.1 \\
-\hline
-  Gaussian Model & 2 & 3& 2 & 3 \\
-Gaussian Process & 5 & 6 & 2 & 3\\
-  Naive & 8 & 9 & 2 & 3\\
-\end{tabular}
-\caption{AUC of all method evaluated for 1000 simulations and different values of $s$.}
-\end{table}
-
-
-\subsubsection{Finding Site Under Selection}
-\paragraph{Distance}
 \begin{figure}[H]
   \centering
-    \includegraphics[width=\textwidth]{dist}
-  \caption{Average distance to predicted site to the true site that is under selection.}
-  \label{fig:Fig1}
+  \includegraphics[trim={ 3in 0 3in 0},clip,scale=0.3]{{CalibratedTime.s0.05.t200.L50K}.png}
 \end{figure}
 
-\paragraph{Rank}
 \begin{figure}[H]
   \centering
-    \begin{tabular}{c}
-        \includegraphics[width=0.8\textwidth]{rank}\\
-  		    \includegraphics[width=0.8\textwidth]{mrr}\\
-  		        \includegraphics[width=0.8\textwidth]{ap}
-  \end{tabular}
-  \caption{Rank (Top), Mean Reciprocal Rank (Middle) Mean Average Precision (Bottom)}
-  \label{fig:rank}
+  \includegraphics[trim={ 3in 0 3in 0},clip,scale=0.3]{{CalibratedTime.s0.02.t200.L50K}.png}
 \end{figure}
 
-
-
-\subsubsection{Estimating Strength of Selection}
 \begin{figure}[H]
   \centering
-    \includegraphics[width=\textwidth]{bias}
-  \caption{Bias}
-  \label{fig:bias}
+  \includegraphics[trim={ 3in 0 3in 0},clip,scale=0.3]{{CalibratedTime.s0.01.t200.L50K}.png}
 \end{figure}
 
-\subsection{Computational Performance}
-\begin{figure}[H]
-  \centering
-    \includegraphics[width=0.6\textwidth]{times}
-  \caption{Bias}
-  \label{fig:bias}
-\end{figure}
+
+\subsection{L=1Mb, $\theta=200$, $\Ebb[m]=\sum_{i=1}^n\frac{\theta}{i}=23492$, $\rho=4N_erL=80000$}
+To be added
+
+\section{Detecting region under selection}
