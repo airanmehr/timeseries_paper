@@ -66,12 +66,11 @@ $\nu_0(s)=x_0$ for all $s$, and:
 \end{eqnarray}
 The ODE can be readily solved for $\nu_t(s)$ as
 \begin{equation}
-  \nu_t(s) =\frac{1}{1+\frac{1-x_0}{x_0}e^{-st/2}} = \sigma(st/2-c) 
+  \nu_t(s) =\frac{1}{1+\frac{1-x_0}{x_0}e^{-st/2}} = \sigma(st/2+\eta(x_0)) 
   \label{eq:inf-pop}
 \end{equation}
-where $c=\ln\left(\frac{1-x_0}{x_0}\right)$ is
-constant\cite{Stephan2006} and $\sigma(.)$ is the sigmoid
-function. Note that $x_t\sim\Nc(\nu_t,1)$ for all discrete times $t$,
+where$\sigma(.)$ is the logistic
+function and $\eta(.)$ is logit function (inverse of the logistic function). Note that $x_t\sim\Nc(\nu_t,1)$ for all discrete times $t$,
 and therefore observations $x_t$ can be used to find Maximum
 Likelihood Estimate of $\nu_t$. Finally, as the sigmoid is a
 one-to-one function, we can find MLE for $s$ given {\bf $\nu$}.
@@ -81,13 +80,12 @@ scheme to serve as a baseline for results.  For each $t\in \Tc$, we
 use \eqref{eq:inf-pop} to provide a naive estimate $s(t)$ for the
 selection coefficient as
 \begin{equation}
-  s^*(t)=\frac{2}{t} \log \left( \frac{x_t(1-x_0)}{x_0 (1-x_t)} \right) 
+  s^*(t)=\frac{2}{t} \log \left( \frac{x_t(1-x_0)}{x_0 (1-x_t)} \right) = \frac{2}{t}  \left( \eta(x_t)-\eta(x_0)\right)
   \label{eq:naive2point}
 \end{equation}
 To reduce the variance we can average all the naive estimates: 
 \begin{equation}
-  s^*=\frac{1}{|\Tc|}\sum_{t\in \Tc}\frac{2}{t} \log \left( \frac{x_t
-      (1-x_0)}{x_0 (1-x_t)} \right) 
+  s^*=\frac{1}{|\Tc|}\sum_{t\in \Tc}\frac{2}{t}  \left( \eta(x_t)-\eta(x_0)\right)
   \label{eq:naive}
 \end{equation}
 
@@ -192,17 +190,7 @@ Rearranging terms, we can estimate $\nu_t$ using
 \hspace{-0.1in}\nu_t^*=\arg\min_{\nu_t}   \left( z(\nu_t) -\parallel \mathbf{x}_t\parallel^2  \right)^2
   \label{eq:pooledfrequency}
 \end{equation}
-Additionally, the ODE 
-\begin{equation}
-  \frac{d\nu_t}{dt} = \frac{s}{2}\nu_t(1-\nu_t)   
-\end{equation}
-can be solve to express $\nu_t$ as a function $s$ and $t$:
-\begin{equation}
-  \nu_t(s) =\frac{1}{1+\frac{1-\nu_0}{\nu_0}e^{-st/2}} = \sigma(st/2-d) 
-  \label{eq:labeledpooled_s}
-\end{equation}
-where $d=\ln\left(\frac{1-\nu_0}{\nu_0}\right)$.
-Let for each replicate we have
+where $\nu_t=\sigma(st/2+\eta(\nu_0))$ and for each replicate we have
 \beq
 \xbb &=[\|\bfx_{\tau_1}\|^2 , \ldots, \|\bfx_{\tau_T}\|^2]^T\\
 \bfz(s)&=[z(\nu_{\tau_1}(s)) , \ldots, z(\nu_{\tau_T}(s))]^T
@@ -211,3 +199,33 @@ Let for each replicate we have
 \beq \label{eq:nlls1}
 s^*=\underset{s}{\arg \min} \frac{1}{2} \sum_{r=1}^R \parallel {\bfz_r(s) -  \xbb_{r}} \parallel_2^2
 \eeq
+\subsection{Relation to classical statistics}
+\beq
+AverageHAF&=n\|x\|^2= \alpha\theta_H\\
+\|x\|^2&=\sum_i \left(\frac{i}{n}\right)^2\xi_i =\frac{1}{n^2}\sum_i i^2\xi_i = \frac{ (n-1)}{2n}\theta_H \\
+\alpha&=\frac{ n-1}{2}
+\eeq
+where $k$ is the number of histogram bins in computing AFS.
+\begin{figure}
+\begin{tabular}{cc}
+\includegraphics[scale=0.25]{thetaHs00} &\includegraphics[scale=0.25]{thetaHs02}
+\end{tabular}
+\end{figure}
+
+
+\subsection{Likelihood Ratio Test}
+Using the MLE (and other) estimates of $s$ it is desirable to perform a secondary task such as \emph{testing for selection} or \emph{locating the site under selection}. Likelihood ratio test (LRT) statistics for time series \cite{feder2014} have shown to be predictors for differentiating neutral and natural selection evolution cases. For a single locus model, the likelihood ratio test statistics $\Lambda(s*)$ is defined
+\beq \label{eq:lrt}
+\Lambda(s^*) = \log \left(\frac{\Lc(\bfX|s=s*)}{\Lc(\bfX|s=0)}\right)
+\eeq
+where $s^*$ is the optimal solution for the maximum-likelihood procedure. For the Gaussian process and Gaussian model the likelihood $\Lc_{GP}$ and $\Lc_G$ are well defined and \eqref{eq:lrt} can be easily evaluated. The likelihood of the Naive method for estimating based on $x_t$ is 
+\beq
+\Lc_N(s|x_t,x_0)=x_t-\sigma(st/2 -c)
+\eeq
+
+In addition to LRT, the value of $s^*$ itself can be regarded as a signal for detecting selection. In other words, modifying the LRT to
+\beq
+\Theta=s^*\Lambda(s^*)
+\eeq
+will take into account of two different objectives, 1)model discrepancy from neutral model 2)strength of selection under non-neutral model. In the  results we show that the modified-LRT makes more accurate predictions.
+\newpage
