@@ -5,7 +5,9 @@ selection constraint. In the subsequent section, we extend the
 methodology to `linked-loci, multiple time' models where we consider
 all linked loci within a small recombination-free window.
 
-\subsection*{Single Locus Models}
+\subsection{Dynamics of the Sweep}
+
+\subsection{Single-Locus Methods}
 Consider a bi-allelic single-locus (Wright-Fisher like) model with no
 mutations \cite{Ewens2012}, discrete generations, random mating
 etc. With finite population size, the allele frequencies from
@@ -145,7 +147,8 @@ algorithm~\cite{sutskever2013} which has shown to be successful on
 many nonconvex problems. Each iteration of the optimization takes
 $\Oc(TR)$ computations which make the algorithm tractable in practice
 
-\subsection*{Linked-locus model}
+\subsection{Linked-locus Methods}
+\subsubsection{Fay Wu's H}
 Consider a collection of $m$ linked loci. Omitting replicate
 information, we represent the derived allele frequencies at time $t\in
 \Tc$ using:
@@ -199,7 +202,7 @@ where $\nu_t=\sigma(st/2+\eta(\nu_0))$ and for each replicate we have
 \beq \label{eq:nlls1}
 s^*=\underset{s}{\arg \min} \frac{1}{2} \sum_{r=1}^R \parallel {\bfz_r(s) -  \xbb_{r}} \parallel_2^2
 \eeq
-\subsection{Relation to classical statistics}
+
 \beq
 AverageHAF&=n\|x\|^2= \alpha\theta_H\\
 \|x\|^2&=\sum_i \left(\frac{i}{n}\right)^2\xi_i =\frac{1}{n^2}\sum_i i^2\xi_i = \frac{ (n-1)}{2n}\theta_H \\
@@ -212,6 +215,19 @@ where $k$ is the number of histogram bins in computing AFS.
 \end{tabular}
 \end{figure}
 
+\subsection{Tajima's D}
+We can compute Tajima's D in time as a function of $s$ and initial carrier frequency.
+
+\beq
+D_0&=\Pi_0 - W_0, \ \ \ \ \ D_t=\Pi_t - W_t\\
+\Pi_t&= (1-\nu_t^2)\Pi_0 \\
+W_0&= \frac{m_0}{S_n}, \ \ \ \ \ W_t= \frac{m_t}{S_n}\\
+\frac{W_t}{W_0}&=\frac{\frac{m_t}{S}}{\frac{m_0}{S}} \ \ \Rightarrow W_t=\frac{m_t}{m_0}W0 \\
+\frac{m_t}{m_0}&=\frac{\log\left((1-\nu_t)n +1 \right)}{\log(n)} \approx  \frac{\log\left((1-\nu_t)n\right)}{\log(n)} = \frac{\log(1-\nu_t)+\log(n)}{\log(n)} = 1+ \frac{ \log(1-\nu_t)}{\log(n)}\\
+D_t&= (1-\nu_t^2)\Pi_0 - (1+ \frac{ \log(1-\nu_t)}{\log(n)} ) W_0 = D_0+\log(1-\nu_t) \frac{W_0}{\log(n)} -\nu_t^2 \Pi_0\\
+\frac{d D_{t}}{d \nu_{t}}&=
+ 2\Pi_0\nu_t - \frac{\frac{W_0}{\log(n)}}{1-\nu_t}=a\nu_t + \frac{b}{1-\nu_t}
+ \eeq
 
 \subsection{Likelihood Ratio Test}
 Using the MLE (and other) estimates of $s$ it is desirable to perform a secondary task such as \emph{testing for selection} or \emph{locating the site under selection}. Likelihood ratio test (LRT) statistics for time series \cite{feder2014} have shown to be predictors for differentiating neutral and natural selection evolution cases. For a single locus model, the likelihood ratio test statistics $\Lambda(s*)$ is defined

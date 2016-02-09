@@ -81,7 +81,7 @@
 %%%%%%%%%%%%%%%%%%% TITLE %%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title{Detecting Selection in Experimental Evolution experiments.}
+\title{Detecting Selection in Experimental Evolution Experiments}
 \author[1]{Arya Iranmehr}
 \author[1]{Ali Akbari}
 \author[2]{Vineet Bafna}
@@ -115,21 +115,9 @@
 
 \input{method}
 \input{experiment}
-\subsection{Tajima's D}
-We can compute Tajima's D in time as a function of $s$ and initial carrier frequency.
 
-\beq
-D_0&=\Pi_0 - W_0, \ \ \ \ \ D_t=\Pi_t - W_t\\
-\Pi_t&= (1-\nu_t^2)\Pi_0 \\
-W_0&= \frac{m_0}{S_n}, \ \ \ \ \ W_t= \frac{m_t}{S_n}\\
-\frac{W_t}{W_0}&=\frac{\frac{m_t}{S}}{\frac{m_0}{S}} \ \ \Rightarrow W_t=\frac{m_t}{m_0}W0 \\
-\frac{m_t}{m_0}&=\frac{\log\left((1-\nu_t)n +1 \right)}{\log(n)} \approx  \frac{\log\left((1-\nu_t)n\right)}{\log(n)} = \frac{\log(1-\nu_t)+\log(n)}{\log(n)} = 1+ \frac{ \log(1-\nu_t)}{\log(n)}\\
-D_t&= (1-\nu_t^2)\Pi_0 - (1+ \frac{ \log(1-\nu_t)}{\log(n)} ) W_0 = D_0+\log(1-\nu_t) \frac{W_0}{\log(n)} -\nu_t^2 \Pi_0\\
-\frac{d D_{t}}{d \nu_{t}}&=
- 2\Pi_0\nu_t - \frac{\frac{W_0}{\log(n)}}{1-\nu_t}=a\nu_t + \frac{b}{1-\nu_t}
- \eeq
 \input{conclusion}
-\newpage
+
 \bibliographystyle{plain}
 \bibliography{library}
 
