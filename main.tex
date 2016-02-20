@@ -94,19 +94,12 @@
   Experimental evolution experiments are a powerful tool for observing
   molecular evolution at work in a controlled environment. The
   availability of next generation sequencing has made it possible to
-  look at the genetic trajectory of the population at different time
-  points, and methods for investigating time-series genomic data are
+  study the genetic trajectory of the population at different time
+  points. Methods for investigating time-series genomic data are
   under active development, including recent work by Terhorst et al,
   that uses a Gaussian process approximation to a multi-locus Wright
-  Fisher process. In this paper, we revisit the problem of estimating
-  model parameters using a direct (non-convex) optimization method
-  that simplifies and speeds up the computation while significantly
-  improving the quality of estimation. In a second step, we improve
-  upon our approach by drawing a connection between linked multi-locus
-  allele frequencies and the haplotype allele frequency (HAF)
-  statistic proposed recently by Ronen et al. We use the estimated
-  expected HAF score and its dependency on selection parameters, for a
-  maximum likelihood estimation of selection parameters.
+  Fisher process. In this research, we revisit the problem of detecting selection in short amount of time using a classical methods such as Tajima's S and Fay Wu's H and a proposed method which fits a logistic function to the trajectories of allele frequencies at every locus.
+Extensive simulation study shows the proposed method has a superior performance over conventional method both in hard and soft sweeps.
 \end{abstract}
 \input{intro}
 

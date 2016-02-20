@@ -27,7 +27,7 @@
 }
 \def\dHAF{\text{-HAF}}
 \makeatother
-\title{Genomic Time-Series Data Analysis}
+\title{Detecting Selection in Experimental Evolution Experiment}
 \subtitle{}
 \author[Arya Iranmehr]
 {%
@@ -66,7 +66,25 @@ University of California, San Diego}
 \end{frame}
 
 
+\begin{frame}{Introduction}
+\begin{itemize}
+\item We are interested in identifying genetic adaptations in different organisms in find genes (or alleles) that are beneficial w.r.t. a  \emphr{selective pressure}.
+\item Examples of interesting selective pressures: harsh environmental conditions, antibiotics, chemotherapy, etc.
+\end{itemize}
+\end{frame}
 
+
+
+\begin{frame}{History}
+\begin{itemize}
+\item Traditionally, detecting/locating selection is done by analysing Allele Frequency Spectrum(AFS) or Haplotypes from a window (50Kbp here).
+\item {\bf Now}
+\begin{enumerate}
+\item We can sequence the population at different generations
+\item We can't wait until fixation. 
+\end{enumerate}
+\end{itemize}
+\end{frame}
 
 \begin{frame}
 Experimental Evolution
@@ -74,24 +92,8 @@ Experimental Evolution
 \includegraphics[trim={0 2.1in 0 0},clip, scale=0.6]{eg.jpg} 
 \end{figure}
 \end{frame}
-\begin{frame}{Simulations}
-\begin{enumerate}[(i)]
-\item For each simulation, population of $F=200$ founder lines is created in  \texttt{msms} program with parameters 
-\begin{itemize}
-\item Length of genome $L=10^6$Kbp.
-\item Population size $N_e=10^6$.
-\item Recombination rate $r=2\times10^{-8}$.
-\item Mutation rate $\mu=10^{-9}$ which give $\theta = 200$ and $m\approx 1200$ .
-\end{itemize}
 
-\item Using $F=200$ founder lines a population of $N=1000$ diploid homozygote individuals are created.
-\item Using \texttt{SimuPop}, the initial population is forward simulated for 10 replicates and AF is recorded every 10 generation for a complete hard sweep. 
-\item I.e., a site with minimum allele frequency of $1/F$ is always under selection.
-\item for each $s=\{0.1, 0.05, 0.02, 0.01, 0\}$ 100 simulations are done.
-\end{enumerate}
-\end{frame}
-
-\begin{frame}{Biological Goals}
+\begin{frame}{Goals}
 \begin{itemize}
 \item Given the genome time series data (allele frequencies) we are interested in
 \begin{enumerate}[I]
@@ -103,37 +105,29 @@ Experimental Evolution
 \end{enumerate}
 \item Estimating model parameters
 \end{enumerate}
-\item  problems I and II are easier, and can be addressed using model-free methods such as Tajima's D.
 \end{itemize}
 \end{frame}
 
-\begin{frame}{History Detecting and locating Selection}
-\begin{itemize}
-\item Traditionally, detecting/locating selection is done by analysing Allele Spectrum Frequency (AFS) from a window (50Kbp here).
-\item different linear combinations of AFS vector gives different tests of selection.
-\item to put it in context, Tajima's D, FayWu's H and SFSelect are multi-locus, model-free methods for detecting and locating selection which use a \emphr{ single snapshot} of data.
-\item However, we extend these methods to times-series framework, just by summing all test statistics through time.
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}{Questions}
+\begin{frame}{Simulations}
 \begin{enumerate}[(i)]
-\item Are multi-locus methods better than single locus ones?
-\item Are time-series methods outperform single-snapshot methods?
-\item Are model-based approaches (likelihood based methods such as GP) better than classical \emphr{model-free} statistical-tests for detecting selection?
-\item When detecting and locating selection is trival and when is not?
-\item How does the initial frequency of the carrier affect the performance?
+\item For each simulation, population of $F=200$ founder lines is created in  \texttt{msms} program with parameters 
+\begin{itemize}
+\item window size $L=50$Kbp.
+\item mutation rate $\theta=200$.
+\end{itemize}
+
+\item Using $F=200$ founder lines a population diploid is created.
+\item Using forward simulator population is evolved and AF is sampled every 10 generation for 50 generations. 
+\item This procedure is repeated 100 times for each $s=\{0.1, 0.05, 0.02, 0.01, 0\}$.
 \end{enumerate}
-
-
 \end{frame}
+
+
+
 
 \begin{frame}{Hard Sweep}
 \begin{itemize}
-\item With this setting around a quarter of sites are at MAF at time 0.
-\item We will consider hard-sweep, i.e., site under selection frequency=$1/F=1/Ne=0.005$=MAF. 
-\item if we pick a site randomly with high prob, it'll be low freq.
+\item With this setting around 20\% of sites are at Minimum Allele Frequency =1/200  (at time 0).
 \end{itemize}
 \hspace{-0in}\includegraphics[scale=0.17]{AFS}
 \end{frame}
@@ -154,199 +148,125 @@ Dynamics of sweep extremely depend on $s$ as well as initial carrier frequency.S
 }
 \end{frame}
 
-\begin{frame}{A Naive Single Locus Model}
+\begin{frame}{Bottleneck}
 \begin{itemize}
-\item Roughly, just divide your last and first observation, it gives you a number, which can be regarded as a \emphr{predictor} for detecting selection. I.e., larger values of the predictor imply evidence of selection.
-\item Using start and end AF at a site, we can solve the logistic equation to get an estimate of $s$ for that site.
-\end{itemize}
-
-\end{frame}
-
-\begin{frame}{Multi-Locus Methods}
-\begin{itemize}
-\item In hard sweep, site under selection has perfect LD with all the other sites at time 0.\item With hard-sweep, it is difficult to aim locating mutation in less than 2K generations.
-\item 50Kb window seems to be a reasonable resolution.
+\item When restricting observations to a fixed set of sites, at each generation some sites get lost (due to drift), but no new mutation happens.
+\item Pr(Absorption of site $i$) = Frequency of site $i$.
 \end{itemize}
 \begin{figure}
 \centering
-\hspace{-0in}\includegraphics[scale=0.17]{spaceTimeLD}
-\caption{Decay of LD in space through time under neutral evolution, when selected site is at position 500K. 50Kb window centered at the site is shaded.}
-
+\includegraphics[scale=0.2]{bottleneck}
 \end{figure}
+
 \end{frame}
 
-\begin{frame}{Multi Locus Model: Avg Haplotype Allele Frequency}
-\begin{itemize}
-\item Analogous to, TajimaD,H and SFSelect, AHAF is a statistic for a (50Kb) window can be computed instantly, (Euclidean norm of AF vector).
-\item However, Ronen et. al. derived dynamics of AHAF in term of $\nu_t$ for hard sweep,  and therefore $s$.
-\end{itemize}
+
+
+\begin{figure}
+  \centering
+  		    \includegraphics[trim={2in 0.5in 2in 0in},clip,page=1,width=\textwidth]{{GlobalDynamics.TimeSeries}.pdf}
+  \caption{Mean and 95\% CI of 1000 simulations for strong selection.}
+\end{figure}
+
+\begin{figure}
+  \centering
+  		    \includegraphics[trim={2in 0.5in 2in 0in},clip,page=4,width=\textwidth]{{GlobalDynamics.TimeSeries}.pdf}
+  \caption{Mean and 95\% CI of 1000 simulations for weak selection.}
+\end{figure}
+
+\begin{frame}[allowframebreaks]{Single-Locus Least-Squares Method}
+\begin{figure}
+\begin{enumerate}
+\item Model is consistent with observations
+\begin{figure}
+  \centering
+\hspace{-0.5in}\includegraphics[trim={2in 9.3in 2in 0in},clip,page=1,width=\textwidth]{{GlobalDynamics.TimeSeries}.pdf}
+  		   \end{figure}
+  		   \newpage
+ \item strong linkage in a window
+\begin{figure}
 \centering
-\hspace{-0.1in}\includegraphics[scale=0.2]{haf}
-
-\end{frame}
-
-
-
+\hspace{-0in}\includegraphics[scale=0.2]{spaceTimeLD}
+\end{figure}
+ \item Estimating $s$ at each site
 \begin{figure}
-  \centering
-  		    \includegraphics[trim={2in 0.5in 2in 0in},clip,width=\textwidth]{populationDynamics.pdf}
-  \caption{A simulations for s=0.1. Mean of 10 replicates is shown as observation.
-  Complete sweep is divided into three epochs based on carrier frequency.}
+\centering
+\hspace{-0in}\includegraphics[scale=0.2]{ls01}
 \end{figure}
 
-\begin{frame}{Global Trends of sweep}
-\begin{itemize}
-\item In the following slides, global trend of Carrier freq, and all the window-based statistics are presented for each $s$.
-\item There are two models: logistic (single locus) and AHAF (multi-locus).
-\item 1000 simulations done and 95\% confidence interval is shown for each curve. (sweep/neutral).
-\end{itemize}
-
-\end{frame}
-
-\begin{figure}[H]
-  \centering
-  		    \includegraphics[trim={2in 0.5in 2in 0in},clip,page=1,width=\textwidth]{Globaldynamics.pdf}
-\end{figure}
-{\tiny 1) Before generation 70, detection is difficult.\newline 2)Window based methods discriminate two cases with high confidence in phase 2 and 3.\newline 3) Discrimination in AHAF trend is harder than other methods.}
-
-\begin{figure}[H]
-  \centering
-  		    \includegraphics[trim={2in 0.5in 2in 0in},clip,page=2,width=\textwidth]{Globaldynamics.pdf}
-\end{figure}
-{\tiny 1) Before generation 130, detection is difficult.\newline 2)Window based methods discriminate two cases with high confidence in phase 2 and 3.\newline 3) Discrimination in AHAF trend is harder than other methods.}
-
-\begin{figure}[H]
-  \centering
-  		    \includegraphics[trim={2in 0.5in 2in 0in},clip,page=3,width=\textwidth]{Globaldynamics.pdf}
-\end{figure}
-{\tiny 1) Before generation 300, detection is difficult.\newline 2)Window based methods discriminate two cases with high confidence in phase 2 and 3.\newline 3) Discrimination in AHAF trend is harder than other methods.}
-
-
-\begin{figure}[H]
-  \centering
-  		    \includegraphics[trim={2in 0.5in 2in 0in},clip,page=4,width=\textwidth]{Globaldynamics.pdf}
-\end{figure}
-{\tiny 1) Before generation 600, detection is difficult.\newline 2)Window based methods discriminate two cases with high confidence in phase 2 and 3.\newline 3) Discrimination in AHAF trend is harder than other methods.}
-
-{\tiny Start of phases chosen when $\nu_t=[0.1,0.5,0.9]$ and AF sampled every 10 generations for 50 generations.}
+ \item spectrum of $\hat{s}$ for a window
 \begin{figure}
-\hspace{-0in}\includegraphics[scale=0.16]{samplingTimes}
+\centering
+\hspace{-0in}\includegraphics[scale=0.15]{sspectrum}
 \end{figure}
-\vspace{-0.5in}
-
-
-
-\begin{frame}{Task 1: Detecting Selection Experiments}
-\begin{enumerate}[I]
-\item To detect selection we need a predictor
-\begin{itemize}
-\item GP and HAF use Empirical Likelihood Ratio (ELR)
-\beqq
-ELR=\frac{Likelihood(Data|s=s^*)}{Likelihood(Data|s=0)}
-\eeqq
-\item Naive, use the ration of the first and last AF at a site
-\item Model-free methods use their test-statistics values.
-\end{itemize}
-\item Single locus method (Naive and GP), use max of predictor over all the sites of the window.
-\item performance measure is the percentage of Area under ROC curve, for regions with false-positive-rate is less than 0.1.
+\item We considered sum of top $\hat{s}$ as a predictor of selection for a window. 
 \end{enumerate}
+
+\end{figure}
+\end{frame}
+
+\begin{frame}{Tajima's D and Fay Wu's H}
+\begin{enumerate}
+\item After correcting observations for bottleneck effect the model look like observations, but it has a higher variance.
+\begin{figure}
+\hspace{-0.5in} \includegraphics[trim={1.8in 0.25in 2in 9.25in},clip,page=1,width=\textwidth]{{GlobalDynamics.TimeSeries}.pdf}
+  		   \end{figure}
+\begin{figure}
+\hspace{-0.5in} \includegraphics[trim={1.8in 7.75in 2in 2.75in},clip,page=1,width=\textwidth]{{GlobalDynamics.TimeSeries}.pdf}
+  		   \end{figure}
+
+  \item The parametric models assumes hard-sweep, so the model become ivalid in soft sweep.
+\end{enumerate}
+
 \end{frame}
 
 
+\begin{frame}{SFSelect and Gaussian Process}
+\begin{enumerate}
+\item SFSelect process is a monotone process, so we summed all the values in the time series to get a predictor for selection.
+\begin{figure}
+\hspace{-0.5in} \includegraphics[trim={1.8in 4.5in 2in 5.95in},clip,page=1,width=\textwidth]{{GlobalDynamics.TimeSeries}.pdf}
+  		   \end{figure}
 
-\begin{figure}[H]
-  \centering
-  		    \includegraphics[trim={0in 0.5in 0in 0in},clip,page=1,,scale=0.2]{aucfull}
-\end{figure}
-{\tiny \begin{enumerate}
-\item Problem seems to be trivial if we have access to 5 time samples in a wide times series window (200,500,1000,2000 generations).
-\item when $s$ is small, SFSelect outperforms the others.
-\end{enumerate}}
+  \item GP is the state-of-the art model, proposed by Terhorst et al, which fits a Gaussian process on the time series data.
+\end{enumerate}
 
-
-
-
-\begin{figure}[H]
-  \centering
-  		    \includegraphics[trim={0in 0.5in 0in 0in},clip,page=1,,scale=0.2]{aucwin50.pdf}
-\end{figure}
-{\tiny \begin{enumerate}
-\item Model-free methods perform very well in all epochs for sampling window = 50 , s=0.1.
-\item Multi-locus methods are better than single locus ones.
-\item Model-free methods are better than model-based ones.
-\end{enumerate}}
-
-\begin{figure}[H]
-  \centering
-  		    \includegraphics[trim={0in 0.5in 0in 0in},clip,page=2,scale=0.2]{aucwin50.pdf}
-\end{figure}
-{\tiny \begin{enumerate}
-\item Model-free methods perform very well in last two epochs for sampling window = 50 , s=0.05.
-\item Multi-locus methods are better than single locus ones.
-\item Model-free methods are better than model-based ones.
-\end{enumerate}}
-
-
-\begin{figure}[H]
-  \centering
-  		    \includegraphics[trim={0in 0.5in 0in 0in},clip,page=3,,scale=0.2]{aucwin50.pdf}
-\end{figure}
-{\tiny \begin{enumerate}
-\item Model-free methods perform very well in last two epochs for sampling window = 50 , s=0.02.
-\item Multi-locus methods are better than single locus ones.
-\item Model-free methods are better than model-based ones.
-\end{enumerate}}
-
-
-\begin{figure}[H]
-  \centering
-  		    \includegraphics[trim={0in 0.5in 0in 0in},clip,page=4,scale=0.2]{aucwin50.pdf}
-\end{figure}
-{\tiny \begin{enumerate}
-\item Model-free methods perform very well in last two epochs for sampling window = 50 , s=0.01.
-\item Multi-locus methods are better than single locus ones.
-\item Model-free methods are better than model-based ones.
-\end{enumerate}}
-
-
-\begin{frame}{Task 2: Locating Selection}
-Locating selection upto a 50Kb window amount to perform an sliding window detection test and select window with maximum predictor.
 \end{frame}
 
-\begin{frame}{Task 3: Estimating Strength Selection}
+\begin{frame}{Experiments}
 \begin{itemize}
-\item Only model based method can estimate $s$.
-\item Performance measure is absolute value of bias $|s-\hat{s}|$.
+\item for each setting we performs 200 simulations, (100 neutral and 100 selection), and predictive performance of all the methods in detecting selection.
+\item We computed ROC curve and defined power of a method as area under ROC curve when False-Positive rate is less than 0.1.
 \end{itemize}
 \end{frame}
-\begin{figure}[H]
-  \centering
-  		    \includegraphics[trim={0in 0.5in 0in 0in},clip,page=1,,scale=0.2]{bias.pdf}
+
+\begin{figure}
+  \centering \includegraphics[page=1,width=\textwidth]{{power}.pdf}
+\end{figure}
+\begin{figure}
+  \centering \includegraphics[page=2,width=\textwidth]{{power}.pdf}
+\end{figure}
+\begin{figure}
+  \centering \includegraphics[page=3,width=\textwidth]{{power}.pdf}
+\end{figure}
+\begin{figure}
+  \centering \includegraphics[page=4,width=\textwidth]{{power}.pdf}
 \end{figure}
 
-\begin{figure}[H]
-  \centering
-  		    \includegraphics[trim={0in 0.5in 0in 0in},clip,page=2,,scale=0.2]{bias.pdf}
+\begin{figure}
+  \centering \includegraphics[page=5,width=\textwidth]{{power}.pdf}
 \end{figure}
-
-\begin{figure}[H]
-  \centering
-  		    \includegraphics[trim={0in 0.5in 0in 0in},clip,page=3,,scale=0.2]{bias.pdf}
-\end{figure}
-
-\begin{figure}[H]
-  \centering
-  		    \includegraphics[trim={0in 0.5in 0in 0in},clip,page=4,,scale=0.2]{bias.pdf}
+\begin{figure}
+  \centering \includegraphics[page=6,width=\textwidth]{{power}.pdf}
 \end{figure}
 
 
-\begin{frame}{summary}
+
+\begin{frame}{Summary}
 \begin{itemize}
-\item Classical model-free (multi-locus) methods work better for detecting and locating selection. 
-\item HAF method is simple and its estimate of strength of selection is comparable to that of GP. However for detecting selection, HAF have too many FPs.
-\item Verdict: Use classical model-free methods for detecting selection, if it exist, fit a HAF model to estimate $s$.
-\item Sampling times are critical. In fact, given 5 samples along full sweep, the problem of detection is trivial.
-\item To be verified: Due to high LD in experimental evolution in less than 2K generations, we can only determine window under selection, in HARD SWEEP.
+\item Behaviour of different population statistics in time is studied.
+\item A method based on single locus AF is proposed and shown to have superior performance than multi-locus and traditional methods.
+\item Analysis of real data and locating genes in the genome is our next step.
 \end{itemize}
 
 \end{frame}
@@ -411,3 +331,31 @@ where $ \mathbf{x}_t$ is vector of AF at time $t$ and $\nu_t=\sigma\left(st/2+\e
 \end{document}
 
 
+\begin{frame}{Simulations}
+\begin{enumerate}[(i)]
+\item For each simulation, population of $F=200$ founder lines is created in  \texttt{msms} program with parameters 
+\begin{itemize}
+\item Length of genome $L=10^6$Kbp.
+\item Population size $N_e=10^6$.
+\item Recombination rate $r=2\times10^{-8}$.
+\item Mutation rate $\mu=10^{-9}$ which give $\theta = 200$ and $m\approx 1200$ .
+\end{itemize}
+
+\item Using $F=200$ founder lines a population of $N=1000$ diploid homozygote individuals are created.
+\item Using \texttt{SimuPop}, the initial population is forward simulated for 10 replicates and AF is recorded every 10 generation for a complete hard sweep. 
+\item I.e., a site with minimum allele frequency of $1/F$ is always under selection.
+\item for each $s=\{0.1, 0.05, 0.02, 0.01, 0\}$ 100 simulations are done.
+\end{enumerate}
+\end{frame}
+\begin{frame}{Multi-Locus Methods}
+\begin{itemize}
+\item In hard sweep, site under selection has perfect LD with all the other sites at time 0.\item With hard-sweep, it is difficult to aim locating mutation in less than 2K generations.
+\item 50Kb window seems to be a reasonable resolution.
+\end{itemize}
+\begin{figure}
+\centering
+\hspace{-0in}\includegraphics[scale=0.17]{spaceTimeLD}
+\caption{Decay of LD in space through time under neutral evolution, when selected site is at position 500K. 50Kb window centered at the site is shaded.}
+
+\end{figure}
+\end{frame}
