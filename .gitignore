@@ -8,7 +8,7 @@
 *.out
 *.toc
 *.pdf
-
+.Rhistoty
 ## Intermediate documents:
 *.dvi
 *-converted-to.*
