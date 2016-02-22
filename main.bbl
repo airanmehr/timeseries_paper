@@ -1,0 +1,231 @@
+\begin{thebibliography}{10}
+
+\bibitem{akey2009constructing}
+Joshua~M Akey.
+\newblock {Constructing genomic maps of positive selection in humans: Where do
+  we go from here?}
+\newblock {\em Genome research}, 19(5):711--722, 2009.
+
+\bibitem{andersson2011notch}
+Emma~R Andersson, Rickard Sandberg, and Urban Lendahl.
+\newblock {Notch signaling: simplicity in design, versatility in function}.
+\newblock {\em Development}, 138(17):3593--3612, 2011.
+
+\bibitem{Barrick2013Genome}
+Jeffrey~E Barrick and Richard~E Lenski.
+\newblock {Genome dynamics during experimental evolution}.
+\newblock {\em Nat Rev Genet}, 14(12):827--839, dec 2013.
+
+\bibitem{barton1991natural}
+N~H Barton and Michael Turelli.
+\newblock {Natural and sexual selection on many loci}.
+\newblock {\em Genetics}, 127(1):229--255, 1991.
+
+\bibitem{bergland2014genomic}
+Alan~O Bergland, Emily~L Behrman, Katherine~R O'Brien, Paul~S Schmidt, and
+  Dmitri~A Petrov.
+\newblock {Genomic evidence of rapid and stable adaptive oscillations over
+  seasonal time scales in Drosophila}.
+\newblock {\em PLoS Genet}, 10(11):e1004775, 2014.
+
+\bibitem{braverman1995hitchhiking}
+John~M Braverman, Richard~R Hudson, Norman~L Kaplan, Charles~H Langley, and
+  Wolfgang Stephan.
+\newblock {The hitchhiking effect on the site frequency spectrum of DNA
+  polymorphisms.}
+\newblock {\em Genetics}, 140(2):783--796, 1995.
+
+\bibitem{Elena2003Evolution}
+Santiago~F Elena and Richard~E Lenski.
+\newblock {Evolution experiments with microorganisms: the dynamics and genetic
+  bases of adaptation}.
+\newblock {\em Nat Rev Genet}, 4(6):457--469, jun 2003.
+
+\bibitem{enard2015viruses}
+David Enard, Le~Cai, Carina Gwenapp, and Dmitri~A Petrov.
+\newblock {Viruses are a dominant driver of protein adaptation in mammals}.
+\newblock {\em bioRxiv}, 2015.
+
+\bibitem{Ewens2012Mathematical}
+Warren~J Ewens.
+\newblock {\em {Mathematical Population Genetics 1: Theoretical Introduction}},
+  volume~27.
+\newblock Springer Science {\&} Business Media, 2012.
+
+\bibitem{feder2014Identifying}
+Alison~F Feder, Sergey Kryazhimskiy, and Joshua~B Plotkin.
+\newblock {Identifying signatures of selection in genetic time series}.
+\newblock {\em Genetics}, 196(2):509--522, 2014.
+
+\bibitem{feder2012ldx}
+Alison~F Feder, Dmitri~A Petrov, and Alan~O Bergland.
+\newblock {LDx: estimation of linkage disequilibrium from high-throughput
+  pooled resequencing data}.
+\newblock {\em PloS one}, 7(11):e48588, 2012.
+
+\bibitem{feder2016more}
+Alison~F Feder, Soo-Yon Rhee, Susan~P Holmes, Robert~W Shafer, Dmitri~A Petrov,
+  and Pleuni~S Pennings.
+\newblock {More effective drugs lead to harder selective sweeps in the
+  evolution of drug resistance in HIV-1.}
+\newblock {\em eLife}, 5, jan 2016.
+
+\bibitem{Hudson2002Generating}
+Richard~R Hudson.
+\newblock {Generating samples under a Wright–Fisher neutral model of genetic
+  variation}.
+\newblock {\em Bioinformatics}, 18(2):337--338, feb 2002.
+
+\bibitem{izutsu2015dynamics}
+Minako Izutsu, Atsushi Toyoda, Asao Fujiyama, Kiyokazu Agata, and Naoyuki Fuse.
+\newblock {Dynamics of Dark-Fly Genome Under Environmental Selections}.
+\newblock {\em G3: Genes| Genomes| Genetics}, pages g3----115, 2015.
+
+\bibitem{jha2015whole}
+Aashish~R Jha, Cecelia~M Miles, Nodia~R Lippert, Christopher~D Brown, Kevin~P
+  White, and Martin Kreitman.
+\newblock {Whole-genome resequencing of experimental populations reveals
+  polygenic basis of egg-size variation in Drosophila melanogaster}.
+\newblock {\em Molecular biology and evolution}, 32(10):2616--2632, 2015.
+
+\bibitem{kreitman2000methods}
+Martin Kreitman.
+\newblock {Methods to detect selection in populations with applications to the
+  human}.
+\newblock {\em Annual review of genomics and human genetics}, 1(1):539--559,
+  2000.
+
+\bibitem{lenski1991long}
+Richard~E Lenski, Michael~R Rose, Suzanne~C Simpson, and Scott~C Tadler.
+\newblock {Long-term experimental evolution in Escherichia coli. I. Adaptation
+  and divergence during 2,000 generations}.
+\newblock {\em American naturalist}, pages 1315--1341, 1991.
+
+\bibitem{messer2013population}
+Philipp~W Messer and Dmitri~A Petrov.
+\newblock {Population genomics of rapid adaptation by soft selective sweeps}.
+\newblock {\em Trends in ecology {\&} evolution}, 28(11):659--669, 2013.
+
+\bibitem{nielsen2005genomic}
+Rasmus Nielsen, Scott Williamson, Yuseob Kim, Melissa~J Hubisz, Andrew~G Clark,
+  and Carlos Bustamante.
+\newblock {Genomic scans for selective sweeps using SNP data}.
+\newblock {\em Genome research}, 15(11):1566--1575, 2005.
+
+\bibitem{Peng2005simuPOP}
+Bo~Peng and Marek Kimmel.
+\newblock {simuPOP: a forward-time population genetics simulation environment}.
+\newblock {\em Bioinformatics}, 21(18):3686--3687, sep 2005.
+
+\bibitem{przeworski2002signature}
+Molly Przeworski.
+\newblock {The signature of positive selection at randomly chosen loci}.
+\newblock {\em Genetics}, 160(3):1179--1189, 2002.
+
+\bibitem{ptak2002evidence}
+Susan~E Ptak and Molly Przeworski.
+\newblock {Evidence for population growth in humans is confounded by fine-scale
+  population structure}.
+\newblock {\em Trends in Genetics}, 18(11):559--563, 2002.
+
+\bibitem{ramos2002statistical}
+Sebastian~E Ramos-Onsins and Julio Rozas.
+\newblock {Statistical properties of new neutrality tests against population
+  growth}.
+\newblock {\em Molecular biology and evolution}, 19(12):2092--2100, 2002.
+
+\bibitem{Ronen2015Haplotype}
+Roy Ronen, Glenn Tesler, Ali Akbari, Shay Zakov, Noah~A Rosenberg, and Vineet
+  Bafna.
+\newblock {Haplotype Allele Frequency (HAF) Score: Predicting Carriers of
+  Ongoing Selective Sweeps Without Knowledge of the Adaptive Allele}.
+\newblock In {\em Research in Computational Molecular Biology}, pages 276--280.
+  Springer International Publishing, 2015.
+
+\bibitem{ronen2015predicting}
+Roy Ronen, Glenn Tesler, Ali Akbari, Shay Zakov, Noah~A Rosenberg, and Vineet
+  Bafna.
+\newblock {Predicting Carriers of Ongoing Selective Sweeps Without Knowledge of
+  the Favored Allele}.
+\newblock {\em PLoS Genet}, 11(9):e1005527, 2015.
+
+\bibitem{ronen2013learning}
+Roy Ronen, Nitin Udpa, Eran Halperin, and Vineet Bafna.
+\newblock {Learning natural selection from the site frequency spectrum}.
+\newblock {\em Genetics}, 195(1):181--193, 2013.
+
+\bibitem{rose1994evolutionary}
+Michael~R Rose.
+\newblock {\em {Evolutionary biology of aging}}.
+\newblock Oxford University Press, 1994.
+
+\bibitem{sabeti2006positive}
+P~C Sabeti, S~F Schaffner, B~Fry, J~Lohmueller, P~Varilly, O~Shamovsky,
+  A~Palma, T~S Mikkelsen, D~Altshuler, and E~S Lander.
+\newblock {Positive natural selection in the human lineage}.
+\newblock {\em science}, 312(5780):1614--1620, 2006.
+
+\bibitem{schlotterer2015combining}
+C~Schl{\"{o}}tterer, R~Kofler, E~Versace, R~Tobler, and S~U Franssen.
+\newblock {Combining experimental evolution with next-generation sequencing: a
+  powerful tool to study adaptation from standing genetic variation}.
+\newblock {\em Heredity}, 114(5):431--440, 2015.
+
+\bibitem{schlotterer2014sequencing}
+Christian Schl{\"{o}}tterer, Raymond Tobler, Robert Kofler, and Viola Nolte.
+\newblock {Sequencing pools of individuals [mdash] mining genome-wide
+  polymorphism data without big funding}.
+\newblock {\em Nature Reviews Genetics}, 15(11):749--763, 2014.
+
+\bibitem{schrider2015soft}
+Daniel~R Schrider, F{\'{a}}bio~K Mendes, Matthew~W Hahn, and Andrew~D Kern.
+\newblock {Soft shoulders ahead: spurious signatures of soft and partial
+  selective sweeps result from linked hard sweeps}.
+\newblock {\em Genetics}, 200(1):267--284, 2015.
+
+\bibitem{slatkin2008linkage}
+Montgomery Slatkin.
+\newblock {Linkage disequilibrium—understanding the evolutionary past and
+  mapping the medical future}.
+\newblock {\em Nature Reviews Genetics}, 9(6):477--485, 2008.
+
+\bibitem{Steinrücken2014a}
+Matthias Steinr{\"{u}}cken, Anand Bhaskar, and Yun~S Song.
+\newblock {A novel spectral method for inferring general diploid selection from
+  time series genetic data}.
+\newblock {\em The annals of applied statistics}, 8(4):2203, 2014.
+
+\bibitem{Stephan2006The}
+Wolfgang Stephan, Yun~S Song, and Charles~H Langley.
+\newblock {The Hitchhiking Effect on Linkage Disequilibrium Between Linked
+  Neutral Loci}.
+\newblock {\em Genetics}, 172(4):2647--2663, apr 2006.
+
+\bibitem{tajima1989statistical}
+Fumio Tajima.
+\newblock {Statistical method for testing the neutral mutation hypothesis by
+  DNA polymorphism.}
+\newblock {\em Genetics}, 123(3):585--595, 1989.
+
+\bibitem{Terhorst2015Multi}
+Jonathan Terhorst, Christian Schl{\"{o}}tterer, and Yun~S Song.
+\newblock {Multi-locus Analysis of Genomic Time Series Data from Experimental
+  Evolution}.
+\newblock {\em PLoS Genet}, 11(4):e1005069, 2015.
+
+\bibitem{tobler2014massive}
+Ray Tobler, Susanne~U Franssen, Robert Kofler, Pablo Orozco-terWengel, Viola
+  Nolte, Joachim Hermisson, and Christian Schl{\"{o}}tterer.
+\newblock {Massive habitat-specific genomic response in D. melanogaster
+  populations during experimental evolution in hot and cold environments}.
+\newblock {\em Molecular biology and evolution}, 31(2):364--375, 2014.
+
+\bibitem{zhou2011experimental}
+Dan Zhou, Nitin Udpa, Merril Gersten, DeeAnn~W Visk, Ali Bashir, Jin Xue,
+  Kelly~A Frazer, James~W Posakony, Shankar Subramaniam, Vineet Bafna, and
+  Others.
+\newblock {Experimental selection of hypoxia-tolerant Drosophila melanogaster}.
+\newblock {\em Proceedings of the National Academy of Sciences},
+  108(6):2349--2354, 2011.
+
+\end{thebibliography}

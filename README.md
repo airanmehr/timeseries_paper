@@ -16,4 +16,5 @@ if (dialog.exec() != null) {
     buildManager.runCommand("git push origin master", editor.fileName())
     }
 ```
+you can run it from menu bar.
 
