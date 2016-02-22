@@ -11,7 +11,7 @@ library.bib
 *.fls
 *.out
 *.toc
-*.pdf
+main.pdf
 .Rhistory
 ## Intermediate documents:
 *.dvi
