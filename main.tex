@@ -1,86 +1,6 @@
 \documentclass[11pt]{article}
-\usepackage{units}
-\usepackage[small, bf]{caption}
-\usepackage[numbers,sort&compress]{natbib}
-\usepackage{color}
-\usepackage{amssymb, amsmath}
-\usepackage{graphicx}
-\usepackage{epstopdf}
-\usepackage{verbatim}
-\usepackage{amsfonts}
-\usepackage{subfloat}
-\usepackage{subfig}
-\usepackage{multirow}
-\usepackage{authblk}
-\usepackage{array}
-\usepackage{footmisc}
-\usepackage{tabularx}
-\usepackage{sidecap}
-\usepackage{setspace}
-\usepackage[normalem]{ulem}
-\usepackage{pgfplotstable}
-\usepackage[margin=1in]{geometry}
-\renewcommand\Affilfont{\small}
-\newcommand{\ignore}[1]{}
-\usepackage{float}
-
-\newenvironment{packed_enum}{
-\begin{enumerate}
-  \setlength{\itemsep}{1pt}
-  \setlength{\parskip}{0pt}
-  \setlength{\parsep}{0pt}
-}{\end{enumerate}}
-\newenvironment{packed_itemize}{
-\begin{itemize}
-  \setlength{\itemsep}{1pt}
-  \setlength{\parskip}{0pt}
-  \setlength{\parsep}{0pt}
-}{\end{itemize}}
-\newenvironment{packed_desc}{
-\begin{description}
-  \setlength{\itemsep}{1pt}
-  \setlength{\parskip}{0pt}
-  \setlength{\parsep}{0pt}
-}{\end{description}}
-
-\def\AI#1{{\textcolor{red}{#1}}}
-\def\dHAF{\text{-HAF}}
-\def\HAF{\text{HAF}}
-\def\HAFpeak{\text{HAF-peak}}
-\def\HAFtrough{\text{HAF-trough}}
-\def\HAFneutral{\text{HAF}_{\text{neutral}}}
-\def\TMRCA{T_{\text{MRCA}}}
-
-\def\VB#1{{\textcolor{blue}{VB note: #1}}}
-
-\newcommand{\algoname}{\ensuremath{\text{PreCIOSS}}}
-\def\vecbold#1{{\boldsymbol#1}}
-
-%%%%%%%%%%%%
-\makeatletter
-\renewcommand\section{\@startsection {section}{1}{\z@}%                                                                                                         
-                                   {-3.2ex \@plus -1ex \@minus -.2ex}%                                                                                        
-                                   {2.0ex \@plus.2ex}%                                                                                                        
-                                   {\normalfont\Large\bfseries}}
-\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%                                                                                                    
-                                     {-2.95ex\@plus -1ex \@minus -.2ex}%                                                                                      
-                                     {1.2ex \@plus .2ex}%                                                                                                     
-                                     {\normalfont\large\bfseries}}
-\renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%                                                                                              
-                                     {-2.95ex\@plus -1ex \@minus -.2ex}%                                                                                      
-                                     {1.2ex \@plus .2ex}%                                                                                                     
-                                     {\normalfont\normalsize\bfseries}}
-\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%                                                                                                      
-                                    {1.55ex \@plus1ex \@minus.2ex}%                                                                                           
-                                    {-.7em}%                                                                                                                   
-                                    {\normalfont\normalsize\bfseries}}
-\makeatother
-\input{macros-arya}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%% TITLE %%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\input{macros_vineet}
+\input{macros_arya}
 \title{Detecting Selection in Experimental Evolution Experiments}
 \author[1]{Arya Iranmehr}
 \author[1]{Ali Akbari}
@@ -91,27 +11,499 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-  Experimental evolution experiments are a powerful tool for observing
-  molecular evolution at work in a controlled environment. The
-  availability of next generation sequencing has made it possible to
-  study the genetic trajectory of the population at different time
-  points. Methods for investigating time-series genomic data are
-  under active development, including recent work by Terhorst et al,
-  that uses a Gaussian process approximation to a multi-locus Wright
-  Fisher process. In this research, we revisit the problem of detecting selection in short amount of time using a classical methods such as Tajima's S and Fay Wu's H and a proposed method which fits a logistic function to the trajectories of allele frequencies at every locus.
-Extensive simulation study shows the proposed method has a superior performance over conventional method both in hard and soft sweeps.
+Experimental evolution experiments are a powerful tool for observing
+molecular evolution at work in a controlled environment. The availability of
+next generation sequencing has made it possible to study the genetic 
+trajectory of the population at different time points. Methods for investigating 
+time-series genomic data are under active development, including recent work
+ by Terhorst et al, that uses a Gaussian process approximation to a 
+ multi-locus Wright Fisher process. 
+In this research, we revisit the problem of detecting
+selection in short amount of time using a classical methods such as
+Tajima's S and Fay Wu's H and a proposed method which fits a logistic
+function to the trajectories of allele   frequencies at every locus. Extensive
+simulation study shows the proposed method has a superior performance
+over conventional method both in hard and soft sweeps.
 \end{abstract}
-\input{intro}
+
+\cite{Steinrücken2014a,schlotterer2015combining,akey2009constructing,izutsu2015dynamics,ptak2002evidence,Elena2003Evolution,rose1994evolutionary,Hudson2002Generating,Barrick2013Genome,bergland2014genomic,nielsen2005genomic,Ronen2015Haplotype,feder2014Identifying,feder2012ldx,ronen2013learning,slatkin2008linkage,lenski1991long,tobler2014massive,Ewens2012Mathematical,kreitman2000methods,feder2016more,barton1991natural,andersson2011notch,messer2013population,sabeti2006positive,ronen2015predicting,schlotterer2014sequencing,Peng2005simuPOP,schrider2015soft,tajima1989statistical,ramos2002statistical,Stephan2006The,braverman1995hitchhiking,przeworski2002signature,enard2015viruses}
+
+\section{Introduction}
+Genetic adaptation is \emph{the} central evolutionary process and is at the
+ core of some of the greatest challenges facing humanity.  HIVwould likely
+  cause nothing more than harmless fever without the
+ability of the virus to adapt and eventually destroy the immune system. 
+Cancer would be much more straightforward to treat if not for
+tumor's ability to adapt to anti-cancer drugs. 
+Malaria could be treated with cheap drugs such as quinine instead of 
+being one of the world's worst killers. 
+Crop pests would be manageable with small doses of safe insecticides 
+instead of requiring applications of ever increasing amounts of a diverse array 
+of powerful chemicals. 
+In both disease and agriculture, we find ourselves in an arms race due to the
+ability of organisms to adapt.
+
+Adaptation leaves a variety of detectable signatures in
+genomes \cite{nielsen2005genomic,akey2009constructing,
+kreitman2000methods,messer2013population,sabeti2006positive}.
+The rapid expansion of adaptive alleles in
+populations leads to both an excess of functional changes between
+species and distortions in polymorphism patterns known as selective
+sweeps~\cite{nielsen2005genomic}. The signatures of selective sweeps, which
+include reduction of levels of polymorphism and the presence of too
+many rare alleles~\cite{nielsen2005genomic, przeworski2002signature}, have 
+been the basis
+for assessing genomic patterns in many genome scans for
+adaptation. Classical tests such as the well-known Tajima's \emph{D}
+statistic~\cite{tajima1989statistical} that rely on the \emph{site-frequency
+  spectrum}---a list of counts of the numbers of genomic sites in a
+region with each of the different possible allele frequencies have
+been among the first steps in genomic detection of selection, but they
+have largely been chosen in a non-systematic manner to identify quite
+specific rather than general signatures of selection, and they have
+often faced the problem of confounding of positive selection with
+demographic processes~\cite{ptak2002evidence, ramos2002statistical}.
+Part of the challenge is that studies on natural populations are
+conducted on a extant populations, a single window in a complex,
+uncontrolled process.
+
+\subsection{Experimental Evolution}
+\cite{Barrick2013Genome,Elena2003Evolution}
+Experimental evolution (including evolve and re-sequence paradigms)
+have become increasingly popular as a complementary tool to understand
+the forces of selection, allowing for controlled environments,
+specific selection constraints. Examples of experimental evolution
+studies abound in sexual populations, particularly in fruitfly. Burke
+et al.~\cite{Barrick2013Genome} evolved flies for over $600$ generations 
+under
+selection for accelerated development, and noted that evolution for
+sexual populations is very different from those of asexual populations
+(e.g., Lenski~\cite{}): the effects of clonal interference is slower
+due to recombination that allows for the incorporation of multiple
+beneficial alleles, but there are fewer, unconditionally advantageous
+alleles that arise at the onset of selection. Rose and
+Colleagues~\cite{rose1994evolutionary} created $200$ experimentally evolved
+populations selected for different traits, starting with $10$ initial
+populations. Zhou et al. evolved flies to adapt to low oxygen
+environment (hypoxia) for over $300$ generations, and identified many
+genes involved in hypoxia tolerance~\cite{zhou2011experimental}.  Instead, 
+they observed
+incomplete fixation (`soft-sweeps') due in part to standing variation,
+changing selection coefficients, and small fitness effects.
+
+Much like in natural populations, many of these studies also
+sequenced/genotyped only the latest population. However, the emergence
+of NGS and related technologies has made it feasible to sequence the
+evolving population at multiple time points in its evolution. At the
+same time, for small organisms where a single animal does not provide
+enough DNA, it is more effective to pool together individuals in the
+population at a particular time point, in a single sequencing
+experiment. Thus, instead of individual genotypes, we obtain
+frequencies of the derived allele at all loci at different time
+points. Methods for analyzing such time series pooled sequence data
+are only just being developed.
+
+\textbf{\begin{itemize}
+\item Asexual vs sexual
+\item examples
+\end{itemize}}
+
+\subsection{Related Work}
+In this paper we aim to use the tools and machinery that has been
+developed for RNNs, to model times-series biological data. In
+particular, we consider the population genetics problem of finding
+loci (locus) under selection given observation of allele frequency of
+a population in different generations of a Wright-Fisher model. This
+problem has been previously treated by using Gaussian Processes
+\cite{Terhorst2015Multi}, spectral methods \cite{Steinrücken2014a}
+
+\subsection{Challanges}
+Nearby loci are correlated due to linkage disequilibrium (LD), which
+decays due to crossover events. Therefore, it is widely recognized
+that considering multiple linked loci together should improve the
+selection signature. This correlation is modeled in two broad
+approaches. In the first, the LD is modeled with a covariance matrix
+that depends upon the genetic distance, and the parameters for the
+joint distribution are measured. While general, it is computationally
+intensive to estimate parameters for a large number of linked loci, 
+and the problem becomes harder with time series data. 
+
+The second approach ignores the exact recombination parameter, assuming
+that recombination plays a small role, and models instead the shift in
+the allele (or haplotype) frequency spectrum due to the selection
+pressure. While the second approach has historically been very useful
+in identifying regions under selection, the summary statistics derived
+from the AFS have not been used to estimate the selection coefficient
+itself. Here, we propose a novel method that combines the advantages
+of both methods.
+
+
+\subsection{Sampling}
+\begin{itemize}
+\item scale
+\item early epoch
+\end{itemize}
+\subsection{Likage}
+
+\subsection{Simulations}
+\begin{itemize}
+\item pooled seq
+\end{itemize}
+
+\section{Methods}
+We start with a description of `single locus multiple-time point'
+models in which each locus is analyzed independently for evidence of a
+selection constraint. In the subsequent section, we extend the
+methodology to `linked-loci, multiple time' models where we consider
+all linked loci within a small recombination-free window.
+
+\subsection{Dynamics of the Sweep}
+
+\subsection{Single-Locus Methods}
+Consider a bi-allelic single-locus (Wright-Fisher like) model with no
+mutations \cite{Ewens2012Mathematical}, discrete generations, random
+ mating etc. With finite population size, the allele frequencies from
+generation to generation are described by the random process
+$\{x_{\ell,t}\}$ which denotes the population allele frequency at
+locus $\ell$ at time generation $t$. The model has access to finite
+number of observations in time for each locus, where the sampling
+times are given by the set $\Tc=\{\tau_1,\tau_2,\cdots, \tau_T \}$
+such that $\tau_1<\tau_2,\cdots<\tau_T$. We also assume that
+measurements are taken up for $R$ experimental replicates for $L$
+loci. Thus, The allele frequencies of a population are given by the
+tensor $\bfX \in [0,1]^{R \times L \times T}$, where $X_{r,\ell,t}$
+stores the observed of allele frequency at replicate $r$, locus $\ell$
+and generation $\tau_t$. However, we often omit $r$ for clarity of
+exposition. A neutrally evolving allele `drifts', and for a finite
+population,
+\beq x_{t+1} = x_t + \epsilon_t\; .\footnote{With infinite population size
+	we have $x_{t+1} = x_t$, a restatement of Hardy-Weinberg
+	equilibrium.}
+\label{eq:drift}
+\eeq where $\epsilon_t \sim \Nc(0,1)$ is a change due to genetic drift
+in generation $t$.
+
+\paragraph{Allele frequencies under selection.}
+Consider next, a locus under selection with coefficient $s (0\le s\le
+1)$, overdominance and parameter $h (0\le h\le 1)$, so that the
+probability of an individual inheriting $2$ favored alleles is
+$\propto (1+s)$, relative to inheriting $0$ favored
+alleles. Respectively, the probability of favoring $1$ favored allele
+$\propto (1+hs)$ Then,
+
+
+\begin{equation}
+	x_{t+1} = f(x_t;s,h) + \epsilon_t
+	\label{eq:trans0} 
+\end{equation}
+where $f: [0,1] \mapsto [0,1]$ is the
+transition function given by:
+\begin{equation}
+	f(x;s,h)=\frac{(1+s)x^2 + (1+hs)x(1-x)}{(1+s)x^2 + 2(1+hs)x(1-x) + (1-x)^2}
+	=x+\frac{s(h+(1-2h)x)x(1-x)}{1+sx(2h+(1-2h)x))}\;.
+\end{equation}
+We simplify notation by setting $h=0.5$, so that
+\begin{equation}
+	f(x;s,0.5)=x+\frac{sx(1-x)}{2+2sx}\;.
+	\label{eq:hequalshalf}
+\end{equation}
+Our goal is to estimate $s$ given allele frequencies, and/or to decide
+if $s>0$. Note that the dependence on $s$ is non-linear. Define an
+auxiliary continuous (in time) function $\nu_t(s)$ as follows:
+$\nu_0(s)=x_0$ for all $s$, and:
+\begin{eqnarray}
+	\nu_{t+\delta t}(s) &=& \nu_t(s)+\frac{\nu_t(s)(1-\nu_t(s))s\delta 
+	t}{2+2s\delta t \nu_t(s)}\;,\\
+	\frac{d\nu_t(s)}{dt} &=&\lim_{\delta t\rightarrow 0}\frac{\nu_{t+\delta t}(s) 
+	-\nu_t(s)}{\delta t}\\
+	&=&\lim_{\delta t\rightarrow 
+	0}\frac{s\nu_t(s)(1-\nu_t(s))}{2+2\nu_t(s)s\delta t}\\
+	&=& \frac{s}{2}\nu_t(s)(1-\nu_t(s)) \;.
+	\label{eq:ode}
+\end{eqnarray}
+The ODE can be readily solved for $\nu_t(s)$ as
+\begin{equation}
+	\nu_t(s) =\frac{1}{1+\frac{1-x_0}{x_0}e^{-st/2}} = \sigma(st/2+\eta(x_0)) 
+	\label{eq:inf-pop}
+\end{equation}
+where$\sigma(.)$ is the logistic
+function and $\eta(.)$ is logit function (inverse of the logistic function). Note 
+that $x_t\sim\Nc(\nu_t,1)$ for all discrete times $t$,
+and therefore observations $x_t$ can be used to find Maximum
+Likelihood Estimate of $\nu_t$. Finally, as the sigmoid is a
+one-to-one function, we can find MLE for $s$ given {\bf $\nu$}.
+
+\paragraph{Naive two-point optimization.} We start with a simplified
+scheme to serve as a baseline for results.  For each $t\in \Tc$, we
+use \eqref{eq:inf-pop} to provide a naive estimate $s(t)$ for the
+selection coefficient as
+\begin{equation}
+	s^*(t)=\frac{2}{t} \log \left( \frac{x_t(1-x_0)}{x_0 (1-x_t)} \right) = \frac{2}{t}  
+	\left( \eta(x_t)-\eta(x_0)\right)
+	\label{eq:naive2point}
+\end{equation}
+To reduce the variance we can average all the naive estimates: 
+\begin{equation}
+	s^*=\frac{1}{|\Tc|}\sum_{t\in \Tc}\frac{2}{t}  \left( \eta(x_t)-\eta(x_0)\right)
+	\label{eq:naive}
+\end{equation}
+
+
+\paragraph{Maximum Likelihood Estimate.}
+For locus $\ell$  and replicate $r$, the observed time-series of 
+allele frequencies are given by:
+\[
+{\bfx_{r,\ell}} = [x_{r,\ell,\tau_1},\ldots,x_{r,\ell,\tau_T}]
+\]
+When the locus is under selection with coefficient $s$, let the allele
+frequencies at times $t\in \Tc$ be described by
+\[
+\vecbold{\nu}(s) = [\nu_{\tau_1}(s),\ldots,\nu_{\tau_T}(s)]
+\]
+We assume that the noise due to genetic drift at each generation is
+Gaussian, and independent of other generations. In addition, $x_0$ is
+the same for all the replicates, and $c$. Therefore, using the
+independence of replicates, $\bfx_{r,\ell,t} \sim \Nc(\bf\nu_t(s),I)$
+for all replicates $r$. The likelihood of the observed allele
+frequencies is given by the Gaussian
+\begin{equation}
+	\Lc_G(s|\bfx_{1,\ell}, \dots,\bfx_{R,\ell}) = \prod_{r=1}^R \Pr(\bfx_{r,\ell}| 
+	\vecbold{\mu}=\vecbold{\nu}(s),
+	\Sigma= I) 
+\end{equation}
+Taking logarithms and removing constant values, the problem of finding
+MLE for $s$ amounts to minimizing the negative-log-likelihood function
+with respect to $s$: 
+\begin{equation}
+	s^*=\underset{s}{\arg \min} \frac{1}{2} \sum_{r=1}^R \parallel 
+	{\vecbold{\nu}(s) -
+		\bfx_{r,\ell}} \parallel_2^2
+	\label{eq:nlls0}
+\end{equation}
+which is an instance of non-linear least squares optimization.
+Setting $y_t(s)=\sigma(st/2-c)$, and using $L_2$ regularization, we
+compute
+\begin{equation}
+	s^*=\underset{s}{\arg \min} \frac{1}{2}  \sum_{r=1}^R\sum_{t\in \Tc} \left( 
+	\sigma(st/2-c)- x_{r,\ell,t} \right)^2 + \frac{\lambda }{2}s^2
+\end{equation}
+which is a standard 1-d nonlinear regularized nonlinear least squares
+(RNLLS) optimization problem and $\lambda$ is the regularization
+hyperparameter to trade-off between minimizing error and regularizing
+$s$. To solve it we need to use iterative optimization algorithms
+which require computing the 
+gradient\footnote{$\sigma'(s)=\sigma(s)(1-\sigma(s))$} w.r.t. $s$
+\begin{equation}
+	g_\ell= \frac{t}{2}  \sum_{r=1}^R \sum_{t\in \Tc}  ( \sigma(st/2-c)- x_{r,\ell,t} 
+	) \sigma(st/2-c) (1-\sigma(st/2)) + \lambda s\; .
+	\label{eq:grad}
+\end{equation}
+The gradient descent update is given by
+\begin{equation}
+	s\leftarrow s - \eta  g_\ell\;,
+\end{equation}
+where $\eta$ is the learning rate. Also, since this problem is not
+convex, we use Nestrov's Accelerated Gradient (NAG) descent
+algorithm~\cite{sutskever2013} which has shown to be successful on
+many nonconvex problems. Each iteration of the optimization takes
+$\Oc(TR)$ computations which make the algorithm tractable in practice
+
+\subsection{Linked-locus Methods}
+\subsubsection{Fay Wu's H}
+Consider a collection of $m$ linked loci. Omitting replicate
+information, we represent the derived allele frequencies at time $t\in
+\Tc$ using:
+\[
+{\bf x_t} = [x_{1,t},x_{2,t}\ldots,x_{m,t}]^T 
+\]
+At any time $t$, suppose we have a sample of $n$ individual haplotypes
+that were described by the $n\times m$ matrix $M_t$. Each row of $M_t$
+represents a haplotype from the sample, and is denoted by vector
+$\mathbf{h} \in \{0,1\}^m$. Let $\bfone$ denote the
+$n$-dimensional unit vector. In Pooled sequencing, $M_t$ is hidden,
+but by definition,
+\[
+\mathbf{x_t} = \frac{1}{n} M_t^T\bfone
+\]
+We recently devised the $1\dHAF$ statistic~\cite{ronen2015predicting} for a
+haplotype, and proved some bounds on its expected value during neutral
+evolution, and under selection constraints. In the current notation,
+the $1\dHAF$ score of haplotype $h$ is given by
+\begin{equation}
+	1\dHAF(\mathbf{h})=n\bfx_t \cdot \mathbf{h}
+	\;.
+	\label{eq:1-HAF_SNPmatrix}
+\end{equation}
+The average $1\dHAF$ score at time $t$ can be estimated as:
+\begin{equation} 
+	\mathbb{E}[1\dHAF(t)]=\frac{1}{n}\sum_h 1\dHAF(\mathbf{h}) = n\parallel 
+	\mathbf{x_t}\parallel^2
+\end{equation} 
+However, in an ongoing selective sweep, the expected $1\dHAF$ score is
+a function of the selection coefficient $s$, and the frequency $\nu$
+of the carriers of the favored mutation. From~\cite{ronen2015predicting}, we
+find that $ \mathbb{E}[1\dHAF(t)]\approx nz(\nu_t)$ where
+
+\beq
+z(\nu_t)= \theta \nu_t \left(\frac{\nu_t+1}{2} - \frac{1}{(1-\nu_t)n+1}\right) +
+\theta (1-\nu_t)\left(\frac{n+1}{2n}-\frac{1}{(1-\nu_t)n+1}\right)
+\label{eq:hafscorepooled}
+\eeq
+
+Rearranging terms, we can estimate $\nu_t$ using
+\begin{equation}
+	\hspace{-0.1in}\nu_t^*=\arg\min_{\nu_t}   \left( z(\nu_t) -\parallel 
+	\mathbf{x}_t\parallel^2  \right)^2
+	\label{eq:pooledfrequency}
+\end{equation}
+where $\nu_t=\sigma(st/2+\eta(\nu_0))$ and for each replicate we have
+\beq
+\xbb &=[\|\bfx_{\tau_1}\|^2 , \ldots, \|\bfx_{\tau_T}\|^2]^T\\
+\bfz(s)&=[z(\nu_{\tau_1}(s)) , \ldots, z(\nu_{\tau_T}(s))]^T
+\eeq
+
+\beq \label{eq:nlls1}
+s^*=\underset{s}{\arg \min} \frac{1}{2} \sum_{r=1}^R \parallel {\bfz_r(s) -  
+\xbb_{r}} \parallel_2^2
+\eeq
+
+\beq
+AverageHAF&=n\|x\|^2= \alpha\theta_H\\
+\|x\|^2&=\sum_i \left(\frac{i}{n}\right)^2\xi_i =\frac{1}{n^2}\sum_i i^2\xi_i = 
+\frac{ (n-1)}{2n}\theta_H \\
+\alpha&=\frac{ n-1}{2}
+\eeq
+where $k$ is the number of histogram bins in computing AFS.
+\begin{figure}
+	\begin{tabular}{cc}
+		\includegraphics[scale=0.25]{thetaHs00} 
+		&\includegraphics[scale=0.25]{thetaHs02}
+	\end{tabular}
+\end{figure}
+
+\subsection{Tajima's D}
+We can compute Tajima's D in time as a function of $s$ and initial carrier 
+frequency.
+
+\beq
+D_0&=\Pi_0 - W_0, \ \ \ \ \ D_t=\Pi_t - W_t\\
+\Pi_t&= (1-\nu_t^2)\Pi_0 \\
+W_0&= \frac{m_0}{S_n}, \ \ \ \ \ W_t= \frac{m_t}{S_n}\\
+\frac{W_t}{W_0}&=\frac{\frac{m_t}{S}}{\frac{m_0}{S}} \ \ \Rightarrow 
+W_t=\frac{m_t}{m_0}W0 \\
+\frac{m_t}{m_0}&=\frac{\log\left((1-\nu_t)n +1 \right)}{\log(n)} \approx  
+\frac{\log\left((1-\nu_t)n\right)}{\log(n)} = \frac{\log(1-\nu_t)+\log(n)}{\log(n)} = 
+1+ \frac{ \log(1-\nu_t)}{\log(n)}\\
+D_t&= (1-\nu_t^2)\Pi_0 - (1+ \frac{ \log(1-\nu_t)}{\log(n)} ) W_0 = 
+D_0+\log(1-\nu_t) \frac{W_0}{\log(n)} -\nu_t^2 \Pi_0\\
+\frac{d D_{t}}{d \nu_{t}}&=
+2\Pi_0\nu_t - \frac{\frac{W_0}{\log(n)}}{1-\nu_t}=a\nu_t + \frac{b}{1-\nu_t}
+\eeq
+
+\subsection{Likelihood Ratio Test}
+Using the MLE (and other) estimates of $s$ it is desirable to perform a 
+secondary task such as \emph{testing for selection} or \emph{locating the 
+site under selection}. Likelihood ratio test (LRT) statistics for time series 
+\cite{feder2014identifying} have shown to be predictors for differentiating
+ neutral and  natural selection evolution cases. For a single locus model, the
+  likelihood ratio 
+test statistics $\Lambda(s*)$ is defined
+\beq \label{eq:lrt}
+\Lambda(s^*) = \log \left(\frac{\Lc(\bfX|s=s*)}{\Lc(\bfX|s=0)}\right)
+\eeq
+where $s^*$ is the optimal solution for the maximum-likelihood procedure. 
+For the Gaussian process and Gaussian model the likelihood $\Lc_{GP}$ and 
+$\Lc_G$ are well defined and \eqref{eq:lrt} can be easily evaluated. The 
+likelihood of the Naive method for estimating based on $x_t$ is 
+\beq
+\Lc_N(s|x_t,x_0)=x_t-\sigma(st/2 -c)
+\eeq
+
+In addition to LRT, the value of $s^*$ itself can be regarded as a signal for 
+detecting selection. In other words, modifying the LRT to
+\beq
+\Theta=s^*\Lambda(s^*)
+\eeq
+will take into account of two different objectives, 1)model discrepancy from 
+neutral model 2)strength of selection under non-neutral model. In the  results 
+we show that the modified-LRT makes more accurate predictions.
+\newpage
+
+\section{Experiments}
+\subsection{Simulated Data}
+For each experiment a diploid population is created and evolved as follows. 
+\paragraph{I. Creating initial founder lines}
+First using msms prgram, we created a population for $F$ founding 
+haplotypes with parameters \texttt{\$./msms <F> 1 -t <4μLNe> -r <4Ne(L − 
+1)r> <L>} where $F=200$ is number of founder lines, 
+$L=10^5$, $\theta=4\mu LNe=17$ and $\rho=4Ne(L-1)r=4$.  (assuming 
+$Ne=1000$, $r=10^{-8}$ and $\mu=4.25\times 10^{-8}$).  
+\paragraph{II. Creating initial diploid population} 
+To mimic the real E\&R experiment for diploid organisms, first initial 
+haplotypes cloned to create $F$ diploid homozygotes. Then each diploid is 
+cloned $N/F$ times to yield $N$ diploid homozygote organisms.
+\paragraph{III. Forward Simulation}
+Given initial diploid population, position of the site under selection, selection 
+strength $s$, number of replicates $R=3$, recombination rate $r=10^{-8}$ 
+and sampling times $\Tc$ simuPop is used to perform forward simulation and 
+compute allele frequencies for all of the $R$.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim={ 2in 0 1.8in 0},clip,scale=0.4]{sigmoidHard.png}
+\end{figure}
+
+\subsection{Sampling Times}
+$\Tc=\{0,10,20,\ldots ,100\} + \delta$ where $\delta$ is randomly chosen so 
+that sampling is taken up along different epochs of sweep for different 
+experiments.
+we van rearrange \eqref{naive2point}
+\beq
+t=\frac{2}{s}(\nu(x_t)-\nu(x_0))
+\eeq
+where setting $x_t=1/2$, we can compute fixatoin time 
+\beq
+t_{Fix}=\frac{-4\eta(x_0)}{s}
+\eeq
+In the case of hard sweep, by setting fixation frequency to $x_t=1-1/F$ and 
+$x_0=1/F$ time to fixation can be computed
+\beq
+\eta(1-1/F)=st/2+\eta(1/F)\\
+t_{Fix}(s)=2\frac{\eta(1-1/F)-\eta(1/F)}{s}=\frac{-4\eta(1/F)}{s}
+\eeq
+To emphasize on mid frequency samples, we sample with rejection from 
+discrete normal $\Nc_d$ with $\mu=t_{Fix}(s)/2$, i.e., time to $x_t=0.5$ and 
+std of $t_{Fix}(s)/6$ (so that $[0,t_{Fix}]=[\mu-3std, \mu+3std]$ be the 
+99.5\% confidence interval).
+\beq
+\delta \sim \Nc_d(t_{Fix}/2, t_{Fix}/4)
+\eeq
+
+
+\subsection{Detecting Selection}
+\subsubsection{Hard Sweep vs Soft Sweep}
+\subsubsection{Effects of carrier frequency}
+\subsubsection{Effects of sampling times}
+\subsubsection{Effects of number of replicates}
+\subsubsection{Single-Locus vs Multi-locus}
+\subsubsection{Time-series vs single-snapshot}
+
+\subsection{Locating Selection}
+
+\subsection{Strength of  Selection}
 
 
 
 
-\input{method}
-\input{experiment}
 
-\input{conclusion}
+
+
+
+%\input{intro}
+%\input{method}
+%\input{experiment}
+%\input{conclusion}
 
 \bibliographystyle{plain}
 \bibliography{library}
-
 \end{document}

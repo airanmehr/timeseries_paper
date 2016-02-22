@@ -1,0 +1,76 @@
+\usepackage{units}
+\usepackage[small, bf]{caption}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{color}
+\usepackage{amssymb, amsmath}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{verbatim}
+\usepackage{amsfonts}
+\usepackage{subfloat}
+\usepackage{subfig}
+\usepackage{multirow}
+\usepackage{authblk}
+\usepackage{array}
+\usepackage{footmisc}
+\usepackage{tabularx}
+\usepackage{sidecap}
+\usepackage{setspace}
+\usepackage[normalem]{ulem}
+\usepackage{pgfplotstable}
+\usepackage[margin=1in]{geometry}
+\renewcommand\Affilfont{\small}
+\newcommand{\ignore}[1]{}
+\usepackage{float}
+
+\newenvironment{packed_enum}{
+\begin{enumerate}
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}{\end{enumerate}}
+\newenvironment{packed_itemize}{
+\begin{itemize}
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}{\end{itemize}}
+\newenvironment{packed_desc}{
+\begin{description}
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}{\end{description}}
+
+\def\AI#1{{\textcolor{red}{#1}}}
+\def\dHAF{\text{-HAF}}
+\def\HAF{\text{HAF}}
+\def\HAFpeak{\text{HAF-peak}}
+\def\HAFtrough{\text{HAF-trough}}
+\def\HAFneutral{\text{HAF}_{\text{neutral}}}
+\def\TMRCA{T_{\text{MRCA}}}
+
+\def\VB#1{{\textcolor{blue}{VB note: #1}}}
+
+\newcommand{\algoname}{\ensuremath{\text{PreCIOSS}}}
+\def\vecbold#1{{\boldsymbol#1}}
+
+%%%%%%%%%%%%
+\makeatletter
+\renewcommand\section{\@startsection {section}{1}{\z@}%                                                                                                         
+                                   {-3.2ex \@plus -1ex \@minus -.2ex}%                                                                                        
+                                   {2.0ex \@plus.2ex}%                                                                                                        
+                                   {\normalfont\Large\bfseries}}
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%                                                                                                    
+                                     {-2.95ex\@plus -1ex \@minus -.2ex}%                                                                                      
+                                     {1.2ex \@plus .2ex}%                                                                                                     
+                                     {\normalfont\large\bfseries}}
+\renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%                                                                                              
+                                     {-2.95ex\@plus -1ex \@minus -.2ex}%                                                                                      
+                                     {1.2ex \@plus .2ex}%                                                                                                     
+                                     {\normalfont\normalsize\bfseries}}
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%                                                                                                      
+                                    {1.55ex \@plus1ex \@minus.2ex}%                                                                                           
+                                    {-.7em}%                                                                                                                   
+                                    {\normalfont\normalsize\bfseries}}
+\makeatother
