@@ -69,6 +69,7 @@ uncontrolled process.
 
 \subsection{Experimental Evolution}
 \cite{Barrick2013Genome,Elena2003Evolution}
+example \cite{jha2015whole}
 Experimental evolution (including evolve and re-sequence paradigms)
 have become increasingly popular as a complementary tool to understand
 the forces of selection, allowing for controlled environments,
@@ -137,20 +138,78 @@ from the AFS have not been used to estimate the selection coefficient
 itself. Here, we propose a novel method that combines the advantages
 of both methods.
 
-
-\subsection{Sampling}
 \begin{itemize}
 \item scale
 \item early epoch
 \end{itemize}
-\subsection{Likage}
 
-\subsection{Simulations}
-\begin{itemize}
-\item pooled seq
-\end{itemize}
+\section{Results}
+\subsection{Simulattions}
+For each experiment a diploid population is created and evolved as follows. 
+\paragraph{I. Creating initial founder lines}
+First using msms prgram, we created a population for $F$ founding 
+haplotypes with parameters \texttt{\$./msms <F> 1 -t <4μLNe> -r <4Ne(L − 
+	1)r> <L>} where $F=200$ is number of founder lines, 
+$L=10^5$, $\theta=4\mu LNe=17$ and $\rho=4Ne(L-1)r=4$.  (assuming 
+$Ne=1000$, $r=10^{-8}$ and $\mu=4.25\times 10^{-8}$).  
+\paragraph{II. Creating initial diploid population} 
+To mimic the real E\&R experiment for diploid organisms, first initial 
+haplotypes cloned to create $F$ diploid homozygotes. Then each diploid is 
+cloned $N/F$ times to yield $N$ diploid homozygote organisms.
+\paragraph{III. Forward Simulation}
+Given initial diploid population, position of the site under selection, selection 
+strength $s$, number of replicates $R=3$, recombination rate $r=10^{-8}$ 
+and sampling times $\Tc$ simuPop is used to perform forward simulation and 
+compute allele frequencies for all of the $R$.
 
-\section{Methods}
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim={ 2in 0 1.8in 0},clip,scale=0.4]{sigmoidHard.png}
+\end{figure}
+
+\subsection{Linkage Disequilibrium}
+
+\subsection{Sampling Times}
+$\Tc=\{0,10,20,\ldots ,100\} + \delta$ where $\delta$ is randomly chosen so 
+that sampling is taken up along different epochs of sweep for different 
+experiments.
+we van rearrange \eqref{naive2point}
+\beq
+t=\frac{2}{s}(\nu(x_t)-\nu(x_0))
+\eeq
+where setting $x_t=1/2$, we can compute fixatoin time 
+\beq
+t_{Fix}=\frac{-4\eta(x_0)}{s}
+\eeq
+In the case of hard sweep, by setting fixation frequency to $x_t=1-1/F$ and 
+$x_0=1/F$ time to fixation can be computed
+\beq
+\eta(1-1/F)=st/2+\eta(1/F)\\
+t_{Fix}(s)=2\frac{\eta(1-1/F)-\eta(1/F)}{s}=\frac{-4\eta(1/F)}{s}
+\eeq
+To emphasize on mid frequency samples, we sample with rejection from 
+discrete normal $\Nc_d$ with $\mu=t_{Fix}(s)/2$, i.e., time to $x_t=0.5$ and 
+std of $t_{Fix}(s)/6$ (so that $[0,t_{Fix}]=[\mu-3std, \mu+3std]$ be the 
+99.5\% confidence interval).
+\beq
+\delta \sim \Nc_d(t_{Fix}/2, t_{Fix}/4)
+\eeq
+
+
+\subsection{Detecting Selection}
+\subsubsection{Hard Sweep vs Soft Sweep}
+\subsubsection{Effects of carrier frequency}
+\subsubsection{Effects of sampling times}
+\subsubsection{Effects of number of replicates}
+\subsubsection{Single-Locus vs Multi-locus}
+\subsubsection{Time-series vs single-snapshot}
+
+\subsection{Locating Selection}
+
+\subsection{Strength of  Selection}
+
+
+\section{Materials and Methods}
 We start with a description of `single locus multiple-time point'
 models in which each locus is analyzed independently for evidence of a
 selection constraint. In the subsequent section, we extend the
@@ -184,54 +243,7 @@ population,
 in generation $t$.
 
 \paragraph{Allele frequencies under selection.}
-Consider next, a locus under selection with coefficient $s (0\le s\le
-1)$, overdominance and parameter $h (0\le h\le 1)$, so that the
-probability of an individual inheriting $2$ favored alleles is
-$\propto (1+s)$, relative to inheriting $0$ favored
-alleles. Respectively, the probability of favoring $1$ favored allele
-$\propto (1+hs)$ Then,
 
-
-\begin{equation}
-	x_{t+1} = f(x_t;s,h) + \epsilon_t
-	\label{eq:trans0} 
-\end{equation}
-where $f: [0,1] \mapsto [0,1]$ is the
-transition function given by:
-\begin{equation}
-	f(x;s,h)=\frac{(1+s)x^2 + (1+hs)x(1-x)}{(1+s)x^2 + 2(1+hs)x(1-x) + (1-x)^2}
-	=x+\frac{s(h+(1-2h)x)x(1-x)}{1+sx(2h+(1-2h)x))}\;.
-\end{equation}
-We simplify notation by setting $h=0.5$, so that
-\begin{equation}
-	f(x;s,0.5)=x+\frac{sx(1-x)}{2+2sx}\;.
-	\label{eq:hequalshalf}
-\end{equation}
-Our goal is to estimate $s$ given allele frequencies, and/or to decide
-if $s>0$. Note that the dependence on $s$ is non-linear. Define an
-auxiliary continuous (in time) function $\nu_t(s)$ as follows:
-$\nu_0(s)=x_0$ for all $s$, and:
-\begin{eqnarray}
-	\nu_{t+\delta t}(s) &=& \nu_t(s)+\frac{\nu_t(s)(1-\nu_t(s))s\delta 
-	t}{2+2s\delta t \nu_t(s)}\;,\\
-	\frac{d\nu_t(s)}{dt} &=&\lim_{\delta t\rightarrow 0}\frac{\nu_{t+\delta t}(s) 
-	-\nu_t(s)}{\delta t}\\
-	&=&\lim_{\delta t\rightarrow 
-	0}\frac{s\nu_t(s)(1-\nu_t(s))}{2+2\nu_t(s)s\delta t}\\
-	&=& \frac{s}{2}\nu_t(s)(1-\nu_t(s)) \;.
-	\label{eq:ode}
-\end{eqnarray}
-The ODE can be readily solved for $\nu_t(s)$ as
-\begin{equation}
-	\nu_t(s) =\frac{1}{1+\frac{1-x_0}{x_0}e^{-st/2}} = \sigma(st/2+\eta(x_0)) 
-	\label{eq:inf-pop}
-\end{equation}
-where$\sigma(.)$ is the logistic
-function and $\eta(.)$ is logit function (inverse of the logistic function). Note 
-that $x_t\sim\Nc(\nu_t,1)$ for all discrete times $t$,
-and therefore observations $x_t$ can be used to find Maximum
-Likelihood Estimate of $\nu_t$. Finally, as the sigmoid is a
-one-to-one function, we can find MLE for $s$ given {\bf $\nu$}.
 
 \paragraph{Naive two-point optimization.} We start with a simplified
 scheme to serve as a baseline for results.  For each $t\in \Tc$, we
@@ -309,96 +321,6 @@ many nonconvex problems. Each iteration of the optimization takes
 $\Oc(TR)$ computations which make the algorithm tractable in practice
 
 \subsection{Linked-locus Methods}
-\subsubsection{Fay Wu's H}
-Consider a collection of $m$ linked loci. Omitting replicate
-information, we represent the derived allele frequencies at time $t\in
-\Tc$ using:
-\[
-{\bf x_t} = [x_{1,t},x_{2,t}\ldots,x_{m,t}]^T 
-\]
-At any time $t$, suppose we have a sample of $n$ individual haplotypes
-that were described by the $n\times m$ matrix $M_t$. Each row of $M_t$
-represents a haplotype from the sample, and is denoted by vector
-$\mathbf{h} \in \{0,1\}^m$. Let $\bfone$ denote the
-$n$-dimensional unit vector. In Pooled sequencing, $M_t$ is hidden,
-but by definition,
-\[
-\mathbf{x_t} = \frac{1}{n} M_t^T\bfone
-\]
-We recently devised the $1\dHAF$ statistic~\cite{ronen2015predicting} for a
-haplotype, and proved some bounds on its expected value during neutral
-evolution, and under selection constraints. In the current notation,
-the $1\dHAF$ score of haplotype $h$ is given by
-\begin{equation}
-	1\dHAF(\mathbf{h})=n\bfx_t \cdot \mathbf{h}
-	\;.
-	\label{eq:1-HAF_SNPmatrix}
-\end{equation}
-The average $1\dHAF$ score at time $t$ can be estimated as:
-\begin{equation} 
-	\mathbb{E}[1\dHAF(t)]=\frac{1}{n}\sum_h 1\dHAF(\mathbf{h}) = n\parallel 
-	\mathbf{x_t}\parallel^2
-\end{equation} 
-However, in an ongoing selective sweep, the expected $1\dHAF$ score is
-a function of the selection coefficient $s$, and the frequency $\nu$
-of the carriers of the favored mutation. From~\cite{ronen2015predicting}, we
-find that $ \mathbb{E}[1\dHAF(t)]\approx nz(\nu_t)$ where
-
-\beq
-z(\nu_t)= \theta \nu_t \left(\frac{\nu_t+1}{2} - \frac{1}{(1-\nu_t)n+1}\right) +
-\theta (1-\nu_t)\left(\frac{n+1}{2n}-\frac{1}{(1-\nu_t)n+1}\right)
-\label{eq:hafscorepooled}
-\eeq
-
-Rearranging terms, we can estimate $\nu_t$ using
-\begin{equation}
-	\hspace{-0.1in}\nu_t^*=\arg\min_{\nu_t}   \left( z(\nu_t) -\parallel 
-	\mathbf{x}_t\parallel^2  \right)^2
-	\label{eq:pooledfrequency}
-\end{equation}
-where $\nu_t=\sigma(st/2+\eta(\nu_0))$ and for each replicate we have
-\beq
-\xbb &=[\|\bfx_{\tau_1}\|^2 , \ldots, \|\bfx_{\tau_T}\|^2]^T\\
-\bfz(s)&=[z(\nu_{\tau_1}(s)) , \ldots, z(\nu_{\tau_T}(s))]^T
-\eeq
-
-\beq \label{eq:nlls1}
-s^*=\underset{s}{\arg \min} \frac{1}{2} \sum_{r=1}^R \parallel {\bfz_r(s) -  
-\xbb_{r}} \parallel_2^2
-\eeq
-
-\beq
-AverageHAF&=n\|x\|^2= \alpha\theta_H\\
-\|x\|^2&=\sum_i \left(\frac{i}{n}\right)^2\xi_i =\frac{1}{n^2}\sum_i i^2\xi_i = 
-\frac{ (n-1)}{2n}\theta_H \\
-\alpha&=\frac{ n-1}{2}
-\eeq
-where $k$ is the number of histogram bins in computing AFS.
-\begin{figure}
-	\begin{tabular}{cc}
-		\includegraphics[scale=0.25]{thetaHs00} 
-		&\includegraphics[scale=0.25]{thetaHs02}
-	\end{tabular}
-\end{figure}
-
-\subsection{Tajima's D}
-We can compute Tajima's D in time as a function of $s$ and initial carrier 
-frequency.
-
-\beq
-D_0&=\Pi_0 - W_0, \ \ \ \ \ D_t=\Pi_t - W_t\\
-\Pi_t&= (1-\nu_t^2)\Pi_0 \\
-W_0&= \frac{m_0}{S_n}, \ \ \ \ \ W_t= \frac{m_t}{S_n}\\
-\frac{W_t}{W_0}&=\frac{\frac{m_t}{S}}{\frac{m_0}{S}} \ \ \Rightarrow 
-W_t=\frac{m_t}{m_0}W0 \\
-\frac{m_t}{m_0}&=\frac{\log\left((1-\nu_t)n +1 \right)}{\log(n)} \approx  
-\frac{\log\left((1-\nu_t)n\right)}{\log(n)} = \frac{\log(1-\nu_t)+\log(n)}{\log(n)} = 
-1+ \frac{ \log(1-\nu_t)}{\log(n)}\\
-D_t&= (1-\nu_t^2)\Pi_0 - (1+ \frac{ \log(1-\nu_t)}{\log(n)} ) W_0 = 
-D_0+\log(1-\nu_t) \frac{W_0}{\log(n)} -\nu_t^2 \Pi_0\\
-\frac{d D_{t}}{d \nu_{t}}&=
-2\Pi_0\nu_t - \frac{\frac{W_0}{\log(n)}}{1-\nu_t}=a\nu_t + \frac{b}{1-\nu_t}
-\eeq
 
 \subsection{Likelihood Ratio Test}
 Using the MLE (and other) estimates of $s$ it is desirable to perform a 
@@ -429,68 +351,144 @@ neutral model 2)strength of selection under non-neutral model. In the  results
 we show that the modified-LRT makes more accurate predictions.
 \newpage
 
-\section{Experiments}
-\subsection{Simulated Data}
-For each experiment a diploid population is created and evolved as follows. 
-\paragraph{I. Creating initial founder lines}
-First using msms prgram, we created a population for $F$ founding 
-haplotypes with parameters \texttt{\$./msms <F> 1 -t <4μLNe> -r <4Ne(L − 
-1)r> <L>} where $F=200$ is number of founder lines, 
-$L=10^5$, $\theta=4\mu LNe=17$ and $\rho=4Ne(L-1)r=4$.  (assuming 
-$Ne=1000$, $r=10^{-8}$ and $\mu=4.25\times 10^{-8}$).  
-\paragraph{II. Creating initial diploid population} 
-To mimic the real E\&R experiment for diploid organisms, first initial 
-haplotypes cloned to create $F$ diploid homozygotes. Then each diploid is 
-cloned $N/F$ times to yield $N$ diploid homozygote organisms.
-\paragraph{III. Forward Simulation}
-Given initial diploid population, position of the site under selection, selection 
-strength $s$, number of replicates $R=3$, recombination rate $r=10^{-8}$ 
-and sampling times $\Tc$ simuPop is used to perform forward simulation and 
-compute allele frequencies for all of the $R$.
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[trim={ 2in 0 1.8in 0},clip,scale=0.4]{sigmoidHard.png}
-\end{figure}
+\newpage
+\section{Appendix}
+\subsection{Allele frequencies under selective sweep}
+Consider next, a locus under selection with coefficient $s (0\le s\le
+1)$, overdominance and parameter $h (0\le h\le 1)$, so that the
+probability of an individual inheriting $2$ favored alleles is
+$\propto (1+s)$, relative to inheriting $0$ favored
+alleles. Respectively, the probability of favoring $1$ favored allele
+$\propto (1+hs)$ Then,
 
-\subsection{Sampling Times}
-$\Tc=\{0,10,20,\ldots ,100\} + \delta$ where $\delta$ is randomly chosen so 
-that sampling is taken up along different epochs of sweep for different 
-experiments.
-we van rearrange \eqref{naive2point}
+
+\begin{equation}
+x_{t+1} = f(x_t;s,h) + \epsilon_t
+\label{eq:trans0} 
+\end{equation}
+where $f: [0,1] \mapsto [0,1]$ is the
+transition function given by:
+\begin{equation}
+f(x;s,h)=\frac{(1+s)x^2 + (1+hs)x(1-x)}{(1+s)x^2 + 2(1+hs)x(1-x) + (1-x)^2}
+=x+\frac{s(h+(1-2h)x)x(1-x)}{1+sx(2h+(1-2h)x))}\;.
+\end{equation}
+We simplify notation by setting $h=0.5$, so that
+\begin{equation}
+f(x;s,0.5)=x+\frac{sx(1-x)}{2+2sx}\;.
+\label{eq:hequalshalf}
+\end{equation}
+
+
+Our goal is to estimate $s$ given allele frequencies, and/or to decide
+if $s>0$. Note that the dependence on $s$ is non-linear. Define an
+auxiliary continuous (in time) function $\nu_t(s)$ as follows:
+$\nu_0(s)=x_0$ for all $s$, and:
+\begin{eqnarray}
+\nu_{t+\delta t}(s) &=& \nu_t(s)+\frac{\nu_t(s)(1-\nu_t(s))s\delta 
+	t}{2+2s\delta t \nu_t(s)}\;,\\
+\frac{d\nu_t(s)}{dt} &=&\lim_{\delta t\rightarrow 0}\frac{\nu_{t+\delta t}(s) 
+	-\nu_t(s)}{\delta t}\\
+&=&\lim_{\delta t\rightarrow 
+	0}\frac{s\nu_t(s)(1-\nu_t(s))}{2+2\nu_t(s)s\delta t}\\
+&=& \frac{s}{2}\nu_t(s)(1-\nu_t(s)) \;.
+\label{eq:ode}
+\end{eqnarray}
+The ODE can be readily solved for $\nu_t(s)$ as
+\begin{equation}
+\nu_t(s) =\frac{1}{1+\frac{1-x_0}{x_0}e^{-st/2}} = \sigma(st/2+\eta(x_0)) 
+\label{eq:inf-pop}
+\end{equation}
+where$\sigma(.)$ is the logistic
+function and $\eta(.)$ is logit function (inverse of the logistic function). Note 
+that $x_t\sim\Nc(\nu_t,1)$ for all discrete times $t$,
+and therefore observations $x_t$ can be used to find Maximum
+Likelihood Estimate of $\nu_t$. Finally, as the sigmoid is a
+one-to-one function, we can find MLE for $s$ given {\bf $\nu$}.
+\subsubsection{Fay Wu's H}
+Consider a collection of $m$ linked loci. Omitting replicate
+information, we represent the derived allele frequencies at time $t\in
+\Tc$ using:
+\[
+{\bf x_t} = [x_{1,t},x_{2,t}\ldots,x_{m,t}]^T 
+\]
+At any time $t$, suppose we have a sample of $n$ individual haplotypes
+that were described by the $n\times m$ matrix $M_t$. Each row of $M_t$
+represents a haplotype from the sample, and is denoted by vector
+$\mathbf{h} \in \{0,1\}^m$. Let $\bfone$ denote the
+$n$-dimensional unit vector. In Pooled sequencing, $M_t$ is hidden,
+but by definition,
+\[
+\mathbf{x_t} = \frac{1}{n} M_t^T\bfone
+\]
+We recently devised the $1\dHAF$ statistic~\cite{ronen2015predicting} for a
+haplotype, and proved some bounds on its expected value during neutral
+evolution, and under selection constraints. In the current notation,
+the $1\dHAF$ score of haplotype $h$ is given by
+\begin{equation}
+1\dHAF(\mathbf{h})=n\bfx_t \cdot \mathbf{h}
+\;.
+\label{eq:1-HAF_SNPmatrix}
+\end{equation}
+The average $1\dHAF$ score at time $t$ can be estimated as:
+\begin{equation} 
+\mathbb{E}[1\dHAF(t)]=\frac{1}{n}\sum_h 1\dHAF(\mathbf{h}) = n\parallel 
+\mathbf{x_t}\parallel^2
+\end{equation} 
+However, in an ongoing selective sweep, the expected $1\dHAF$ score is
+a function of the selection coefficient $s$, and the frequency $\nu$
+of the carriers of the favored mutation. From~\cite{ronen2015predicting}, we
+find that $ \mathbb{E}[1\dHAF(t)]\approx nz(\nu_t)$ where
+
 \beq
-t=\frac{2}{s}(\nu(x_t)-\nu(x_0))
+z(\nu_t)= \theta \nu_t \left(\frac{\nu_t+1}{2} - \frac{1}{(1-\nu_t)n+1}\right) +
+\theta (1-\nu_t)\left(\frac{n+1}{2n}-\frac{1}{(1-\nu_t)n+1}\right)
+\label{eq:hafscorepooled}
 \eeq
-where setting $x_t=1/2$, we can compute fixatoin time 
+
+Rearranging terms, we can estimate $\nu_t$ using
+\begin{equation}
+\hspace{-0.1in}\nu_t^*=\arg\min_{\nu_t}   \left( z(\nu_t) -\parallel 
+\mathbf{x}_t\parallel^2  \right)^2
+\label{eq:pooledfrequency}
+\end{equation}
+where $\nu_t=\sigma(st/2+\eta(\nu_0))$ and for each replicate we have
 \beq
-t_{Fix}=\frac{-4\eta(x_0)}{s}
+\xbb &=[\|\bfx_{\tau_1}\|^2 , \ldots, \|\bfx_{\tau_T}\|^2]^T\\
+\bfz(s)&=[z(\nu_{\tau_1}(s)) , \ldots, z(\nu_{\tau_T}(s))]^T
 \eeq
-In the case of hard sweep, by setting fixation frequency to $x_t=1-1/F$ and 
-$x_0=1/F$ time to fixation can be computed
+
+\beq \label{eq:nlls1}
+s^*=\underset{s}{\arg \min} \frac{1}{2} \sum_{r=1}^R \parallel {\bfz_r(s) -  
+	\xbb_{r}} \parallel_2^2
+\eeq
+
 \beq
-\eta(1-1/F)=st/2+\eta(1/F)\\
-t_{Fix}(s)=2\frac{\eta(1-1/F)-\eta(1/F)}{s}=\frac{-4\eta(1/F)}{s}
+AverageHAF&=n\|x\|^2= \alpha\theta_H\\
+\|x\|^2&=\sum_i \left(\frac{i}{n}\right)^2\xi_i =\frac{1}{n^2}\sum_i i^2\xi_i = 
+\frac{ (n-1)}{2n}\theta_H \\
+\alpha&=\frac{ n-1}{2}
 \eeq
-To emphasize on mid frequency samples, we sample with rejection from 
-discrete normal $\Nc_d$ with $\mu=t_{Fix}(s)/2$, i.e., time to $x_t=0.5$ and 
-std of $t_{Fix}(s)/6$ (so that $[0,t_{Fix}]=[\mu-3std, \mu+3std]$ be the 
-99.5\% confidence interval).
+where $k$ is the number of histogram bins in computing AFS.
+
+\subsection{Tajima's D}
+We can compute Tajima's D in time as a function of $s$ and initial carrier 
+frequency.
+
 \beq
-\delta \sim \Nc_d(t_{Fix}/2, t_{Fix}/4)
+D_0&=\Pi_0 - W_0, \ \ \ \ \ D_t=\Pi_t - W_t\\
+\Pi_t&= (1-\nu_t^2)\Pi_0 \\
+W_0&= \frac{m_0}{S_n}, \ \ \ \ \ W_t= \frac{m_t}{S_n}\\
+\frac{W_t}{W_0}&=\frac{\frac{m_t}{S}}{\frac{m_0}{S}} \ \ \Rightarrow 
+W_t=\frac{m_t}{m_0}W0 \\
+\frac{m_t}{m_0}&=\frac{\log\left((1-\nu_t)n +1 \right)}{\log(n)} \approx  
+\frac{\log\left((1-\nu_t)n\right)}{\log(n)} = \frac{\log(1-\nu_t)+\log(n)}{\log(n)} = 
+1+ \frac{ \log(1-\nu_t)}{\log(n)}\\
+D_t&= (1-\nu_t^2)\Pi_0 - (1+ \frac{ \log(1-\nu_t)}{\log(n)} ) W_0 = 
+D_0+\log(1-\nu_t) \frac{W_0}{\log(n)} -\nu_t^2 \Pi_0\\
+\frac{d D_{t}}{d \nu_{t}}&=
+2\Pi_0\nu_t - \frac{\frac{W_0}{\log(n)}}{1-\nu_t}=a\nu_t + \frac{b}{1-\nu_t}
 \eeq
-
-
-\subsection{Detecting Selection}
-\subsubsection{Hard Sweep vs Soft Sweep}
-\subsubsection{Effects of carrier frequency}
-\subsubsection{Effects of sampling times}
-\subsubsection{Effects of number of replicates}
-\subsubsection{Single-Locus vs Multi-locus}
-\subsubsection{Time-series vs single-snapshot}
-
-\subsection{Locating Selection}
-
-\subsection{Strength of  Selection}
 
 %\input{intro}
 %\input{method}
