@@ -1,6 +1,8 @@
 ## Core latex/pdflatex auxiliary files:
 library.bib
+.idea/
 *~
+*.bak
 *.aux
 *.lof
 *.log
