@@ -1,11 +1,18 @@
-# Time-Serie Paper
-Guidelines
+# Time-Series Paper
+Guidelines:
 
-1.Use `TexStudio`.
+1. To avoid conflicts create your branch
+```
+git checkout -b [name_of_your_new_branch, e.g., arya]
+```
+and after your commits puch by
+```
+git push origin [name_of_your_new_branch]
+```
 
-2.Go to `Configure TexStudio>Adv Editor>Line Wrapping` then select `Hard` with max of 80 characters, and make sure every line is less than 80 chrs.
+2. Limit lined to 80 chrs. If you are using `TexStudio`, go to `Configure TexStudio>Adv Editor>Line Wrapping` then select `Hard`.
 
-3.Create a macro for push and set the trigger to `?close-file`
+3. If you are using `TexStudio`,  create a macro for push and set the trigger to `?close-file`
 ```
 dialog = new UniversalInputDialog()
 dialog.setWindowTitle("Git commit")
@@ -13,8 +20,8 @@ dialog.add("", "Comment", "comment")
 if (dialog.exec() != null) {
     comment = dialog.get("comment")
     buildManager.runCommand("git commit -a -m \"" + comment + "\"", editor.fileName())
-    buildManager.runCommand("git push origin master", editor.fileName())
+    buildManager.runCommand("git push origin [name_of_your_new_branch]", editor.fileName())
     }
 ```
-you can run it from menu bar.
+which you can also run it from menu bar.
 

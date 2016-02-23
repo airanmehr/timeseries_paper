@@ -16,10 +16,22 @@ Emma~R Andersson, Rickard Sandberg, and Urban Lendahl.
 \newblock {Notch signaling: simplicity in design, versatility in function}.
 \newblock {\em Development}, 138(17):3593--3612, 2011.
 
+\bibitem{barrett2008natural}
+Rowan D~H Barrett, Sean~M Rogers, and Dolph Schluter.
+\newblock {Natural selection on a major armor gene in threespine stickleback}.
+\newblock {\em Science}, 322(5899):255--257, 2008.
+
 \bibitem{Barrick2013Genome}
 Jeffrey~E Barrick and Richard~E Lenski.
 \newblock {Genome dynamics during experimental evolution}.
 \newblock {\em Nat Rev Genet}, 14(12):827--839, dec 2013.
+
+\bibitem{barrick2009genome}
+Jeffrey~E Barrick, Dong~Su Yu, Sung~Ho Yoon, Haeyoung Jeong, Tae~Kwang Oh,
+  Dominique Schneider, Richard~E Lenski, and Jihyun~F Kim.
+\newblock {Genome evolution and adaptation in a long-term experiment with
+  Escherichia coli}.
+\newblock {\em Nature}, 461(7268):1243--1247, 2009.
 
 \bibitem{barton1991natural}
 N~H Barton and Michael Turelli.
@@ -33,12 +45,51 @@ Alan~O Bergland, Emily~L Behrman, Katherine~R O'Brien, Paul~S Schmidt, and
   seasonal time scales in Drosophila}.
 \newblock {\em PLoS Genet}, 10(11):e1004775, 2014.
 
+\bibitem{bollback2007clonal}
+Jonathan~P Bollback and John~P Huelsenbeck.
+\newblock {Clonal interference is alleviated by high mutation rates in large
+  populations}.
+\newblock {\em Molecular biology and evolution}, 24(6):1397--1406, 2007.
+
+\bibitem{bollback2008estimation}
+Jonathan~P Bollback, Thomas~L York, and Rasmus Nielsen.
+\newblock {Estimation of 2Nes from temporal allele frequency data}.
+\newblock {\em Genetics}, 179(1):497--502, 2008.
+
+\bibitem{boyko2008assessing}
+Adam~R Boyko, Scott~H Williamson, Amit~R Indap, Jeremiah~D Degenhardt, Ryan~D
+  Hernandez, Kirk~E Lohmueller, Mark~D Adams, Steffen Schmidt, John~J Sninsky,
+  Shamil~R Sunyaev, and Others.
+\newblock {Assessing the evolutionary impact of amino acid mutations in the
+  human genome}.
+\newblock {\em PLoS Genet}, 4(5):e1000083, 2008.
+
 \bibitem{braverman1995hitchhiking}
 John~M Braverman, Richard~R Hudson, Norman~L Kaplan, Charles~H Langley, and
   Wolfgang Stephan.
 \newblock {The hitchhiking effect on the site frequency spectrum of DNA
   polymorphisms.}
 \newblock {\em Genetics}, 140(2):783--796, 1995.
+
+\bibitem{daniels2013genetic}
+Rachel Daniels, Hsiao-Han Chang, Papa~Diogoye S{\'{e}}ne, Danny~C Park,
+  Daniel~E Neafsey, Stephen~F Schaffner, Elizabeth~J Hamilton, Amanda~K Lukens,
+  Daria {Van Tyne}, Souleymane Mboup, and Others.
+\newblock {Genetic surveillance detects both clonal and epidemic transmission
+  of malaria following enhanced intervention in Senegal}.
+\newblock {\em PLoS One}, 8(4):e60780, 2013.
+
+\bibitem{denef2012situ}
+Vincent~J Denef and Jillian~F Banfield.
+\newblock {In situ evolutionary rate measurements show ecological success of
+  recently emerged bacterial hybrids}.
+\newblock {\em Science}, 336(6080):462--466, 2012.
+
+\bibitem{desai2008polymorphism}
+Michael~M Desai and Joshua~B Plotkin.
+\newblock {The polymorphism frequency spectrum of finitely many sites under
+  selection}.
+\newblock {\em Genetics}, 180(4):2175--2191, 2008.
 
 \bibitem{Elena2003Evolution}
 Santiago~F Elena and Richard~E Lenski.
@@ -50,6 +101,11 @@ Santiago~F Elena and Richard~E Lenski.
 David Enard, Le~Cai, Carina Gwenapp, and Dmitri~A Petrov.
 \newblock {Viruses are a dominant driver of protein adaptation in mammals}.
 \newblock {\em bioRxiv}, 2015.
+
+\bibitem{evans2007non}
+Steven~N Evans, Yelena Shvets, and Montgomery Slatkin.
+\newblock {Non-equilibrium theory of the allele frequency spectrum}.
+\newblock {\em Theoretical population biology}, 71(1):109--119, 2007.
 
 \bibitem{Ewens2012Mathematical}
 Warren~J Ewens.
@@ -80,11 +136,30 @@ Alison~F Feder, Soo-Yon Rhee, Susan~P Holmes, Robert~W Shafer, Dmitri~A Petrov,
   evolution of drug resistance in HIV-1.}
 \newblock {\em eLife}, 5, jan 2016.
 
+\bibitem{hegreness2006equivalence}
+Matthew Hegreness, Noam Shoresh, Daniel Hartl, and Roy Kishony.
+\newblock {An equivalence principle for the incorporation of favorable
+  mutations in asexual populations}.
+\newblock {\em Science}, 311(5767):1615--1617, 2006.
+
 \bibitem{Hudson2002Generating}
 Richard~R Hudson.
 \newblock {Generating samples under a Wright–Fisher neutral model of genetic
   variation}.
 \newblock {\em Bioinformatics}, 18(2):337--338, feb 2002.
+
+\bibitem{illingworth2011distinguishing}
+Christopher J~R Illingworth and Ville Mustonen.
+\newblock {Distinguishing driver and passenger mutations in an evolutionary
+  history categorized by interference}.
+\newblock {\em Genetics}, 189(3):989--1000, 2011.
+
+\bibitem{illingworth2012quantifying}
+Christopher J~R Illingworth, Leopold Parts, Stephan Schiffels, Gianni Liti, and
+  Ville Mustonen.
+\newblock {Quantifying selection acting on a complex trait using allele
+  frequency time series data}.
+\newblock {\em Molecular biology and evolution}, 29(4):1187--1197, 2012.
 
 \bibitem{izutsu2015dynamics}
 Minako Izutsu, Atsushi Toyoda, Asao Fujiyama, Kiyokazu Agata, and Naoyuki Fuse.
@@ -98,6 +173,19 @@ Aashish~R Jha, Cecelia~M Miles, Nodia~R Lippert, Christopher~D Brown, Kevin~P
   polygenic basis of egg-size variation in Drosophila melanogaster}.
 \newblock {\em Molecular biology and evolution}, 32(10):2616--2632, 2015.
 
+\bibitem{kawecki2012experimental}
+Tadeusz~J Kawecki, Richard~E Lenski, Dieter Ebert, Brian Hollis, Isabelle
+  Olivieri, and Michael~C Whitlock.
+\newblock {Experimental evolution}.
+\newblock {\em Trends in ecology {\&} evolution}, 27(10):547--560, 2012.
+
+\bibitem{kimura1955solution}
+Motoo Kimura.
+\newblock {Solution of a process of random genetic drift with a continuous
+  model}.
+\newblock {\em Proceedings of the National Academy of Sciences},
+  41(3):144--150, 1955.
+
 \bibitem{kreitman2000methods}
 Martin Kreitman.
 \newblock {Methods to detect selection in populations with applications to the
@@ -105,11 +193,45 @@ Martin Kreitman.
 \newblock {\em Annual review of genomics and human genetics}, 1(1):539--559,
   2000.
 
+\bibitem{lang2011genetic}
+Gregory~I Lang, David Botstein, and Michael~M Desai.
+\newblock {Genetic variation and the fate of beneficial mutations in asexual
+  populations}.
+\newblock {\em Genetics}, 188(3):647--661, 2011.
+
+\bibitem{lang2013pervasive}
+Gregory~I Lang, Daniel~P Rice, Mark~J Hickman, Erica Sodergren, George~M
+  Weinstock, David Botstein, and Michael~M Desai.
+\newblock {Pervasive genetic hitchhiking and clonal interference in forty
+  evolving yeast populations}.
+\newblock {\em Nature}, 500(7464):571--574, 2013.
+
 \bibitem{lenski1991long}
 Richard~E Lenski, Michael~R Rose, Suzanne~C Simpson, and Scott~C Tadler.
 \newblock {Long-term experimental evolution in Escherichia coli. I. Adaptation
   and divergence during 2,000 generations}.
 \newblock {\em American naturalist}, pages 1315--1341, 1991.
+
+\bibitem{malaspinas2012estimating}
+Anna-Sapfo Malaspinas, Orestis Malaspinas, Steven~N Evans, and Montgomery
+  Slatkin.
+\newblock {Estimating allele age and selection coefficient from time-serial
+  data}.
+\newblock {\em Genetics}, 192(2):599--607, 2012.
+
+\bibitem{maldarelli2013hiv}
+Frank Maldarelli, Mary Kearney, Sarah Palmer, Robert Stephens, JoAnn Mican,
+  Michael~A Polis, Richard~T Davey, Joseph Kovacs, Wei Shao, Diane Rock-Kress,
+  and Others.
+\newblock {HIV populations are large and accumulate high genetic diversity in a
+  nonlinear fashion}.
+\newblock {\em Journal of virology}, 87(18):10313--10323, 2013.
+
+\bibitem{mathieson2013estimating}
+Iain Mathieson and Gil McVean.
+\newblock {Estimating selection coefficients in spatially structured
+  populations from time series data of allele frequencies}.
+\newblock {\em Genetics}, 193(3):973--984, 2013.
 
 \bibitem{messer2013population}
 Philipp~W Messer and Dmitri~A Petrov.
@@ -122,10 +244,23 @@ Rasmus Nielsen, Scott Williamson, Yuseob Kim, Melissa~J Hubisz, Andrew~G Clark,
 \newblock {Genomic scans for selective sweeps using SNP data}.
 \newblock {\em Genome research}, 15(11):1566--1575, 2005.
 
+\bibitem{orozco2012adaptation}
+PABLO OROZCO-terWENGEL, Martin Kapun, Viola Nolte, Robert Kofler, Thomas Flatt,
+  and Christian Schloetterer.
+\newblock {Adaptation of Drosophila to a novel laboratory environment reveals
+  temporally heterogeneous trajectories of selected alleles}.
+\newblock {\em Molecular ecology}, 21(20):4931--4941, 2012.
+
 \bibitem{Peng2005simuPOP}
 Bo~Peng and Marek Kimmel.
 \newblock {simuPOP: a forward-time population genetics simulation environment}.
 \newblock {\em Bioinformatics}, 21(18):3686--3687, sep 2005.
+
+\bibitem{pollak1983new}
+Edward Pollak.
+\newblock {A new method for estimating the effective population size from
+  allele frequency changes}.
+\newblock {\em Genetics}, 104(3):531--548, 1983.
 
 \bibitem{przeworski2002signature}
 Molly Przeworski.
@@ -143,6 +278,12 @@ Sebastian~E Ramos-Onsins and Julio Rozas.
 \newblock {Statistical properties of new neutrality tests against population
   growth}.
 \newblock {\em Molecular biology and evolution}, 19(12):2092--2100, 2002.
+
+\bibitem{reid2011new}
+Brian~J Reid, Rumen Kostadinov, and Carlo~C Maley.
+\newblock {New strategies in Barrett's esophagus: integrating clonal
+  evolutionary theory with clinical management}.
+\newblock {\em Clinical Cancer Research}, 17(11):3512--3519, 2011.
 
 \bibitem{Ronen2015Haplotype}
 Roy Ronen, Glenn Tesler, Ali Akbari, Shay Zakov, Noah~A Rosenberg, and Vineet
@@ -175,6 +316,11 @@ P~C Sabeti, S~F Schaffner, B~Fry, J~Lohmueller, P~Varilly, O~Shamovsky,
 \newblock {Positive natural selection in the human lineage}.
 \newblock {\em science}, 312(5780):1614--1620, 2006.
 
+\bibitem{sawyer1992population}
+Stanley~A Sawyer and Daniel~L Hartl.
+\newblock {Population genetics of polymorphism and divergence.}
+\newblock {\em Genetics}, 132(4):1161--1176, 1992.
+
 \bibitem{schlotterer2015combining}
 C~Schl{\"{o}}tterer, R~Kofler, E~Versace, R~Tobler, and S~U Franssen.
 \newblock {Combining experimental evolution with next-generation sequencing: a
@@ -198,6 +344,12 @@ Montgomery Slatkin.
 \newblock {Linkage disequilibrium—understanding the evolutionary past and
   mapping the medical future}.
 \newblock {\em Nature Reviews Genetics}, 9(6):477--485, 2008.
+
+\bibitem{song2012simple}
+Yun~S Song and Matthias Steinr{\"{u}}cken.
+\newblock {A simple method for finding explicit analytic transition densities
+  of diffusion processes with general diploid selection}.
+\newblock {\em Genetics}, 190(3):1117--1129, 2012.
 
 \bibitem{Steinrücken2014a}
 Matthias Steinr{\"{u}}cken, Anand Bhaskar, and Yun~S Song.
@@ -229,6 +381,32 @@ Ray Tobler, Susanne~U Franssen, Robert Kofler, Pablo Orozco-terWengel, Viola
 \newblock {Massive habitat-specific genomic response in D. melanogaster
   populations during experimental evolution in hot and cold environments}.
 \newblock {\em Molecular biology and evolution}, 31(2):364--375, 2014.
+
+\bibitem{wang2001pseudo}
+Jinliang Wang.
+\newblock {A pseudo-likelihood method for estimating effective population size
+  from temporally spaced samples}.
+\newblock {\em Genetical research}, 78(03):243--257, 2001.
+
+\bibitem{waples1989generalized}
+Robin~S Waples.
+\newblock {A generalized approach for estimating effective population size from
+  temporal changes in allele frequency.}
+\newblock {\em Genetics}, 121(2):379--391, 1989.
+
+\bibitem{williamson1999using}
+Ellen~G Williamson and Montgomery Slatkin.
+\newblock {Using maximum likelihood to estimate population size from temporal
+  changes in allele frequencies}.
+\newblock {\em Genetics}, 152(2):755--761, 1999.
+
+\bibitem{winters2012development}
+Mark~A Winters, Robert~M {Lloyd Jr}, Robert~W Shafer, Michael~J Kozal,
+  Michael~D Miller, and Mark Holodniy.
+\newblock {Development of elvitegravir resistance and linkage of integrase
+  inhibitor mutations with protease and reverse transcriptase resistance
+  mutations}.
+\newblock {\em PloS one}, 7(7):e40514, 2012.
 
 \bibitem{zhou2011experimental}
 Dan Zhou, Nitin Udpa, Merril Gersten, DeeAnn~W Visk, Ali Bashir, Jin Xue,

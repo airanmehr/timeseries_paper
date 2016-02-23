@@ -79,8 +79,61 @@ demographic processes. Also, more recently, Frequency Increment
   time-series of allele-frequencies is subjected to a selection pressure.
 
 \subsection{Experimental Evolution}
+Recent advances of whole genome sequencing has enabled us to sequence 
+populations at a reasonable cost, such that one could design \emph{experiments} 
+to study different forces of \emph{evolution} in-action. \emph{Experimental 
+evolution} is the study of the evolutionary processes of a model organism in a 
+controlled  
+\cite{hegreness2006equivalence,lang2013pervasive,orozco2012adaptation,
+	lang2011genetic,barrick2009genome,bollback2007clonal} 
+or natural 
+	\cite{maldarelli2013hiv,reid2011new,denef2012situ,winters2012development,
+	daniels2013genetic,barrett2008natural,bergland2014genomic} environment.
+
+While constraints such as small population sizes, limited timescales and 
+oversimplified  laboratory
+ environments limits interpreting experimental evolution results, it has
+  been used to test different hypothesis~\cite{kawecki2012experimental}
+   regarding
+mutation and adaptation, 
+genetic drift and inbreeding, 
+environmental variability,
+sexual selection and conflict, 
+kin selection and cooperation
+life history and sex allocation, 
+sexual reproduction and mating systems, 
+behavior and cognition, 
+host–parasite interactions, 
+speciation
+repeatability of evolution.
+
+In addition, time-series \emph{models} is shown to be more powerful 
+\cite{boyko2008assessing,desai2008polymorphism,sawyer1992population} 
+than single-snapshot data.
+In particular, dynamic data has been used to estimate model parameters 
+including population size
+\cite{williamson1999using,wang2001pseudo,pollak1983new,waples1989generalized,
+	Terhorst2015Multi}
+strength of selection
+\cite{mathieson2013estimating,illingworth2011distinguishing,Terhorst2015Multi
+	bollback2008estimation,illingworth2012quantifying,malaspinas2012estimating,
+	Steinrücken2014a, malaspinas2012estimating}, allele age
+ \cite{malaspinas2012estimating}
+recombination rate and mutation rate~\cite{Terhorst2015Multi}. 
+
+Linked-loci time-series (spatio-temporal) methods 
+\cite{illingworth2011distinguishing,illingworth2012quantifying,
+	Barrick2013GenomeTerhorst2015Multi} incorporate linkage into computation
+ which makes it cumbersome. Theoretical diffusion approximation method has also 
+ developed for neutral allele frequencies~\cite{ew kimura1955solution}
+neutral AFS~\cite{evans2007non}, neutral allele
+ frequencies~\cite{song2012simple}.
+
+
 \cite{Barrick2013Genome,Elena2003Evolution}
 example \cite{jha2015whole}
+
+
 Experimental evolution (including evolve and re-sequence paradigms)
 have become increasingly popular as a complementary tool to understand
 the forces of selection, allowing for controlled environments,
@@ -90,7 +143,7 @@ et al.~\cite{Barrick2013Genome} evolved flies for over $600$ generations
 under
 selection for accelerated development, and noted that evolution for
 sexual populations is very different from those of asexual populations
-(e.g., Lenski~\cite{}): the effects of clonal interference is slower
+(e.g., Lenski): the effects of clonal interference is slower
 due to recombination that allows for the incorporation of multiple
 beneficial alleles, but there are fewer, unconditionally advantageous
 alleles that arise at the onset of selection. Rose and
@@ -102,6 +155,9 @@ genes involved in hypoxia tolerance~\cite{zhou2011experimental}.  Instead,
 they observed
 incomplete fixation (`soft-sweeps') due in part to standing variation,
 changing selection coefficients, and small fitness effects.
+Barrick et al. \cite{barrick2009genome} evolved a population of 
+\emph{Escherichia coli} for 40,000 generations.
+
 
 Much like in natural populations, many of these studies also
 sequenced/genotyped only the latest population. However, the emergence
@@ -115,10 +171,8 @@ frequencies of the derived allele at all loci at different time
 points. Methods for analyzing such time series pooled sequence data
 are only just being developed.
 
-\textbf{\begin{itemize}
-\item Asexual vs sexual
-\item examples
-\end{itemize}}
+Asexual 
+\cite{bollback2008estimation,lenski1991long,lang2013pervasive}
 
 \subsection{Related Work}
 In this paper we aim to use the tools and machinery that has been
@@ -129,7 +183,7 @@ a population in different generations of a Wright-Fisher model. This
 problem has been previously treated by using Gaussian Processes
 \cite{Terhorst2015Multi}, spectral methods \cite{Steinrücken2014a}
 
-\subsection{Challanges}
+\subsection{Challenges}
 Nearby loci are correlated due to linkage disequilibrium (LD), which
 decays due to crossover events. Therefore, it is widely recognized
 that considering multiple linked loci together should improve the
@@ -155,7 +209,7 @@ of both methods.
 \end{itemize}
 
 \section{Results}
-\subsection{Simulattions}
+\subsection{Simulations}
 For each experiment a diploid population is created and evolved as follows. 
 \paragraph{I. Creating initial founder lines}
 First using msms prgram, we created a population for $F$ founding 
@@ -327,7 +381,7 @@ The gradient descent update is given by
 \end{equation}
 where $\eta$ is the learning rate. Also, since this problem is not
 convex, we use Nestrov's Accelerated Gradient (NAG) descent
-algorithm~\cite{sutskever2013} which has shown to be successful on
+algorithm which has shown to be successful on
 many nonconvex problems. Each iteration of the optimization takes
 $\Oc(TR)$ computations which make the algorithm tractable in practice
 
