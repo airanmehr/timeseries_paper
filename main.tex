@@ -70,14 +70,19 @@ SFSelect~\cite{ronen2013learning} compute test statistic as "\emph{a}"
 	   weights. As with Bayesian inference, using a \emph{not-reasonable prior}
 	    distribution would lead to poor results.} 
 	convex 
-combination of Allele Frequency Spectrum(AFS)~\cite{achaz2009frequency}. 
+combination of Allele Frequency Spectrum(AFS)~\cite{achaz2009frequency} 
+(Figure \ref{fig:afs}. 
 However, despite their simplicity and intuitiveness, it has been shown that
  ~\cite{ptak2002evidence, ramos2002statistical} AFS-based tests often fail 
  to discriminate between positive selection and a dynamic
 demographic processes. Also, more recently, Frequency Increment
  Test(FIT)~\cite{feder2014Identifying} is  proposed to test whether a
   time-series of allele-frequencies is subjected to a selection pressure.
-
+\begin{figure}
+	\label{fig:afs}
+	\centering
+	\includegraphics[scale=0.2]{afs}
+\end{figure}
 \paragraph{Experimental Evolution}
 Recent advances of whole genome sequencing has enabled us to sequence 
 populations at a reasonable cost, such that one could design \emph{experiments} 
@@ -179,6 +184,17 @@ added]
 \item time scale
 \item population size
 \end{itemize}
+\begin{figure}
+	\centering \label{fig:sweep}
+	\begin{tabular}{lr}
+	\includegraphics[trim={2in 0.5in 1.5in 
+			0in},clip,page=2,width=0.5\textwidth]{sigmoidSoft}
+		&\includegraphics[trim={2in 0.5in 1.9in 
+			0in},clip,page=2,width=0.5\textwidth]{sigmoidHard}
+	\end{tabular}
+	\caption{soft (left) and hard (right) sweep.}
+\end{figure}
+
 
 \section{Results}
 \subsection{Simulations}
@@ -198,12 +214,24 @@ Given initial diploid population, position of the site under selection, selectio
 strength $s$, number of replicates $R=3$, recombination rate $r=10^{-8}$ 
 and sampling times $\Tc$ simuPop is used to perform forward simulation and 
 compute allele frequencies for all of the $R$.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[trim={ 2in 0 1.8in 0},clip,scale=0.4]{sigmoidHard.png}
+\begin{figure}
+	\centering \label{fig:bottleneck}
+	\includegraphics[scale=0.2]{bottleneck}
+\end{figure}
+\newpage
+\begin{figure}
+	\centering \label{fig:dynamic-strong}
+	\includegraphics[trim={2in 0.5in 2in 
+	0in},clip,page=1,width=\textwidth]{{GlobalDynamics.TimeSeries}.pdf}
+	\caption{Mean and 95\% CI of 1000 simulations for strong selection.}
 \end{figure}
 
+\begin{figure}
+	\centering \label{fig:dynamic-weak}
+	\includegraphics[trim={2in 0.5in 2in 
+	0in},clip,page=4,width=\textwidth]{{GlobalDynamics.TimeSeries}.pdf}
+	\caption{Mean and 95\% CI of 1000 simulations for weak selection.}
+\end{figure}
 \subsection{Linkage Disequilibrium}
 
 \subsection{Sampling Times}
