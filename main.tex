@@ -78,7 +78,7 @@ demographic processes. Also, more recently, Frequency Increment
  Test(FIT)~\cite{feder2014Identifying} is  proposed to test whether a
   time-series of allele-frequencies is subjected to a selection pressure.
 
-\subsection{Experimental Evolution}
+\paragraph{Experimental Evolution}
 Recent advances of whole genome sequencing has enabled us to sequence 
 populations at a reasonable cost, such that one could design \emph{experiments} 
 to study different forces of \emph{evolution} in-action. \emph{Experimental 
@@ -90,8 +90,7 @@ or natural
 	\cite{maldarelli2013hiv,reid2011new,denef2012situ,winters2012development,
 	daniels2013genetic,barrett2008natural,bergland2014genomic} environment.
 
-Types of evolution experiments \cite{Barrick2013Genome}
-
+Types of evolution experiments \cite{Barrick2013Genome} [to be added]
 
 While constraints such as small population sizes, limited timescales and 
 oversimplified  laboratory
@@ -171,41 +170,14 @@ frequencies of the derived allele at all loci at different time
 points. Methods for analyzing such time series pooled sequence data
 are only just being developed.
 
-Asexual 
-\cite{bollback2008estimation,lenski1991long,lang2013pervasive}
+\paragraph{Asexual vs Sexual}
+\cite{bollback2008estimation,lenski1991long,lang2013pervasive} [to be 
+added]
 
-\subsection{Related Work}
-In this paper we aim to use the tools and machinery that has been
-developed for RNNs, to model times-series biological data. In
-particular, we consider the population genetics problem of finding
-loci (locus) under selection given observation of allele frequency of
-a population in different generations of a Wright-Fisher model. This
-problem has been previously treated by using Gaussian Processes
-\cite{Terhorst2015Multi}, spectral methods \cite{Steinrücken2014a}
-
-\subsection{Challenges}
-Nearby loci are correlated due to linkage disequilibrium (LD), which
-decays due to crossover events. Therefore, it is widely recognized
-that considering multiple linked loci together should improve the
-selection signature. This correlation is modeled in two broad
-approaches. In the first, the LD is modeled with a covariance matrix
-that depends upon the genetic distance, and the parameters for the
-joint distribution are measured. While general, it is computationally
-intensive to estimate parameters for a large number of linked loci, 
-and the problem becomes harder with time series data. 
-
-The second approach ignores the exact recombination parameter, assuming
-that recombination plays a small role, and models instead the shift in
-the allele (or haplotype) frequency spectrum due to the selection
-pressure. While the second approach has historically been very useful
-in identifying regions under selection, the summary statistics derived
-from the AFS have not been used to estimate the selection coefficient
-itself. Here, we propose a novel method that combines the advantages
-of both methods.
-
+\paragraph{Challenges} [to be added]
 \begin{itemize}
-\item scale
-\item early epoch
+\item time scale
+\item population size
 \end{itemize}
 
 \section{Results}
