@@ -1,5 +1,10 @@
 \begin{thebibliography}{10}
 
+\bibitem{achaz2009frequency}
+Guillaume Achaz.
+\newblock {Frequency spectrum neutrality tests: one for all and all for one}.
+\newblock {\em Genetics}, 183(1):249--258, 2009.
+
 \bibitem{akey2009constructing}
 Joshua~M Akey.
 \newblock {Constructing genomic maps of positive selection in humans: Where do
@@ -51,6 +56,11 @@ Warren~J Ewens.
 \newblock {\em {Mathematical Population Genetics 1: Theoretical Introduction}},
   volume~27.
 \newblock Springer Science {\&} Business Media, 2012.
+
+\bibitem{fay2000hitchhiking}
+Justin~C Fay and Chung-I Wu.
+\newblock {Hitchhiking under positive Darwinian selection}.
+\newblock {\em Genetics}, 155(3):1405--1413, 2000.
 
 \bibitem{feder2014Identifying}
 Alison~F Feder, Sergey Kryazhimskiy, and Joshua~B Plotkin.

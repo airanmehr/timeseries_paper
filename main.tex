@@ -26,7 +26,7 @@ simulation study shows the proposed method has a superior performance
 over conventional method both in hard and soft sweeps.
 \end{abstract}
 
-\cite{Steinrücken2014a,schlotterer2015combining,akey2009constructing,izutsu2015dynamics,ptak2002evidence,Elena2003Evolution,rose1994evolutionary,Hudson2002Generating,Barrick2013Genome,bergland2014genomic,nielsen2005genomic,Ronen2015Haplotype,feder2014Identifying,feder2012ldx,ronen2013learning,slatkin2008linkage,lenski1991long,tobler2014massive,Ewens2012Mathematical,kreitman2000methods,feder2016more,barton1991natural,andersson2011notch,messer2013population,sabeti2006positive,ronen2015predicting,schlotterer2014sequencing,Peng2005simuPOP,schrider2015soft,tajima1989statistical,ramos2002statistical,Stephan2006The,braverman1995hitchhiking,przeworski2002signature,enard2015viruses}
+
 
 \section{Introduction}
 Genetic adaptation is \emph{the} central evolutionary process and is at the
@@ -39,33 +39,44 @@ Malaria could be treated with cheap drugs such as quinine instead of
 being one of the world's worst killers. 
 Crop pests would be manageable with small doses of safe insecticides 
 instead of requiring applications of ever increasing amounts of a diverse array 
-of powerful chemicals. 
+of powerful chemicals. [[Example for Bacteria and TB and some references]]
 In both disease and agriculture, we find ourselves in an arms race due to the
 ability of organisms to adapt.
 
 Adaptation leaves a variety of detectable signatures in
 genomes \cite{nielsen2005genomic,akey2009constructing,
 kreitman2000methods,messer2013population,sabeti2006positive}.
-The rapid expansion of adaptive alleles in
-populations leads to both an excess of functional changes between
-species and distortions in polymorphism patterns known as selective
-sweeps~\cite{nielsen2005genomic}. The signatures of selective sweeps, which
-include reduction of levels of polymorphism and the presence of too
-many rare alleles~\cite{nielsen2005genomic, przeworski2002signature}, have 
-been the basis
-for assessing genomic patterns in many genome scans for
-adaptation. Classical tests such as the well-known Tajima's \emph{D}
-statistic~\cite{tajima1989statistical} that rely on the \emph{site-frequency
-  spectrum}---a list of counts of the numbers of genomic sites in a
-region with each of the different possible allele frequencies have
-been among the first steps in genomic detection of selection, but they
-have largely been chosen in a non-systematic manner to identify quite
-specific rather than general signatures of selection, and they have
-often faced the problem of confounding of positive selection with
-demographic processes~\cite{ptak2002evidence, ramos2002statistical}.
-Part of the challenge is that studies on natural populations are
-conducted on a extant populations, a single window in a complex,
-uncontrolled process.
+The rapid expansion of adaptive alleles in populations leads to both an excess
+of functional changes between species and distortions in polymorphism patterns
+known as selective sweeps~\cite{nielsen2005genomic}. The signatures of
+selective sweeps, which include reduction of levels of polymorphism and the
+presence of too many rare alleles~\cite{nielsen2005genomic,
+przeworski2002signature}, have been the basis for assessing genomic
+patterns in many genome scans for adaptation. Depending on the
+\emph{1)data availability}, e.g. allele frequency vs. haplotype, single vs 
+multiple  population, single-snapshot vs time-series observation and 
+\emph{2)objective of the test}, e.g. detecting recent or ancient
+sweep, and \emph{3)simulation model}, e.g. statistical-test vs likelihood-based 
+models, empirical recipes for detecting selection are available for each
+scenario \cite{sabeti2006positive}.
+
+For example, given allele frequency, a whole family of test such as 
+Tajima's \emph{D} ~\cite{tajima1989statistical}, 
+Fay and Wu's \emph{H}~\cite{fay2000hitchhiking}, 
+SFSelect~\cite{ronen2013learning} compute test statistic as "\emph{a}"
+\footnote{Convex combination is a linear combination which weights are positive
+	 and sum to one. Under a Bayesian prospective, it can be regarded as a
+	  \emph{expectation} which the prior distribution is determined by the
+	   weights. As with Bayesian inference, using a \emph{not-reasonable prior}
+	    distribution would lead to poor results.} 
+	convex 
+combination of Allele Frequency Spectrum(AFS)~\cite{achaz2009frequency}. 
+However, despite their simplicity and intuitiveness, it has been shown that
+ ~\cite{ptak2002evidence, ramos2002statistical} AFS-based tests often fail 
+ to discriminate between positive selection and a dynamic
+demographic processes. Also, more recently, Frequency Increment
+ Test(FIT)~\cite{feder2014Identifying} is  proposed to test whether a
+  time-series of allele-frequencies is subjected to a selection pressure.
 
 \subsection{Experimental Evolution}
 \cite{Barrick2013Genome,Elena2003Evolution}
@@ -494,7 +505,7 @@ D_0+\log(1-\nu_t) \frac{W_0}{\log(n)} -\nu_t^2 \Pi_0\\
 %\input{method}
 %\input{experiment}
 %\input{conclusion}
-
+\cite{Steinrücken2014a,schlotterer2015combining,akey2009constructing,izutsu2015dynamics,ptak2002evidence,Elena2003Evolution,rose1994evolutionary,Hudson2002Generating,Barrick2013Genome,bergland2014genomic,nielsen2005genomic,Ronen2015Haplotype,feder2014Identifying,feder2012ldx,ronen2013learning,slatkin2008linkage,lenski1991long,tobler2014massive,Ewens2012Mathematical,kreitman2000methods,feder2016more,barton1991natural,andersson2011notch,messer2013population,sabeti2006positive,ronen2015predicting,schlotterer2014sequencing,Peng2005simuPOP,schrider2015soft,tajima1989statistical,ramos2002statistical,Stephan2006The,braverman1995hitchhiking,przeworski2002signature,enard2015viruses}
 \bibliographystyle{plain}
 \bibliography{library}
 \end{document}
