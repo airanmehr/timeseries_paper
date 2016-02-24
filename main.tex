@@ -8,6 +8,10 @@
 \affil[1]{\footnotesize Electrical and Computer Engineering, University of California, San Diego, La Jolla, CA 92093, USA.}
 \affil[2]{\footnotesize Computer Science \& Engineering, University of California, San Diego, La Jolla, CA 92093, USA}
 \date{}
+%\
+%\bibliographystyle{plain}
+\usepackage{natbib}
+\bibliographystyle{plain}
 \begin{document}
 \maketitle
 \begin{abstract}
@@ -70,15 +74,20 @@ SFSelect~\cite{ronen2013learning} compute test statistic as "\emph{a}"
 	   weights. As with Bayesian inference, using a \emph{not-reasonable prior}
 	    distribution would lead to poor results.} 
 	convex 
-combination of Allele Frequency Spectrum(AFS)~\cite{achaz2009frequency}. 
+combination of Allele Frequency Spectrum(AFS)~\cite{achaz2009frequency} 
+(Figure \ref{fig:afs}. 
 However, despite their simplicity and intuitiveness, it has been shown that
  ~\cite{ptak2002evidence, ramos2002statistical} AFS-based tests often fail 
  to discriminate between positive selection and a dynamic
 demographic processes. Also, more recently, Frequency Increment
  Test(FIT)~\cite{feder2014Identifying} is  proposed to test whether a
   time-series of allele-frequencies is subjected to a selection pressure.
-
-\subsection{Experimental Evolution}
+\begin{figure}
+	\label{fig:afs}
+	\centering
+	\includegraphics[scale=0.2]{afs}
+\end{figure}
+\paragraph{Experimental Evolution}
 Recent advances of whole genome sequencing has enabled us to sequence 
 populations at a reasonable cost, such that one could design \emph{experiments} 
 to study different forces of \emph{evolution} in-action. \emph{Experimental 
@@ -90,8 +99,7 @@ or natural
 	\cite{maldarelli2013hiv,reid2011new,denef2012situ,winters2012development,
 	daniels2013genetic,barrett2008natural,bergland2014genomic} environment.
 
-Types of evolution experiments \cite{Barrick2013Genome}
-
+Types of evolution experiments \cite{Barrick2013Genome} [to be added]
 
 While constraints such as small population sizes, limited timescales and 
 oversimplified  laboratory
@@ -171,42 +179,25 @@ frequencies of the derived allele at all loci at different time
 points. Methods for analyzing such time series pooled sequence data
 are only just being developed.
 
-\paragraph{Asexual }
-\cite{bollback2008estimation,lenski1991long,lang2013pervasive}
-
-\subsection{Related Work}
-In this paper we aim to use the tools and machinery that has been
-developed for RNNs, to model times-series biological data. In
-particular, we consider the population genetics problem of finding
-loci (locus) under selection given observation of allele frequency of
-a population in different generations of a Wright-Fisher model. This
-problem has been previously treated by using Gaussian Processes
-\cite{Terhorst2015Multi}, spectral methods \cite{Steinrücken2014a}
-
-\subsection{Challenges}
-Nearby loci are correlated due to linkage disequilibrium (LD), which
-decays due to crossover events. Therefore, it is widely recognized
-that considering multiple linked loci together should improve the
-selection signature. This correlation is modeled in two broad
-approaches. In the first, the LD is modeled with a covariance matrix
-that depends upon the genetic distance, and the parameters for the
-joint distribution are measured. While general, it is computationally
-intensive to estimate parameters for a large number of linked loci, 
-and the problem becomes harder with time series data. 
-
-The second approach ignores the exact recombination parameter, assuming
-that recombination plays a small role, and models instead the shift in
-the allele (or haplotype) frequency spectrum due to the selection
-pressure. While the second approach has historically been very useful
-in identifying regions under selection, the summary statistics derived
-from the AFS have not been used to estimate the selection coefficient
-itself. Here, we propose a novel method that combines the advantages
-of both methods.
-
+\paragraph{Asexual vs Sexual}
+\cite{bollback2008estimation,lenski1991long,lang2013pervasive} [to be 
+added]
+\paragraph{Challenges} [to be added]
 \begin{itemize}
-\item scale
-\item early epoch
+\item time scale
+\item population size
 \end{itemize}
+\begin{figure}
+	\centering \label{fig:sweep}
+	\begin{tabular}{lr}
+	\includegraphics[trim={2in 0.5in 1.5in 
+			0in},clip,page=2,width=0.5\textwidth]{sigmoidSoft}
+		&\includegraphics[trim={2in 0.5in 1.9in 
+			0in},clip,page=2,width=0.5\textwidth]{sigmoidHard}
+	\end{tabular}
+	\caption{soft (left) and hard (right) sweep.}
+\end{figure}
+
 
 \section{Results}
 \subsection{Simulations}
@@ -226,12 +217,24 @@ Given initial diploid population, position of the site under selection, selectio
 strength $s$, number of replicates $R=3$, recombination rate $r=10^{-8}$ 
 and sampling times $\Tc$ simuPop is used to perform forward simulation and 
 compute allele frequencies for all of the $R$.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[trim={ 2in 0 1.8in 0},clip,scale=0.4]{sigmoidHard.png}
+\begin{figure}
+	\centering \label{fig:bottleneck}
+	\includegraphics[scale=0.2]{bottleneck}
+\end{figure}
+\newpage
+\begin{figure}
+	\centering \label{fig:dynamic-strong}
+	\includegraphics[trim={2in 0.5in 2in 
+	0in},clip,page=1,width=\textwidth]{{GlobalDynamics.TimeSeries}.pdf}
+	\caption{Mean and 95\% CI of 1000 simulations for strong selection.}
 \end{figure}
 
+\begin{figure}
+	\centering \label{fig:dynamic-weak}
+	\includegraphics[trim={2in 0.5in 2in 
+	0in},clip,page=4,width=\textwidth]{{GlobalDynamics.TimeSeries}.pdf}
+	\caption{Mean and 95\% CI of 1000 simulations for weak selection.}
+\end{figure}
 \subsection{Linkage Disequilibrium}
 
 \subsection{Sampling Times}
@@ -555,11 +558,14 @@ D_0+\log(1-\nu_t) \frac{W_0}{\log(n)} -\nu_t^2 \Pi_0\\
 2\Pi_0\nu_t - \frac{\frac{W_0}{\log(n)}}{1-\nu_t}=a\nu_t + \frac{b}{1-\nu_t}
 \eeq
 
+\begin{figure}
+	\centering
+	\includegraphics[trim=2.2in 0 2.2in 0 , clip,width=\textwidth]{power}
+\end{figure}
 %\input{intro}
 %\input{method}
 %\input{experiment}
 %\input{conclusion}
 \cite{Steinrücken2014a,schlotterer2015combining,akey2009constructing,izutsu2015dynamics,ptak2002evidence,Elena2003Evolution,rose1994evolutionary,Hudson2002Generating,Barrick2013Genome,bergland2014genomic,nielsen2005genomic,Ronen2015Haplotype,feder2014Identifying,feder2012ldx,ronen2013learning,slatkin2008linkage,lenski1991long,tobler2014massive,Ewens2012Mathematical,kreitman2000methods,feder2016more,barton1991natural,andersson2011notch,messer2013population,sabeti2006positive,ronen2015predicting,schlotterer2014sequencing,Peng2005simuPOP,schrider2015soft,tajima1989statistical,ramos2002statistical,Stephan2006The,braverman1995hitchhiking,przeworski2002signature,enard2015viruses}
-\bibliographystyle{plain}
 \bibliography{library}
 \end{document}
