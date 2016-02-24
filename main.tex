@@ -8,10 +8,7 @@
 \affil[1]{\footnotesize Electrical and Computer Engineering, University of California, San Diego, La Jolla, CA 92093, USA.}
 \affil[2]{\footnotesize Computer Science \& Engineering, University of California, San Diego, La Jolla, CA 92093, USA}
 \date{}
-%\
-%\bibliographystyle{plain}
-\usepackage{natbib}
-\bibliographystyle{plain}
+
 \begin{document}
 \maketitle
 \begin{abstract}
@@ -80,7 +77,7 @@ However, despite their simplicity and intuitiveness, it has been shown that
  ~\cite{ptak2002evidence, ramos2002statistical} AFS-based tests often fail 
  to discriminate between positive selection and a dynamic
 demographic processes. Also, more recently, Frequency Increment
- Test(FIT)~\cite{feder2014Identifying} is  proposed to test whether a
+ Test(FIT) \cite{feder2014Identifying} is  proposed to test whether a
   time-series of allele-frequencies is subjected to a selection pressure.
 \begin{figure}
 	\label{fig:afs}
@@ -236,33 +233,10 @@ compute allele frequencies for all of the $R$.
 	\caption{Mean and 95\% CI of 1000 simulations for weak selection.}
 \end{figure}
 \subsection{Linkage Disequilibrium}
-
-\subsection{Sampling Times}
-$\Tc=\{0,10,20,\ldots ,100\} + \delta$ where $\delta$ is randomly chosen so 
-that sampling is taken up along different epochs of sweep for different 
-experiments.
-we van rearrange \eqref{naive2point}
-\beq
-t=\frac{2}{s}(\nu(x_t)-\nu(x_0))
-\eeq
-where setting $x_t=1/2$, we can compute fixatoin time 
-\beq
-t_{Fix}=\frac{-4\eta(x_0)}{s}
-\eeq
-In the case of hard sweep, by setting fixation frequency to $x_t=1-1/F$ and 
-$x_0=1/F$ time to fixation can be computed
-\beq
-\eta(1-1/F)=st/2+\eta(1/F)\\
-t_{Fix}(s)=2\frac{\eta(1-1/F)-\eta(1/F)}{s}=\frac{-4\eta(1/F)}{s}
-\eeq
-To emphasize on mid frequency samples, we sample with rejection from 
-discrete normal $\Nc_d$ with $\mu=t_{Fix}(s)/2$, i.e., time to $x_t=0.5$ and 
-std of $t_{Fix}(s)/6$ (so that $[0,t_{Fix}]=[\mu-3std, \mu+3std]$ be the 
-99.5\% confidence interval).
-\beq
-\delta \sim \Nc_d(t_{Fix}/2, t_{Fix}/4)
-\eeq
-
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{spaceTimeLD}
+\end{figure}
 
 \subsection{Detecting Selection}
 \subsubsection{Hard Sweep vs Soft Sweep}
@@ -361,40 +335,13 @@ with respect to $s$:
 	\label{eq:nlls0}
 \end{equation}
 which is an instance of non-linear least squares optimization.
-Setting $y_t(s)=\sigma(st/2-c)$, and using $L_2$ regularization, we
-compute
-\begin{equation}
-	s^*=\underset{s}{\arg \min} \frac{1}{2}  \sum_{r=1}^R\sum_{t\in \Tc} \left( 
-	\sigma(st/2-c)- x_{r,\ell,t} \right)^2 + \frac{\lambda }{2}s^2
-\end{equation}
-which is a standard 1-d nonlinear regularized nonlinear least squares
-(RNLLS) optimization problem and $\lambda$ is the regularization
-hyperparameter to trade-off between minimizing error and regularizing
-$s$. To solve it we need to use iterative optimization algorithms
-which require computing the 
-gradient\footnote{$\sigma'(s)=\sigma(s)(1-\sigma(s))$} w.r.t. $s$
-\begin{equation}
-	g_\ell= \frac{t}{2}  \sum_{r=1}^R \sum_{t\in \Tc}  ( \sigma(st/2-c)- x_{r,\ell,t} 
-	) \sigma(st/2-c) (1-\sigma(st/2)) + \lambda s\; .
-	\label{eq:grad}
-\end{equation}
-The gradient descent update is given by
-\begin{equation}
-	s\leftarrow s - \eta  g_\ell\;,
-\end{equation}
-where $\eta$ is the learning rate. Also, since this problem is not
-convex, we use Nestrov's Accelerated Gradient (NAG) descent
-algorithm which has shown to be successful on
-many nonconvex problems. Each iteration of the optimization takes
-$\Oc(TR)$ computations which make the algorithm tractable in practice
-
 \subsection{Linked-locus Methods}
 
 \subsection{Likelihood Ratio Test}
 Using the MLE (and other) estimates of $s$ it is desirable to perform a 
 secondary task such as \emph{testing for selection} or \emph{locating the 
 site under selection}. Likelihood ratio test (LRT) statistics for time series 
-\cite{feder2014identifying} have shown to be predictors for differentiating
+\cite{feder2014Identifying} have shown to be predictors for differentiating
  neutral and  natural selection evolution cases. For a single locus model, the
   likelihood ratio 
 test statistics $\Lambda(s*)$ is defined
@@ -402,23 +349,6 @@ test statistics $\Lambda(s*)$ is defined
 \Lambda(s^*) = \log \left(\frac{\Lc(\bfX|s=s*)}{\Lc(\bfX|s=0)}\right)
 \eeq
 where $s^*$ is the optimal solution for the maximum-likelihood procedure. 
-For the Gaussian process and Gaussian model the likelihood $\Lc_{GP}$ and 
-$\Lc_G$ are well defined and \eqref{eq:lrt} can be easily evaluated. The 
-likelihood of the Naive method for estimating based on $x_t$ is 
-\beq
-\Lc_N(s|x_t,x_0)=x_t-\sigma(st/2 -c)
-\eeq
-
-In addition to LRT, the value of $s^*$ itself can be regarded as a signal for 
-detecting selection. In other words, modifying the LRT to
-\beq
-\Theta=s^*\Lambda(s^*)
-\eeq
-will take into account of two different objectives, 1)model discrepancy from 
-neutral model 2)strength of selection under non-neutral model. In the  results 
-we show that the modified-LRT makes more accurate predictions.
-\newpage
-
 
 \newpage
 \section{Appendix}
@@ -452,16 +382,16 @@ Our goal is to estimate $s$ given allele frequencies, and/or to decide
 if $s>0$. Note that the dependence on $s$ is non-linear. Define an
 auxiliary continuous (in time) function $\nu_t(s)$ as follows:
 $\nu_0(s)=x_0$ for all $s$, and:
-\begin{eqnarray}
-\nu_{t+\delta t}(s) &=& \nu_t(s)+\frac{\nu_t(s)(1-\nu_t(s))s\delta 
+\beqq
+\nu_{t+\delta t}(s) &= \nu_t(s)+\frac{\nu_t(s)(1-\nu_t(s))s\delta 
 	t}{2+2s\delta t \nu_t(s)}\;,\\
-\frac{d\nu_t(s)}{dt} &=&\lim_{\delta t\rightarrow 0}\frac{\nu_{t+\delta t}(s) 
+\frac{d\nu_t(s)}{dt} &=\lim_{\delta t\rightarrow 0}\frac{\nu_{t+\delta t}(s) 
 	-\nu_t(s)}{\delta t}\\
-&=&\lim_{\delta t\rightarrow 
+&=\lim_{\delta t\rightarrow 
 	0}\frac{s\nu_t(s)(1-\nu_t(s))}{2+2\nu_t(s)s\delta t}\\
-&=& \frac{s}{2}\nu_t(s)(1-\nu_t(s)) \;.
+&= \frac{s}{2}\nu_t(s)(1-\nu_t(s)) \;.
 \label{eq:ode}
-\end{eqnarray}
+\eeqq
 The ODE can be readily solved for $\nu_t(s)$ as
 \begin{equation}
 \nu_t(s) =\frac{1}{1+\frac{1-x_0}{x_0}e^{-st/2}} = \sigma(st/2+\eta(x_0)) 
@@ -566,6 +496,7 @@ D_0+\log(1-\nu_t) \frac{W_0}{\log(n)} -\nu_t^2 \Pi_0\\
 %\input{method}
 %\input{experiment}
 %\input{conclusion}
-\cite{Steinrücken2014a,schlotterer2015combining,akey2009constructing,izutsu2015dynamics,ptak2002evidence,Elena2003Evolution,rose1994evolutionary,Hudson2002Generating,Barrick2013Genome,bergland2014genomic,nielsen2005genomic,Ronen2015Haplotype,feder2014Identifying,feder2012ldx,ronen2013learning,slatkin2008linkage,lenski1991long,tobler2014massive,Ewens2012Mathematical,kreitman2000methods,feder2016more,barton1991natural,andersson2011notch,messer2013population,sabeti2006positive,ronen2015predicting,schlotterer2014sequencing,Peng2005simuPOP,schrider2015soft,tajima1989statistical,ramos2002statistical,Stephan2006The,braverman1995hitchhiking,przeworski2002signature,enard2015viruses}
+\cite{achaz2009frequency,akey2009constructing,andersson2011notch,barrett2008natural,Barrick2013Genome,barrick2009genome,barton1991natural,bergland2014genomic,bollback2007clonal,bollback2008estimation,boyko2008assessing,braverman1995hitchhiking,daniels2013genetic,denef2012situ,desai2008polymorphism,Elena2003Evolution,enard2015viruses,evans2007non,Ewens2012Mathematical,fay2000hitchhiking,feder2014Identifying,feder2012ldx,Feder2016More,hegreness2006equivalence,Hudson2002Generating,illingworth2011distinguishing,illingworth2012quantifying,izutsu2015dynamics,jha2015whole,kawecki2012experimental,kimura1955solution,kreitman2000methods,lang2011genetic,lang2013pervasive,lenski1991long,malaspinas2012estimating,maldarelli2013hiv,mathieson2013estimating,messer2013population,nielsen2005genomic,orozco2012adaptation,Peng2005simuPOP,pollak1983new,przeworski2002signature,ptak2002evidence,pybus2015hierarchical,ramos2002statistical,reid2011new,Ronen2015Haplotype,ronen2015predicting,ronen2013learning,rose1994evolutionary,sabeti2006positive,sawyer1992population,schlotterer2015combining,schlotterer2014sequencing,schrider2015soft,Sheehan028175,slatkin2008linkage,song2012simple,Steinrücken2014a,Stephan2006The,tajima1989statistical,Terhorst2015Multi,tobler2014massive,wang2001pseudo,waples1989generalized,williamson1999using,winters2012development,zhou2011experimental}
+\bibliographystyle{plain}
 \bibliography{library}
 \end{document}

@@ -129,7 +129,7 @@ Alison~F Feder, Dmitri~A Petrov, and Alan~O Bergland.
   pooled resequencing data}.
 \newblock {\em PloS one}, 7(11):e48588, 2012.
 
-\bibitem{feder2016more}
+\bibitem{Feder2016More}
 Alison~F Feder, Soo-Yon Rhee, Susan~P Holmes, Robert~W Shafer, Dmitri~A Petrov,
   and Pleuni~S Pennings.
 \newblock {More effective drugs lead to harder selective sweeps in the
@@ -273,6 +273,13 @@ Susan~E Ptak and Molly Przeworski.
   population structure}.
 \newblock {\em Trends in Genetics}, 18(11):559--563, 2002.
 
+\bibitem{pybus2015hierarchical}
+Marc Pybus, Pierre Luisi, Giovanni~Marco Dall'Olio, Manu Uzkudun, Hafid
+  Laayouni, Jaume Bertranpetit, and Johannes Engelken.
+\newblock {Hierarchical boosting: a machine-learning framework to detect and
+  classify hard selective sweeps in human populations}.
+\newblock {\em Bioinformatics}, page btv493, 2015.
+
 \bibitem{ramos2002statistical}
 Sebastian~E Ramos-Onsins and Julio Rozas.
 \newblock {Statistical properties of new neutrality tests against population
@@ -338,6 +345,11 @@ Daniel~R Schrider, F{\'{a}}bio~K Mendes, Matthew~W Hahn, and Andrew~D Kern.
 \newblock {Soft shoulders ahead: spurious signatures of soft and partial
   selective sweeps result from linked hard sweeps}.
 \newblock {\em Genetics}, 200(1):267--284, 2015.
+
+\bibitem{Sheehan028175}
+Sara Sheehan and Yun~S Song.
+\newblock {Deep learning for population genetic inference}.
+\newblock {\em bioRxiv}, 2015.
 
 \bibitem{slatkin2008linkage}
 Montgomery Slatkin.
