@@ -80,9 +80,9 @@ demographic processes. Also, more recently, Frequency Increment
  Test(FIT) \cite{feder2014Identifying} is  proposed to test whether a
   time-series of allele-frequencies is subjected to a selection pressure.
 \begin{figure}
-	\label{fig:afs}
 	\centering
 	\includegraphics[scale=0.2]{afs}
+	\caption{AFS}	\label{fig:afs}
 \end{figure}
 \paragraph{Experimental Evolution}
 Recent advances of whole genome sequencing has enabled us to sequence 
@@ -179,72 +179,115 @@ are only just being developed.
 \paragraph{Asexual vs Sexual}
 \cite{bollback2008estimation,lenski1991long,lang2013pervasive} [to be 
 added]
-\paragraph{Challenges} [to be added]
-\begin{itemize}
-\item time scale
-\item population size
-\end{itemize}
-\begin{figure}
+
+
+\section{Results}
+\paragraph{Notation} Let $\bfX \triangleq (X_{ijk}) \in [0, 1]^{T \times 
+M\times R}$ denote the population frequency where $T$ is the number of samples 
+in time, $M$ is the number of segregating sites, and $R$ is the number of 
+replicates.
+To simplify our notation, we define $x_t$ as a allele frequency of a site in a
+ replicate, and we denote it by $\nu_t$ if such a site is directly under 
+ selection with the strength $s$. I.E., $\nu_t$ can be regarded as frequency of 
+ the carrier in the  population.
+\paragraph{Simulations}
+For each experiment a diploid population is created and evolved as follows. 
+\begin{enumerate}[I.]
+	\item {\bf Creating initial founder line haplotypes}
+	First using msms program, we created neutral populations for $F$ founding 
+	haplotypes with \emph{default} parameters \texttt{\$./msms <F> 1 -t 
+	<2$\mu$LNe> 
+		-r <2rNeL> 
+		<L>} 
+	where $F=200$ is number of founder lines, $N_e=10^6$ is 
+	effective 
+	population size, $r=2*10^{-8}$ is recombination rate and $\mu=2\times 
+	10^{-9}$ is mutation rate and  $L=50K$ is the window size in base pairs 
+	which gives $\theta=2\mu N_eL=200$ and $\rho=2N_erL=2000$. For default 
+	parameter, the expected number of segregating sites in a window is 
+	\beqq
+	\Ebb[M]=\theta \sum_{i=1}^{F-1}\frac{1}{i}=1175
+	\eeqq
+	\item{\bf Creating initial diploid population} 
+	To implement similar setting for experimental evolution of diploid 
+	organisms, 
+	initial  haplotypes first cloned to create $F$ diploid homozygotes. Then 
+	each 
+	diploid individual is  cloned $N/F$ times to yield diploid population of 
+	size 
+	$N$.
+	\item{\bf Forward Simulation}
+	Given initial diploid population, position of the site under selection, 
+	selection 
+	strength $s$, number of replicates $R=3$, recombination rate 
+	$r=2\times10^{-8}$ 
+	and sampling times $\Tc=\{10,20,30,40,50\}$, \texttt{simuPop} is used to 
+	perform
+	forward simulation and  compute allele frequencies for all of the $R$ 
+	replicates.
+\end{enumerate}
+
+\subsection{Dynamics of the Sweep}
+In this part we study the dynamics of selective sweep based on change in allele
+ frequency of single site, and allele frequency spectrum of a 50Kb window. 
+ Then we examine linkage disequilibrium more carefully in the context of dynamic data.
+\paragraph{Allele Frequencies}
+\begin{figure}[t]
 	\centering \label{fig:sweep}
 	\begin{tabular}{lr}
-	\includegraphics[trim={2in 0.5in 1.5in 
+		\includegraphics[trim={2in 0.1in 1.5in 
 			0in},clip,page=2,width=0.5\textwidth]{sigmoidSoft}
-		&\includegraphics[trim={2in 0.5in 1.9in 
+		&\includegraphics[trim={2in 0.1in 1.9in 
 			0in},clip,page=2,width=0.5\textwidth]{sigmoidHard}
 	\end{tabular}
 	\caption{soft (left) and hard (right) sweep.}
 \end{figure}
 
 
-\section{Results}
-\subsection{Simulations}
-For each experiment a diploid population is created and evolved as follows. 
-\paragraph{I. Creating initial founder lines}
-First using msms prgram, we created a population for $F$ founding 
-haplotypes with parameters \texttt{\$./msms <F> 1 -t <4μLNe> -r <4Ne(L − 
-	1)r> <L>} where $F=200$ is number of founder lines, 
-$L=10^5$, $\theta=4\mu LNe=17$ and $\rho=4Ne(L-1)r=4$.  (assuming 
-$Ne=1000$, $r=10^{-8}$ and $\mu=4.25\times 10^{-8}$).  
-\paragraph{II. Creating initial diploid population} 
-To mimic the real E\&R experiment for diploid organisms, first initial 
-haplotypes cloned to create $F$ diploid homozygotes. Then each diploid is 
-cloned $N/F$ times to yield $N$ diploid homozygote organisms.
-\paragraph{III. Forward Simulation}
-Given initial diploid population, position of the site under selection, selection 
-strength $s$, number of replicates $R=3$, recombination rate $r=10^{-8}$ 
-and sampling times $\Tc$ simuPop is used to perform forward simulation and 
-compute allele frequencies for all of the $R$.
-\begin{figure}
-	\centering \label{fig:bottleneck}
-	\includegraphics[scale=0.2]{bottleneck}
-\end{figure}
-\newpage
+\paragraph{Allele Frequency Spectrum}
 \begin{figure}
 	\centering \label{fig:dynamic-strong}
 	\includegraphics[trim={2in 0.5in 2in 
-	0in},clip,page=1,width=\textwidth]{{GlobalDynamics.TimeSeries}.pdf}
+		0in},clip,page=1,width=\textwidth]{{GlobalDynamics.TimeSeries}.pdf}
 	\caption{Mean and 95\% CI of 1000 simulations for strong selection.}
 \end{figure}
 
 \begin{figure}
 	\centering \label{fig:dynamic-weak}
 	\includegraphics[trim={2in 0.5in 2in 
-	0in},clip,page=4,width=\textwidth]{{GlobalDynamics.TimeSeries}.pdf}
+		0in},clip,page=4,width=\textwidth]{{GlobalDynamics.TimeSeries}.pdf}
 	\caption{Mean and 95\% CI of 1000 simulations for weak selection.}
 \end{figure}
-\subsection{Linkage Disequilibrium}
+\paragraph{Linkage Disequilibrium}
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{spaceTimeLD}
 \end{figure}
 
+\paragraph{Challenges}
+\begin{itemize}
+	\item time scale
+	\item population size
+\end{itemize}
+\begin{figure}
+	\centering \label{fig:bottleneck}
+	\includegraphics[scale=0.2]{bottleneck}
+\end{figure}
+
+
+
 \subsection{Detecting Selection}
-\subsubsection{Hard Sweep vs Soft Sweep}
-\subsubsection{Effects of carrier frequency}
-\subsubsection{Effects of sampling times}
-\subsubsection{Effects of number of replicates}
-\subsubsection{Single-Locus vs Multi-locus}
-\subsubsection{Time-series vs single-snapshot}
+\paragraph{Hard Sweep vs Soft Sweep}
+\begin{figure}
+	\centering
+	\includegraphics[trim=2.2in 0 2.2in 0 , clip,width=\textwidth]{power}
+\end{figure}
+
+\paragraph{Effects of carrier frequency}
+\paragraph{Effects of sampling times}
+\paragraph{Effects of number of replicates}
+\paragraph{Single-Locus vs Multi-locus}
+\paragraph{Time-series vs single-snapshot}
 
 \subsection{Locating Selection}
 
@@ -252,18 +295,11 @@ compute allele frequencies for all of the $R$.
 
 
 \section{Materials and Methods}
-We start with a description of `single locus multiple-time point'
-models in which each locus is analyzed independently for evidence of a
-selection constraint. In the subsequent section, we extend the
-methodology to `linked-loci, multiple time' models where we consider
-all linked loci within a small recombination-free window.
-
-\subsection{Dynamics of the Sweep}
 
 \subsection{Single-Locus Methods}
 Consider a bi-allelic single-locus (Wright-Fisher like) model with no
 mutations \cite{Ewens2012Mathematical}, discrete generations, random
- mating etc. With finite population size, the allele frequencies from
+mating etc. With finite population size, the allele frequencies from
 generation to generation are described by the random process
 $\{x_{\ell,t}\}$ which denotes the population allele frequency at
 locus $\ell$ at time generation $t$. The model has access to finite
@@ -283,9 +319,6 @@ population,
 \label{eq:drift}
 \eeq where $\epsilon_t \sim \Nc(0,1)$ is a change due to genetic drift
 in generation $t$.
-
-\paragraph{Allele frequencies under selection.}
-
 
 \paragraph{Naive two-point optimization.} We start with a simplified
 scheme to serve as a baseline for results.  For each $t\in \Tc$, we
@@ -488,10 +521,6 @@ D_0+\log(1-\nu_t) \frac{W_0}{\log(n)} -\nu_t^2 \Pi_0\\
 2\Pi_0\nu_t - \frac{\frac{W_0}{\log(n)}}{1-\nu_t}=a\nu_t + \frac{b}{1-\nu_t}
 \eeq
 
-\begin{figure}
-	\centering
-	\includegraphics[trim=2.2in 0 2.2in 0 , clip,width=\textwidth]{power}
-\end{figure}
 %\input{intro}
 %\input{method}
 %\input{experiment}
