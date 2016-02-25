@@ -232,31 +232,96 @@ In this part we study the dynamics of selective sweep based on change in allele
  frequency of single site, and allele frequency spectrum of a 50Kb window. 
  Then we examine linkage disequilibrium more carefully in the context of dynamic data.
 \paragraph{Allele Frequencies}
+Selection and genetic drift are two main evolutionary forces that cause change in 
+allele frequecy at a segregating site and diffrentiating them using time-series data 
+is the central problem of this paper. In general, these two forces act 
+independently and what is observed as variation in allele frequencies can be 
+caused by either of them or both. Hence, here we treat them independently and 
+assume they are additive.
+
+Under genetic drift, variations in allele frequancies is a random 
+walk, which can be modeled via Moran process~\cite{moran1962statistical}.
+However, working with dynamic allele freqencies, it is convinent to approximate 
+Moran process with a Brownian motion~\cite{Ewens2012Mathematical}. 
+Brownian motion is a random process which is identified by zero-mean identically 
+and independently  distributed Gaussian increments. Feder et al. 
+\cite{feder2014Identifying} designed a neutrality test, Frequency Increment Test 
+(FIT), which tests increments in observed allele frequencies under Null 
+distribution, i.e. $\Nc(0,1/N_e)$\footnote{Note that the strength of drift is 
+proportional to $\frac{1}{N_e}$}.
+
+In the selective sweep with infinite population size, dynamic of allele frequencies 
+can be approximated by the logistic function (see Appendix). Depending on the 
+value of allele frequency at the time selection started, selective sweep is often 
+categorized in two main regiems: hard and soft sweep, Figure \ref{fig:sweep}. 
+Hard sweep occures when the initial allele (carrier) frequency $\nu_0=1/N_e$ is at 
+minimum, and soft-sweep otherwise. This small difference could have 
+consequences~\cite{schrider2015soft} [[explain more]].
+
+As shown in Figures \ref{fig:dynamic-weak} and \ref{fig:dynamic-strong} (first 
+row), the approximate logistic model seems to be consistent with data in both 
+hard and soft-sweep with both weak and strong selection. Hence, we use the 
+logistic model for allele frequencies to estimate the strength of selection for each 
+site.
 \begin{figure}[t]
-	\centering \label{fig:sweep}
 	\begin{tabular}{lr}
+		\centering
 		\includegraphics[trim={2in 0.1in 1.5in 
 			0in},clip,page=2,width=0.5\textwidth]{sigmoidSoft}
 		&\includegraphics[trim={2in 0.1in 1.9in 
 			0in},clip,page=2,width=0.5\textwidth]{sigmoidHard}
 	\end{tabular}
-	\caption{soft (left) and hard (right) sweep.}
+	\caption{soft (left) and hard (right) sweep.} 	 \label{fig:sweep}
 \end{figure}
 
 
-\paragraph{Allele Frequency Spectrum}
+\paragraph{Allele Frequency Spectrum} AFS is the histogram of allele 
+frequencies in a fixed window, which depends on allele frequencies of all sites. 
+Whele Evans et al. \cite{evans2007non} developed diffusion equations for 
+evolution of AFS, they are difficult to solve. However, here instead of analyzing 
+the whole distribution of AFS, we \emph{sclarize} the distribution and study the 
+behavior of it. Scalarization can be done by a weighted linear cobmination of the 
+AFS vector. We choose Tajima's D, Fay Wu's H and SFSelect statistics weights to 
+scalarize the AFS. In other words, we analyze test statistics for Tajima, Fay \& Wu 
+and SFSelect tests.
+\begin{enumerate}[I.]
+	\item {\bf Tajima D} As shown in the Appendix, dynamic of Tajima's D in hard 
+	sweep is
+	\beqq
+	D_t=D_0+\log(1-\nu_t) \frac{W_0}{\log(2N)} -\nu_t^2 \Pi_0
+	\eeqq
+	where $\nu_t$ defined in term of $\nu_0$ and $s$ in \eqref{}, $W_0$ and 
+	$\Pi_0$ are Watterson and Tajima estimate of $\theta$ at first generations.
+	As shown in Figures \ref{fig:dynamic-weak} and \ref{fig:dynamic-strong} (last 
+	row, left), the model is a reasonable. However in early generations, even for 
+	strong selection, it is hard to discriminate between neutral evolution and 
+	selective sweep. Moreover, it can only be used for the hard sweep, which is 
+	makes it difficult to apply on real data.
+	\item {\bf Fay Wu's H} As shown in the Appendix, dynamic of Fay Wu's H in 
+	hard sweep is
+	\beqq
+	nH_t= \theta \nu_t \left(\frac{\nu_t+1}{2} - \frac{1}{(1-\nu_t)n+1}\right) +
+	\theta (1-\nu_t)\left(\frac{n+1}{2n}-\frac{1}{(1-\nu_t)n+1}\right)
+	\eeqq
+	which is a good approximation only in strong selection, Figures 
+	\ref{fig:dynamic-weak} and \ref{fig:dynamic-strong} (second
+	row, left).
+	\item {\bf SFSelect}
+\end{enumerate}
 \begin{figure}
-	\centering \label{fig:dynamic-strong}
+	\centering 
 	\includegraphics[trim={2in 0.5in 2in 
 		0in},clip,page=1,width=\textwidth]{{GlobalDynamics.TimeSeries}.pdf}
 	\caption{Mean and 95\% CI of 1000 simulations for strong selection.}
+	\label{fig:dynamic-strong}
 \end{figure}
 
 \begin{figure}
-	\centering \label{fig:dynamic-weak}
+	\centering
 	\includegraphics[trim={2in 0.5in 2in 
 		0in},clip,page=4,width=\textwidth]{{GlobalDynamics.TimeSeries}.pdf}
 	\caption{Mean and 95\% CI of 1000 simulations for weak selection.}
+	 \label{fig:dynamic-weak}
 \end{figure}
 \paragraph{Linkage Disequilibrium}
 \begin{figure}
