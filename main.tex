@@ -277,7 +277,7 @@ site.
 
 \paragraph{Allele Frequency Spectrum} AFS is the histogram of allele 
 frequencies in a fixed window, which depends on allele frequencies of all sites. 
-Whele Evans et al. \cite{evans2007non} developed diffusion equations for 
+While Evans et al. \cite{evans2007non} developed diffusion equations for 
 evolution of AFS, they are difficult to solve. However, here instead of analyzing 
 the whole distribution of AFS, we \emph{sclarize} the distribution and study the 
 behavior of it. Scalarization can be done by a weighted linear cobmination of the 
@@ -306,8 +306,14 @@ and SFSelect tests.
 	which is a good approximation only in strong selection, Figures 
 	\ref{fig:dynamic-weak} and \ref{fig:dynamic-strong} (second
 	row, left).
-	\item {\bf SFSelect}
-\end{enumerate}
+	\item {\bf SFSelect} is also another test statistic proposed by Ronen et 
+	al. \cite{ronen2013learning} to predict selection by empirically learning 
+	the so-called \emph{optimal} weights using Support Vector Machines. 
+	Figure \ref{fig:dynamic-weak} and \ref{fig:dynamic-strong} (forth
+	row), depicts the dynamics of SFSelect for selection and neutral evolution 
+	in time which differentiates better than D and H statistics only in the 
+	hard sweep scenario.
+{enumerate}
 \begin{figure}
 	\centering 
 	\includegraphics[trim={2in 0.5in 2in 
@@ -324,10 +330,21 @@ and SFSelect tests.
 	 \label{fig:dynamic-weak}
 \end{figure}
 \paragraph{Linkage Disequilibrium}
+
+forces of LD
+
 \begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{spaceTimeLD}
+	\includegraphics[width=\textwidth]{LDDecay2d}
 \end{figure}
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{LDDecay3dNeutral}
+	\includegraphics[width=\textwidth]{LDDecay3dSweep}
+\end{figure}
+
 
 \paragraph{Challenges}
 \begin{itemize}
