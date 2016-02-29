@@ -313,7 +313,7 @@ and SFSelect tests.
 	row), depicts the dynamics of SFSelect for selection and neutral evolution 
 	in time which differentiates better than D and H statistics only in the 
 	hard sweep scenario.
-{enumerate}
+\end{enumerate}
 \begin{figure}
 	\centering 
 	\includegraphics[trim={2in 0.5in 2in 
@@ -358,7 +358,8 @@ forces of LD
 \end{itemize}
 \begin{figure}
 	\centering \label{fig:bottleneck}
-	\includegraphics[scale=0.2]{bottleneck}
+	\includegraphics[trim=3.2in 0.1in 3.2in 0.2in , 
+	clip,width=\textwidth]{bottleneck}
 \end{figure}
 
 
@@ -457,13 +458,18 @@ with respect to $s$:
 which is an instance of non-linear least squares optimization.
 \newpage
 \paragraph{Linked-loci} suppose infinite pop size and no recomb and hard 
-sweep. cosider $\nu$ and $x$ be AF of carrier and linked site with perfect 
+sweep. consider $\nu$ and $x$ be AF of carrier and linked site with perfect 
 linkage. Then
 \beqq
-\delta x &= \delta \nu   \ \ \   if x_0=\nu_0 \\
-\delta x &\le \delta \nu   \ \ \   if x_0>\nu_0 \\
-s_\nu &= \frac{t}{2} (\eta(\nu_t) - \eta(\nu_0))\\
-s_x &= \frac{t}{2} (\eta(x_t) -\eta( x_0))\\
+\delta x_t &= \begin{cases}
+\delta \nu   \ \ \ \   x_0=\nu_0 \\
+\alpha\delta \nu   \ \ \   \alpha \le0, \ x_0>\nu_0 
+\end{cases} \\
+s_x &= \eta(x_t) -\eta( x_0)\\
+s_\nu &= \eta(\nu_t) - \eta(\nu_0)\\
+s_x -s_\nu&= \eta(x_t) -\eta( x_0)-\eta(\nu_t) + \eta(\nu_0)\\
+s_x -s_\nu&= s_{x_t,\nu_t} - s_{x_0,\nu_0}\\
+s_x &= s_\nu+  s_{x_t,\nu_t} - s_{x_0,\nu_0}\\
 \eeqq
 
 
