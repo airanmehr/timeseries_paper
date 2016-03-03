@@ -68,22 +68,30 @@ University of California, San Diego}
 
 \begin{frame}{Introduction}
 \begin{itemize}
-\item We are interested in identifying genetic adaptations in different organisms in find genes (or alleles) that are beneficial w.r.t. a  \emphr{selective pressure}.
-\item Examples of interesting selective pressures: harsh environmental conditions, antibiotics, chemotherapy, etc.
+\item We are interested in (\emphr{quickly}) identifying genetic adaptations, 
+in different organisms in find genes (or alleles) that are beneficial 
+w.r.t. a  \emphr{selective pressure}.
+\item Examples of interesting selective pressures:
+\begin{itemize}
+	\item harsh environmental conditions
+	\item antibiotics
+	\item chemotherapy
+	\item anti-viruses
+	\item pesticides 
+	\item etc.
+\end{itemize} 
 \end{itemize}
 \end{frame}
 
 
 
-\begin{frame}{History}
+\begin{frame}{Datasets}
 \begin{itemize}
-\item Traditionally, detecting/locating selection is done by analysing Allele 
-Frequency Spectrum(AFS) or Haplotypes of a region (say 50Kbp).
-\item {\bf Now}
-\begin{enumerate}
-\item We can sequence the population at different generations
-\item We can't wait until fixation. 
-\end{enumerate}
+\item {\bf Classical Static Datasets}
+Given a single observation of Allele 
+Frequency Spectrum(AFS) or Haplotypes of a region (say 50Kbp) a whole library 
+of tests of selection is available.
+\item {\bf Modern Dynamic Datasets}, multiple observations are available.
 \end{itemize}
 \end{frame}
 
@@ -94,34 +102,38 @@ Experimental Evolution
 \end{figure}
 \end{frame}
 
-\begin{frame}{Goals}
-\begin{itemize}
-\item Given the genome time series data (allele frequencies) we are interested in
-\begin{enumerate}[I]
-\item Detecting selection 
-\item Locating selection
-\begin{enumerate}[(i)]
- \item Identify gene under selection
- \item Identify the mutation 
-\end{enumerate}
-\item Estimating model parameters
-\end{enumerate}
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Simulations}
-\begin{enumerate}[(i)]
-\item For each simulation, population of $F=200$ founder lines is created in  \texttt{msms} program with parameters 
-\begin{itemize}
-\item window size $L=50$Kbp.
-\item mutation rate $\theta=200$.
-\end{itemize}
-
-\item Using $F=200$ founder lines a population diploid is created.
-\item Using forward simulator population is evolved and AF is sampled every 10 generation for 50 generations. 
-\item This procedure is repeated 100 times for each $s=\{0.1, 0.05, 0.02, 0.01, 0\}$.
-\end{enumerate}
-\end{frame}
+%\begin{frame}{Goals}
+%\begin{itemize}
+%\item Given the genome time series data (allele frequencies) we are interested 
+%in
+%\begin{enumerate}[I]
+%\item Detecting selection 
+%\item Locating selection
+%\begin{enumerate}[(i)]
+% \item Identify gene under selection
+% \item Identify the mutation 
+%\end{enumerate}
+%\item Estimating model parameters
+%\end{enumerate}
+%\end{itemize}
+%\end{frame}
+%
+%\begin{frame}{Simulations}
+%\begin{enumerate}[(i)]
+%\item For each simulation, population of $F=200$ founder lines is created in  
+%\texttt{msms} program with parameters 
+%\begin{itemize}
+%\item window size $L=50$Kbp.
+%\item mutation rate $\theta=200$.
+%\end{itemize}
+%
+%\item Using $F=200$ founder lines a population diploid is created.
+%\item Using forward simulator population is evolved and AF is sampled every 10 
+%generation for 50 generations. 
+%\item This procedure is repeated 100 times for each $s=\{0.1, 0.05, 0.02, 
+%0.01, 0\}$.
+%\end{enumerate}
+%\end{frame}
 
 
 %\begin{frame}{Hard Sweep}
@@ -133,7 +145,8 @@ Experimental Evolution
 %\end{frame}
 
 \begin{frame}{Single Locus Logistic Model: Carrier Frequency}
-Dynamics of sweep extremely depend on $s$ as well as initial carrier frequency.Sampling times are very important prediction performance!
+%Dynamics of sweep extremely depend on $s$ as well as initial carrier 
+%frequency.Sampling times are very important prediction performance!
 
 \begin{figure}
 \centering
@@ -179,65 +192,73 @@ Dynamics of sweep extremely depend on $s$ as well as initial carrier frequency.S
   \caption{Mean and 95\% CI of 1000 simulations for weak selection.}
 \end{figure}
 
-\begin{frame}[allowframebreaks]{Single-Locus Least-Squares Method}
-\begin{figure}
-\begin{enumerate}
-\item Model is consistent with observations
-\begin{figure}
-  \centering
-\hspace{-0.5in}\includegraphics[trim={2in 9.3in 2in 0in},clip,page=1,width=\textwidth]{{GlobalDynamics.TimeSeries}.pdf}
-  		   \end{figure}
-  		   \newpage
- \item strong linkage in a window
-\begin{figure}
-\centering
-\hspace{-0in}\includegraphics[scale=0.2]{spaceTimeLD}
-\end{figure}
- \item Estimating $s$ at each site
-\begin{figure}
-\centering
-\hspace{-0in}\includegraphics[scale=0.2]{ls01}
-\end{figure}
-
- \item spectrum of $\hat{s}$ for a window
-\begin{figure}
-\centering
-\hspace{-0in}\includegraphics[scale=0.15]{sspectrum}
-\end{figure}
-\item We considered avg of top $\hat{s}$ as a predictor of selection for a 
-window. 
-\end{enumerate}
-
-\end{figure}
-\end{frame}
-
-\begin{frame}{Tajima's D and Fay Wu's H}
-\begin{enumerate}
-\item After correcting observations for bottleneck effect the model look like observations, but it has a higher variance.
-\begin{figure}
-\hspace{-0.5in} \includegraphics[trim={1.8in 0.25in 2in 9.25in},clip,page=1,width=\textwidth]{{GlobalDynamics.TimeSeries}.pdf}
-  		   \end{figure}
-\begin{figure}
-\hspace{-0.5in} \includegraphics[trim={1.8in 7.75in 2in 2.75in},clip,page=1,width=\textwidth]{{GlobalDynamics.TimeSeries}.pdf}
-  		   \end{figure}
-
-  \item The parametric models assumes hard-sweep, so the model become ivalid in soft sweep.
-\end{enumerate}
-
-\end{frame}
-
-
-\begin{frame}{SFSelect and Gaussian Process}
-\begin{enumerate}
-\item SFSelect process is a monotone process, so we summed all the values in the time series to get a predictor for selection.
-\begin{figure}
-\hspace{-0.5in} \includegraphics[trim={1.8in 4.5in 2in 5.95in},clip,page=1,width=\textwidth]{{GlobalDynamics.TimeSeries}.pdf}
-  		   \end{figure}
-
-  \item GP is the state-of-the art model, proposed by Terhorst et al, which fits a Gaussian process on the time series data.
-\end{enumerate}
-
-\end{frame}
+%\begin{frame}[allowframebreaks]{Single-Locus Least-Squares Method}
+%\begin{figure}
+%\begin{enumerate}
+%\item Model is consistent with observations
+%\begin{figure}
+%  \centering
+%\hspace{-0.5in}\includegraphics[trim={2in 9.3in 2in 
+%0in},clip,page=1,width=\textwidth]{{GlobalDynamics.TimeSeries}.pdf}
+%  		   \end{figure}
+%  		   \newpage
+% \item strong linkage in a window
+%\begin{figure}
+%\centering
+%\hspace{-0in}\includegraphics[scale=0.2]{spaceTimeLD}
+%\end{figure}
+% \item Estimating $s$ at each site
+%\begin{figure}
+%\centering
+%\hspace{-0in}\includegraphics[scale=0.2]{ls01}
+%\end{figure}
+%
+% \item spectrum of $\hat{s}$ for a window
+%\begin{figure}
+%\centering
+%\hspace{-0in}\includegraphics[scale=0.15]{sspectrum}
+%\end{figure}
+%\item We considered avg of top $\hat{s}$ as a predictor of selection for a 
+%window. 
+%\end{enumerate}
+%
+%\end{figure}
+%\end{frame}
+%
+%\begin{frame}{Tajima's D and Fay Wu's H}
+%\begin{enumerate}
+%\item After correcting observations for bottleneck effect the model look like 
+%observations, but it has a higher variance.
+%\begin{figure}
+%\hspace{-0.5in} \includegraphics[trim={1.8in 0.25in 2in 
+%9.25in},clip,page=1,width=\textwidth]{{GlobalDynamics.TimeSeries}.pdf}
+%  		   \end{figure}
+%\begin{figure}
+%\hspace{-0.5in} \includegraphics[trim={1.8in 7.75in 2in 
+%2.75in},clip,page=1,width=\textwidth]{{GlobalDynamics.TimeSeries}.pdf}
+%  		   \end{figure}
+%
+%  \item The parametric models assumes hard-sweep, so the model become ivalid 
+%in soft sweep.
+%\end{enumerate}
+%
+%\end{frame}
+%
+%
+%\begin{frame}{SFSelect and Gaussian Process}
+%\begin{enumerate}
+%\item SFSelect process is a monotone process, so we summed all the values in 
+%the time series to get a predictor for selection.
+%\begin{figure}
+%\hspace{-0.5in} \includegraphics[trim={1.8in 4.5in 2in 
+%5.95in},clip,page=1,width=\textwidth]{{GlobalDynamics.TimeSeries}.pdf}
+%  		   \end{figure}
+%
+%  \item GP is the state-of-the art model, proposed by Terhorst et al, which 
+%fits a Gaussian process on the time series data.
+%\end{enumerate}
+%
+%\end{frame}
 
 \begin{frame}{Experiments}
 \begin{itemize}
@@ -245,10 +266,13 @@ window.
 \item We computed ROC curve and defined power of a method as area under ROC curve when False-Positive rate is less than 0.1.
 \end{itemize}
 \end{frame}
+\begin{frame}[Power of detection]
+	\begin{figure}
+		\centering \includegraphics[trim= 1in 0 1in 0 ,clip,		
+		width=\textwidth]{{power}}
+	\end{figure}
+\end{frame}
 
-\begin{figure}
-  \centering \includegraphics[width=\textwidth]{{power}}
-\end{figure}
 
 
 
