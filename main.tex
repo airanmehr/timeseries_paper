@@ -426,7 +426,7 @@ in generation $t$.
 \paragraph{Naive two-point optimization.} We start with a simplified
 scheme to serve as a baseline for results.  For each $t\in \Tc$, we
 use \eqref{eq:inf-pop} to provide a naive estimate $s(t)$ for the
-selection coefficient as
+selection coefficient as normalized increment in log-odds space
 \begin{equation}
 	s^*(t)=\frac{2}{t} \log \left( \frac{x_t(1-x_0)}{x_0 (1-x_t)} \right) = \frac{2}{t}  
 	\left( \eta(x_t)-\eta(x_0)\right)
@@ -488,6 +488,51 @@ s_x &= s_\nu+  s_{x_t,\nu_t} - s_{x_0,\nu_0}\\
 \eeqq
 
 
+\newpage
+
+	Let $X$ is a random variable with $\Ebb[X]=\mu_X$ and $\Var[X]=\sigma_X^2$
+	\beq
+	\Ebb\left[f(X)\right] & {} = \Ebb\left[f(\mu_X+ 
+	\left(X - \mu_X\right))\right] \\
+	& \approx \Ebb\left[f(\mu_X) + f'(\mu_X) \left(X-\mu_X\right)+ 
+	\frac{1}{2}f''(\mu_X) \left(X - \mu_X\right)^2 \right]=\\
+	&=f(\mu_X)  + \frac{1}{2}f''(\mu_X) \sigma^2\\
+	\Var\left[f(X)\right]&\approx 
+	\left(f'(\Ebb\left[X\right])\right)^2 \Var\left[X\right]
+	= \left(f'(\mu_X)\sigma_X\right)^2.
+	\eeq
+	Taking $f(X)=\log(X) $, we have $f'(X)=\frac{1}{X}$ , 
+	$f''(X)=-\frac{1}{X^2}$
+	\beq
+	\Ebb[\log(X)]&\approx \log(\mu_X)- \frac{a\sigma_X^2}{2\mu_X^2}\\
+	\Var[\log(X)]&\approx \left(\frac{\sigma_X}{\mu_X}\right)^2
+	\eeq
+
+also we have
+\beq
+\nu_t-\nu_0 &\sim \Nc(0,\sigma^2),  \ \ \ \ \ 
+\sigma^2=\frac{2\nu_0(1-\nu_0)t}{N_e}\\
+s=&\frac{2}{t} \log \left( \frac{x_t(1-x_0)}{x_0 (1-x_t)} \right) \\
+&= \frac{2}{t}\left\{ \log \left( \frac{x_t}{x_0 } \right) -
+ \log \left( \frac{(1-x_t)}{ (1-x_0)} \right) \right\}
+\eeq
+which we can extend
+\beq
+\nu_t&\sim \Nc(\nu_0 ,\sigma^2)\\
+\frac{\nu_t}{\nu_0}&\sim \Nc(1,\frac{\sigma^2}{\nu_0^2})
+\eeq
+which for $\mu_X=1$ and $\sigma_X=\frac{\sigma^2}{\nu_0^2}$
+\beq
+\log\left(\frac{\nu_t}{\nu_0}\right)&\sim \Nc(- 
+\frac{\sigma^2}{2},\frac{\sigma^2}{\nu_0^2}) \approx
+\Nc(0,\frac{\sigma^2}{\nu_0^2})\\
+\log\left(\frac{1-\nu_t}{1-\nu_0}\right)&\sim
+\Nc(0,\frac{\sigma^2}{(1-\nu_0)^2})\\
+s &\sim \Nc \left(0, 
+\frac{4}{t} 
+\left(\frac{\sigma^2}{\nu_0^2}+\frac{\sigma^2}{(1-\nu_0)^2}\right)\right) 
+\eeq
+\newpage
 \subsection{Likelihood Ratio Test}
 Using the MLE (and other) estimates of $s$ it is desirable to perform a 
 secondary task such as \emph{testing for selection} or \emph{locating the 
