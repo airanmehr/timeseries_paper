@@ -450,6 +450,62 @@ frequencies at times $t\in \Tc$ be described by
 \[
 \vecbold{\nu}(s) = [\nu_{\tau_1}(s),\ldots,\nu_{\tau_T}(s)]
 \]
+where
+\beq
+	s&=\frac{2}{t}  \left( \eta(x_t)-\eta(x_0)\right)\\
+	\frac{1}{ \eta(x_t)-\eta(x_0)}s&=\frac{2}{t} \ \ \ \forall t \in \Tc \\ 
+	\eeq
+we can put all together 
+\beq
+\bfa s = \bft\\
+\bfa=\begin{bmatrix}
+	\frac{1}{ \eta(x_{\tau_1})-\eta(x_0)}\\
+	\vdots \\
+	\frac{1}{ \eta(x_{\tau_T})-\eta(x_0)}
+\end{bmatrix}, \ \ \ \ \ 
+\bft=\begin{bmatrix}
+	\tau_1-\tau_0\\
+	\vdots \\
+	\tau_T-\tau_0
+\end{bmatrix}
+\eeq
+also we can
+\beq
+As=\bfb\\
+A=\begin{bmatrix}
+	\bfa_1\\
+	\vdots \\
+	\bfa_R
+\end{bmatrix}, \ \ \ \ \ 
+\bfb=\begin{bmatrix}
+	\bft\\
+	\vdots \\
+	\bft
+\end{bmatrix}
+\eeq
+solution is
+\beq
+s^*=(A^TA)^{-1}A^T\bfb=\frac{A^T\bfb}{A^TA}=
+\frac{\sum_r\sum_t  \frac{\tau_t-\tau_0}{\eta(x_{r,t})-\eta(x_{r,0})}}
+{\sum_r\sum_t\left(  \frac{1}{ \eta(x_{r,t})-\eta(x_{r,0})}\right)^2}
+\eeq
+\newpage
+Basically
+\beq
+x_t&=x_0 +\delta \Rightarrow x_t=\sigma(st+\eta(x_0)) \\
+x_t&=x_0 +\delta_s +\delta_d\\
+x_t-x'+x'&=x_0 +\delta_s +\delta_d \rightarrow 
+\begin{cases}
+	x'=x_0+\delta_d \rightarrow x'=\sigma(ts_d+\eta(x_0)) \\
+	x_t=x'+\delta_s \rightarrow x_t=\sigma(ts_s+\eta(x'))
+\end{cases} 
+\eeq
+\beq
+x_t&=\sigma(ts_s+\eta(x'))=\sigma(ts_s+\eta(\sigma(ts_d+\eta(x_0)) 
+))=\sigma(ts_s+ts_d+\eta(x_0))\Rightarrow s=s_d+s_s
+\eeq
+
+\newpage
 We assume that the noise due to genetic drift at each generation is
 Gaussian, and independent of other generations. In addition, $x_0$ is
 the same for all the replicates, and $c$. Therefore, using the
@@ -470,7 +526,8 @@ with respect to $s$:
 		\bfx_{r,\ell}} \parallel_2^2
 	\label{eq:nlls0}
 \end{equation}
-which is an instance of non-linear least squares optimization.
+which is an instance of non-linear least squares optimization. By taking log we 
+can transform it to a linear system
 \newpage
 \paragraph{Linked-loci} suppose infinite pop size and no recomb and hard 
 sweep. consider $\nu$ and $x$ be AF of carrier and linked site with perfect 
@@ -504,8 +561,8 @@ s_x &= s_\nu+  s_{x_t,\nu_t} - s_{x_0,\nu_0}\\
 	Taking $f(X)=\log(X) $, we have $f'(X)=\frac{1}{X}$ , 
 	$f''(X)=-\frac{1}{X^2}$
 	\beq
-	\Ebb[\log(X)]&\approx \log(\mu_X)- \frac{a\sigma_X^2}{2\mu_X^2}\\
-	\Var[\log(X)]&\approx \left(\frac{\sigma_X}{\mu_X}\right)^2
+	\Ebb[\log(X)]&\approx \log(\mu_X)- \frac{\sigma_X^2}{2\mu_X^2}\\
+	\Var[\log(X)]&\approx \frac{\sigma_X^2}{\mu_X^2}
 	\eeq
 
 also we have
@@ -519,7 +576,8 @@ s=&\frac{2}{t} \log \left( \frac{x_t(1-x_0)}{x_0 (1-x_t)} \right) \\
 which we can extend
 \beq
 \nu_t&\sim \Nc(\nu_0 ,\sigma^2)\\
-\frac{\nu_t}{\nu_0}&\sim \Nc(1,\frac{\sigma^2}{\nu_0^2})
+\frac{\nu_t}{\nu_0}&\sim \Nc(1,\frac{\sigma^2}{\nu_0^2}) , \ \ \ \ \ 
+\frac{1-\nu_t}{1-\nu_0}&\sim \Nc(1,\frac{\sigma^2}{(1-\nu_0)^2})
 \eeq
 which for $\mu_X=1$ and $\sigma_X=\frac{\sigma^2}{\nu_0^2}$
 \beq
@@ -529,7 +587,10 @@ which for $\mu_X=1$ and $\sigma_X=\frac{\sigma^2}{\nu_0^2}$
 \log\left(\frac{1-\nu_t}{1-\nu_0}\right)&\sim
 \Nc(0,\frac{\sigma^2}{(1-\nu_0)^2})\\
 s &\sim \Nc \left(0, 
-\frac{4}{t} 
+\frac{4}{t^2} 
+\left(\frac{\sigma^2}{\nu_0^2}+\frac{\sigma^2}{(1-\nu_0)^2}\right)\right) \\
+s &\sim \Nc \left(0, 
+\frac{4}{R \tau^2} 
 \left(\frac{\sigma^2}{\nu_0^2}+\frac{\sigma^2}{(1-\nu_0)^2}\right)\right) 
 \eeq
 \newpage
