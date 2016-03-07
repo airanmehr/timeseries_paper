@@ -582,10 +582,12 @@ which we can extend
 which for $\mu_X=1$ and $\sigma_X=\frac{\sigma^2}{\nu_0^2}$
 \beq
 \log\left(\frac{\nu_t}{\nu_0}\right)&\sim \Nc(- 
-\frac{\sigma^2}{2},\frac{\sigma^2}{\nu_0^2}) \approx
-\Nc(0,\frac{\sigma^2}{\nu_0^2})\\
+\frac{\sigma^2}{2\nu_0^2},\frac{\sigma^2}{\nu_0^2}) \\
 \log\left(\frac{1-\nu_t}{1-\nu_0}\right)&\sim
-\Nc(0,\frac{\sigma^2}{(1-\nu_0)^2})\\
+\Nc(\frac{\sigma^2}{2(1-\nu_0)^2},\frac{\sigma^2}{(1-\nu_0)^2})\\
+\log\left(\frac{\nu_t}{\nu_0}\right)-\log\left(\frac{1-\nu_t}{1-\nu_0}\right)&\sim
+\Nc(\frac{\sigma^2}{2(1-\nu_0)^2}-
+\frac{\sigma^2}{2\nu_0^2},\frac{\sigma^2}{(1-\nu_0)^2}+\frac{\sigma^2}{\nu_0^2})\\
 s &\sim \Nc \left(0, 
 \frac{4}{t^2} 
 \left(\frac{\sigma^2}{\nu_0^2}+\frac{\sigma^2}{(1-\nu_0)^2}\right)\right) \\
@@ -593,6 +595,20 @@ s &\sim \Nc \left(0,
 \frac{4}{R \tau^2} 
 \left(\frac{\sigma^2}{\nu_0^2}+\frac{\sigma^2}{(1-\nu_0)^2}\right)\right) 
 \eeq
+basically we for $\nu_0<0.5$ we have
+\beq
+s &\sim \Nc \left(0, 
+\frac{4}{R \tau^2} 
+\left(\frac{2\sigma^2}{(1-\nu_0)^2}\right)\right) \\
+s &\sim \Nc \left(0, 
+\frac{4}{R \tau^2} 
+\left(\frac{\sigma^2}{\nu_0(1-\nu_0)}\right)\right) =\Nc(0,\frac{2t}{N_e})
+\eeq
+
+cite
+Strength of Selection Pressure Is an Important Parameter Contributing to the 
+Complexity of Antibiotic Resistance Evolution
+
 \newpage
 \subsection{Likelihood Ratio Test}
 Using the MLE (and other) estimates of $s$ it is desirable to perform a 
