@@ -395,7 +395,11 @@ clip,width=\textwidth]{powerReplicateTime}
 \subsection{Locating Selection}
 
 \subsection{Strength of  Selection}
-
+\begin{figure}
+	\centering
+	\includegraphics[trim=2.2in 0 2.2in 0, 
+	clip,width=\textwidth]{bias}
+\end{figure}
 
 \section{Materials and Methods}
 
@@ -609,6 +613,12 @@ cite
 Strength of Selection Pressure Is an Important Parameter Contributing to the 
 Complexity of Antibiotic Resistance Evolution
 
+
+Also let $\Phi_D$ and $\Phi_A$  be CDF of Null and Alternative distribution, 
+respectively, then we have
+\beq
+POWER= \pr_A(s>\Phi_D^{-1}(0.9))=((1-\Phi_A(\Phi_D^{-1}(0.9)))-0.1)\times100
+\eeq
 \newpage
 \subsection{Likelihood Ratio Test}
 Using the MLE (and other) estimates of $s$ it is desirable to perform a 
