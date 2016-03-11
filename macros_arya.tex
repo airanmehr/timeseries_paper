@@ -1,9 +1,7 @@
 %%%%%%%%%%%%%%%%% Arya's
 \usepackage{color,hyperref}
 \hypersetup{colorlinks,breaklinks,linkcolor=darkblue,urlcolor=darkblue, anchorcolor=darkblue,citecolor=darkblue}
-\usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{amssymb}
+\usepackage{amssymb,amsmath,amsthm,amsfonts}
 \usepackage{mathtools}
 \usepackage{enumerate}
 \definecolor{darkgreen}{rgb}{0,0.55,0}
@@ -15,7 +13,6 @@
 \def\emphb#1{{\textcolor{darkblue}{#1}}}
 
 \usepackage{bbm}
-\newtheorem{Thm}{Theorem}
 
 
 \newcommand{\dataset}{{\cal D}}
@@ -533,14 +530,16 @@
 \def\xbb{{\mathbbm x}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Command Abbreviations
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
 %\newcommand{\bprfof}{\begin{proof_of}}
 %\newcommand{\eprfof}{\end{proof_of}}
 \newcommand{\bprf}{\begin{proof}}
 \newcommand{\eprf}{\end{proof}}
 %\newcommand{\bp}{\begin{psfrags}}
 %\newcommand{\ep}{\end{psfrags}}
-%\newcommand{\bl}{\begin{lemma}}
-%\newcommand{\el}{\end{lemma}}
+\newcommand{\bl}{\begin{lemma}}
+\newcommand{\el}{\end{lemma}}
 \newcommand{\bt}{\begin{theorem}}
 \newcommand{\et}{\end{theorem}}
 %\newcommand{\bc}{\begin{center}}

@@ -27,8 +27,6 @@ simulation study shows the proposed method has a superior performance
 over conventional method both in hard and soft sweeps.
 \end{abstract}
 
-
-
 \section{Introduction}
 Genetic adaptation is \emph{the} central evolutionary process and is at the
  core of some of the greatest challenges facing humanity.  HIVwould likely
@@ -91,7 +89,7 @@ to study different forces of \emph{evolution} in-action. \emph{Experimental
 evolution} is the study of the evolutionary processes of a model organism in a 
 controlled  
 \cite{hegreness2006equivalence,lang2013pervasive,orozco2012adaptation,
-	lang2011genetic,barrick2009genome,bollback2007clonal} 
+	lang2011genetic,barrick2009genome,bollback2007clonal,oz2014strength} 
 or natural 
 	\cite{maldarelli2013hiv,reid2011new,denef2012situ,winters2012development,
 	daniels2013genetic,barrett2008natural,bergland2014genomic} environment.
@@ -228,34 +226,51 @@ For each experiment a diploid population is created and evolved as follows.
 \end{enumerate}
 
 \subsection{Dynamics of the Sweep}
-In this part we study the dynamics of selective sweep based on change in allele
- frequency of single site, and allele frequency spectrum of a 50Kb window. 
- Then we examine linkage disequilibrium more carefully in the context of dynamic data.
+Selective sweep is a random process which depends on selection strength
+ and population size and affects \emph{site allele frequencies} , \emph{allele 
+ frequency spectrum} and \emph{linkage disequilibrium}.
+ In these part we study the dynamics of these quantities along selective sweep 
+ to propose an efficient method to identify and locate selection.
 \paragraph{Allele Frequencies}
-Selection and genetic drift are two main evolutionary forces that cause change in 
-allele frequecy at a segregating site and diffrentiating them using time-series data 
-is the central problem of this paper. In general, these two forces act 
-independently and what is observed as variation in allele frequencies can be 
-caused by either of them or both. Hence, here we treat them independently and 
-assume they are additive.
+Selection and genetic drift are two main \emph{independent} evolutionary forces 
+that cause change in allele frequency at a segregating site.
+ Whether the change in allele frequencies is caused by genetic drift or natural
+  selection or both is the main question in detecting selection in the dynamic
+   data. Basically, the strength of selection is measured by selection 
+   coefficient $s$ and the strength of drift is proportional to 
+   $\frac{1}{N_e}$, and to detect selection $N_es>1$ should hold.
+  
 
-Under genetic drift, variations in allele frequancies is a random 
-walk, which can be modeled via Moran process~\cite{moran1962statistical}.
-However, working with dynamic allele freqencies, it is convinent to approximate 
-Moran process with a Brownian motion~\cite{Ewens2012Mathematical}. 
-Brownian motion is a random process which is identified by zero-mean identically 
-and independently  distributed Gaussian increments. Feder et al. 
-\cite{feder2014Identifying} designed a neutrality test, Frequency Increment Test 
-(FIT), which tests increments in observed allele frequencies under Null 
-distribution, i.e. $\Nc(0,1/N_e)$\footnote{Note that the strength of drift is 
-proportional to $\frac{1}{N_e}$}.
+More precisely, under genetic drift, variations in allele frequencies is a 
+random walk, which can be modeled via Moran process~\cite{moran1962statistical}.
+In fact, joint distribution of allele frequencies grows exponentially with 
+number of observations which makes computing probabilities extremely difficult 
+(due to tedious marginalizations).
+
+However, it is possible to approximate change in allele frequencies
+with a Brownian motion~\cite{Ewens2012Mathematical}. 
+Brownian motion is a random process which is identified by zero-mean 
+identically and independently distributed Gaussian increments. Feder et al. 
+\cite{feder2014Identifying} designed a neutrality test, Frequency Increment 
+Test (FIT), which tests \emph{scaled} increments in observed allele frequencies 
+under Null distribution, i.e. $\Nc(0,1/N_e)$\footnote{Note that the strength of 
+drift is proportional to $\frac{1}{N_e}$}.
 
 In the selective sweep with infinite population size, dynamic of allele frequencies 
-can be approximated by the logistic function (see Appendix). Depending on the 
+can be approximated by the logistic function (see Appendix \ref{app:af} for 
+derivation)
+\beq
+\nu_t=\sigma(st+\eta(\nu_0))\label{eq:nut}
+\eeq
+where $sigma(.)$ is the logistic function, and $\eta(.)$ is inverse of the 
+logistic 
+function, aka logit.
+Depending on the 
 value of allele frequency at the time selection started, selective sweep is often 
-categorized in two main regiems: hard and soft sweep, Figure \ref{fig:sweep}. 
-Hard sweep occures when the initial allele (carrier) frequency $\nu_0=1/N_e$ is at 
-minimum, and soft-sweep otherwise. This small difference could have 
+categorized in two main regimes: hard and soft sweep, Figure \ref{fig:sweep}. 
+Hard sweep occurs when the initial allele (carrier) frequency $\nu_0=1/N_e$ is 
+at 
+minimum, and soft-sweep otherwise. This small difference could have nontrivial
 consequences~\cite{schrider2015soft} [[explain more]].
 
 As shown in Figures \ref{fig:dynamic-weak} and \ref{fig:dynamic-strong} (first 
@@ -285,27 +300,48 @@ AFS vector. We choose Tajima's D, Fay Wu's H and SFSelect statistics weights to
 scalarize the AFS. In other words, we analyze test statistics for Tajima, Fay \& Wu 
 and SFSelect tests.
 \begin{enumerate}[I.]
-	\item {\bf Tajima D} As shown in the Appendix, dynamic of Tajima's D in hard 
-	sweep is
-	\beqq
-	D_t=D_0+\log(1-\nu_t) \frac{W_0}{\log(2N)} -\nu_t^2 \Pi_0
-	\eeqq
-	where $\nu_t$ defined in term of $\nu_0$ and $s$ in \eqref{}, $W_0$ and 
-	$\Pi_0$ are Watterson and Tajima estimate of $\theta$ at first generations.
-	As shown in Figures \ref{fig:dynamic-weak} and \ref{fig:dynamic-strong} (last 
-	row, left), the model is a reasonable. However in early generations, even for 
-	strong selection, it is hard to discriminate between neutral evolution and 
-	selective sweep. Moreover, it can only be used for the hard sweep, which is 
-	makes it difficult to apply on real data.
-	\item {\bf Fay Wu's H} As shown in the Appendix, dynamic of Fay Wu's H in 
-	hard sweep is
-	\beqq
+	\item {\bf Tajima D} As shown in the Appendix \ref{app:td}, dynamic of 
+	Tajima's D in hard sweep is
+	\beq
+	D_t=D_0+\log(1-\nu_t) \frac{W_0}{\log(2N)} -\nu_t^2 \Pi_0\label{eq:tdt}
+	\eeq
+	where $\nu_t$ defined in term of $\nu_0$ and $s$ in \eqref{eq:nut}, $W_0$ 
+	and $\Pi_0$ are Watterson and Tajima estimate of $\theta$ at the first 
+	generation. Given $W_0$, $\Pi_0$ and $\nu_t \in (0,1)$, $D_t$ 
+	\eqref{eq:tdt} is a one-to-one map of $\nu_t$, which exhibits the same 
+	trend as carrier frequency $\nu_t$, but potentially with higher variance.
+	Figures \ref{fig:dynamic-weak} and \ref{fig:dynamic-strong} (last 
+	row, left), shows that the parametric model is reasonable, but observations 
+	of $D_t$ has higher variance than $\nu_t$ which makes it harder to 
+	distinguish between neutral and under sweep population. 
+	
+	In addition to their variance, the mean of the processes in both cases 
+	(even for strong selection)
+	seems to be entangled to each other in early generations  that could lead 
+	to high rates of false-positives (or false negatives). We conjecture that, 
+	this is because Tajima's D is a weighted average of AFS and this averaging 
+	cancels out small fluctuations of AFS in early generations.
+
+	Finally, in derivation of \eqref{eq:tdt} it has been assumed that the 
+	population undergoes a hard-sweep, and the model becomes invalid as the 
+	initial carrier frequency deviates from that of hard-sweep, Figure 
+	\ref{fig:dynamic-weak} and \ref{fig:dynamic-strong} (last 
+	row, right).
+	
+	\item {\bf Fay Wu's H} As shown in the Appendix \ref{app:h}, dynamic of Fay 
+	Wu's H in 	hard sweep is
+	\beq
 	nH_t= \theta \nu_t \left(\frac{\nu_t+1}{2} - \frac{1}{(1-\nu_t)n+1}\right) +
-	\theta (1-\nu_t)\left(\frac{n+1}{2n}-\frac{1}{(1-\nu_t)n+1}\right)
-	\eeqq
-	which is a good approximation only in strong selection, Figures 
+	\theta (1-\nu_t)\left(\frac{n+1}{2n}-\frac{1}{(1-\nu_t)n+1}\right) 
+	\label{eq:ht}
+	\eeq
+	which is an acceptable approximation only in strong selection, Figures 
 	\ref{fig:dynamic-weak} and \ref{fig:dynamic-strong} (second
-	row, left).
+	row, left). Similar to $D_t$, $H_t$ is an injection of $\nu_t$ which only 
+	increases its variance and centers the means of two processes in early 
+	generations. Likewise, \eqref{eq:ht} is only developed for hard sweep which 
+	makes it impractical to use it on real data.
+	
 	\item {\bf SFSelect} is also another test statistic proposed by Ronen et 
 	al. \cite{ronen2013learning} to predict selection by empirically learning 
 	the so-called \emph{optimal} weights using Support Vector Machines. 
@@ -330,17 +366,59 @@ and SFSelect tests.
 	 \label{fig:dynamic-weak}
 \end{figure}
 \paragraph{Linkage Disequilibrium}
+Nonrandom associations between polymorphisms are established in the 
+substitution process according to the phylogeny, broken by recombination events 
+and reinforced by selection. Although in EE the experiments with pooled 
+sequencing, LD can not be measured throughout evolution, it is still worthwhile 
+to examine the behavior of LD as a result of the interaction between 
+recombination and natural selection, to take into account of some of EE 
+implicit constraints. 
 
-forces of LD
+Let $\rho_0$ be the LD at time zero between the site under selection and a 
+segregating site $l$ base-pairs away, then under natural selection we have
+\beq
+\rho_t= \alpha_t\beta_t \rho_0=e^{-rtl} \left(\frac{H_t}{H0}\right)  
+\rho_0\label{eq:ldt}
+\eeq
+where $H_T=2\nu_0(1-\nu_0)$ is the heterozygousity at the selected site, $r$ is 
+the recombination rate/bp/gen. The decay factor $\alpha_t=e^{-rtl}$ is the 
+product of recombination and growth factor $\beta_t$ (eq. 30-31 in 
+\cite{Stephan2006The})is the outcome of 
+selection. For $s=0.01$, $l=100K$bp, the log of decay, growth and product of 
+both is depicted in Figure \ref{fig:ldf}. It is evident that, for these 
+parameters LD does not start to decay until generation 1000, which would be  
+problematic when $\rho_0$. For example, in the case of hard sweep, the 
+selection is imposed on the site with minimum AF, which is at perfect linkage 
+($|D'|=1$) with all the other loci.\footnote{This is because, between the 
+selected site and all the other sites frequency of one gamete is zero.}
+We this phenomenon is shown in the Figures \ref{fig:ld2d}, \ref{fig:ld3d} where 
+at generation zero the site at position 500K is at perfect linkage with all the 
+other sites, and linkage of the middle site with all the genome is depicted 
+for both genetic drift and natural selection, in different generations.
+Also, a window of 50Kbp around the selected site is shaded in Figure 
+\ref{fig:ld2d} to demonstrate the value of LD in the window under drift and 
+hard sweep. This implies that the precision of locating the selection on the 
+genome is tightly dependent on a set of parameters including, recombination 
+rate, selection strength, initial carrier frequency, and the initial linkage.
+
+
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{decayFactors}
+	\caption{Interaction between productive factors of LD under natural 
+	selection for weak selection (s=$0.01$) and a distance of 100Kb between 
+	sites. In this setting, after about 1000 generations LD start to decay (red 
+	curve).} \label{fig:ldf}
 \end{figure}
 
 
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{LDDecay2d}
+	\caption{Decay of LD ($|D'|$ measure) of the minimum AF site at position 
+	500K with the rest of genome when $s=0.01$ and $r=2\times10^{-8}$. A window 
+	of 50Kb is shaded at the center of genome to illustrate high values of 
+	linkage in both selection and drift.} \label{fig:ld2d}
 \end{figure}
 
 
@@ -348,18 +426,68 @@ forces of LD
 	\centering
 	\includegraphics[width=\textwidth]{LDDecay3dNeutral}
 	\includegraphics[width=\textwidth]{LDDecay3dSweep}
+		\caption{ld} \label{fig:ld3d}
+			\caption{Decay of LD ($|D'|$ measure) of the minimum AF site at 
+			position 500K with the rest of genome in genetic drift with 
+			$r=2\times10^{-8}$ (top) and hard sweep with $s=0.01$ (bottom).}
 \end{figure}
 
 
 \paragraph{Challenges}
-\begin{itemize}
-	\item time scale
-	\item population size
-\end{itemize}
+The nature of experimental evolution, suggests that the duration of the 
+experiment is ruled by the organism generation time, and given a limited time 
+for the experiment, the population can be evolved for sampling-time-span (STS) 
+$\tau=\tau_T-\tau_0$  number of generations. This can be regarded as a 
+limitation in a EE experiment when STS is significantly smaller than fixation 
+time for a selection with strength $s$ imposed on a site with frequency 
+$\nu_0$. For example, in Figure \ref{fig:sweep} the, STS is 50 generations and 
+the frequency of the site under selection is $0.005$ (right, hard sweep) and 
+$0.1$ (left, soft sweep). 
+For $s=0.01$, the mean fixation time is approximately 2100 and 1500 generations 
+for the hard and soft sweep, receptively, which makes it extremely larger than 
+$STS$. This can be observed by noticing the small slope of the green line in 
+the shaded area, which is similar to that of genetic drift.
+
+Moreover, the Figure \ref{fig:sweep} depicts selective sweep for an infinite 
+population size, i.e., no drift. In practice, not only the population size is 
+limited, but also it is severely bottlenecked to the number of founder-lines to 
+inbreed. For example in the case of EE with D. melanogaster, the population 
+size of millions is restricted to hundreds which makes genetic drift quite 
+strong to disturb (and with small probability, reinforce) the signal for 
+selection.
+
+
+
+To quantitatively show the effects of STS and population size on the signal of 
+selection, it has been shown that (in the appendix), the null distribution of 
+the selection strength (under neutral evolution) is approximately distributed 
+as $\Nc(0,\sigma^2_{\nu_0}/R\tau N_e)$ while the alternative distribution of 
+selection strength is distributed as $\Nc(s,\sigma^2_{\nu_0}/R\tau N_e)$. The 
+variance of both distributions inversely depend on population size, 
+STS, and the number of replicates. In order to separate 
+these distributions 
+\begin{enumerate}
+	\item the mean of the distributions be far from each other, i.e. selection 
+	strength should be large.
+	\item the variance of the distributions be small, i.e. population size, 
+	number of replicates or STS be large.
+\end{enumerate}
+Interestingly some of these parameters can be determined both in a controlled 
+or natural experimental evolution and by the trade-offing between them one can 
+achieve the desired predictive power.
+For example, in a controlled EE, when STS is constrained to be small number of 
+generation, due to long generation times of the model organism, the population 
+size can be increased by gathering more founder lines. Alternatively, the small 
 \begin{figure}
 	\centering \label{fig:bottleneck}
 	\includegraphics[trim=3.2in 0.1in 3.2in 0.2in , 
 	clip,width=\textwidth]{bottleneck}
+		\caption{Effect of bottle neck in a typical experimental evoloution 
+		experiment where a restricted number of founder lines (here $F=200$) is 
+		selected out of a larger population size ($N_e=10^{-6}$). Tajima's D 
+		(left), Fay Wu's H (middle) and SFSelect is computed for 1000 neutral 
+		simulations and mean and 95\% confidence interval is plotted.} 
+		\label{fig:bott}
 \end{figure}
 
 
@@ -369,6 +497,9 @@ forces of LD
 \begin{figure}
 	\centering
 	\includegraphics[trim=2.2in 0 2.2in 0 , clip,width=\textwidth]{power}
+		\caption{Predictive performance of different method is evaluated on 200 
+		simulations for different values of selection strength $s$ and initial 
+		carrier frequency $\nu_0$.} \label{fig:power}
 \end{figure}
 
 
@@ -378,16 +509,26 @@ forces of LD
 \begin{figure}
 	\centering
 	\includegraphics[trim=2.2in 0 2.2in 0 , clip,width=\textwidth]{powerTime}
+			\caption{Predictive performance of the proposed method is evaluated 
+			on 200 simulations for different values of sampling-time-span 
+			$\tau$ and initial carrier frequency $\nu_0$.} \label{fig:powert}
 \end{figure}
 \paragraph{Effects of number of replicates}
 \begin{figure}
 	\centering
 \includegraphics[trim=2.2in 0 2.2in 0, clip,width=\textwidth]{powerReplicate}
+\caption{Predictive performance of the proposed method is evaluated on 200 
+simulations for different number of replicates $R$ and initial carrier 
+frequency $\nu_0$.} \label{fig:powerr}
 \end{figure}
 \begin{figure}
 	\centering
 \includegraphics[trim=2.2in 0 2.2in 0, 
 clip,width=\textwidth]{powerReplicateTime}
+	\caption{Predictive performance of the proposed method is evaluated on 200 
+			simulations for different number of replicates $R$, 
+			sampling-time-span $\tau$ and initial carrier 
+			frequency $\nu_0$.} \label{fig:powerrt}
 \end{figure}
 \paragraph{Single-Locus vs Multi-locus}
 \paragraph{Time-series vs single-snapshot}
@@ -399,12 +540,15 @@ clip,width=\textwidth]{powerReplicateTime}
 	\centering
 	\includegraphics[trim=2.2in 0 2.2in 0, 
 	clip,width=\textwidth]{bias}
+	\caption{Comparison between the distribution of bias of the proposed method 
+	with Gaussian Process (GP), over 100 simulations for different values of 
+	selection strength $s$ and soft-sweep with $\nu_0=0.1$.} \label{fig:bias}
 \end{figure}
 
 \section{Materials and Methods}
-
+\newpage
 \subsection{Single-Locus Methods}
-Consider a bi-allelic single-locus (Wright-Fisher like) model with no
+Consider a diallelic single-locus (Wright-Fisher like) model with no
 mutations \cite{Ewens2012Mathematical}, discrete generations, random
 mating etc. With finite population size, the allele frequencies from
 generation to generation are described by the random process
@@ -420,29 +564,69 @@ stores the observed of allele frequency at replicate $r$, locus $\ell$
 and generation $\tau_t$. However, we often omit $r$ for clarity of
 exposition. A neutrally evolving allele `drifts', and for a finite
 population,
-\beq x_{t+1} = x_t + \epsilon_t\; .\footnote{With infinite population size
+\beq x_{t+1} = x_t + \epsilon\; .\footnote{With infinite population size
 	we have $x_{t+1} = x_t$, a restatement of Hardy-Weinberg
-	equilibrium.}
+	equilibrium.} \ \ \ \ \ \epsilon \sim \Nc(0,\frac{h_t}{N_e})  \
 \label{eq:drift}
-\eeq where $\epsilon_t \sim \Nc(0,1)$ is a change due to genetic drift
-in generation $t$.
+\eeq
+where $h_t=2\nu_0(1-\nu_0)$ is heterozygousity at time $t$.
+Using Brownian motion approximation, we have 
+\beq x_{\tau} = x_0 + \epsilon_\tau,  \ \ \ \ \ \epsilon \sim 
+\Nc(0,\frac{h_0 \tau}{N_e})
+\eeq
 
-\paragraph{Naive two-point optimization.} We start with a simplified
-scheme to serve as a baseline for results.  For each $t\in \Tc$, we
-use \eqref{eq:inf-pop} to provide a naive estimate $s(t)$ for the
-selection coefficient as normalized increment in log-odds space
+In a simplest case, we have 2 observations, $x_0$ and $x_t$ and we wish to find 
+$\hat{s}$ so that $x_t=\sigma(\hat{s}t/2+\eta{x_0})$ which can be solved 
+analytically:
 \begin{equation}
-	s^*(t)=\frac{2}{t} \log \left( \frac{x_t(1-x_0)}{x_0 (1-x_t)} \right) = \frac{2}{t}  
-	\left( \eta(x_t)-\eta(x_0)\right)
-	\label{eq:naive2point}
+\hat{s}=\frac{2}{t} \log \left( \frac{x_t(1-x_0)}{x_0 (1-x_t)} \right) = 
+\frac{2}{t}  \left( \eta(x_t)-\eta(x_0)\right)
+\label{eq:naive2point}
 \end{equation}
-To reduce the variance we can average all the naive estimates: 
-\begin{equation}
-	s^*=\frac{1}{|\Tc|}\sum_{t\in \Tc}\frac{2}{t}  \left( \eta(x_t)-\eta(x_0)\right)
-	\label{eq:naive}
-\end{equation}
+which selection coefficient can be regarded as for the
+selection coefficient as normalized increment in log-odds space.
+
+However, with more than two observations, the system become over determined and 
+we need to solve $T$ set of equations for each replicate. By re-arranging 
+\eqref{eq:naive2point}, we can write a set of linear equations
+
+\beq
+\frac{t_1}{2} s&=  \left( \eta(x_{t_1})-\eta(x_0)\right)\\
+&\vdots\\
+\frac{t_T}{2}s&= \left( \eta(x_{t_T})-\eta(x_0)\right)\\
+\eeq
+
+For each $t\in \Tc$, we
+use \eqref{eq:inf-pop} to provide a naive estimate $s(t)$ 
 
 
+
+As the change in allele frequencies is a aggregation 
+
+Given that under selective sweep, selection strength is additive, we now 
+quantify the distribution of the selection strength under neutral evolution.
+
+Now let $z=\eta(\nu_t)- \eta(\nu_0)\sim \Nc(0,\frac{h_0 t}{N_e})$ then for a 
+single replicate, we have
+\beq
+s_d\sim \Nc\left(0,\frac{4h_0}{t}\right)
+\eeq
+
+For multiple replicates, we have
+
+which is a linear system with $\bfa s =\bfb$ and the solution is 
+$s^*=\bfa^+\bfb=(\bfa^T\bfa)^{-1}\bfa^T\bfb$:
+\beq
+s^* = \frac{\sum_r  \frac{t}{2} (\eta(x_{r,t})-\eta(x_0)) }{\sum_r   
+(\frac{t}{2})^2}=\frac{\sum_r   (\eta(x_{r,t})-\eta(x_0)) }{\frac{Rt}{2}}=
+\frac{1}{R}\sum_r \frac{2}{t}  (\eta(x_{r,t})-\eta(x_0)) =  \frac{1}{R} \sum_r 
+s^*_r
+\eeq
+or simply is the average of estimates of independent replicares, which means 
+for $R$ replicates we have
+\beq
+s_d\sim \Nc\left(0,\frac{4h_0}{Rt}\right)
+\eeq
 \paragraph{Maximum Likelihood Estimate.}
 For locus $\ell$  and replicate $r$, the observed time-series of 
 allele frequencies are given by:
@@ -493,21 +677,6 @@ s^*=(A^TA)^{-1}A^T\bfb=\frac{A^T\bfb}{A^TA}=
 \frac{\sum_r\sum_t  \frac{\tau_t-\tau_0}{\eta(x_{r,t})-\eta(x_{r,0})}}
 {\sum_r\sum_t\left(  \frac{1}{ \eta(x_{r,t})-\eta(x_{r,0})}\right)^2}
 \eeq
-\newpage
-Basically
-\beq
-x_t&=x_0 +\delta \Rightarrow x_t=\sigma(st+\eta(x_0)) \\
-x_t&=x_0 +\delta_s +\delta_d\\
-x_t-x'+x'&=x_0 +\delta_s +\delta_d \rightarrow 
-\begin{cases}
-	x'=x_0+\delta_d \rightarrow x'=\sigma(ts_d+\eta(x_0)) \\
-	x_t=x'+\delta_s \rightarrow x_t=\sigma(ts_s+\eta(x'))
-\end{cases} 
-\eeq
-\beq
-x_t&=\sigma(ts_s+\eta(x'))=\sigma(ts_s+\eta(\sigma(ts_d+\eta(x_0)) 
-))=\sigma(ts_s+ts_d+\eta(x_0))\Rightarrow s=s_d+s_s
-\eeq
 
 \newpage
 We assume that the noise due to genetic drift at each generation is
@@ -532,57 +701,188 @@ with respect to $s$:
 \end{equation}
 which is an instance of non-linear least squares optimization. By taking log we 
 can transform it to a linear system
-\newpage
-\paragraph{Linked-loci} suppose infinite pop size and no recomb and hard 
-sweep. consider $\nu$ and $x$ be AF of carrier and linked site with perfect 
-linkage. Then
-\beqq
-\delta x_t &= \begin{cases}
-\delta \nu   \ \ \ \   x_0=\nu_0 \\
-\alpha\delta \nu   \ \ \   \alpha \le0, \ x_0>\nu_0 
-\end{cases} \\
-s_x &= \eta(x_t) -\eta( x_0)\\
-s_\nu &= \eta(\nu_t) - \eta(\nu_0)\\
-s_x -s_\nu&= \eta(x_t) -\eta( x_0)-\eta(\nu_t) + \eta(\nu_0)\\
-s_x -s_\nu&= s_{x_t,\nu_t} - s_{x_0,\nu_0}\\
-s_x &= s_\nu+  s_{x_t,\nu_t} - s_{x_0,\nu_0}\\
-\eeqq
+
+
+
+
 
 
 \newpage
-
-	Let $X$ is a random variable with $\Ebb[X]=\mu_X$ and $\Var[X]=\sigma_X^2$
-	\beq
-	\Ebb\left[f(X)\right] & {} = \Ebb\left[f(\mu_X+ 
-	\left(X - \mu_X\right))\right] \\
-	& \approx \Ebb\left[f(\mu_X) + f'(\mu_X) \left(X-\mu_X\right)+ 
-	\frac{1}{2}f''(\mu_X) \left(X - \mu_X\right)^2 \right]=\\
-	&=f(\mu_X)  + \frac{1}{2}f''(\mu_X) \sigma^2\\
-	\Var\left[f(X)\right]&\approx 
-	\left(f'(\Ebb\left[X\right])\right)^2 \Var\left[X\right]
-	= \left(f'(\mu_X)\sigma_X\right)^2.
-	\eeq
-	Taking $f(X)=\log(X) $, we have $f'(X)=\frac{1}{X}$ , 
-	$f''(X)=-\frac{1}{X^2}$
-	\beq
-	\Ebb[\log(X)]&\approx \log(\mu_X)- \frac{\sigma_X^2}{2\mu_X^2}\\
-	\Var[\log(X)]&\approx \frac{\sigma_X^2}{\mu_X^2}
-	\eeq
-
-also we have
+\section{Appendix}
+\subsection{Allele frequencies under selective sweep} \label{app:af}
+Let in a dialellic diploid Wright-Fisher model with single locus selection, 
+with genotypes 0|0, 0|1 and 1|1 , $w_{00}$, $w_{01}$ and  $w_{11}$ be the 
+relative fitness of each genotype at a locus. Also, consider $x$ to be 
+frequency of the allele 1 and allele 1 be the favored allele, then
 \beq
-\nu_t-\nu_0 &\sim \Nc(0,\sigma^2),  \ \ \ \ \ 
-\sigma^2=\frac{2\nu_0(1-\nu_0)t}{N_e}\\
-s=&\frac{2}{t} \log \left( \frac{x_t(1-x_0)}{x_0 (1-x_t)} \right) \\
-&= \frac{2}{t}\left\{ \log \left( \frac{x_t}{x_0 } \right) -
- \log \left( \frac{(1-x_t)}{ (1-x_0)} \right) \right\}
+&w_{00}=1,&w_{01}=1+us,&w_{11}=1+s
 \eeq
+\beq
+x_{t+1}&=\frac{w_{11}x_t^2 + w_{01}x(1-x_t)}{w_{11}x^2_t + 2w_{01}x_t(1-x_t) + 
+w_{00}(1-x_t)^2} =x_t+\frac{s(h+(1-2u)x_t)x_t(1-x_t)}{1+sx_t(2u+(1-2u)x_t))}
+\eeq
+where $s\in \Rbb$ is the selection coefficient and $o\in[0,1]$ is the 
+overdominance parameter which for $u=0.5$ we have
+\begin{equation}
+x_{t+1}=x_t+\frac{sx_t(1-x_t)}{2+2sx_t}\;.
+\label{eq:hequalshalf}
+\end{equation}
+we also have
+\beq
+\frac{\bfd x_t}{\bfd t} = \frac{sx_t(1-x_t)}{2+2sx_t}
+\eeq
+which is a differential equation that is difficult to solve. However if take 
+the approximation $2+2sx_t \approx 2$, it becomes an ordinary differential 
+equation that can be readily solved
+
+\begin{equation}
+\nu_t =\frac{1}{1+\frac{1-x_0}{x_0}e^{-st/2}} = \sigma(st/2+\eta(x_0)) 
+\label{eq:inf-pop}
+\end{equation}
+where$\sigma(.)$ is the logistic
+function and $\eta(.)$ is logit function (inverse of the logistic function). 
+
+\subsubsection{Fay Wu's H}\label{app:h}
+\bl
+In any finite population size of $n$ with $m$ segregating sites, 
+allele frequencies take 
+discrete values, i.e.,  $x_j \in 
+\{\frac{1}{n},\frac{2}{n},\ldots,\frac{n-1}{n}\}, \ \forall j \in{1,\cdot,m}$ 
+and we can write
+\beq
+\|\bfx\|^2= \sum_{j=1}^{m} x_j^2 = 
+\sum_{i=1}^{n-1}\left(\frac{i}{n}\right)^2\xi_i= 
+\frac{ (n-1)}{2n}H 
+\eeq
+where $\xi_i$ is the number of sites with frequency $i/n$ and $H$ is the 
+Fay \& Wu's estimate of $\theta$.
+\el
+
+Recently, Ronen et al. ~\cite{ronen2015predicting} devised the $1\dHAF$ 
+statistic for identifying selection on static data, which has the expeceted 
+value related to the $\|\bfx\|^2$:
+\begin{equation} 
+\Ebb[1\dHAF(t)]= n\| \bfx_t\|^2\approx ng(\nu_t)
+\end{equation} 
+where
+\beq
+g(\nu_t)= \theta \nu_t \left(\frac{\nu_t+1}{2} - \frac{1}{(1-\nu_t)n+1}\right) +
+\theta (1-\nu_t)\left(\frac{n+1}{2n}-\frac{1}{(1-\nu_t)n+1}\right)
+\label{eq:hafscorepooled}
+\eeq
+where easily follows that
+\beq
+\theta_H(t)=
+\eeq
+
+\subsection{Tajima's D}\label{app:td}
+Let $D_0, \Pi_0, W_0$, be Tajima's D, Tajima's estimate of  $\theta$, and 
+Watterson's estimate of $\theta$ at time zero and $D_0=\Pi_0 - W_0$.
+In order to compute, $D_t=\Pi_t - W_t$ we compute $\Pi_t$ and $W_t$ separately 
+as follows.
+
+Let $P$ be the $n \times n$ matrix of pairwise heterozygosity if individuals, 
+then $\Pi=\frac{1}{n^2}\sum P_{ij}$. So, if the population consist of $\nu n$ 
+identical carrier haplotype (due to lack of recombination), their pairwise 
+hamming distance is zero and should be subtracted from the total $\Pi_t$:
+\beq
+\Pi_t&= (1-\nu_t^2)\Pi_0 
+\eeq
+
+To compute $W_t$, first remember that $W_t= \frac{m_t}{S_n}$ where $m_t$ is the 
+number of segregating sites at time $t$ and $S_n= \sum_i^n 1/i \approx 
+\log(n)$. Also we have
+\beq
+\frac{W_t}{W_0}&=\frac{\frac{m_t}{S}}{\frac{m_0}{S}} \ \ \Rightarrow 
+W_t=\frac{m_t}{m_0}W0 
+\eeq
+where $m_t$ to be interpreted as the expected number of segregating sites at 
+time $t$, under neutral evolution. At time $t$, the number of individuals that 
+undergone neutral evolution is $(1-\nu_t)n +1$, which leads to
+\beq
+\frac{m_t}{m_0}&=\frac{\log\left((1-\nu_t)n +1 \right)\theta}{\log(n)\theta} 
+\approx  
+\frac{\log\left((1-\nu_t)n\right)}{\log(n)} = \frac{\log(1-\nu_t)+\log(n)}{\log(n)} = 
+1+ \frac{ \log(1-\nu_t)}{\log(n)} 
+\eeq
+putting all together 
+\beq
+D_t&= (1-\nu_t^2)\Pi_0 - (1+ \frac{ \log(1-\nu_t)}{\log(n)} ) W_0 = 
+D_0+\log(1-\nu_t) \frac{W_0}{\log(n)} -\nu_t^2 \Pi_0
+\eeq
+\subsection{Null Distribution for Selection Strenght}\label{app:null}
+
+\bl
+Let $X$ is a random variable with $\Ebb[X]=\mu_X$ and $\Var[X]=\sigma_X^2$
+\beq
+\Ebb\left[f(X)\right] & {} = \Ebb\left[f(\mu_X+ 
+\left(X - \mu_X\right))\right] \\
+& \approx \Ebb\left[f(\mu_X) + f'(\mu_X) \left(X-\mu_X\right)+ 
+\frac{1}{2}f''(\mu_X) \left(X - \mu_X\right)^2 \right]=\\
+&=f(\mu_X)  + \frac{1}{2}f''(\mu_X) \sigma^2\\
+\Var\left[f(X)\right]&\approx 
+\left(f'(\Ebb\left[X\right])\right)^2 \Var\left[X\right]
+= \left(f'(\mu_X)\sigma_X\right)^2.
+\eeq
+Taking $f(X)=\log(\frac{X}{1-X}) $, we have $f'(X)=\frac{1}{X(1-X)}$  and 
+$f''(X)=\frac{1-2X}{(X(1-X))^2}$, then
+\beq
+\Ebb[\log(X)]&\approx \log\left(\frac{\mu_X}{1-\mu_X}\right)- 
+ \frac{1-2\mu_X}{(\mu_X(1-\mu_X))^2} \sigma^2_X\\
+\Var[\log(X)]&\approx \frac{\sigma_X^2}{(\mu_X(1-\mu_X))^2}
+\eeq \label{lemma:log}
+\el
+therefore $\mu_X=\nu_0$ $\sigma_X=\frac{2\nu_0(1-\nu_0)t}{N_e}$
+\beq
+\log\left( \frac{\nu_t}{1-\nu_t} \right) \sim \Nc\left( \eta(\nu_0)-   
+\frac{2(1-2\nu_0)}{N\nu_0(1-\nu_0)} , 
+\frac{2t}{N\nu_0(1-\nu_0)} \right)
+\eeq
+taking $\nu_0=0.5$ which yields maximum variance for incrments,  we have
+\beq
+s \sim \Nc(0,\frac{8t}{N } (\frac{2}{t})^2)= \Nc(0,\frac{32}{tN } )
+\eeq 
+also for R replicates we have
+\beq
+s \sim = \Nc(0,\frac{32}{tNR } )
+\eeq 
+\subsection{title}\label{app:adds}
+In a selective sweep, the change in AF is caused by both drift and selection 
+which means that we can quantify the observed selection as combination of drift 
+and sweep selection, $s_d$ and $s_s$ respectively:
+\beq
+x_t&=x_0 +\delta \Rightarrow x_t=\sigma(st+\eta(x_0)) \\
+x_t&=x_0 +\delta_s +\delta_d\\
+x_t-x'+x'&=x_0 +\delta_s +\delta_d \rightarrow 
+\begin{cases}
+	x'=x_0+\delta_d \rightarrow x'=\sigma(ts_d+\eta(x_0)) \\
+	x_t=x'+\delta_s \rightarrow x_t=\sigma(ts_s+\eta(x'))
+	\end{cases} 
+	\eeq
+	\beq
+	x_t&=\sigma(ts_s+\eta(x'))=\sigma(ts_s+\eta(\sigma(ts_d+\eta(x_0)) 
+	))=\sigma(ts_s+ts_d+\eta(x_0))\Rightarrow s=s_d+s_s
+	\eeq
+\section{Old Stuff}
+It should be noted that $\nu_t$ and $1-\nu_t$ are identically distributed, 
+around their means:
+\beq
+\nu_t&\sim \Nc(\nu_0,\frac{h_0 t}{N_e}) , \ \ \ \ \ 
+1-\nu_t\sim \Nc(1-\nu_0,\frac{h_0 t}{N_e}),
+\eeq
+\beq
+\frac{1-\nu_t}{1-\nu_0}&\sim \Nc(1,\frac{\sigma^2}{(1-\nu_0)^2}) \Rightarrow 
+\log \left( \frac{1-\nu_t}{1-\nu_0} \right)  \sim 
+\Nc(0,\frac{\sigma^2}{(1-\nu_0)^2})
+\eeq
+
+\beq
+s=&\frac{2}{t} \log \left( \frac{x_t(1-x_0)}{x_0 (1-x_t)} \right) = 
+\frac{2}{t}\left\{ \log \left( \frac{x_t}{x_0 } \right) -
+\log \left( \frac{(1-x_t)}{ (1-x_0)} \right) \right\}
+\eeq
+
 which we can extend
-\beq
-\nu_t&\sim \Nc(\nu_0 ,\sigma^2)\\
-\frac{\nu_t}{\nu_0}&\sim \Nc(1,\frac{\sigma^2}{\nu_0^2}) , \ \ \ \ \ 
-\frac{1-\nu_t}{1-\nu_0}&\sim \Nc(1,\frac{\sigma^2}{(1-\nu_0)^2})
-\eeq
 which for $\mu_X=1$ and $\sigma_X=\frac{\sigma^2}{\nu_0^2}$
 \beq
 \log\left(\frac{\nu_t}{\nu_0}\right)&\sim \Nc(- 
@@ -610,8 +910,7 @@ s &\sim \Nc \left(0,
 \eeq
 
 cite
-Strength of Selection Pressure Is an Important Parameter Contributing to the 
-Complexity of Antibiotic Resistance Evolution
+
 
 
 Also let $\Phi_D$ and $\Phi_A$  be CDF of Null and Alternative distribution, 
@@ -620,156 +919,35 @@ respectively, then we have
 POWER= \pr_A(s>\Phi_D^{-1}(0.9))=((1-\Phi_A(\Phi_D^{-1}(0.9)))-0.1)\times100
 \eeq
 \newpage
+\paragraph{Linked-loci} suppose infinite pop size and no recomb and hard 
+sweep. consider $\nu$ and $x$ be AF of carrier and linked site with perfect 
+linkage. Then
+\beqq
+\delta x_t &= \begin{cases}
+	\delta \nu   \ \ \ \   x_0=\nu_0 \\
+	\alpha\delta \nu   \ \ \   \alpha \le0, \ x_0>\nu_0 
+\end{cases} \\
+s_x &= \eta(x_t) -\eta( x_0)\\
+s_\nu &= \eta(\nu_t) - \eta(\nu_0)\\
+s_x -s_\nu&= \eta(x_t) -\eta( x_0)-\eta(\nu_t) + \eta(\nu_0)\\
+s_x -s_\nu&= s_{x_t,\nu_t} - s_{x_0,\nu_0}\\
+s_x &= s_\nu+  s_{x_t,\nu_t} - s_{x_0,\nu_0}\\
+\eeqq
+
+
 \subsection{Likelihood Ratio Test}
 Using the MLE (and other) estimates of $s$ it is desirable to perform a 
 secondary task such as \emph{testing for selection} or \emph{locating the 
-site under selection}. Likelihood ratio test (LRT) statistics for time series 
+	site under selection}. Likelihood ratio test (LRT) statistics for time 
+	series 
 \cite{feder2014Identifying} have shown to be predictors for differentiating
- neutral and  natural selection evolution cases. For a single locus model, the
-  likelihood ratio 
+neutral and  natural selection evolution cases. For a single locus model, the
+likelihood ratio 
 test statistics $\Lambda(s*)$ is defined
 \beq \label{eq:lrt}
 \Lambda(s^*) = \log \left(\frac{\Lc(\bfX|s=s*)}{\Lc(\bfX|s=0)}\right)
 \eeq
 where $s^*$ is the optimal solution for the maximum-likelihood procedure. 
-
-\newpage
-\section{Appendix}
-\subsection{Allele frequencies under selective sweep}
-Consider next, a locus under selection with coefficient $s (0\le s\le
-1)$, overdominance and parameter $h (0\le h\le 1)$, so that the
-probability of an individual inheriting $2$ favored alleles is
-$\propto (1+s)$, relative to inheriting $0$ favored
-alleles. Respectively, the probability of favoring $1$ favored allele
-$\propto (1+hs)$ Then,
-
-
-\begin{equation}
-x_{t+1} = f(x_t;s,h) + \epsilon_t
-\label{eq:trans0} 
-\end{equation}
-where $f: [0,1] \mapsto [0,1]$ is the
-transition function given by:
-\begin{equation}
-f(x;s,h)=\frac{(1+s)x^2 + (1+hs)x(1-x)}{(1+s)x^2 + 2(1+hs)x(1-x) + (1-x)^2}
-=x+\frac{s(h+(1-2h)x)x(1-x)}{1+sx(2h+(1-2h)x))}\;.
-\end{equation}
-We simplify notation by setting $h=0.5$, so that
-\begin{equation}
-f(x;s,0.5)=x+\frac{sx(1-x)}{2+2sx}\;.
-\label{eq:hequalshalf}
-\end{equation}
-
-
-Our goal is to estimate $s$ given allele frequencies, and/or to decide
-if $s>0$. Note that the dependence on $s$ is non-linear. Define an
-auxiliary continuous (in time) function $\nu_t(s)$ as follows:
-$\nu_0(s)=x_0$ for all $s$, and:
-\beqq
-\nu_{t+\delta t}(s) &= \nu_t(s)+\frac{\nu_t(s)(1-\nu_t(s))s\delta 
-	t}{2+2s\delta t \nu_t(s)}\;,\\
-\frac{d\nu_t(s)}{dt} &=\lim_{\delta t\rightarrow 0}\frac{\nu_{t+\delta t}(s) 
-	-\nu_t(s)}{\delta t}\\
-&=\lim_{\delta t\rightarrow 
-	0}\frac{s\nu_t(s)(1-\nu_t(s))}{2+2\nu_t(s)s\delta t}\\
-&= \frac{s}{2}\nu_t(s)(1-\nu_t(s)) \;.
-\label{eq:ode}
-\eeqq
-The ODE can be readily solved for $\nu_t(s)$ as
-\begin{equation}
-\nu_t(s) =\frac{1}{1+\frac{1-x_0}{x_0}e^{-st/2}} = \sigma(st/2+\eta(x_0)) 
-\label{eq:inf-pop}
-\end{equation}
-where$\sigma(.)$ is the logistic
-function and $\eta(.)$ is logit function (inverse of the logistic function). Note 
-that $x_t\sim\Nc(\nu_t,1)$ for all discrete times $t$,
-and therefore observations $x_t$ can be used to find Maximum
-Likelihood Estimate of $\nu_t$. Finally, as the sigmoid is a
-one-to-one function, we can find MLE for $s$ given {\bf $\nu$}.
-\subsubsection{Fay Wu's H}
-Consider a collection of $m$ linked loci. Omitting replicate
-information, we represent the derived allele frequencies at time $t\in
-\Tc$ using:
-\[
-{\bf x_t} = [x_{1,t},x_{2,t}\ldots,x_{m,t}]^T 
-\]
-At any time $t$, suppose we have a sample of $n$ individual haplotypes
-that were described by the $n\times m$ matrix $M_t$. Each row of $M_t$
-represents a haplotype from the sample, and is denoted by vector
-$\mathbf{h} \in \{0,1\}^m$. Let $\bfone$ denote the
-$n$-dimensional unit vector. In Pooled sequencing, $M_t$ is hidden,
-but by definition,
-\[
-\mathbf{x_t} = \frac{1}{n} M_t^T\bfone
-\]
-We recently devised the $1\dHAF$ statistic~\cite{ronen2015predicting} for a
-haplotype, and proved some bounds on its expected value during neutral
-evolution, and under selection constraints. In the current notation,
-the $1\dHAF$ score of haplotype $h$ is given by
-\begin{equation}
-1\dHAF(\mathbf{h})=n\bfx_t \cdot \mathbf{h}
-\;.
-\label{eq:1-HAF_SNPmatrix}
-\end{equation}
-The average $1\dHAF$ score at time $t$ can be estimated as:
-\begin{equation} 
-\mathbb{E}[1\dHAF(t)]=\frac{1}{n}\sum_h 1\dHAF(\mathbf{h}) = n\parallel 
-\mathbf{x_t}\parallel^2
-\end{equation} 
-However, in an ongoing selective sweep, the expected $1\dHAF$ score is
-a function of the selection coefficient $s$, and the frequency $\nu$
-of the carriers of the favored mutation. From~\cite{ronen2015predicting}, we
-find that $ \mathbb{E}[1\dHAF(t)]\approx nz(\nu_t)$ where
-
-\beq
-z(\nu_t)= \theta \nu_t \left(\frac{\nu_t+1}{2} - \frac{1}{(1-\nu_t)n+1}\right) +
-\theta (1-\nu_t)\left(\frac{n+1}{2n}-\frac{1}{(1-\nu_t)n+1}\right)
-\label{eq:hafscorepooled}
-\eeq
-
-Rearranging terms, we can estimate $\nu_t$ using
-\begin{equation}
-\hspace{-0.1in}\nu_t^*=\arg\min_{\nu_t}   \left( z(\nu_t) -\parallel 
-\mathbf{x}_t\parallel^2  \right)^2
-\label{eq:pooledfrequency}
-\end{equation}
-where $\nu_t=\sigma(st/2+\eta(\nu_0))$ and for each replicate we have
-\beq
-\xbb &=[\|\bfx_{\tau_1}\|^2 , \ldots, \|\bfx_{\tau_T}\|^2]^T\\
-\bfz(s)&=[z(\nu_{\tau_1}(s)) , \ldots, z(\nu_{\tau_T}(s))]^T
-\eeq
-
-\beq \label{eq:nlls1}
-s^*=\underset{s}{\arg \min} \frac{1}{2} \sum_{r=1}^R \parallel {\bfz_r(s) -  
-	\xbb_{r}} \parallel_2^2
-\eeq
-
-\beq
-AverageHAF&=n\|x\|^2= \alpha\theta_H\\
-\|x\|^2&=\sum_i \left(\frac{i}{n}\right)^2\xi_i =\frac{1}{n^2}\sum_i i^2\xi_i = 
-\frac{ (n-1)}{2n}\theta_H \\
-\alpha&=\frac{ n-1}{2}
-\eeq
-where $k$ is the number of histogram bins in computing AFS.
-
-\subsection{Tajima's D}
-We can compute Tajima's D in time as a function of $s$ and initial carrier 
-frequency.
-
-\beq
-D_0&=\Pi_0 - W_0, \ \ \ \ \ D_t=\Pi_t - W_t\\
-\Pi_t&= (1-\nu_t^2)\Pi_0 \\
-W_0&= \frac{m_0}{S_n}, \ \ \ \ \ W_t= \frac{m_t}{S_n}\\
-\frac{W_t}{W_0}&=\frac{\frac{m_t}{S}}{\frac{m_0}{S}} \ \ \Rightarrow 
-W_t=\frac{m_t}{m_0}W0 \\
-\frac{m_t}{m_0}&=\frac{\log\left((1-\nu_t)n +1 \right)}{\log(n)} \approx  
-\frac{\log\left((1-\nu_t)n\right)}{\log(n)} = \frac{\log(1-\nu_t)+\log(n)}{\log(n)} = 
-1+ \frac{ \log(1-\nu_t)}{\log(n)}\\
-D_t&= (1-\nu_t^2)\Pi_0 - (1+ \frac{ \log(1-\nu_t)}{\log(n)} ) W_0 = 
-D_0+\log(1-\nu_t) \frac{W_0}{\log(n)} -\nu_t^2 \Pi_0\\
-\frac{d D_{t}}{d \nu_{t}}&=
-2\Pi_0\nu_t - \frac{\frac{W_0}{\log(n)}}{1-\nu_t}=a\nu_t + \frac{b}{1-\nu_t}
-\eeq
 
 %\input{intro}
 %\input{method}
