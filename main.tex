@@ -547,7 +547,56 @@ clip,width=\textwidth]{powerReplicateTime}
 
 \section{Materials and Methods}
 \newpage
-\subsection{Single-Locus Methods}
+
+\subsection{Least-Squares Estimate of $s$}
+In a simplest case, we have 2 observations, $x_0$ and $x_t$ and we wish to find 
+$\hat{s}$ so that $x_t=\sigma(\hat{s}t/2+\eta{x_0})$ which can be solved 
+analytically:
+\begin{equation}
+\hat{s}=\frac{2}{t} \log \left( \frac{x_t(1-x_0)}{x_0 (1-x_t)} \right) = 
+\frac{2}{t}  \left( \eta(x_t)-\eta(x_0)\right)
+\label{eq:naive2point}
+\end{equation}
+which selection coefficient can be regarded as for the
+selection coefficient as normalized increment in log-odds space.
+
+However, with more than two observations, the system become over determined and 
+we need to solve $T$ set of equations. By re-arranging 
+\eqref{eq:naive2point}, we can write a set of linear equations
+
+\beq
+\frac{t}{2}s&=\eta(x_t)-\eta(x_0) \ \ \ \ \ \forall t \in \Tc \\ 
+\eeq
+which can be written in matrix form $\bft s =\bfb$ with
+\beq
+\bft=\begin{bmatrix}
+	\tau_1\\
+	\vdots \\
+	\tau_T
+\end{bmatrix}
+\bfb=\begin{bmatrix}
+ 2(\eta(x_{\tau_1})-\eta(x_0))\\
+	\vdots \\
+2\eta(x_{\tau_T})-\eta(x_0))
+\end{bmatrix}, \ \ \ \ \ 
+\eeq
+and the solution is can be computer using psudo inverse
+
+\beq
+\hat{s}=\bft^+\bfb=(\bft^T\bft)^{-1}\bft^T\bfb=\frac{\bft^T\bfb}{\|\bft\|^2}
+\eeq
+it can be shown that 
+\beq
+s^*= \frac{1}{R} \sum_r^R \hat{s}_r = \bft^+\bar{\bfb}
+\eeq
+where $\bar{\bfb}$ is the average of $\bfb$ over $R$ replicates.
+Finally, for each replicate, instead of $T$ equations where each observation is 
+compared with $x_0$, we can take all possible pairs and solve ${T \choose 2}$ 
+set of equations.
+
+
+\newpage
+\subsection{Null and Alternative Distributions of $s$}
 Consider a diallelic single-locus (Wright-Fisher like) model with no
 mutations \cite{Ewens2012Mathematical}, discrete generations, random
 mating etc. With finite population size, the allele frequencies from
@@ -569,142 +618,27 @@ population,
 	equilibrium.} \ \ \ \ \ \epsilon \sim \Nc(0,\frac{h_t}{N_e})  \
 \label{eq:drift}
 \eeq
-where $h_t=2\nu_0(1-\nu_0)$ is heterozygousity at time $t$.
+where $h_t=2\nu_t(1-\nu_t)$ is heterozygousity at time $t$.
 Using Brownian motion approximation, we have 
 \beq x_{\tau} = x_0 + \epsilon_\tau,  \ \ \ \ \ \epsilon \sim 
 \Nc(0,\frac{h_0 \tau}{N_e})
 \eeq
-
-In a simplest case, we have 2 observations, $x_0$ and $x_t$ and we wish to find 
-$\hat{s}$ so that $x_t=\sigma(\hat{s}t/2+\eta{x_0})$ which can be solved 
-analytically:
-\begin{equation}
-\hat{s}=\frac{2}{t} \log \left( \frac{x_t(1-x_0)}{x_0 (1-x_t)} \right) = 
-\frac{2}{t}  \left( \eta(x_t)-\eta(x_0)\right)
-\label{eq:naive2point}
-\end{equation}
-which selection coefficient can be regarded as for the
-selection coefficient as normalized increment in log-odds space.
-
-However, with more than two observations, the system become over determined and 
-we need to solve $T$ set of equations for each replicate. By re-arranging 
-\eqref{eq:naive2point}, we can write a set of linear equations
-
+We can compute the null distribution for selection strength of $s_N$ under 
+neutrality (see appendix 
+\ref{app:null}):
 \beq
-\frac{t_1}{2} s&=  \left( \eta(x_{t_1})-\eta(x_0)\right)\\
-&\vdots\\
-\frac{t_T}{2}s&= \left( \eta(x_{t_T})-\eta(x_0)\right)\\
+s_N \sim  \Nc(0,\frac{16}{\tau N_eR h_0 } )
 \eeq
 
-For each $t\in \Tc$, we
-use \eqref{eq:inf-pop} to provide a naive estimate $s(t)$ 
-
-
-
-As the change in allele frequencies is a aggregation 
-
-Given that under selective sweep, selection strength is additive, we now 
-quantify the distribution of the selection strength under neutral evolution.
-
-Now let $z=\eta(\nu_t)- \eta(\nu_0)\sim \Nc(0,\frac{h_0 t}{N_e})$ then for a 
-single replicate, we have
+Since in the selective sweep, both drift and selection contribute to the change 
+in allele frequencies, they also have an effect in the signal of selection 
+(selection strength) in a variant. In appendix \ref{app:adds} we show that 
+these effects are additive, so the alternative distribution is
 \beq
-s_d\sim \Nc\left(0,\frac{4h_0}{t}\right)
+s_{A} \sim \Nc(s,\frac{16}{\tau N_eR h_0} )
 \eeq
-
-For multiple replicates, we have
-
-which is a linear system with $\bfa s =\bfb$ and the solution is 
-$s^*=\bfa^+\bfb=(\bfa^T\bfa)^{-1}\bfa^T\bfb$:
-\beq
-s^* = \frac{\sum_r  \frac{t}{2} (\eta(x_{r,t})-\eta(x_0)) }{\sum_r   
-(\frac{t}{2})^2}=\frac{\sum_r   (\eta(x_{r,t})-\eta(x_0)) }{\frac{Rt}{2}}=
-\frac{1}{R}\sum_r \frac{2}{t}  (\eta(x_{r,t})-\eta(x_0)) =  \frac{1}{R} \sum_r 
-s^*_r
-\eeq
-or simply is the average of estimates of independent replicares, which means 
-for $R$ replicates we have
-\beq
-s_d\sim \Nc\left(0,\frac{4h_0}{Rt}\right)
-\eeq
-\paragraph{Maximum Likelihood Estimate.}
-For locus $\ell$  and replicate $r$, the observed time-series of 
-allele frequencies are given by:
-\[
-{\bfx_{r,\ell}} = [x_{r,\ell,\tau_1},\ldots,x_{r,\ell,\tau_T}]
-\]
-When the locus is under selection with coefficient $s$, let the allele
-frequencies at times $t\in \Tc$ be described by
-\[
-\vecbold{\nu}(s) = [\nu_{\tau_1}(s),\ldots,\nu_{\tau_T}(s)]
-\]
-where
-\beq
-	s&=\frac{2}{t}  \left( \eta(x_t)-\eta(x_0)\right)\\
-	\frac{1}{ \eta(x_t)-\eta(x_0)}s&=\frac{2}{t} \ \ \ \forall t \in \Tc \\ 
-	\eeq
-we can put all together 
-\beq
-\bfa s = \bft\\
-\bfa=\begin{bmatrix}
-	\frac{1}{ \eta(x_{\tau_1})-\eta(x_0)}\\
-	\vdots \\
-	\frac{1}{ \eta(x_{\tau_T})-\eta(x_0)}
-\end{bmatrix}, \ \ \ \ \ 
-\bft=\begin{bmatrix}
-	\tau_1-\tau_0\\
-	\vdots \\
-	\tau_T-\tau_0
-\end{bmatrix}
-\eeq
-also we can
-\beq
-As=\bfb\\
-A=\begin{bmatrix}
-	\bfa_1\\
-	\vdots \\
-	\bfa_R
-\end{bmatrix}, \ \ \ \ \ 
-\bfb=\begin{bmatrix}
-	\bft\\
-	\vdots \\
-	\bft
-\end{bmatrix}
-\eeq
-solution is
-\beq
-s^*=(A^TA)^{-1}A^T\bfb=\frac{A^T\bfb}{A^TA}=
-\frac{\sum_r\sum_t  \frac{\tau_t-\tau_0}{\eta(x_{r,t})-\eta(x_{r,0})}}
-{\sum_r\sum_t\left(  \frac{1}{ \eta(x_{r,t})-\eta(x_{r,0})}\right)^2}
-\eeq
-
-\newpage
-We assume that the noise due to genetic drift at each generation is
-Gaussian, and independent of other generations. In addition, $x_0$ is
-the same for all the replicates, and $c$. Therefore, using the
-independence of replicates, $\bfx_{r,\ell,t} \sim \Nc(\bf\nu_t(s),I)$
-for all replicates $r$. The likelihood of the observed allele
-frequencies is given by the Gaussian
-\begin{equation}
-	\Lc_G(s|\bfx_{1,\ell}, \dots,\bfx_{R,\ell}) = \prod_{r=1}^R \Pr(\bfx_{r,\ell}| 
-	\vecbold{\mu}=\vecbold{\nu}(s),
-	\Sigma= I) 
-\end{equation}
-Taking logarithms and removing constant values, the problem of finding
-MLE for $s$ amounts to minimizing the negative-log-likelihood function
-with respect to $s$: 
-\begin{equation}
-	s^*=\underset{s}{\arg \min} \frac{1}{2} \sum_{r=1}^R \parallel 
-	{\vecbold{\nu}(s) -
-		\bfx_{r,\ell}} \parallel_2^2
-	\label{eq:nlls0}
-\end{equation}
-which is an instance of non-linear least squares optimization. By taking log we 
-can transform it to a linear system
-
-
-
-
+where $\tau$ is sampling-time-span, and $h_0$ is initial heterozygosity 
+($2\nu_0(1-nu_0)$) .
 
 
 \newpage
@@ -810,7 +744,7 @@ putting all together
 D_t&= (1-\nu_t^2)\Pi_0 - (1+ \frac{ \log(1-\nu_t)}{\log(n)} ) W_0 = 
 D_0+\log(1-\nu_t) \frac{W_0}{\log(n)} -\nu_t^2 \Pi_0
 \eeq
-\subsection{Null Distribution for Selection Strenght}\label{app:null}
+\subsection{Null Distribution for Selection Strength}\label{app:null}
 
 \bl
 Let $X$ is a random variable with $\Ebb[X]=\mu_X$ and $\Var[X]=\sigma_X^2$
@@ -838,15 +772,15 @@ therefore $\mu_X=\nu_0$ $\sigma_X=\frac{2\nu_0(1-\nu_0)t}{N_e}$
 \frac{2(1-2\nu_0)}{N\nu_0(1-\nu_0)} , 
 \frac{2t}{N\nu_0(1-\nu_0)} \right)
 \eeq
-taking $\nu_0=0.5$ which yields maximum variance for incrments,  we have
+which follows
 \beq
-s \sim \Nc(0,\frac{8t}{N } (\frac{2}{t})^2)= \Nc(0,\frac{32}{tN } )
+s \sim \Nc(0,\frac{4t}{N h_0 } (\frac{2}{t})^2)= \Nc(0,\frac{16}{tN h_0} )
 \eeq 
 also for R replicates we have
 \beq
-s \sim = \Nc(0,\frac{32}{tNR } )
+s \sim  \Nc(0,\frac{16}{tNR h_0 } )
 \eeq 
-\subsection{title}\label{app:adds}
+\subsection{Additivity of $s$}\label{app:adds}
 In a selective sweep, the change in AF is caused by both drift and selection 
 which means that we can quantify the observed selection as combination of drift 
 and sweep selection, $s_d$ and $s_s$ respectively:
