@@ -226,15 +226,37 @@ For each experiment a diploid population is created and evolved as follows.
 \end{enumerate}
 
 \subsection{Dynamics of the Sweep}
-Selective sweep is a random process which depends on selection strength
- and population size and affects \emph{site allele frequencies} , \emph{allele 
- frequency spectrum} and \emph{linkage disequilibrium}.
- In these part we study the dynamics of these quantities along selective sweep 
- to propose an efficient method to identify and locate selection.
+Selective sweep is a complex random process which under infinite site assumption
+only depends on a set of parameters including selection strength and 
+population size and the underlying geneology and state of the site under 
+selection at the onset of selection. 
+As a result, the change in different population statistics including \emph{site 
+allele frequencies}(AF), \emph{site frequency spectrum}(SFS) and \emph{linkage 
+disequilibrium}(LD) can be attributed to the selection event.
+However, other fundamentally independent processes such as genetic drift, 
+population expansion/bottleneck and recombination cause AF,SFS and LD to 
+change, respectively. Therefore, obtaining a thorough understanding of natural 
+selection in experimental evolution requires disentangling its effects from 
+those of neutral evolution or demography in the dynamic data.
+
+
+
+ In the following, we examine the dynamics of AF, SFS and LD in experimental 
+ evolution and evaluate their pros and cons in detecting and locating selection.
+
+selection==positive
+
 \paragraph{Allele Frequencies}
 Selection and genetic drift are two main \emph{independent} evolutionary forces 
-that cause change in allele frequency at a segregating site.
- Whether the change in allele frequencies is caused by genetic drift or natural
+that cause change in allele frequency at a segregating site, which in  appendix
+ \ref{app:adds} we show that these forces has an additive effect on signal of 
+ selection at that site. 
+ 
+ In a single-locus model
+In fact, given allele frequency of a single locus, the basic question is to
+
+ Whether the change in allele frequency of a locus is caused by genetic drift 
+ or natural
   selection or both is the main question in detecting selection in the dynamic
    data. Basically, the strength of selection is measured by selection 
    coefficient $s$ and the strength of drift is proportional to 
@@ -262,7 +284,7 @@ derivation)
 \beq
 \nu_t=\sigma(st+\eta(\nu_0))\label{eq:nut}
 \eeq
-where $sigma(.)$ is the logistic function, and $\eta(.)$ is inverse of the 
+where $\sigma(.)$ is the logistic function, and $\eta(.)$ is inverse of the 
 logistic 
 function, aka logit.
 Depending on the 
