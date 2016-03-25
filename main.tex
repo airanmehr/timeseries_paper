@@ -780,6 +780,32 @@ also for R replicates we have
 \beq
 s \sim  \Nc(0,\frac{16}{tNR h_0 } )
 \eeq 
+
+\subsection{Markov Chain}
+Without loss of generality the allele frequencies in a finite diploid population 
+take discrete values in $\{i/2N\}$ where $i\in\{1,\ldots,2N-1\}$. Thus, the 
+process of allele frequency can be regarded as a discrete Markov chain and in 
+the folloing we specify transition probabilities for neutral evolution and natural 
+selection.
+\paragraph{Neutral Evolution}
+The randomness imposed by a genetic drift can be regarded as a random 
+noise distributed by a bionomial sampling. Therefore
+\beq
+p_{i,j}\triangleq \pr\left(x_{t+1}=\frac{j}{2N} \left| 
+x_{t}=\frac{i}{2N}\right)={2N 
+\choose j} \right. 
+x_{t}^j (1-x_{t})^{2N-j} 
+\eeq
+
+\paragraph{Natural Selection}
+
+\beq
+p^s_{i,j}\triangleq \pr\left(x_{t+1}=\frac{j}{2N} \left| 
+x_{t}=\frac{i}{2N}\right)={2N 
+	\choose 2Ny_t} \right. 
+y_{t}^{2Ny_t} (1-y_{t})^{2N(1-y_{t})} 
+\eeq
+
 \subsection{Additivity of $s$}\label{app:adds}
 In a selective sweep, the change in AF is caused by both drift and selection 
 which means that we can quantify the observed selection as combination of drift 
