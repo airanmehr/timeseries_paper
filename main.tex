@@ -303,7 +303,7 @@ and SFSelect tests.
 	\item {\bf Tajima D} As shown in the Appendix \ref{app:td}, dynamic of 
 	Tajima's D in hard sweep is
 	\beq
-	D_t=D_0+\log(1-\nu_t) \frac{W_0}{\log(2N)} -\nu_t^2 \Pi_0\label{eq:tdt}
+	D_t=D_0-\log(1-\nu_t) \frac{W_0}{\log(2N)} -\nu_t^2 \Pi_0\label{eq:tdt}
 	\eeq
 	where $\nu_t$ defined in term of $\nu_0$ and $s$ in \eqref{eq:nut}, $W_0$ 
 	and $\Pi_0$ are Watterson and Tajima estimate of $\theta$ at the first 
@@ -530,10 +530,6 @@ clip,width=\textwidth]{powerReplicateTime}
 			sampling-time-span $\tau$ and initial carrier 
 			frequency $\nu_0$.} \label{fig:powerrt}
 \end{figure}
-\paragraph{Single-Locus vs Multi-locus}
-\paragraph{Time-series vs single-snapshot}
-
-\subsection{Locating Selection}
 
 \subsection{Strength of  Selection}
 \begin{figure}
@@ -545,6 +541,15 @@ clip,width=\textwidth]{powerReplicateTime}
 	selection strength $s$ and soft-sweep with $\nu_0=0.1$.} \label{fig:bias}
 \end{figure}
 
+
+\subsection{Locating the adaptive mutation}
+\begin{figure}
+	\centering
+	\includegraphics[trim=.2in 0 .2in 0, 
+	clip,width=\textwidth]{rank}
+	\caption{CDF of the rank of the adaptive allele in 100 simulations.} 
+	\label{fig:rank}
+		\end{figure}
 \section{Materials and Methods}
 \newpage
 
@@ -623,23 +628,6 @@ Using Brownian motion approximation, we have
 \beq x_{\tau} = x_0 + \epsilon_\tau,  \ \ \ \ \ \epsilon \sim 
 \Nc(0,\frac{h_0 \tau}{N_e})
 \eeq
-We can compute the null distribution for selection strength of $s_N$ under 
-neutrality (see appendix 
-\ref{app:null}):
-\beq
-s_N \sim  \Nc(0,\frac{16}{\tau N_eR h_0 } )
-\eeq
-
-Since in the selective sweep, both drift and selection contribute to the change 
-in allele frequencies, they also have an effect in the signal of selection 
-(selection strength) in a variant. In appendix \ref{app:adds} we show that 
-these effects are additive, so the alternative distribution is
-\beq
-s_{A} \sim \Nc(s,\frac{16}{\tau N_eR h_0} )
-\eeq
-where $\tau$ is sampling-time-span, and $h_0$ is initial heterozygosity 
-($2\nu_0(1-nu_0)$) .
-
 
 \newpage
 \section{Appendix}
@@ -706,7 +694,7 @@ g(\nu_t)= \theta \nu_t \left(\frac{\nu_t+1}{2} - \frac{1}{(1-\nu_t)n+1}\right) +
 \eeq
 where easily follows that
 \beq
-\theta_H(t)=
+\theta_H(t)=\frac{n-1}{2} g(\nu_t)
 \eeq
 
 \subsection{Tajima's D}\label{app:td}
@@ -742,44 +730,9 @@ undergone neutral evolution is $(1-\nu_t)n +1$, which leads to
 putting all together 
 \beq
 D_t&= (1-\nu_t^2)\Pi_0 - (1+ \frac{ \log(1-\nu_t)}{\log(n)} ) W_0 = 
-D_0+\log(1-\nu_t) \frac{W_0}{\log(n)} -\nu_t^2 \Pi_0
+D_0-\log(1-\nu_t) \frac{W_0}{\log(n)} -\nu_t^2 \Pi_0
 \eeq
-\subsection{Null Distribution for Selection Strength}\label{app:null}
 
-\bl
-Let $X$ is a random variable with $\Ebb[X]=\mu_X$ and $\Var[X]=\sigma_X^2$
-\beq
-\Ebb\left[f(X)\right] & {} = \Ebb\left[f(\mu_X+ 
-\left(X - \mu_X\right))\right] \\
-& \approx \Ebb\left[f(\mu_X) + f'(\mu_X) \left(X-\mu_X\right)+ 
-\frac{1}{2}f''(\mu_X) \left(X - \mu_X\right)^2 \right]=\\
-&=f(\mu_X)  + \frac{1}{2}f''(\mu_X) \sigma^2\\
-\Var\left[f(X)\right]&\approx 
-\left(f'(\Ebb\left[X\right])\right)^2 \Var\left[X\right]
-= \left(f'(\mu_X)\sigma_X\right)^2.
-\eeq
-Taking $f(X)=\log(\frac{X}{1-X}) $, we have $f'(X)=\frac{1}{X(1-X)}$  and 
-$f''(X)=\frac{1-2X}{(X(1-X))^2}$, then
-\beq
-\Ebb[\log(X)]&\approx \log\left(\frac{\mu_X}{1-\mu_X}\right)- 
- \frac{1-2\mu_X}{(\mu_X(1-\mu_X))^2} \sigma^2_X\\
-\Var[\log(X)]&\approx \frac{\sigma_X^2}{(\mu_X(1-\mu_X))^2}
-\eeq \label{lemma:log}
-\el
-therefore $\mu_X=\nu_0$ $\sigma_X=\frac{2\nu_0(1-\nu_0)t}{N_e}$
-\beq
-\log\left( \frac{\nu_t}{1-\nu_t} \right) \sim \Nc\left( \eta(\nu_0)-   
-\frac{2(1-2\nu_0)}{N\nu_0(1-\nu_0)} , 
-\frac{2t}{N\nu_0(1-\nu_0)} \right)
-\eeq
-which follows
-\beq
-s \sim \Nc(0,\frac{4t}{N h_0 } (\frac{2}{t})^2)= \Nc(0,\frac{16}{tN h_0} )
-\eeq 
-also for R replicates we have
-\beq
-s \sim  \Nc(0,\frac{16}{tNR h_0 } )
-\eeq 
 
 \subsection{Markov Chain}
 Without loss of generality the allele frequencies in a finite diploid population 
@@ -806,9 +759,67 @@ x_{t}=\frac{i}{2N}\right)={2N
 y_{t}^{2Ny_t} (1-y_{t})^{2N(1-y_{t})} 
 \eeq
 
+
+\section{Old Stuff}
+We can compute the null distribution for selection strength of $s_N$ under 
+neutrality (see appendix 
+\ref{app:null}):
+\beq
+s_N \sim  \Nc(0,\frac{16}{\tau N_eR h_0 } )
+\eeq
+
+Since in the selective sweep, both drift and selection contribute to the change 
+in allele frequencies, they also have an effect in the signal of selection 
+(selection strength) in a variant. In appendix \ref{app:adds} we show that 
+these effects are additive, so the alternative distribution is
+\beq
+s_{A} \sim \Nc(s,\frac{16}{\tau N_eR h_0} )
+\eeq
+where $\tau$ is sampling-time-span, and $h_0$ is initial heterozygosity 
+($2\nu_0(1-nu_0)$) .
+
+
+\subsection{Null Distribution for Selection Strength}\label{app:null}
+
+\bl
+Let $X$ is a random variable with $\Ebb[X]=\mu_X$ and 
+$\Var[X]=\sigma_X^2$
+\beq
+\Ebb\left[f(X)\right] & {} = \Ebb\left[f(\mu_X+ 
+\left(X - \mu_X\right))\right] \\
+& \approx \Ebb\left[f(\mu_X) + f'(\mu_X) \left(X-\mu_X\right)+ 
+\frac{1}{2}f''(\mu_X) \left(X - \mu_X\right)^2 \right]=\\
+&=f(\mu_X)  + \frac{1}{2}f''(\mu_X) \sigma^2\\
+\Var\left[f(X)\right]&\approx 
+\left(f'(\Ebb\left[X\right])\right)^2 \Var\left[X\right]
+= \left(f'(\mu_X)\sigma_X\right)^2.
+\eeq
+Taking $f(X)=\log(\frac{X}{1-X}) $, we have $f'(X)=\frac{1}{X(1-X)}$  and 
+$f''(X)=\frac{1-2X}{(X(1-X))^2}$, then
+\beq
+\Ebb[\log(X)]&\approx \log\left(\frac{\mu_X}{1-\mu_X}\right)- 
+\frac{1-2\mu_X}{(\mu_X(1-\mu_X))^2} \sigma^2_X\\
+\Var[\log(X)]&\approx \frac{\sigma_X^2}{(\mu_X(1-\mu_X))^2}
+\eeq \label{lemma:log}
+\el
+therefore $\mu_X=\nu_0$ $\sigma_X=\frac{2\nu_0(1-\nu_0)t}{N_e}$
+\beq
+\log\left( \frac{\nu_t}{1-\nu_t} \right) \sim \Nc\left( \eta(\nu_0)-   
+\frac{2(1-2\nu_0)}{N\nu_0(1-\nu_0)} , 
+\frac{2t}{N\nu_0(1-\nu_0)} \right)
+\eeq
+which follows
+\beq
+s \sim \Nc(0,\frac{4t}{N h_0 } (\frac{2}{t})^2)= \Nc(0,\frac{16}{tN h_0} )
+\eeq 
+also for R replicates we have
+\beq
+s \sim  \Nc(0,\frac{16}{tNR h_0 } )
+\eeq 
 \subsection{Additivity of $s$}\label{app:adds}
 In a selective sweep, the change in AF is caused by both drift and selection 
-which means that we can quantify the observed selection as combination of drift 
+which means that we can quantify the observed selection as combination of 
+drift 
 and sweep selection, $s_d$ and $s_s$ respectively:
 \beq
 x_t&=x_0 +\delta \Rightarrow x_t=\sigma(st+\eta(x_0)) \\
@@ -817,13 +828,12 @@ x_t-x'+x'&=x_0 +\delta_s +\delta_d \rightarrow
 \begin{cases}
 	x'=x_0+\delta_d \rightarrow x'=\sigma(ts_d+\eta(x_0)) \\
 	x_t=x'+\delta_s \rightarrow x_t=\sigma(ts_s+\eta(x'))
-	\end{cases} 
-	\eeq
-	\beq
-	x_t&=\sigma(ts_s+\eta(x'))=\sigma(ts_s+\eta(\sigma(ts_d+\eta(x_0)) 
-	))=\sigma(ts_s+ts_d+\eta(x_0))\Rightarrow s=s_d+s_s
-	\eeq
-\section{Old Stuff}
+\end{cases} 
+\eeq
+\beq
+x_t&=\sigma(ts_s+\eta(x'))=\sigma(ts_s+\eta(\sigma(ts_d+\eta(x_0)) 
+))=\sigma(ts_s+ts_d+\eta(x_0))\Rightarrow s=s_d+s_s
+\eeq
 It should be noted that $\nu_t$ and $1-\nu_t$ are identically distributed, 
 around their means:
 \beq
