@@ -226,20 +226,56 @@ For each experiment a diploid population is created and evolved as follows.
 \end{enumerate}
 
 \subsection{Dynamics of the Sweep}
-Selective sweep is a random process which depends on selection strength
- and population size and affects \emph{site allele frequencies} , \emph{allele 
- frequency spectrum} and \emph{linkage disequilibrium}.
- In these part we study the dynamics of these quantities along selective sweep 
- to propose an efficient method to identify and locate selection.
+Selective sweep is a complex random process which under infinite site assumption
+only depends on a set of parameters including selection strength and 
+population size and the underlying geneology and state of the site under 
+selection at the onset of selection. 
+As a result, the change in different population statistics, including 
+\emph{site 
+allele frequencies}(AF), \emph{site frequency spectrum}(SFS) and \emph{linkage 
+disequilibrium}(LD), can be attributed to the selection event.
+However, other fundamentally independent processes such as genetic drift, 
+population expansion/bottleneck and recombination cause AF,SFS and LD to 
+change, respectively. Therefore, obtaining a clear understanding of dynamics of 
+selective sweep  requires disentangling effects of natural selection from 
+those of neutral evolution and demography.
+
+
+
+ In the following, we examine the dynamics of AF, SFS and LD in experimental 
+ evolution in detail and evaluate their power in identification of selection 
+ events. 
+ The "identification" of a selection event can be done in a different levels of 
+ details. The very first question is to ask whether a region (e.g. a window of 
+ 50Kbp) on genome is under selection, which basically can be used to locate the 
+ regions (e.g. genes) on a long genome. In the rest, we consider this task to 
+ be the task of detection.
+ Then, finding the causal 
+ mutation/allele would be a more elaborate identification of selection, 
+ henceforth, locating selection. 
+ Finally, estimating model parameters such as strength of selection and 
+ overdominance at the site fully describes the selective sweep.
+ 
+ In the following we only consider positive selection as an selection event and 
+ selection pressure is only subjected to merely one segregating site.
+
+
 \paragraph{Allele Frequencies}
 Selection and genetic drift are two main \emph{independent} evolutionary forces 
-that cause change in allele frequency at a segregating site.
- Whether the change in allele frequencies is caused by genetic drift or natural
-  selection or both is the main question in detecting selection in the dynamic
-   data. Basically, the strength of selection is measured by selection 
-   coefficient $s$ and the strength of drift is proportional to 
-   $\frac{1}{N_e}$, and to detect selection $N_es>1$ should hold.
-  
+that cause change in allele frequency at a segregating site, which in  appendix
+\ref{app:adds} we show that these forces has an additive effect on signal of 
+selection at that site. 
+
+In a single-locus model
+In fact, given allele frequency of a single locus, the basic question is to
+
+Whether the change in allele frequency of a locus is caused by genetic drift 
+or natural
+selection or both is the main question in detecting selection in the dynamic
+data. Basically, the strength of selection is measured by selection 
+coefficient $s$ and the strength of drift is proportional to 
+$\frac{1}{N_e}$, and to detect selection $N_es>1$ should hold.
+
 
 More precisely, under genetic drift, variations in allele frequencies is a 
 random walk, which can be modeled via Moran process~\cite{moran1962statistical}.
@@ -254,19 +290,21 @@ identically and independently distributed Gaussian increments. Feder et al.
 \cite{feder2014Identifying} designed a neutrality test, Frequency Increment 
 Test (FIT), which tests \emph{scaled} increments in observed allele frequencies 
 under Null distribution, i.e. $\Nc(0,1/N_e)$\footnote{Note that the strength of 
-drift is proportional to $\frac{1}{N_e}$}.
+	drift is proportional to $\frac{1}{N_e}$}.
 
-In the selective sweep with infinite population size, dynamic of allele frequencies 
+In the selective sweep with infinite population size, dynamic of allele 
+frequencies 
 can be approximated by the logistic function (see Appendix \ref{app:af} for 
 derivation)
 \beq
 \nu_t=\sigma(st+\eta(\nu_0))\label{eq:nut}
 \eeq
-where $sigma(.)$ is the logistic function, and $\eta(.)$ is inverse of the 
+where $\sigma(.)$ is the logistic function, and $\eta(.)$ is inverse of the 
 logistic 
 function, aka logit.
 Depending on the 
-value of allele frequency at the time selection started, selective sweep is often 
+value of allele frequency at the time selection started, selective sweep is 
+often 
 categorized in two main regimes: hard and soft sweep, Figure \ref{fig:sweep}. 
 Hard sweep occurs when the initial allele (carrier) frequency $\nu_0=1/N_e$ is 
 at 
@@ -276,7 +314,8 @@ consequences~\cite{schrider2015soft} [[explain more]].
 As shown in Figures \ref{fig:dynamic-weak} and \ref{fig:dynamic-strong} (first 
 row), the approximate logistic model seems to be consistent with data in both 
 hard and soft-sweep with both weak and strong selection. Hence, we use the 
-logistic model for allele frequencies to estimate the strength of selection for each 
+logistic model for allele frequencies to estimate the strength of selection for 
+each 
 site.
 \begin{figure}[t]
 	\begin{tabular}{lr}
@@ -290,21 +329,61 @@ site.
 \end{figure}
 
 
-\paragraph{Allele Frequency Spectrum} AFS is the histogram of allele 
-frequencies in a fixed window, which depends on allele frequencies of all sites. 
+\paragraph{Allele Frequency Spectrum} AFS is the distribution of allele 
+frequencies in a fixed window, which depends on allele frequencies of all sites.
+Historically, AFS of static data has been extensively used to examine genetic 
+adaption and demographic changes in a population. However, their predictive 
+performance in the dynamic data yet to be known. In the following, we first 
+evaluate strength and weakness of AFS in detecting selection in static data, 
+then study the potential power of AFS in detecting selection.
+
+Given a single observation, AFS of a hard and (moderately) soft sweeps can be 
+distinguished from those of neutral evolution. In fact, the predictive 
+performance of AFS tightly depend on the strength of LD of the site under 
+selection with the rest of sites in the examining window. This implies that AFS 
+is not a proper statistic when 1)recombination rate is high (e.g., hot spots) 
+or 2)the initial LD is low\cite{} (very soft sweeps i.e, initial carrier 
+frequency is 
+high) 3)the 
+selecting allele is peculiarly old (e.g. balancing selection\cite{} or 
+multi-locus 
+selection\cite{}). Also, AFS based statistics can detect selection  effectively 
+only when the AFS sample is taken close to fixation (not too far prior or after 
+fixation)\cite{}. 
+Finally, AFS-based statistics change in the same way for both selection  an 
+demography. Thus in order to use them for detecting selection, we are assuming 
+that population is panmictic and constant size~\cite{}.
+
+Although aforementioned assumptions (high linkage in window, not far from 
+fixation, and random-mating and constant size population ) seems to be very 
+restrictive, they are easy and inexpensive to use and used in combination with 
+other tests. In practice, AFS distribution is \emph{sclarized} by a weighted 
+linear combination. More precisely,  the weights should be positive and sum to 
+one, which makes it a convex combination or discrete expectation. For example, 
+test statistics for Tajima's $D$\cite{}, Fay Wu's $H$\cite{} and 
+SFSelect\cite{} can be obtained by a dot product of AFS vector with their 
+weight vector \cite{achaz2009frequency}.
+
+In time-series data, trajectory of AFS encodes a profile of selective sweep 
+which its dynamic could be used to describe selection. In the simplest case, we 
+can design a statistical test under which AFS remains constant in neutral 
+evolution (null distribution) and compute the p-values for a given observation. 
+On the other hand, we can model the dynamics of AFS as a function of selection 
+strength to 1)have a model for estimating model parameter 2)acquire an 
+intuition how does AFS behave under different regimes of selection.
+
+
 While Evans et al. \cite{evans2007non} developed diffusion equations for 
-evolution of AFS, they are difficult to solve. However, here instead of analyzing 
-the whole distribution of AFS, we \emph{sclarize} the distribution and study the 
-behavior of it. Scalarization can be done by a weighted linear cobmination of the 
-AFS vector. We choose Tajima's D, Fay Wu's H and SFSelect statistics weights to 
-scalarize the AFS. In other words, we analyze test statistics for Tajima, Fay \& Wu 
-and SFSelect tests.
+evolution of AFS in time series, they are difficult to solve. Hence, we develop 
+direct equations for 
+describing dynamics of the scalar test statistics.
 \begin{enumerate}[I.]
 	\item {\bf Tajima D} As shown in the Appendix \ref{app:td}, dynamic of 
 	Tajima's D in hard sweep is
 	\beq
 	D_t=D_0-\log(1-\nu_t) \frac{W_0}{\log(2N)} -\nu_t^2 \Pi_0\label{eq:tdt}
 	\eeq
+
 	where $\nu_t$ defined in term of $\nu_0$ and $s$ in \eqref{eq:nut}, $W_0$ 
 	and $\Pi_0$ are Watterson and Tajima estimate of $\theta$ at the first 
 	generation. Given $W_0$, $\Pi_0$ and $\nu_t \in (0,1)$, $D_t$ 
@@ -321,7 +400,7 @@ and SFSelect tests.
 	to high rates of false-positives (or false negatives). We conjecture that, 
 	this is because Tajima's D is a weighted average of AFS and this averaging 
 	cancels out small fluctuations of AFS in early generations.
-
+	
 	Finally, in derivation of \eqref{eq:tdt} it has been assumed that the 
 	population undergoes a hard-sweep, and the model becomes invalid as the 
 	initial carrier frequency deviates from that of hard-sweep, Figure 
@@ -363,8 +442,13 @@ and SFSelect tests.
 	\includegraphics[trim={2in 0.5in 2in 
 		0in},clip,page=4,width=\textwidth]{{GlobalDynamics.TimeSeries}.pdf}
 	\caption{Mean and 95\% CI of 1000 simulations for weak selection.}
-	 \label{fig:dynamic-weak}
+	\label{fig:dynamic-weak}
 \end{figure}
+
+
+
+
+
 \paragraph{Linkage Disequilibrium}
 Nonrandom associations between polymorphisms are established in the 
 substitution process according to the phylogeny, broken by recombination events 
@@ -641,13 +725,13 @@ frequency of the allele 1 and allele 1 be the favored allele, then
 \eeq
 \beq
 x_{t+1}&=\frac{w_{11}x_t^2 + w_{01}x(1-x_t)}{w_{11}x^2_t + 2w_{01}x_t(1-x_t) + 
-w_{00}(1-x_t)^2} =x_t+\frac{s(h+(1-2u)x_t)x_t(1-x_t)}{1+sx_t(2u+(1-2u)x_t))}
+w_{00}(1-x_t)^2} =x_t+\frac{s(h+(1-2u)x_t)x_t(1-x_t)}{1+sx_t(2u+(1-2u)x_t))} 
 \eeq
 where $s\in \Rbb$ is the selection coefficient and $o\in[0,1]$ is the 
 overdominance parameter which for $u=0.5$ we have
 \begin{equation}
 x_{t+1}=x_t+\frac{sx_t(1-x_t)}{2+2sx_t}\;.
-\label{eq:hequalshalf}
+\label{eq:transition}
 \end{equation}
 we also have
 \beq
@@ -816,6 +900,35 @@ also for R replicates we have
 \beq
 s \sim  \Nc(0,\frac{16}{tNR h_0 } )
 \eeq 
+<<<<<<< HEAD
+=======
+
+\subsection{Markov Chain}
+Without loss of generality the allele frequencies in a finite diploid population 
+take discrete values in $\{i/2N\}$ where $i\in\{1,\ldots,2N-1\}$. Thus, the 
+process of allele frequency can be regarded as a discrete Markov chain and in 
+the folloing we specify transition probabilities for neutral evolution and natural 
+selection.
+\paragraph{Neutral Evolution}
+The randomness imposed by a genetic drift can be regarded as a random 
+noise distributed by a bionomial sampling. Therefore
+\beq
+p_{i,j}\triangleq \pr\left(x_{t+1}=\frac{j}{2N} \left| 
+x_{t}=\frac{i}{2N}\right)={2N 
+\choose j} \right. 
+x_{t}^j (1-x_{t})^{2N-j} 
+\eeq
+
+\paragraph{Natural Selection}
+
+\beq
+p^s_{i,j}\triangleq \pr\left(x_{t+1}=\frac{j}{2N} \left| 
+x_{t}=\frac{i}{2N}\right)={2N 
+	\choose j} \right. 
+y_{t}^{j} (1-y_{t})^{2N-j} 
+\eeq
+where $y_t(x_t)$ is comped via \ref{eq:transition}.
+>>>>>>> 6f089d759b7b2751933cc9c4268d234cc2748eba
 \subsection{Additivity of $s$}\label{app:adds}
 In a selective sweep, the change in AF is caused by both drift and selection 
 which means that we can quantify the observed selection as combination of 
