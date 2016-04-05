@@ -225,16 +225,25 @@ For each experiment a diploid population is created and evolved as follows.
 	replicates.
 \end{enumerate}
 
+\paragraph{Hard and Soft Sweep}
+Depending on the 
+value of allele frequency at the time selection started, selective sweep is 
+often 
+categorized in two main regimes: hard and soft sweep, Figure \ref{fig:sweep}. 
+Hard sweep occurs when the initial allele (carrier) frequency $\nu_0=1/N_e$ is 
+at 
+minimum, and soft-sweep otherwise. This small difference could have nontrivial
+consequences~\cite{schrider2015soft} [[explain more]].
+
 \subsection{Dynamics of the Sweep}
 Selective sweep is a complex random process which under infinite site assumption
 only depends on a set of parameters including selection strength and 
-population size and the underlying geneology and state of the site under 
-selection at the onset of selection. 
+population size and the underlying genealogy at the onset of selection. 
 As a result, the change in different population statistics, including 
 \emph{site 
 allele frequencies}(AF), \emph{site frequency spectrum}(SFS) and \emph{linkage 
 disequilibrium}(LD), can be attributed to the selection event.
-However, other fundamentally independent processes such as genetic drift, 
+However, other independent processes such as genetic drift, 
 population expansion/bottleneck and recombination cause AF,SFS and LD to 
 change, respectively. Therefore, obtaining a clear understanding of dynamics of 
 selective sweep  requires disentangling effects of natural selection from 
@@ -249,74 +258,16 @@ those of neutral evolution and demography.
  details. The very first question is to ask whether a region (e.g. a window of 
  50Kbp) on genome is under selection, which basically can be used to locate the 
  regions (e.g. genes) on a long genome. In the rest, we consider this task to 
- be the task of detection.
+ be the task of \emph{detection}.
  Then, finding the causal 
  mutation/allele would be a more elaborate identification of selection, 
- henceforth, locating selection. 
+ henceforth, \emph{locating} selection. 
  Finally, estimating model parameters such as strength of selection and 
  overdominance at the site fully describes the selective sweep.
  
  In the following we only consider positive selection as an selection event and 
  selection pressure is only subjected to merely one segregating site.
 
-
-\paragraph{Allele Frequencies}
-Selection and genetic drift are two main \emph{independent} evolutionary forces 
-that cause change in allele frequency at a segregating site, which in  appendix
-\ref{app:adds} we show that these forces has an additive effect on signal of 
-selection at that site. 
-
-In a single-locus model
-In fact, given allele frequency of a single locus, the basic question is to
-
-Whether the change in allele frequency of a locus is caused by genetic drift 
-or natural
-selection or both is the main question in detecting selection in the dynamic
-data. Basically, the strength of selection is measured by selection 
-coefficient $s$ and the strength of drift is proportional to 
-$\frac{1}{N_e}$, and to detect selection $N_es>1$ should hold.
-
-
-More precisely, under genetic drift, variations in allele frequencies is a 
-random walk, which can be modeled via Moran process~\cite{moran1962statistical}.
-In fact, joint distribution of allele frequencies grows exponentially with 
-number of observations which makes computing probabilities extremely difficult 
-(due to tedious marginalizations).
-
-However, it is possible to approximate change in allele frequencies
-with a Brownian motion~\cite{Ewens2012Mathematical}. 
-Brownian motion is a random process which is identified by zero-mean 
-identically and independently distributed Gaussian increments. Feder et al. 
-\cite{feder2014Identifying} designed a neutrality test, Frequency Increment 
-Test (FIT), which tests \emph{scaled} increments in observed allele frequencies 
-under Null distribution, i.e. $\Nc(0,1/N_e)$\footnote{Note that the strength of 
-	drift is proportional to $\frac{1}{N_e}$}.
-
-In the selective sweep with infinite population size, dynamic of allele 
-frequencies 
-can be approximated by the logistic function (see Appendix \ref{app:af} for 
-derivation)
-\beq
-\nu_t=\sigma(st+\eta(\nu_0))\label{eq:nut}
-\eeq
-where $\sigma(.)$ is the logistic function, and $\eta(.)$ is inverse of the 
-logistic 
-function, aka logit.
-Depending on the 
-value of allele frequency at the time selection started, selective sweep is 
-often 
-categorized in two main regimes: hard and soft sweep, Figure \ref{fig:sweep}. 
-Hard sweep occurs when the initial allele (carrier) frequency $\nu_0=1/N_e$ is 
-at 
-minimum, and soft-sweep otherwise. This small difference could have nontrivial
-consequences~\cite{schrider2015soft} [[explain more]].
-
-As shown in Figures \ref{fig:dynamic-weak} and \ref{fig:dynamic-strong} (first 
-row), the approximate logistic model seems to be consistent with data in both 
-hard and soft-sweep with both weak and strong selection. Hence, we use the 
-logistic model for allele frequencies to estimate the strength of selection for 
-each 
-site.
 \begin{figure}[t]
 	\begin{tabular}{lr}
 		\centering
@@ -325,8 +276,87 @@ site.
 		&\includegraphics[trim={2in 0.1in 1.9in 
 			0in},clip,page=2,width=0.5\textwidth]{sigmoidHard}
 	\end{tabular}
-	\caption{soft (left) and hard (right) sweep.} 	 \label{fig:sweep}
+	\caption{Logistic model for different selection strengths for soft (left) 
+		and hard (right) sweep as a function of time in generations. The first 
+		50 
+		generations, which observations are sampled is shaded.} 	 
+	\label{fig:sweep}
 \end{figure}
+
+\paragraph{Allele Frequencies}
+Selection and genetic drift are the two main \emph{independent} evolutionary 
+forces that cause change in allele frequencies, each generation. 
+In the simplest case, models for neutral evolution of a single-locus can be 
+used to derive a null distribution in order to detect a region or locate the 
+adaptive allele.
+For example, Feder et al. 
+\cite{feder2014Identifying} proposed a (continues-time continues-state) 
+Brownian motion process for modeling variation of allele frequencies under 
+genetic drift. Basically, given current allele frequency $\nu_t$ at a site 
+Brownian motion approximation considers future allele frequencies to be drawn 
+from the Gaussian distribution
+\beq
+\nu_{t+\tau}\sim \Nc\left(\nu_t,\frac{2\nu_t(1-\nu_t)}{N_e}\tau\right) 
+\label{eq:brown}
+\eeq
+Using \eqref{eq:brown}, Frequency Increment Test (FIT) 
+\cite{feder2014Identifying} computes p-value of 
+time-series data by a Student's t-test. However, Brownian motion is a poor 
+approximation of the actual genetic drift process when 1) $\nu_t$ is not close 
+to $0.5$, 2) when $\tau$ is large.
+
+Instead, we can compute distributions of allele frequencies by using a 
+(discrete-time discrete-state-space) Markov Chain with transition matrix $P$
+\beq
+P_{i,j}=\pr\left(\nu_{t+1}=\frac{j}{2N} \left| 
+\nu_{t}=\frac{i}{2N}\right)={2N 
+	\choose j} \right. 
+\nu_{t}^j (1-\nu_{t})^{2N-j} 
+\eeq
+which transition probabilities for $\tau$ generations ahead can be computed by 
+powering the transition matrix to $\tau$.
+
+On the other hand, alternative models for single-locus selection can be 
+utilized to estimate strength of selection and robustly detect and locate 
+selection by 
+combining two hypothesis and perform likelihood ration test.
+In a pure selection process with no drift, i.e. infinite population size, 
+dynamic of allele frequencies 
+can be well approximated by the logistic function (see Appendix \ref{app:af} 
+for 
+derivation)
+\beq
+\nu_t=\sigma(st+\eta(\nu_0))\label{eq:nut}
+\eeq
+where $\sigma(x)=1/(1+e^{-x})$ is the logistic function, and 
+$\eta(x)=\log(x)/\log(1-x)$ is inverse of the 
+logistic, aka logit, function. Figure \ref{fig:sweep} depicts the behavior of 
+the logistic model for site allele frequencies and the default sampling time 
+span(STS). Under pure selection regime, soft sweeps are easier to detect, 
+because the logistic function happens to have steeper slope in th STS than 
+those of hard sweeps. In addition, even in infinite population size, it is 
+difficult differentiate between weak selections and genetic drift (a horizontal 
+line), in 50 generations.
+
+
+As shown in Figures \ref{fig:dynamic-weak} and \ref{fig:dynamic-strong} (first 
+row), the approximate logistic model is consistent with simulated data and we 
+use it to estimate the strength of selection for 
+each site by a simple regression (see \ref{sec:regression} for details).
+
+Given an estimate for $s$, the Markov chain with transition probabilities 
+(\cite{Ewens2012Mathematical}, eq 1.58-59)
+\beq
+Q_{i,j}(s)&=\pr\left(\nu_{t+1}=\frac{j}{2N} \left| 
+\nu_{t}=\frac{i}{2N}\right)={2N 
+	\choose j} \right. 
+\hat{\nu}_{t+1}^{j} (1-\hat{\nu}_{t+1})^{2N-j},\\
+\hat{\nu}_{t+1}&=\sigma(\hat{s}+\eta(\nu_t))
+\eeq
+computes probabilities of time-series under the alternative model. The 
+likelihood ratio test is then provides a calibrated predictor which is more 
+robust to pathological false-positives \cite{feder2014Identifying}.
+
 
 
 \paragraph{Allele Frequency Spectrum} AFS is the distribution of allele 
@@ -637,7 +667,7 @@ clip,width=\textwidth]{powerReplicateTime}
 \section{Materials and Methods}
 \newpage
 
-\subsection{Least-Squares Estimate of $s$}
+\subsection{Least-Squares Estimate of $s$} \label{sec:regression}
 In a simplest case, we have 2 observations, $x_0$ and $x_t$ and we wish to find 
 $\hat{s}$ so that $x_t=\sigma(\hat{s}t/2+\eta{x_0})$ which can be solved 
 analytically:
@@ -900,8 +930,6 @@ also for R replicates we have
 \beq
 s \sim  \Nc(0,\frac{16}{tNR h_0 } )
 \eeq 
-<<<<<<< HEAD
-=======
 
 \subsection{Markov Chain}
 Without loss of generality the allele frequencies in a finite diploid population 
@@ -928,7 +956,7 @@ x_{t}=\frac{i}{2N}\right)={2N
 y_{t}^{j} (1-y_{t})^{2N-j} 
 \eeq
 where $y_t(x_t)$ is comped via \ref{eq:transition}.
->>>>>>> 6f089d759b7b2751933cc9c4268d234cc2748eba
+
 \subsection{Additivity of $s$}\label{app:adds}
 In a selective sweep, the change in AF is caused by both drift and selection 
 which means that we can quantify the observed selection as combination of 
