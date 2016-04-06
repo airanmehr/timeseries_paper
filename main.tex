@@ -29,7 +29,7 @@ over conventional method both in hard and soft sweeps.
 
 \section{Introduction}
 Genetic adaptation is \emph{the} central evolutionary process and is at the
- core of some of the greatest challenges facing humanity.  HIVwould likely
+ core of some of the greatest challenges facing humanity.  HIV would likely
   cause nothing more than harmless fever without the
 ability of the virus to adapt and eventually destroy the immune system. 
 Cancer would be much more straightforward to treat if not for
@@ -69,10 +69,10 @@ SFSelect~\cite{ronen2013learning} compute test statistic as "\emph{a}"
 	   weights. As with Bayesian inference, using a \emph{not-reasonable prior}
 	    distribution would lead to poor results.} 
 	convex 
-combination of Allele Frequency Spectrum(AFS)~\cite{achaz2009frequency} 
+combination of Site Frequency Spectrum(SFS)~\cite{achaz2009frequency} 
 (Figure \ref{fig:afs}. 
 However, despite their simplicity and intuitiveness, it has been shown that
- ~\cite{ptak2002evidence, ramos2002statistical} AFS-based tests often fail 
+ ~\cite{ptak2002evidence, ramos2002statistical} SFS-based tests often fail 
  to discriminate between positive selection and a dynamic
 demographic processes. Also, more recently, Frequency Increment
  Test(FIT) \cite{feder2014Identifying} is  proposed to test whether a
@@ -80,7 +80,7 @@ demographic processes. Also, more recently, Frequency Increment
 \begin{figure}
 	\centering
 	\includegraphics[scale=0.2]{afs}
-	\caption{AFS}	\label{fig:afs}
+	\caption{SFS}	\label{fig:afs}
 \end{figure}
 \paragraph{Experimental Evolution}
 Recent advances of whole genome sequencing has enabled us to sequence 
@@ -134,7 +134,7 @@ Linked-loci time-series (spatio-temporal) methods
  which makes it cumbersome. Theoretical diffusion approximation method has also 
  developed for neutral allele frequencies~\cite{Ewens2012Mathematical, 
  kimura1955solution}
-neutral AFS~\cite{evans2007non}, neutral allele
+neutral SFS~\cite{evans2007non}, neutral allele
  frequencies~\cite{song2012simple}.
 
 Experimental evolution (including evolve and re-sequence paradigms)
@@ -237,7 +237,7 @@ consequences~\cite{schrider2015soft} [[explain more]].
 
 \subsection{Dynamics of the Sweep}
 Selective sweep is a complex random process which under infinite site assumption
-only depends on a set of parameters including selection strength and 
+only depends on selection strength,
 population size and the underlying genealogy at the onset of selection. 
 As a result, the change in different population statistics, including 
 \emph{site 
@@ -254,8 +254,8 @@ those of neutral evolution and demography.
  In the following, we examine the dynamics of AF, SFS and LD in experimental 
  evolution in detail and evaluate their power in identification of selection 
  events. 
- The "identification" of a selection event can be done in a different levels of 
- details. The very first question is to ask whether a region (e.g. a window of 
+ The "identification" of a selection event can be done in different levels of 
+ detail. The very first question is to ask whether a region (e.g. a window of 
  50Kbp) on genome is under selection, which basically can be used to locate the 
  regions (e.g. genes) on a long genome. In the rest, we consider this task to 
  be the task of \emph{detection}.
@@ -266,7 +266,7 @@ those of neutral evolution and demography.
  overdominance at the site fully describes the selective sweep.
  
  In the following we only consider positive selection as an selection event and 
- selection pressure is only subjected to merely one segregating site.
+ selection pressure is subjected to only one segregating site.
 
 \begin{figure}[t]
 	\begin{tabular}{lr}
@@ -287,7 +287,8 @@ those of neutral evolution and demography.
 Selection and genetic drift are the two main \emph{independent} evolutionary 
 forces that cause change in allele frequencies, each generation. 
 In the simplest case, models for neutral evolution of a single-locus can be 
-used to derive a null distribution in order to detect a region or locate the 
+used to derive a null distribution in order to detect the region under 
+selection or locate the 
 adaptive allele.
 For example, Feder et al. 
 \cite{feder2014Identifying} proposed a (continues-time continues-state) 
@@ -303,15 +304,21 @@ Using \eqref{eq:brown}, Frequency Increment Test (FIT)
 \cite{feder2014Identifying} computes p-value of 
 time-series data by a Student's t-test. However, Brownian motion is a poor 
 approximation of the actual genetic drift process when 1) $\nu_t$ is not close 
-to $0.5$, 2) when $\tau$ is large.
+to $0.5$, 2) when $\tau$ is large. A the start of selection site frequencies 
+are distributed according to SFS of a neutral population, and thus most of the 
+sites are at low frequencies. Thus if the selecting site is chosen randomly 
+with high probability its frequency will be far 0.5. Moreover, in many 
+experimental evolution experiments STS $\tau$ is chosen be large, e.g. 10+ to 
+100+ generations.
 
-Instead, we can compute distributions of allele frequencies by using a 
+
+Instead, probabilities of trajectories can be computed using a 
 (discrete-time discrete-state-space) Markov Chain with transition matrix $P$
 \beq
 P_{i,j}=\pr\left(\nu_{t+1}=\frac{j}{2N} \left| 
 \nu_{t}=\frac{i}{2N}\right)={2N 
 	\choose j} \right. 
-\nu_{t}^j (1-\nu_{t})^{2N-j} 
+\nu_{t}^j (1-\nu_{t})^{2N-j}  
 \eeq
 which transition probabilities for $\tau$ generations ahead can be computed by 
 powering the transition matrix to $\tau$.
@@ -319,7 +326,7 @@ powering the transition matrix to $\tau$.
 On the other hand, alternative models for single-locus selection can be 
 utilized to estimate strength of selection and robustly detect and locate 
 selection by 
-combining two hypothesis and perform likelihood ration test.
+combining two hypothesis and perform likelihood ration tests.
 In a pure selection process with no drift, i.e. infinite population size, 
 dynamic of allele frequencies 
 can be well approximated by the logistic function (see Appendix \ref{app:af} 
@@ -332,7 +339,7 @@ where $\sigma(x)=1/(1+e^{-x})$ is the logistic function, and
 $\eta(x)=\log(x)/\log(1-x)$ is inverse of the 
 logistic, aka logit, function. Figure \ref{fig:sweep} depicts the behavior of 
 the logistic model for site allele frequencies and the default sampling time 
-span(STS). Under pure selection regime, soft sweeps are easier to detect, 
+span(STS). Without genetic drift, soft sweeps are easier to detect, 
 because the logistic function happens to have steeper slope in th STS than 
 those of hard sweeps. In addition, even in infinite population size, it is 
 difficult differentiate between weak selections and genetic drift (a horizontal 
@@ -351,62 +358,97 @@ Q_{i,j}(s)&=\pr\left(\nu_{t+1}=\frac{j}{2N} \left|
 \nu_{t}=\frac{i}{2N}\right)={2N 
 	\choose j} \right. 
 \hat{\nu}_{t+1}^{j} (1-\hat{\nu}_{t+1})^{2N-j},\\
-\hat{\nu}_{t+1}&=\sigma(\hat{s}+\eta(\nu_t))
+\hat{\nu}_{t+1}&=\sigma(\hat{s}+\eta(\nu_t))\label{eq:markovs}
 \eeq
-computes probabilities of time-series under the alternative model. The 
-likelihood ratio test is then provides a calibrated predictor which is more 
-robust to pathological false-positives \cite{feder2014Identifying}.
+computes probabilities of time-series under the alternative model. 
+
+Likelihood of the trajectories under null and alternative hypothesis can be 
+computed to perform likelihood ratio tests which provide predictors that are 
+robust to pathological false-positives \cite{feder2014Identifying}. 
+Specifically, for each site, we define the likelihood-ratio predictor
+\beq \label{eq:lrt}
+\Lambda(\hat{s}) = \hat{s}\log 
+\left(\frac{\Lc(\bfx|s=\hat{s})}{\Lc(\bfx|s=0)}\right)
+\eeq
+where $\bfx$ is the vector of trajectories and $\Lc$ is the likelihood function 
+defined by the Markov chain with transition \eqref{eq:markovs}.
+\begin{figure}[t]
+		\centering
+		\includegraphics[trim={0in 0.1in 0in 
+			0in},clip,width=\textwidth]{{markov0.005}.png}\\
+		\includegraphics[trim={0in 0.1in 0in 
+			0in},clip,width=\textwidth]{{markov0.1}.png}
+	\caption{Predicted distributions of allele frequencies of sites with 
+	initial frequency $\nu_0=0.005$ (top) and $\nu_0=0.1$ (bottom), after 
+	$t=\{1,10,100\}$ generations, under neutral evolution, by Brownian mothion 
+	and Markov chain. Observed distribution of 143900 sites with $\nu_0=0.005$ 
+	and 47500 with variants $\nu_0=0.1$ computed from neutrally evolving 
+	simulations is depicted in green lines.} 	 
+	\label{fig:markov}
+\end{figure}
 
 
+\begin{figure}[t]
+	\centering
+	\includegraphics[trim={0in 0.1in 0in 
+		0in},clip,width=\textwidth]{{markov.s0.1}.png}
+	\caption{Predicted distributions of allele frequencies of sites with 
+		initial frequency $\nu_0=0.005$ and selection strength $s=0.1$, after 
+		$t=\{1,10,100\}$ generations,by Markov chain. 
+		Observed distribution of the adaptive allele (with$\nu_0=0.005$) in 
+		10000 simulation is shown in green.} 	 
+	\label{fig:markovs}
+\end{figure}
+\paragraph{Site Frequency Spectrum} SFS (Figure \ref{fig:afs}) is the 
+distribution of allele 
+frequencies in a genomic region.
+Historically, SFS of static data has been extensively used to "detect" genetic 
+adaption and demographic changes in a population. Basically, SFS is a measure 
+of diversity in a genomic region and reduction of diversity is a signal of 
+selection. Detecting selection based on the reduction in genomic diversity is a 
+subtle 
+task, because 
+\begin{enumerate}[(i)]
+	\item  in soft sweeps the genomic diversity is not is not necessarily 
+	reduced.
+	\item even in hard sweeps with no recombination, the reduction diversity is 
+	significant only when the SFS sample is taken close to fixation (not too 
+	far prior or after fixation)
+	\item SFS change in the same way for both selection an 
+	demography changes. 
+\end{enumerate}
 
-\paragraph{Allele Frequency Spectrum} AFS is the distribution of allele 
-frequencies in a fixed window, which depends on allele frequencies of all sites.
-Historically, AFS of static data has been extensively used to examine genetic 
-adaption and demographic changes in a population. However, their predictive 
-performance in the dynamic data yet to be known. In the following, we first 
-evaluate strength and weakness of AFS in detecting selection in static data, 
-then study the potential power of AFS in detecting selection.
+Although conditions (hard sweep with no recombination, not far from 
+fixation, and random-mating and constant size population ) for detecting 
+selection based on SFS are very restrictive, SFS-based tests are simple and 
+inexpensive to use and often used in combination with 
+other tests~\cite{}. 
 
-Given a single observation, AFS of a hard and (moderately) soft sweeps can be 
-distinguished from those of neutral evolution. In fact, the predictive 
-performance of AFS tightly depend on the strength of LD of the site under 
-selection with the rest of sites in the examining window. This implies that AFS 
-is not a proper statistic when 1)recombination rate is high (e.g., hot spots) 
-or 2)the initial LD is low\cite{} (very soft sweeps i.e, initial carrier 
-frequency is 
-high) 3)the 
-selecting allele is peculiarly old (e.g. balancing selection\cite{} or 
-multi-locus 
-selection\cite{}). Also, AFS based statistics can detect selection  effectively 
-only when the AFS sample is taken close to fixation (not too far prior or after 
-fixation)\cite{}. 
-Finally, AFS-based statistics change in the same way for both selection  an 
-demography. Thus in order to use them for detecting selection, we are assuming 
-that population is panmictic and constant size~\cite{}.
+In practice, SFS distribution is \emph{sclarized} by a weighted 
+linear combination\cite{achaz2009frequency}. More precisely, the weights should 
+be positive and sum to 
+one, which makes it a convex combination, aka discrete expectation. For 
+example, 
+test statistics for Tajima's $D$\cite{tajima1989statistical}, Fay Wu's 
+$H$\cite{fay2000hitchhiking} and 
+SFSelect\cite{ronen2013learning} can be obtained by a dot product of SFS vector 
+with their weight vector.
 
-Although aforementioned assumptions (high linkage in window, not far from 
-fixation, and random-mating and constant size population ) seems to be very 
-restrictive, they are easy and inexpensive to use and used in combination with 
-other tests. In practice, AFS distribution is \emph{sclarized} by a weighted 
-linear combination. More precisely,  the weights should be positive and sum to 
-one, which makes it a convex combination or discrete expectation. For example, 
-test statistics for Tajima's $D$\cite{}, Fay Wu's $H$\cite{} and 
-SFSelect\cite{} can be obtained by a dot product of AFS vector with their 
-weight vector \cite{achaz2009frequency}.
+Whether the dynamic of SFS in times-series can improve the detection power in 
+the conditions (i-iii) is not well-studied yet. Evans et al. 
+\cite{evans2007non} developed diffusion equations for 
+evolution of SFS in time series, they are difficult to solve. On the other 
+hand, scalar test statistics such as $D$, $H$ and SFSelect are easier to 
+analyze and visualize.
 
-In time-series data, trajectory of AFS encodes a profile of selective sweep 
-which its dynamic could be used to describe selection. In the simplest case, we 
-can design a statistical test under which AFS remains constant in neutral 
-evolution (null distribution) and compute the p-values for a given observation. 
-On the other hand, we can model the dynamics of AFS as a function of selection 
+In the simplest case, statistical test can be designed to test whether the 
+observations of $D$, $H$ and SFSelect statistics are significantly deviated 
+from null distribution, i.e. constant values in time.
+On the other hand, we can model the dynamics of SFS as a function of selection 
 strength to 1)have a model for estimating model parameter 2)acquire an 
-intuition how does AFS behave under different regimes of selection.
+intuition how does SFS statistics behave under different regimes of selection.
 
 
-While Evans et al. \cite{evans2007non} developed diffusion equations for 
-evolution of AFS in time series, they are difficult to solve. Hence, we develop 
-direct equations for 
-describing dynamics of the scalar test statistics.
 \begin{enumerate}[I.]
 	\item {\bf Tajima D} As shown in the Appendix \ref{app:td}, dynamic of 
 	Tajima's D in hard sweep is
@@ -414,29 +456,47 @@ describing dynamics of the scalar test statistics.
 	D_t=D_0-\log(1-\nu_t) \frac{W_0}{\log(2N)} -\nu_t^2 \Pi_0\label{eq:tdt}
 	\eeq
 
-	where $\nu_t$ defined in term of $\nu_0$ and $s$ in \eqref{eq:nut}, $W_0$ 
-	and $\Pi_0$ are Watterson and Tajima estimate of $\theta$ at the first 
-	generation. Given $W_0$, $\Pi_0$ and $\nu_t \in (0,1)$, $D_t$ 
-	\eqref{eq:tdt} is a one-to-one map of $\nu_t$, which exhibits the same 
-	trend as carrier frequency $\nu_t$, but potentially with higher variance.
+	where $W_0$ and $\Pi_0$ are Watterson and Tajima estimate of $\theta$ at 
+	the first generation.
+	Given that $\nu_t$ defined in term of $\nu_0$ and $s$ in \eqref{eq:nut}, we 
+	can use \eqref{eq:tdt} to detect the selection and estimate the strength of 
+	selection at the same time by performing a nonlinear regression to find 
+	$s$. A likelihood ratio, similar to \eqref{eq:lrt}, provides\footnote{The 
+	likelihood of the data to the model is the least-squares loss between model 
+	$D_t(\hat{(s)})$ and the observed $D$.} a predictor for detecting selection 
+	in each window
+	
+	However, given $W_0$, $\Pi_0$ and $\nu_t \in (0,1)$, $D_t$ 
+	\eqref{eq:tdt} is a map of $\nu_t$, which its variance is larger than that 
+	of $\nu_t$.
 	Figures \ref{fig:dynamic-weak} and \ref{fig:dynamic-strong} (last 
 	row, left), shows that the parametric model is reasonable, but observations 
 	of $D_t$ has higher variance than $\nu_t$ which makes it harder to 
 	distinguish between neutral and under sweep population. 
 	
-	In addition to their variance, the mean of the processes in both cases 
-	(even for strong selection)
-	seems to be entangled to each other in early generations  that could lead 
-	to high rates of false-positives (or false negatives). We conjecture that, 
-	this is because Tajima's D is a weighted average of AFS and this averaging 
-	cancels out small fluctuations of AFS in early generations.
-	
-	Finally, in derivation of \eqref{eq:tdt} it has been assumed that the 
+	In addition, in derivation of \eqref{eq:tdt} it has been assumed that the 
 	population undergoes a hard-sweep, and the model becomes invalid as the 
 	initial carrier frequency deviates from that of hard-sweep, Figure 
 	\ref{fig:dynamic-weak} and \ref{fig:dynamic-strong} (last 
 	row, right).
 	
+	Finally, in a infinite population size setting, differentiating the between 
+	selection and drift is difficult in early generations of hard sweep.
+	More precisely, w.l.o.g. when $D_0=0$ and $\Pi_0=W_0=1$, $D_t$ is sum of a 
+	logarithmic and a squared term, blue and green curves in Figure 
+	\ref{fig:tdterms}. As shown in the Figure \ref{fig:tdterms} right, in early 
+	generations of sweep where carrier frequency is low, $D_t$ is either 
+	positive or close zero. In other words, the reduction in diversity become 
+	significant when carrier frequency is high.
+	
+	
+	\begin{figure}[t]
+		\centering
+		\includegraphics[trim={0in 0.1in 0in 
+			0in},clip,width=\textwidth]{{tdterms}.png}
+		\caption{Interactions of two terms in $D$.} 	 
+		\label{fig:tdterms}
+	\end{figure}
 	\item {\bf Fay Wu's H} As shown in the Appendix \ref{app:h}, dynamic of Fay 
 	Wu's H in 	hard sweep is
 	\beq
