@@ -178,12 +178,11 @@ are only just being developed.
 \cite{bollback2008estimation,lenski1991long,lang2013pervasive} [to be 
 added]
 
-
-\section{Results}
+\section{Background}
 \paragraph{Notation} Let $\bfX \triangleq (X_{ijk}) \in [0, 1]^{T \times 
 M\times R}$ denote the population frequency where $T$ is the number of samples 
 in time, $M$ is the number of segregating sites, and $R$ is the number of 
-replicates.
+replicates. Samples in time are taken such that $\tau_1<\tau_2,\cdots<\tau_T$.
 To simplify our notation, we define $x_t$ as a allele frequency of a site in a
  replicate, and we denote it by $\nu_t$ if such a site is directly under 
  selection with the strength $s$. I.E., $\nu_t$ can be regarded as frequency of 
@@ -222,24 +221,47 @@ For each experiment a diploid population is created and evolved as follows.
 	and sampling times $\Tc=\{10,20,30,40,50\}$, \texttt{simuPop} is used to 
 	perform
 	forward simulation and  compute allele frequencies for all of the $R$ 
-	replicates.
+	replicates. Also, to avoid spurious simulation samples, simulation results 
+	are constrained to those that the beneficial allele escapes stochastic loss 
+	of genetic drift and \emph{establishes} in all the replicates. 
 \end{enumerate}
 
 \paragraph{Hard and Soft Sweep}
-Depending on the 
-value of allele frequency at the time selection started, 
-selective sweep is 
-often 
-categorized in two main regimes: hard and soft sweep, Figure 
-\ref{fig:sweep}. 
-Hard sweep occurs when the initial allele (carrier) frequency 
-$\nu_0=1/N_e$ is 
-at 
-minimum, and soft-sweep otherwise. This small difference 
-could have nontrivial
-consequences~\cite{schrider2015soft} [[explain more]].
+In this paper, we only study (positive) selection with single beneficial allele 
+under selective sweep, i.e. favored allele is in linkage disequilibrium (LD) 
+with its nearby loci. Selective sweeps are classified by the amount of 
+variation exist in the individuals carrying adaptive allele. By definition, 
+hard sweep is the case when all the carriers coalesce after onset of selection 
+and thus diversity between carriers is at its minimum. 
+In general, soft sweep is difficult to detect. We conduct experiments, so that 
+evaluate prediction performance of the proposed method under hard and soft 
+sweeps with different selection strengths. Since here we consider random mating 
+with no de novo mutations, soft sweep can only happen in standing variation 
+where the site under selection is at frequency is larger than $1/F$. In 
+contrast, hard sweep experiments are those that their adaptive allele is at its 
+minim frequency, $1/F$, at the onset of selection.
 
-\subsection{Dynamics of the Sweep}
+
+\paragraph{Challenges}
+The main constraint in the experimental evolution experiments, is the 
+sampling-time-span (STS) $\tau=\tau_T-\tau_0$, the number of generations 
+between the first and last generation in the time-series data, which primarily 
+determined organism generation time. In other words, for wide range of values 
+of $s$ (not very strong selection), STS will be significantly smaller than 
+fixation time. As a result, methods for detecting selection on static data, 
+which work the best when the beneficial allele is close to fixation, would not 
+work properly for dynamic data.
+
+Moreover, in controlled experimental evolution, a population is evolve and 
+inbreed under a selective pressure. This scenario which population size is 
+effectively reduces from large number of wild type (e.g.D. melanogaster 
+$N_e\approx10^6$ ) to a small number (typically $F$ is between 100-1000) of 
+founder lines for EE, resembles a severe population bottleneck. This phenomena 
+makes genetic drift quite strong and confounds polymorphism summary statistics 
+and makes difficult to detecting selection weaker selections.
+
+\newpage
+\section{Results}
 Selective sweep is a complex random process which under infinite site assumption
 only depends on selection strength,
 population size and the underlying genealogy at the onset of 
@@ -254,17 +276,14 @@ change, respectively. Therefore, obtaining a clear understanding of dynamics of
 selective sweep  requires disentangling effects of natural selection from 
 those of neutral evolution and demography.
 
-
-
- In the following, we examine the dynamics of AF, SFS and LD in experimental 
- evolution in detail and evaluate their power in identification of selection 
+ In the following, we examine the dynamics of AF and SFS in the experimental 
+ evolution and evaluate their power in identification of selection 
  events. 
  The "identification" of a selection event can be done in 
- different levels of 
- detail. The very first question is to ask whether a region 
- (e.g. a window of 
- 50Kbp) on genome is under selection, which basically can be used to locate the 
- regions (e.g. genes) on a long genome. In the rest, we consider this task to 
+ different levels of detail. At coarsest level, identification can be done by 
+ determining whether a region 
+ (e.g. a window of 50Kbp, or a gene) on genome is under selection. In the rest, 
+ we consider this task to 
  be the task of \emph{detection}.
  Then, finding the causal 
  mutation/allele would be a more elaborate identification of selection, 
@@ -272,8 +291,7 @@ those of neutral evolution and demography.
  Finally, estimating model parameters such as strength of selection and 
  overdominance at the site fully describes the selective sweep.
  
- In the following we only consider positive selection as an selection event and 
- selection pressure is subjected to only one segregating site.
+
 
 
 \paragraph{Allele Frequencies}
@@ -294,9 +312,8 @@ Brownian motion process for modeling variation of allele
 frequencies under 
 genetic drift. Basically, given current allele frequency 
 $\nu_t$ at a site 
-Brownian motion approximation considers future allele 
-frequencies to be drawn 
-from the Gaussian distribution
+Brownian motion approximation assumes future-generations allele 
+frequencies are drawn from the Gaussian distribution
 \beq
 \nu_{t+\tau}\sim 
 \Nc\left(\nu_t,\frac{2\nu_t(1-\nu_t)}{N_e}\tau\right) 
@@ -312,13 +329,14 @@ to $0.5$, 2) when $\tau$ is large. A the start of selection
 site frequencies 
 are distributed according to SFS of a neutral population, and 
 thus most of the 
-sites are at low frequencies. Thus if the selecting site is 
+sites are at low frequencies Figure \ref{fig:afs}. Thus if the selecting site 
+is 
 chosen randomly 
 with high probability its frequency will be far 0.5. 
 Moreover, in many 
 experimental evolution experiments STS $\tau$ is chosen be 
-large, e.g. 10+ to 
-100+ generations.
+large, e.g. of the order of 10 to 
+100 generations.
 
 
 Instead, probabilities of trajectories can be computed using 
@@ -334,13 +352,20 @@ P_{i,j}=\pr\left(\nu_{t+1}=\frac{j}{2N} \left|
 which transition probabilities for $\tau$ generations ahead 
 can be computed by 
 powering the transition matrix to $\tau$.
+Figure \ref{fig:markov} illustrates expected and observed distribution of 
+frequencies after 
+1, 10 and 100 generations when starting frequency is 0.005 (top) and 0.1 
+(bottom) for Brownian motion and Markov chain. Brownian motion 
+exhibits poor prediction of distributions of allele frequencies when starting 
+frequency is far from 
+0.5. On the other hand, Markov chain provides an accurate distribution of 
+allele frequencies 
+for future generations, under genetic drift.
 
-On the other hand, alternative models for single-locus 
-selection can be 
+On the other hand, alternative models for single-locus selection can be 
 utilized to estimate strength of selection and robustly 
-detect and locate 
-selection by 
-combining two hypothesis and perform likelihood ration tests.
+detect and locate selection by 
+evaluating two hypotheses in order to perform likelihood ratio tests.
 In a pure selection process with no drift, i.e. infinite 
 population size, 
 dynamic of allele frequencies 
@@ -386,7 +411,9 @@ Q_{i,j}(s)&=\pr\left(\nu_{t+1}=\frac{j}{2N} \left|
 \hat{\nu}_{t+1}&=\sigma(\hat{s}+\eta(\nu_t))\label{eq:markovs}
 \eeq
 computes probabilities of time-series under the alternative 
-model. 
+model. Figure \ref{fig:markovs} shows that the predicted distributions of 
+frequencies using Markov chain \ref{eq:markovs} is consistent with simulation 
+data.
 
 Likelihood of the trajectories under null and alternative 
 hypothesis can be 
@@ -412,13 +439,11 @@ frequencies in a genomic region.
 Historically, SFS of static data has been extensively used to 
 "detect" genetic 
 adaption and demographic changes in a population. Basically, 
-SFS is a measure 
-of diversity in a genomic region and reduction of diversity 
-is a signal of 
-selection. Detecting selection based on the reduction in 
-genomic diversity is a 
-subtle 
-task, because 
+SFS is measure of diversity in a genomic region computed from allele 
+frequencies. 
+In general, reduction in diversity is a signal of 
+selection, and detecting selection based on the reduction in 
+genomic diversity is a subtle task, because 
 \begin{enumerate}[(i)]
 	\item  in soft sweeps the genomic diversity is not is not 
 	necessarily 
@@ -444,42 +469,43 @@ other tests~\cite{}.
 In practice, SFS distribution is \emph{sclarized} by a 
 weighted 
 linear combination\cite{achaz2009frequency}. More precisely, 
-the weights should 
-be positive and sum to 
-one, which makes it a convex combination, aka discrete 
+the weights should be positive and sum to 
+one, which called a convex combination, aka discrete 
 expectation. For 
 example, 
 test statistics for Tajima's $D$\cite{tajima1989statistical}, 
-Fay Wu's 
-$H$\cite{fay2000hitchhiking3d} and 
+Fay Wu's $H$~\cite{fay2000hitchhiking} and 
 SFSelect\cite{ronen2013learning} can be obtained by a dot 
-product of SFS vector 
-with their weight vector.
+product of SFS vector with their weight vector.
 
-Whether the dynamic of SFS in times-series can improve the 
-detection power in 
+Whether the dynamic of SFS in times-series can improve the detection power in 
 the conditions (i-iii) is not well-studied yet. Evans et al. 
 \cite{evans2007non} developed diffusion equations for 
 evolution of SFS in time series, they are difficult to solve. 
-On the other 
-hand, scalar test statistics such as $D$, $H$ and SFSelect 
-are easier to 
-analyze and visualize.
+Hence, we analyze and visualize scalar test statistics $D$, $H$ and SFSelect 
+in the dynamic data under different selection regimes.
 
-In the simplest case, statistical test can be designed to 
-test whether the 
+To adapt SFS-based test for dynamic data, one can simply design statistical 
+tests to examine whether the 
 observations of $D$, $H$ and SFSelect statistics are 
 significantly deviated 
-from null distribution, i.e. constant values in time.
+from the null distribution, i.e. constant values in time.
 On the other hand, we can model the dynamics of SFS as a 
 function of selection 
-strength to 1)have a model for estimating model parameter 2)acquire an 
-intuition how does SFS statistics behave under different 
-regimes of selection.
+strength to 1)have a model for estimating model parameter 2)obtain an insight 
+regarding how does SFS statistics behave under different 
+stages of selection.
 
+As mentioned before, restricting population to $F$ founder lines ($F<<N_e$) 
+resembles a severe bottleneck event, which confound SFS. Figure 
+\ref{fig:bottleneck} demonstrates effect of controlled experimental evolution 
+on different SFS statistics under neutral evolution for 1000 simulations. The 
+mean of 
+neutral simulations can be used to empirically filter out the effect of 
+bottleneck in dynamic data. 
 
 \begin{enumerate}[I.]
-	\item {\bf Tajima D} As shown in the Appendix \ref{app:td}, dynamic of 
+	\item {\bf Tajima's D}. As shown in the Appendix \ref{app:td}, dynamic of 
 	Tajima's D in hard sweep is
 	\beq
 	D_t=D_0-\log(1-\nu_t) \frac{W_0}{\log(2N)} -\nu_t^2 \Pi_0\label{eq:tdt}
@@ -490,48 +516,34 @@ regimes of selection.
 	the first generation.
 	Given that $\nu_t$ defined in term of $\nu_0$ and $s$ in 
 	\eqref{eq:nut}, we 
-	can use \eqref{eq:tdt} to detect the selection and 
-	estimate the strength of 
-	selection at the same time by performing a nonlinear 
+	can use \eqref{eq:tdt} to estimate the strength of 
+	selection by performing a nonlinear 
 	regression to find 
-	$s$. A likelihood ratio, similar to \eqref{eq:lrt}, 
+	$s$. Then, a likelihood ratio, similar to \eqref{eq:lrt}, 
 	provides\footnote{The 
 	likelihood of the data to the model is the least-squares 
 	loss between model 
 	$D_t(\hat{(s)})$ and the observed $D$.} a predictor for 
-	detecting selection 
-	in each window
-	
-	However, given $W_0$, $\Pi_0$ and $\nu_t \in (0,1)$, 
-	$D_t$ 
-	\eqref{eq:tdt} is a map of $\nu_t$, which its variance is 
-	larger than that 
-	of $\nu_t$.
-	Figures \ref{fig:dynamic-weak} and \ref{fig:dynamic-strong} (last 
-	row, left), shows that the parametric model is reasonable, but observations 
-	of $D_t$ has higher variance than $\nu_t$ which makes it harder to 
-	distinguish between neutral and under sweep population. 
-	
-	In addition, in derivation of \eqref{eq:tdt} it has been 
-	assumed that the 
-	population undergoes a hard-sweep, and the model becomes 
-	invalid as the 
-	initial carrier frequency deviates from that of 
-	hard-sweep, Figure 
+	detecting selection in each window. Figures \ref{fig:dynamic-weak} and 
+	\ref{fig:dynamic-strong} (last 
+	row, left), shows that the parametric model with the actual value of $s$ 
+	provides is consistent with 1000 simulations, in strong and weak 
+	selections. Also, \eqref{eq:tdt} represents dynamic of $D$ in hard 
+	sweep, and the 
+	model becomes invalid as initial carrier frequency increases, Figure 
 	\ref{fig:dynamic-weak} and \ref{fig:dynamic-strong} (last 
 	row, right).
 	
-	Finally, in a infinite population size setting, 
-	differentiating the between 
-	selection and drift is difficult in early generations of 
-	hard sweep.
-	More precisely, w.l.o.g. when $D_0=0$ and $\Pi_0=W_0=1$, 
-	$D_t$ is sum of a 
-	logarithmic and a squared term, blue and green curves in 
+	Finally, even in a infinite population size setting, 
+	differentiating the between selection and drift is difficult in early 
+	generations. W.l.o.g when $D_0=0$ and $\Pi_0=W_0=1$, 
+	$D_t$ is sum of the 
+	logarithmic $\frac{-\log(1-\nu_t)}{\log(2N)}$ and the squared term 
+	$\nu_t^2$, blue and green curves in 
 	Figure 
 	\ref{fig:tdterms}. As shown in the Figure 
 	\ref{fig:tdterms} right, in early 
-	generations of sweep where carrier frequency is low, 
+	generations of hard sweep where carrier frequency is low, 
 	$D_t$ is either 
 	positive or close zero. In other words, the reduction in 
 	diversity become 
@@ -539,89 +551,39 @@ regimes of selection.
 	
 	
 	
-	\item {\bf Fay Wu's H} As shown in the Appendix \ref{app:h}, dynamic of Fay 
-	Wu's H in 	hard sweep is
+	\item {\bf Fay Wu's H} As shown in the Appendix \ref{app:h}, dynamic $H$ 
+	statistic is directly related to average HAF \cite{ronen2015predicting} and 
+	can be written
 	\beq
 	nH_t= \theta \nu_t \left(\frac{\nu_t+1}{2} - \frac{1}{(1-\nu_t)n+1}\right) +
 	\theta (1-\nu_t)\left(\frac{n+1}{2n}-\frac{1}{(1-\nu_t)n+1}\right) 
 	\label{eq:ht}
 	\eeq
-	which is an acceptable approximation only in strong selection, Figures 
+	which is a good approximation only in hard sweep with strong selection, 
+	Figures 
 	\ref{fig:dynamic-weak} and \ref{fig:dynamic-strong} (second
-	row, left). Similar to $D_t$, $H_t$ is an injection of $\nu_t$ which only 
-	increases its variance and centers the means of two processes in early 
-	generations. Likewise, \eqref{eq:ht} is only developed for hard sweep which 
-	makes it impractical to use it on real data.
+	row, left). Similar to $D$, it can be shown that $H$ statistics for natural 
+	selection behave similar to that of neutral evolution in early generations 
+	of hard sweep, where carrier frequency is not high.
 	
-	\item {\bf SFSelect} is also another test statistic proposed by Ronen et 
+	\item {\bf SFSelect} statistic proposed by Ronen et 
 	al. \cite{ronen2013learning} to predict selection by empirically learning 
 	the so-called \emph{optimal} weights using Support Vector Machines. 
 	Figure \ref{fig:dynamic-weak} and \ref{fig:dynamic-strong} (forth
 	row), depicts the dynamics of SFSelect for selection and neutral evolution 
-	in time which differentiates better than D and H statistics only in the 
-	hard sweep scenario.
+	in time, which essentially behave similar to $D$ and $H$, i.e. poor power 
+	of detection in soft sweep, and early generations of hard sweep.
 \end{enumerate}
-
-
-
-
-
-
-
-
-\paragraph{Challenges}
-The nature of experimental evolution, suggests that the duration of the 
-experiment is ruled by the organism generation time, and given a limited time 
-for the experiment, the population can be evolved for sampling-time-span (STS) 
-$\tau=\tau_T-\tau_0$  number of generations. This can be regarded as a 
-limitation in a EE experiment when STS is significantly smaller than fixation 
-time for a selection with strength $s$ imposed on a site with frequency 
-$\nu_0$. For example, in Figure \ref{fig:sweep} the, STS is 50 generations and 
-the frequency of the site under selection is $0.005$ (right, hard sweep) and 
-$0.1$ (left, soft sweep). 
-For $s=0.01$, the mean fixation time is approximately 2100 and 1500 generations 
-for the hard and soft sweep, receptively, which makes it extremely larger than 
-$STS$. This can be observed by noticing the small slope of the green line in 
-the shaded area, which is similar to that of genetic drift.
-
-Moreover, the Figure \ref{fig:sweep} depicts selective sweep for an infinite 
-population size, i.e., no drift. In practice, not only the population size is 
-limited, but also it is severely bottlenecked to the number of founder-lines to 
-inbreed. For example in the case of EE with D. melanogaster, the population 
-size of millions is restricted to hundreds which makes genetic drift quite 
-strong to disturb (and with small probability, reinforce) the signal for 
-selection.
-
-
-
-To quantitatively show the effects of STS and population size on the signal of 
-selection, it has been shown that (in the appendix), the null distribution of 
-the selection strength (under neutral evolution) is approximately distributed 
-as $\Nc(0,\sigma^2_{\nu_0}/R\tau N_e)$ while the alternative distribution of 
-selection strength is distributed as $\Nc(s,\sigma^2_{\nu_0}/R\tau N_e)$. The 
-variance of both distributions inversely depend on population size, 
-STS, and the number of replicates. In order to separate 
-these distributions 
-\begin{enumerate}
-	\item the mean of the distributions be far from each other, i.e. selection 
-	strength should be large.
-	\item the variance of the distributions be small, i.e. population size, 
-	number of replicates or STS be large.
-\end{enumerate}
-Interestingly some of these parameters can be determined both in a controlled 
-or natural experimental evolution and by the trade-offing between them one can 
-achieve the desired predictive power.
-For example, in a controlled EE, when STS is constrained to be small number of 
-generation, due to long generation times of the model organism, the population 
-size can be increased by gathering more founder lines. Alternatively, the small 
 
 
 
 
 \subsection{Detecting Selection}
+To evaluate detection power of the proposed method, least-squares (LS), we 
+compare it with Gaussian process (GP) \cite{Terhorst2015Multi}, FIT 
+\cite{feder2014Identifying},  SFselect \cite{ronen2015predicting}, 
+$D$\cite{tajima1989statistical}, and $H$ \cite{fay2000hitchhiking} statistics.
 \paragraph{Hard Sweep vs Soft Sweep}
-
-
 
 \paragraph{Effects of carrier frequency}
 \paragraph{Effects of sampling times}
@@ -681,35 +643,6 @@ Finally, for each replicate, instead of $T$ equations where each observation is
 compared with $x_0$, we can take all possible pairs and solve ${T \choose 2}$ 
 set of equations.
 
-
-\newpage
-\subsection{Null and Alternative Distributions of $s$}
-Consider a diallelic single-locus (Wright-Fisher like) model with no
-mutations \cite{Ewens2012Mathematical}, discrete generations, random
-mating etc. With finite population size, the allele frequencies from
-generation to generation are described by the random process
-$\{x_{\ell,t}\}$ which denotes the population allele frequency at
-locus $\ell$ at time generation $t$. The model has access to finite
-number of observations in time for each locus, where the sampling
-times are given by the set $\Tc=\{\tau_1,\tau_2,\cdots, \tau_T \}$
-such that $\tau_1<\tau_2,\cdots<\tau_T$. We also assume that
-measurements are taken up for $R$ experimental replicates for $L$
-loci. Thus, The allele frequencies of a population are given by the
-tensor $\bfX \in [0,1]^{R \times L \times T}$, where $X_{r,\ell,t}$
-stores the observed of allele frequency at replicate $r$, locus $\ell$
-and generation $\tau_t$. However, we often omit $r$ for clarity of
-exposition. A neutrally evolving allele `drifts', and for a finite
-population,
-\beq x_{t+1} = x_t + \epsilon\; .\footnote{With infinite population size
-	we have $x_{t+1} = x_t$, a restatement of Hardy-Weinberg
-	equilibrium.} \ \ \ \ \ \epsilon \sim \Nc(0,\frac{h_t}{N_e})  \
-\label{eq:drift}
-\eeq
-where $h_t=2\nu_t(1-\nu_t)$ is heterozygousity at time $t$.
-Using Brownian motion approximation, we have 
-\beq x_{\tau} = x_0 + \epsilon_\tau,  \ \ \ \ \ \epsilon \sim 
-\Nc(0,\frac{h_0 \tau}{N_e})
-\eeq
 
 
 \section{Appendix}
@@ -923,7 +856,7 @@ rate, selection strength, initial carrier frequency, and the initial linkage.
 \end{figure}
 
 \begin{figure}[H]
-	\centering \label{fig:bottleneck}
+	\centering 
 	\includegraphics[trim=3.2in 0.1in 3.2in 0.2in , 
 	clip,width=\textwidth]{bottleneck}
 	\caption{Effect of bottle neck in a typical experimental evoloution 
@@ -931,7 +864,7 @@ rate, selection strength, initial carrier frequency, and the initial linkage.
 		selected out of a larger population size ($N_e=10^{-6}$). Tajima's D 
 		(left), Fay Wu's H (middle) and SFSelect is computed for 1000 neutral 
 		simulations and mean and 95\% confidence interval is plotted.} 
-	\label{fig:bott}
+	\label{fig:bottleneck}
 \end{figure}
 
 \begin{figure}[H]
