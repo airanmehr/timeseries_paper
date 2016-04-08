@@ -12,19 +12,19 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-Experimental evolution studies are a powerful tool for observing
-molecular evolution at work in a controlled environment. The availability of
-next-generation sequencing has made it possible to study the genetic trajectory 
-of the population at different time points. Methods for investigating 
-time-series genomic data are under active development, including recent work by 
-Terhorst et al., that uses a Gaussian process approximation to a 
-multi-locus Wright-Fisher process.  
-In this research, we revisit the problem of detecting selection in short amount 
-of time using classical methods such as
-Tajima's S and Fay Wu's H and a proposed method which fits a logistic
-function to the trajectories of allele frequencies at every locus. An extensive
-simulation study shows the proposed method has a superior performance
-over conventional method both in hard and soft sweeps.
+Experimental evolution studies are powerful tools for observing
+molecular evolution "in-action" in wild and controlled environments. This 
+paradigm of experiments was infeasible until the advent of
+next-generation sequencing which made it possible to study the genetic 
+trajectory of populations at different generations. Methods for inferencing from
+time-series genomic data are under active development.  
+In this research, we study the problem of identifying selection in short amount 
+of time using classical polymorphism summary statistics such as
+Tajima's $D$ and Fay Wu's $H$ and propose a new statistic which outperforms 
+existing methods on extensive simulations of soft and hard sweep regimes. 
+Finally we apply the 
+proposed statistic to the controlled experimental evolution of D. melanogaster 
+to detect adaptive genes/alleles under alternating cold and hot temperatures.
 \end{abstract}
 
 \section{Introduction}
@@ -476,7 +476,7 @@ example,
 test statistics for Tajima's $D$\cite{tajima1989statistical}, 
 Fay Wu's $H$~\cite{fay2000hitchhiking} and 
 SFSelect\cite{ronen2013learning} can be obtained by a dot 
-product of SFS vector with their weight vector.
+product of SFS vector with their weight vector. 
 
 Whether the dynamic of SFS in times-series can improve the detection power in 
 the conditions (i-iii) is not well-studied yet. Evans et al. 
@@ -582,18 +582,91 @@ bottleneck in dynamic data.
 To evaluate detection power of the proposed method, least-squares (LS), we 
 compare it with Gaussian process (GP) \cite{Terhorst2015Multi}, FIT 
 \cite{feder2014Identifying},  SFselect \cite{ronen2015predicting}, 
-$D$\cite{tajima1989statistical}, and $H$ \cite{fay2000hitchhiking} statistics.
-\paragraph{Hard Sweep vs Soft Sweep}
+$D$\cite{tajima1989statistical}, and $H$ \cite{fay2000hitchhiking} statistics. 
+We also take time-series models of $D$ and $H$ into comparison by fitting 
+models \eqref{eq:tdt} \eqref{eq:ht} to data. Finally, since SFSelect is 
+positive and 
+monotone, we considered the aggregation of SFSelect statistics 
+along time-series as score for detecting selection.
 
-\paragraph{Effects of carrier frequency}
-\paragraph{Effects of sampling times}
+For every setting, i.e. strength of selection, initial carrier frequency, 
+sampling time span and number of replicates, we conduct 200 simulations which 
+half of them are neutral and the rest are under selection. Then prediction 
+score of each method for all the simulations is used to compute Receiver 
+Operating Characteristic (ROC) curve \cite{fawcett2006introduction}, which is 
+the primary tool for evaluating binary decision making hypotheses.
+Area under ROC  curve (AUC), is measure of predictive performance of a binary 
+hypothesis, but it computes the score under all possible setting of 
+false-positive rate (FPR). However, here we restrict AUC 
+\cite{mcclish1989analyzing} to those region that has FPR$\le$0.1, and 
+henceforth we call 0.1-AUC$\times$1000 as power of a method\footnote{Power can 
+be interpreted as average true positive rate when FPR$\le$0.1.}. Note that 
+power 
+rages between 0 to 100 and power of 5 corresponds to random prediction, i.e. 
+null hypothesis.
 
-\paragraph{Effects of number of replicates}
+First we compare all the methods under default parameter settings, i.e., 
+$T=5$, $\tau=50$ and $R=3$, Figure \ref{fig:power}. It evident that $LS$ method 
+provides better detection power in the hard and soft sweep regimes for 
+different values of selection strength. Also, except for $H$ in strong 
+selections, SFS-based scores exhibit poor performance, comparable to random 
+prediction. Also, GP and FIT methods whcih are single-locus methods, reveal 
+their best performance in softest sweep scenario, $\nu_0=0.1$.
 
+Also, we assessed the behavior of LS method for different values of 
+$\tau\in\{10,50,100\}$, 
+Figure \ref{fig:powert}. For the default set of parameters, and $\tau=100$, LS 
+method provides significantly better performance, while for $\tau=10$ detection 
+power is comparable to those of other methods for $\tau=50$ in Figure 
+\ref{fig:power}. Effects of number of replicates on the power of LS method is 
+examined for $R\in\{3,5,10\}$, Figure \ref{fig:powerr}. Interestingly, 
+increasing number of replicates does not necessarily improve power, yet they 
+provide comparable power to the case with $R=3$. This observation implies that 
+estimates of power for each method tightly depend on the replicates used for 
+evaluation, and computed power of a method potentially under/over-estimated due 
+to finite sample size, i.e. \emph{estimation error}. Thus, comparison using 
+small number of replicate is meaningful only when difference in performance is 
+significant and consistent for different configuration, which is the case for 
+LS method in Figure \ref{fig:power}. Finally, Figure \ref{fig:powerrt}, 
+demonstrates the power for $R=\{3,10\}$ and $\tau={50,100}$, which shows power 
+for $R=3$ and $R=10$ exhibits the similar behavior under different regimes fo 
+$\nu_0$, $s$ and $\tau$.
+
+\subsection{Locating the Adaptive Mutation}
+The secondary task in identifying selection is to locate the position of the 
+adaptive allele. Since de novo mutations are excluded, and linkage is 
+reinforced after selection, it is difficult to incorporate phylogeny into this 
+task. We consider the site with highest score as the locus of the beneficial 
+allele. For each setting of $\nu_0$ and $s$, we conducted 100 
+simulations and computed the rank of the beneficial mutation in the sorted 
+scores. Then for each configuration distribution of ranks of 100 
+simulation is presented via their Cumulative Distribution Function (CDF), 
+Figure \ref{fig:rank}. LS works the best in hard sweep regime. For example, 
+when $\nu_0=0.005$ and $s=0.01$ (weakest selection), the beneficial allele is 
+ranked first, in more than 60 experiments, and take rank of less than 5 in more 
+than 90\% of experiments of hard sweep. Accuracy of the locating the adaptive 
+allele diminished as sweep become softer, i.e. larger values of $\nu_0$. Yet, 
+in the worst case the beneficial allele is tanked among top 50 SNPs.
 
 \subsection{Strength of  Selection}
-\subsection{Locating the adaptive mutation}
+Finally, estimating the model parameters such as strength of selection provides 
+the finest detail of identification of a selective sweep process, because given 
+the model parameters we can predict the state of population, e.g. fixation 
+time, in future generations. We computed bias, $|s-\hat{s}|$ for each 
+experiment of LS, and GP. The distribution of the bias is presented in Figure 
+\ref{fig:bias} for different configurations. In general, both GP and  LS are 
+biased for weak selections, which genetic drift dominates. However, for 
+stronger selections, e.g.$s=0.1$, LS provides estimates with smaller bias and 
+variance.
 
+\subsection{Analysis of Real Data}
+We finally apply LS method to the controlled experimental evolution experiment 
+of \cite{orozco2012adaptation}, which evolves 5 replicates of a population of 
+Drosophila melanogaster for 37 generations under alternating 12-hour cycles of 
+hot (28$^{\circ}$C) and cold (18$^{\circ}$C) temperatures. Three replicates are 
+sampled at the firs generation, 2 replicates at generation 15, one replicate at 
+generation 23, one replicate at generation 27 and three replicates at 
+generation 37.
 
 \section{Materials and Methods}
 \subsection{Least-Squares Estimate of $s$} 
@@ -642,7 +715,16 @@ where $\bar{\bfb}$ is the average of $\bfb$ over $R$ replicates.
 Finally, for each replicate, instead of $T$ equations where each observation is 
 compared with $x_0$, we can take all possible pairs and solve ${T \choose 2}$ 
 set of equations.
+\subsection{Composite Likelihood Ratio Test}
+Given likelihood ratio \eqref{eq:lrt} for each SNP we can further exclude false 
+positives by combining likelihood ratio scores of the polymorphisms in a 
+genomic region\cite{vitti2013detecting}. This approach is called Composite 
+Likelihood Ratio Test (CLRT) \cite{williamson2007localizing} which effectively 
+makes more robust predictions for detecting selection in a genomic region. We 
+implement CLRT criteria by taking average of top one percentile of the 
+likelihood ratios in a window.
 
+\section{Discussion}
 
 
 \section{Appendix}
@@ -696,7 +778,7 @@ Fay \& Wu's estimate of $\theta$.
 \el
 
 Recently, Ronen et al. ~\cite{ronen2015predicting} devised the $1\dHAF$ 
-statistic for identifying selection on static data, which has the expeceted 
+statistic for identifying selection on static data, which has the expected 
 value related to the $\|\bfx\|^2$:
 \begin{equation} 
 \Ebb[1\dHAF(t)]= n\| \bfx_t\|^2\approx ng(\nu_t)

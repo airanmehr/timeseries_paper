@@ -113,6 +113,11 @@ Warren~J Ewens.
   volume~27.
 \newblock Springer Science {\&} Business Media, 2012.
 
+\bibitem{fawcett2006introduction}
+Tom Fawcett.
+\newblock {An introduction to ROC analysis}.
+\newblock {\em Pattern recognition letters}, 27(8):861--874, 2006.
+
 \bibitem{fay2000hitchhiking}
 Justin~C Fay and Chung-I Wu.
 \newblock {Hitchhiking under positive Darwinian selection}.
@@ -232,6 +237,11 @@ Iain Mathieson and Gil McVean.
 \newblock {Estimating selection coefficients in spatially structured
   populations from time series data of allele frequencies}.
 \newblock {\em Genetics}, 193(3):973--984, 2013.
+
+\bibitem{mcclish1989analyzing}
+Donna~Katzman McClish.
+\newblock {Analyzing a portion of the ROC curve}.
+\newblock {\em Medical Decision Making}, 9(3):190--195, 1989.
 
 \bibitem{messer2013population}
 Philipp~W Messer and Dmitri~A Petrov.
@@ -402,6 +412,11 @@ Ray Tobler, Susanne~U Franssen, Robert Kofler, Pablo Orozco-terWengel, Viola
   populations during experimental evolution in hot and cold environments}.
 \newblock {\em Molecular biology and evolution}, 31(2):364--375, 2014.
 
+\bibitem{vitti2013detecting}
+Joseph~J Vitti, Sharon~R Grossman, and Pardis~C Sabeti.
+\newblock {Detecting natural selection in genomic data}.
+\newblock {\em Annual review of genetics}, 47:97--120, 2013.
+
 \bibitem{wang2001pseudo}
 Jinliang Wang.
 \newblock {A pseudo-likelihood method for estimating effective population size
@@ -419,6 +434,12 @@ Ellen~G Williamson and Montgomery Slatkin.
 \newblock {Using maximum likelihood to estimate population size from temporal
   changes in allele frequencies}.
 \newblock {\em Genetics}, 152(2):755--761, 1999.
+
+\bibitem{williamson2007localizing}
+Scott~H Williamson, Melissa~J Hubisz, Andrew~G Clark, Bret~A Payseur, Carlos~D
+  Bustamante, and Rasmus Nielsen.
+\newblock {Localizing recent adaptive evolution in the human genome}.
+\newblock {\em PLoS Genet}, 3(6):e90, 2007.
 
 \bibitem{winters2012development}
 Mark~A Winters, Robert~M {Lloyd Jr}, Robert~W Shafer, Michael~J Kozal,
