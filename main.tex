@@ -12,80 +12,103 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-Experimental evolution studies are powerful tools for observing
-molecular evolution "in-action" in wild and controlled environments. This 
+Experimental evolution (EE) studies are powerful tools for observing
+molecular evolution "in-action" in wild and controlled environments at 
+different generations. This 
 paradigm of experiments was infeasible until the advent of
-next-generation sequencing which made it possible to study the genetic 
-trajectory of populations at different generations. Methods for inferencing from
-time-series genomic data are under active development.  
-In this research, we study the problem of identifying selection in short amount 
-of time using classical polymorphism summary statistics such as
-Tajima's $D$ and Fay Wu's $H$ and propose a new statistic which outperforms 
-existing methods on extensive simulations of soft and hard sweep regimes. 
-Finally we apply the 
-proposed statistic to the controlled experimental evolution of D. melanogaster 
-to detect adaptive genes/alleles under alternating cold and hot temperatures.
+next-generation sequencing which made it possible to study different forces of 
+the evolutionary process such as genetic adaptation, in  a unprecedented detail.
+However, one of the primary constraints of the EE studies 
+is the 
+limited time for the experiment, which depend on the organism's generation 
+time. 
+For example, in the EE aims to study genetic adaptation, the population 
+can only evolved and re-sequenced in a small number of generations, which is 
+usually smaller than the time required for fixation of adaptive 
+allele. Although, a 
+complete library of tests-of-selection has already been developed, they are 
+mainly designed 
+to identify adaptation in pre/post fixation data.
+In this research, we study the problem of identifying selection signatures in 
+allele-frequency trajectories of small number of generations. 
+We propose new Composite Likelihood Ratio 
+(CLR) statistic which computes the likelihoods of null (neutral) and 
+alternative (selection) model using the Wright-Fisher Markov chain model 
+outperforms existing methods on extensive soft and hard sweep simulations. 
+Finally, we apply the proposed statistic to the controlled experimental 
+evolution of D. melanogaster to detect adaptive genes/alleles under alternating 
+cold and hot temperatures.
 \end{abstract}
-
 \section{Introduction}
 Genetic adaptation is \emph{the} central evolutionary process and is at the
- core of some of the greatest challenges facing humanity.  
- HIV would likely
-  cause nothing more than harmless fever without the
-ability of the virus to adapt and eventually destroy the immune system. 
+ core of some of the greatest challenges facing humanity. 
+For example, HIV's rapid evolution of drug resistance during treatment, makes 
+treatments ineffective and even by prescribing a combination of drugs the speed 
+of adaptation only slowed down~\cite{Feder2016More}. 
 Cancer would be much more straightforward to treat if not for
-tumor's ability to adapt to anti-cancer drugs. 
+tumor's ability to adapt to anti-cancer drugs 
+\cite{gottesman2002mechanisms,zahreddine2013mechanisms}. 
 Malaria could be treated with cheap drugs such as quinine instead of 
-being one of the world's worst killers. 
+being one of the world's worst killers 
+\cite{ariey2014molecular,nair2007recurrent}. 
 Crop pests would be manageable with small doses of safe insecticides 
 instead of requiring applications of ever increasing amounts of a diverse array 
-of powerful chemicals. [[Example for Bacteria and TB and some references]]
-In both disease and agriculture, we find ourselves in an arms race due to the
-ability of organisms to adapt.
+of powerful chemicals\cite{daborn2001ddt}. 
+Finally, antibiotic resistance \cite{spellberg2008epidemic} to new antibiotics 
+could return us to the pre-Antibiotic age.
+Despite enormous examples of rapid adaptation, Messer and Petrov 
+\cite{messer2013population} argued that "many, if not most, cases of adaptation 
+are yet to be discovered".
 
-Adaptation leaves a variety of detectable signatures in
-genomes \cite{nielsen2005genomic,akey2009constructing,
-kreitman2000methods,messer2013population,sabeti2006positive}.
-The rapid expansion of adaptive alleles in populations leads to both an excess
-of functional changes between species and distortions in polymorphism patterns
-known as selective sweeps~\cite{nielsen2005genomic}. The signatures of
-selective sweeps, which include reduction of levels of polymorphism and the
-presence of too many rare alleles~\cite{nielsen2005genomic,
-przeworski2002signature}, have been the basis for assessing genomic
-patterns in many genome scans for adaptation. Depending on the
-\emph{1)data availability}, e.g. allele frequency vs. haplotype, single vs 
-multiple  population, single-snapshot vs time-series observation and 
-\emph{2)objective of the test}, e.g. detecting recent or ancient
-sweep, and \emph{3)simulation model}, e.g. statistical-test vs likelihood-based 
-models, empirical recipes for detecting selection are available for each
-scenario \cite{sabeti2006positive}.
 
-For example, given allele frequency, a whole family of test such as 
+Model for describing genetic adaptations, \emph{selective sweep} 
+\cite{smith1974hitch,kaplan1989hitchhiking} , take into account of associations 
+of the beneficial mutation with its surrounding loci.
+The extent of genetic loci that are in association with the adaptive allele 
+depends on the amount of accumulated recombination events between adaptive 
+allele and the rest of genome. In the asexual populations, where no 
+recombination event occurs, the whole genome is linked to the adaptive allele 
+and "clonal interference" \cite{desai2007beneficial,lang2013pervasive} best 
+describes the dynamic 
+genetic adaptation process.
+On the other hand, in sexual population, the favored mutation is only in 
+linkage-disequilibrium (LD) with its nearby polymorphisms. Hence, methods for 
+identifying selective 
+sweep in sexual populations often analyze  polymorphism data of a population of 
+in a genomic region, rather than a single site. 
+
+Adaptation leaves a variety of detectable signatures 
+genomes, including, reduction in genetic 
+variation\cite{tajima1989statistical,fay2000hitchhiking,ronen2013learning} in 
+allele-frequency data, 
+prevalence of long haplotypes 
+	\cite{sabeti2006positive,vitti2013detecting} in haplotype (phased) data, 
+	population differentiation \cite{holsinger2009genetics} in cross-population 
+	data and 
+	rapid increase in allele 
+	frequencies \cite{bergland2014genomic} in the dynamic data.
+However, in the experimental evolution with pooled-sequencing, only frequency 
+data available. Given static frequency data, tests including
 Tajima's \emph{D} ~\cite{tajima1989statistical}, 
 Fay and Wu's \emph{H}~\cite{fay2000hitchhiking}, 
-SFSelect~\cite{ronen2013learning} compute test statistic as "\emph{a}"
-\footnote{Convex combination is a linear combination which weights are positive
-	 and sum to one. Under a Bayesian prospective, it can be regarded as a
-	  \emph{expectation} which the prior distribution is determined by the
-	   weights. As with Bayesian inference, using a \emph{not-reasonable prior}
-	    distribution would lead to poor results.} 
-	convex 
-combination of Site Frequency 
-Spectrum(SFS)~\cite{achaz2009frequency} 
-(Figure \ref{fig:afs}. 
-However, despite their simplicity and intuitiveness, it has been shown that
- ~\cite{ptak2002evidence, ramos2002statistical} SFS-based 
- tests often fail 
- to discriminate between positive selection and a dynamic
-demographic processes. Also, more recently, Frequency Increment
- Test(FIT) \cite{feder2014Identifying} is  proposed to test whether a
-  time-series of allele-frequencies is subjected to a 
-  selection pressure.
+SFSelect~\cite{ronen2013learning} compute their test statistic using the y 
+distribution of polymorphisms, site-frequency spectrum (SFS), in a genomic 
+region. Despite their simplicity and intuitiveness, it has been shown that
+  SFS-based tests often fail are prone to pathological false-positive/negatives
+  due to ascertainment biases and  demography
+  ~\cite{ptak2002evidence, ramos2002statistical,akey2009constructing, 
+  nielsen2003correcting}. 
 
+However, identifying selection in dynamic data is not well studied yet.
+Feder et. al \cite{feder2014Identifying}  proposed Frequency Increment
+ Test(FIT) for dynamic frequency data and Likelihood Ratio Test (LRT) for 
+ frequency/haplotype dynamic data. Bergland et. al \cite{bergland2014genomic} 
+ applied $F_{st}$ to multiple populations throughout time to identify selection.
+ 
 \paragraph{Experimental Evolution}
 Recent advances of whole genome sequencing has enabled us to sequence 
-populations at a reasonable cost, such that one could design \emph{experiments} 
-to study different forces of \emph{evolution} in-action. \emph{Experimental 
+populations at a reasonable cost, such that one could design experiments
+to study different forces of evolution in real time. \emph{Experimental 
 evolution} is the study of the evolutionary processes of a model organism in a 
 controlled  
 \cite{hegreness2006equivalence,lang2013pervasive,orozco2012adaptation,
@@ -94,10 +117,10 @@ or natural
 	\cite{maldarelli2013hiv,reid2011new,denef2012situ,winters2012development,
 	daniels2013genetic,barrett2008natural,bergland2014genomic} environment.
 
-Types of evolution experiments \cite{Barrick2013Genome} [to be added]
-
-While constraints such as small population sizes, limited timescales and 
-oversimplified  laboratory
+Among different types of evolution experiments \cite{Barrick2013Genome} in this 
+paper we focus on Adaptive evolution, fixed population size, multicellular 
+sexual organisms. While constraints such as small population sizes, limited 
+timescales and oversimplified  laboratory
  environments limits interpreting experimental evolution results, it has
   been used to test different hypothesis~\cite{kawecki2012experimental}
    regarding
@@ -174,9 +197,6 @@ frequencies of the derived allele at all loci at different time
 points. Methods for analyzing such time series pooled sequence data
 are only just being developed.
 
-\paragraph{Asexual vs Sexual}
-\cite{bollback2008estimation,lenski1991long,lang2013pervasive} [to be 
-added]
 
 \section{Background}
 \paragraph{Notation} Let $\bfX \triangleq (X_{ijk}) \in [0, 1]^{T \times 
@@ -400,37 +420,7 @@ use it to estimate the strength of selection for
 each site by a simple regression (see \ref{sec:regression} 
 for details).
 
-Given an estimate for $s$, the Markov chain with transition 
-probabilities 
-(\cite{Ewens2012Mathematical}, eq 1.58-59)
-\beq
-Q_{i,j}(s)&=\pr\left(\nu_{t+1}=\frac{j}{2N} \left| 
-\nu_{t}=\frac{i}{2N}\right)={2N 
-	\choose j} \right. 
-\hat{\nu}_{t+1}^{j} (1-\hat{\nu}_{t+1})^{2N-j},\\
-\hat{\nu}_{t+1}&=\sigma(\hat{s}+\eta(\nu_t))\label{eq:markovs}
-\eeq
-computes probabilities of time-series under the alternative 
-model. Figure \ref{fig:markovs} shows that the predicted distributions of 
-frequencies using Markov chain \ref{eq:markovs} is consistent with simulation 
-data.
 
-Likelihood of the trajectories under null and alternative 
-hypothesis can be 
-computed to perform likelihood ratio tests which provide 
-predictors that are 
-robust to pathological false-positives 
-\cite{feder2014Identifying}. 
-Specifically, for each site, we define the likelihood-ratio 
-predictor
-\beq \label{eq:lrt}
-\Lambda(\hat{s}) = \hat{s}\log 
-\left(\frac{\Lc(\bfx|s=\hat{s})}{\Lc(\bfx|s=0)}\right)
-\eeq
-where $\bfx$ is the vector of trajectories and $\Lc$ is the 
-likelihood function 
-defined by the Markov chain with transition 
-\eqref{eq:markovs}.
 
 \paragraph{Site Frequency Spectrum} SFS (Figure 
 \ref{fig:afs}) is the 
@@ -671,23 +661,25 @@ generation 37.
 \section{Materials and Methods}
 \subsection{Least-Squares Estimate of $s$} 
 \label{sec:regression}
-In a simplest case, we have 2 observations, $x_0$ and $x_t$ and we wish to find 
-$\hat{s}$ so that $x_t=\sigma(\hat{s}t/2+\eta{x_0})$ which can be solved 
+In a simplest case, we have 2 observations, $\nu_0$ and $\nu_t$ and we wish to 
+find 
+$\hat{s}$ so that $\nu_t=\sigma(\hat{s}t/2+\eta(\nu_0))$ which can be solved 
 analytically:
 \begin{equation}
-\hat{s}=\frac{2}{t} \log \left( \frac{x_t(1-x_0)}{x_0 (1-x_t)} \right) = 
-\frac{2}{t}  \left( \eta(x_t)-\eta(x_0)\right)
+\hat{s}=\frac{2}{t} \log \left( \frac{\nu_t(1-\nu_0)}{\nu_0 (1-\nu_t)} \right) 
+= 
+\frac{2}{t}  \left( \eta(\nu_t)-\eta(\nu_0)\right)
 \label{eq:naive2point}
 \end{equation}
-which selection coefficient can be regarded as for the
-selection coefficient as normalized increment in log-odds space.
+which selection strength can be interpreted as the normalized frequency 
+increment in log-odds space.
 
 However, with more than two observations, the system become over determined and 
 we need to solve $T$ set of equations. By re-arranging 
 \eqref{eq:naive2point}, we can write a set of linear equations
 
 \beq
-\frac{t}{2}s&=\eta(x_t)-\eta(x_0) \ \ \ \ \ \forall t \in \Tc \\ 
+t s&=2(\eta(\nu_t)-\eta(\nu_0)) \ \ \ \ \ \forall t \in \Tc \\ 
 \eeq
 which can be written in matrix form $\bft s =\bfb$ with
 \beq
@@ -697,32 +689,65 @@ which can be written in matrix form $\bft s =\bfb$ with
 	\tau_T
 \end{bmatrix}
 \bfb=\begin{bmatrix}
- 2(\eta(x_{\tau_1})-\eta(x_0))\\
+ 2(\eta(\nu_{\tau_1})-\eta(\nu_0))\\
 	\vdots \\
-2\eta(x_{\tau_T})-\eta(x_0))
+2\eta(\nu_{\tau_T})-\eta(\nu_0))
 \end{bmatrix}, \ \ \ \ \ 
 \eeq
-and the solution is can be computer using psudo inverse
+and the solution for each replicate can be computed using pseudo inverse
 
 \beq
-\hat{s}=\bft^+\bfb=(\bft^T\bft)^{-1}\bft^T\bfb=\frac{\bft^T\bfb}{\|\bft\|^2}
+\hat{s}_r=\bft^+\bfb=(\bft^T\bft)^{-1}\bft^T\bfb=\frac{\bft^T\bfb}{\|\bft\|^2}
 \eeq
-it can be shown that 
+and for multiple independent replicates with the same sampling times we have
 \beq
-s^*= \frac{1}{R} \sum_r^R \hat{s}_r = \bft^+\bar{\bfb}
+\hat{s}= \frac{1}{R} \sum_r^R \hat{s}_r = \bft^+\bar{\bfb}
 \eeq
 where $\bar{\bfb}$ is the average of $\bfb$ over $R$ replicates.
 Finally, for each replicate, instead of $T$ equations where each observation is 
 compared with $x_0$, we can take all possible pairs and solve ${T \choose 2}$ 
 set of equations.
 \subsection{Composite Likelihood Ratio Test}
+
+Given an estimate for $s$, the Markov chain with transition 
+probabilities 
+(\cite{Ewens2012Mathematical}, eq 1.58-59)
+\beq
+Q_{i,j}(s)&=\pr\left(\nu_{t+1}=\frac{j}{2N} \left| 
+\nu_{t}=\frac{i}{2N}\right)={2N 
+	\choose j} \right. 
+\hat{\nu}_{t+1}^{j} (1-\hat{\nu}_{t+1})^{2N-j},\\
+\hat{\nu}_{t+1}&=\sigma(\hat{s}+\eta(\nu_t))\label{eq:markovs}
+\eeq
+computes probabilities of time-series under the alternative 
+model. Figure \ref{fig:markovs} shows that the predicted distributions of 
+frequencies using Markov chain \ref{eq:markovs} is consistent with simulation 
+data.
+
+Likelihood of the trajectories under null and alternative 
+hypothesis can be 
+computed to perform likelihood ratio tests which provide 
+predictors that are 
+robust to pathological false-positives 
+\cite{feder2014Identifying}. 
+Specifically, for each site, we define the likelihood-ratio 
+predictor
+\beq \label{eq:lrt}
+\Lambda(\hat{s}) = \hat{s}\log 
+\left(\frac{\Lc(\bfx|s=\hat{s})}{\Lc(\bfx|s=0)}\right)
+\eeq
+where $\bfx$ is the vector of trajectories and $\Lc$ is the 
+likelihood function 
+defined by the Markov chain with transition 
+\eqref{eq:markovs}.
+
 Given likelihood ratio \eqref{eq:lrt} for each SNP we can further exclude false 
 positives by combining likelihood ratio scores of the polymorphisms in a 
-genomic region\cite{vitti2013detecting}. This approach is called Composite 
-Likelihood Ratio Test (CLRT) \cite{williamson2007localizing} which effectively 
-makes more robust predictions for detecting selection in a genomic region. We 
-implement CLRT criteria by taking average of top one percentile of the 
-likelihood ratios in a window.
+genomic region by computing Composite 
+Likelihood 
+Ratio(CLR)\cite{nielsen2005genomic,williamson2007localizing,vitti2013detecting}.
+For each window, CLR is computed by taking average of top one percentile of the 
+likelihood ratios.
 
 \section{Discussion}
 
@@ -1055,7 +1080,6 @@ rate, selection strength, initial carrier frequency, and the initial linkage.
 %\input{experiment}
 %\input{conclusion}
 \newpage
-\cite{achaz2009frequency,akey2009constructing,andersson2011notch,barrett2008natural,Barrick2013Genome,barrick2009genome,barton1991natural,bergland2014genomic,bollback2007clonal,bollback2008estimation,boyko2008assessing,braverman1995hitchhiking,daniels2013genetic,denef2012situ,desai2008polymorphism,Elena2003Evolution,enard2015viruses,evans2007non,Ewens2012Mathematical,fay2000hitchhiking,feder2014Identifying,feder2012ldx,Feder2016More,hegreness2006equivalence,Hudson2002Generating,illingworth2011distinguishing,illingworth2012quantifying,izutsu2015dynamics,jha2015whole,kawecki2012experimental,kimura1955solution,kreitman2000methods,lang2011genetic,lang2013pervasive,lenski1991long,malaspinas2012estimating,maldarelli2013hiv,mathieson2013estimating,messer2013population,nielsen2005genomic,orozco2012adaptation,Peng2005simuPOP,pollak1983new,przeworski2002signature,ptak2002evidence,pybus2015hierarchical,ramos2002statistical,reid2011new,Ronen2015Haplotype,ronen2015predicting,ronen2013learning,rose1994evolutionary,sabeti2006positive,sawyer1992population,schlotterer2015combining,schlotterer2014sequencing,schrider2015soft,Sheehan028175,slatkin2008linkage,song2012simple,Steinrücken2014a,Stephan2006The,tajima1989statistical,Terhorst2015Multi,tobler2014massive,wang2001pseudo,waples1989generalized,williamson1999using,winters2012development,zhou2011experimental}
 \bibliographystyle{plain}
 \bibliography{library}
 \end{document}

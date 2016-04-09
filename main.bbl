@@ -11,10 +11,13 @@ Joshua~M Akey.
   we go from here?}
 \newblock {\em Genome research}, 19(5):711--722, 2009.
 
-\bibitem{andersson2011notch}
-Emma~R Andersson, Rickard Sandberg, and Urban Lendahl.
-\newblock {Notch signaling: simplicity in design, versatility in function}.
-\newblock {\em Development}, 138(17):3593--3612, 2011.
+\bibitem{ariey2014molecular}
+Fr{\'{e}}d{\'{e}}ric Ariey, Benoit Witkowski, Chanaki Amaratunga, Johann
+  Beghain, Anne-Claire Langlois, Nimol Khim, Saorin Kim, Valentine Duru,
+  Christiane Bouchier, Laurence Ma, and Others.
+\newblock {A molecular marker of artemisinin-resistant Plasmodium falciparum
+  malaria}.
+\newblock {\em Nature}, 505(7481):50--55, 2014.
 
 \bibitem{barrett2008natural}
 Rowan D~H Barrett, Sean~M Rogers, and Dolph Schluter.
@@ -32,11 +35,6 @@ Jeffrey~E Barrick, Dong~Su Yu, Sung~Ho Yoon, Haeyoung Jeong, Tae~Kwang Oh,
 \newblock {Genome evolution and adaptation in a long-term experiment with
   Escherichia coli}.
 \newblock {\em Nature}, 461(7268):1243--1247, 2009.
-
-\bibitem{barton1991natural}
-N~H Barton and Michael Turelli.
-\newblock {Natural and sexual selection on many loci}.
-\newblock {\em Genetics}, 127(1):229--255, 1991.
 
 \bibitem{bergland2014genomic}
 Alan~O Bergland, Emily~L Behrman, Katherine~R O'Brien, Paul~S Schmidt, and
@@ -64,12 +62,11 @@ Adam~R Boyko, Scott~H Williamson, Amit~R Indap, Jeremiah~D Degenhardt, Ryan~D
   human genome}.
 \newblock {\em PLoS Genet}, 4(5):e1000083, 2008.
 
-\bibitem{braverman1995hitchhiking}
-John~M Braverman, Richard~R Hudson, Norman~L Kaplan, Charles~H Langley, and
-  Wolfgang Stephan.
-\newblock {The hitchhiking effect on the site frequency spectrum of DNA
-  polymorphisms.}
-\newblock {\em Genetics}, 140(2):783--796, 1995.
+\bibitem{daborn2001ddt}
+P~Daborn, S~Boundy, J~Yen, B~Pittendrigh, and Others.
+\newblock {DDT resistance in Drosophila correlates with Cyp6g1 over-expression
+  and confers cross-resistance to the neonicotinoid imidacloprid}.
+\newblock {\em Molecular Genetics and Genomics}, 266(4):556--563, 2001.
 
 \bibitem{daniels2013genetic}
 Rachel Daniels, Hsiao-Han Chang, Papa~Diogoye S{\'{e}}ne, Danny~C Park,
@@ -85,22 +82,17 @@ Vincent~J Denef and Jillian~F Banfield.
   recently emerged bacterial hybrids}.
 \newblock {\em Science}, 336(6080):462--466, 2012.
 
+\bibitem{desai2007beneficial}
+Michael~M Desai and Daniel~S Fisher.
+\newblock {Beneficial mutation--selection balance and the effect of linkage on
+  positive selection}.
+\newblock {\em Genetics}, 176(3):1759--1798, 2007.
+
 \bibitem{desai2008polymorphism}
 Michael~M Desai and Joshua~B Plotkin.
 \newblock {The polymorphism frequency spectrum of finitely many sites under
   selection}.
 \newblock {\em Genetics}, 180(4):2175--2191, 2008.
-
-\bibitem{Elena2003Evolution}
-Santiago~F Elena and Richard~E Lenski.
-\newblock {Evolution experiments with microorganisms: the dynamics and genetic
-  bases of adaptation}.
-\newblock {\em Nat Rev Genet}, 4(6):457--469, jun 2003.
-
-\bibitem{enard2015viruses}
-David Enard, Le~Cai, Carina Gwenapp, and Dmitri~A Petrov.
-\newblock {Viruses are a dominant driver of protein adaptation in mammals}.
-\newblock {\em bioRxiv}, 2015.
 
 \bibitem{evans2007non}
 Steven~N Evans, Yelena Shvets, and Montgomery Slatkin.
@@ -128,12 +120,6 @@ Alison~F Feder, Sergey Kryazhimskiy, and Joshua~B Plotkin.
 \newblock {Identifying signatures of selection in genetic time series}.
 \newblock {\em Genetics}, 196(2):509--522, 2014.
 
-\bibitem{feder2012ldx}
-Alison~F Feder, Dmitri~A Petrov, and Alan~O Bergland.
-\newblock {LDx: estimation of linkage disequilibrium from high-throughput
-  pooled resequencing data}.
-\newblock {\em PloS one}, 7(11):e48588, 2012.
-
 \bibitem{Feder2016More}
 Alison~F Feder, Soo-Yon Rhee, Susan~P Holmes, Robert~W Shafer, Dmitri~A Petrov,
   and Pleuni~S Pennings.
@@ -141,17 +127,22 @@ Alison~F Feder, Soo-Yon Rhee, Susan~P Holmes, Robert~W Shafer, Dmitri~A Petrov,
   evolution of drug resistance in HIV-1.}
 \newblock {\em eLife}, 5, jan 2016.
 
+\bibitem{gottesman2002mechanisms}
+Michael~M Gottesman.
+\newblock {Mechanisms of cancer drug resistance}.
+\newblock {\em Annual review of medicine}, 53(1):615--627, 2002.
+
 \bibitem{hegreness2006equivalence}
 Matthew Hegreness, Noam Shoresh, Daniel Hartl, and Roy Kishony.
 \newblock {An equivalence principle for the incorporation of favorable
   mutations in asexual populations}.
 \newblock {\em Science}, 311(5767):1615--1617, 2006.
 
-\bibitem{Hudson2002Generating}
-Richard~R Hudson.
-\newblock {Generating samples under a Wright–Fisher neutral model of genetic
-  variation}.
-\newblock {\em Bioinformatics}, 18(2):337--338, feb 2002.
+\bibitem{holsinger2009genetics}
+Kent~E Holsinger and Bruce~S Weir.
+\newblock {Genetics in geographically structured populations: defining,
+  estimating and interpreting FST}.
+\newblock {\em Nature Reviews Genetics}, 10(9):639--650, 2009.
 
 \bibitem{illingworth2011distinguishing}
 Christopher J~R Illingworth and Ville Mustonen.
@@ -166,17 +157,17 @@ Christopher J~R Illingworth, Leopold Parts, Stephan Schiffels, Gianni Liti, and
   frequency time series data}.
 \newblock {\em Molecular biology and evolution}, 29(4):1187--1197, 2012.
 
-\bibitem{izutsu2015dynamics}
-Minako Izutsu, Atsushi Toyoda, Asao Fujiyama, Kiyokazu Agata, and Naoyuki Fuse.
-\newblock {Dynamics of Dark-Fly Genome Under Environmental Selections}.
-\newblock {\em G3: Genes| Genomes| Genetics}, pages g3----115, 2015.
-
 \bibitem{jha2015whole}
 Aashish~R Jha, Cecelia~M Miles, Nodia~R Lippert, Christopher~D Brown, Kevin~P
   White, and Martin Kreitman.
 \newblock {Whole-genome resequencing of experimental populations reveals
   polygenic basis of egg-size variation in Drosophila melanogaster}.
 \newblock {\em Molecular biology and evolution}, 32(10):2616--2632, 2015.
+
+\bibitem{kaplan1989hitchhiking}
+Norman~L Kaplan, R~R Hudson, and C~H Langley.
+\newblock {The" hitchhiking effect" revisited.}
+\newblock {\em Genetics}, 123(4):887--899, 1989.
 
 \bibitem{kawecki2012experimental}
 Tadeusz~J Kawecki, Richard~E Lenski, Dieter Ebert, Brian Hollis, Isabelle
@@ -191,13 +182,6 @@ Motoo Kimura.
 \newblock {\em Proceedings of the National Academy of Sciences},
   41(3):144--150, 1955.
 
-\bibitem{kreitman2000methods}
-Martin Kreitman.
-\newblock {Methods to detect selection in populations with applications to the
-  human}.
-\newblock {\em Annual review of genomics and human genetics}, 1(1):539--559,
-  2000.
-
 \bibitem{lang2011genetic}
 Gregory~I Lang, David Botstein, and Michael~M Desai.
 \newblock {Genetic variation and the fate of beneficial mutations in asexual
@@ -210,12 +194,6 @@ Gregory~I Lang, Daniel~P Rice, Mark~J Hickman, Erica Sodergren, George~M
 \newblock {Pervasive genetic hitchhiking and clonal interference in forty
   evolving yeast populations}.
 \newblock {\em Nature}, 500(7464):571--574, 2013.
-
-\bibitem{lenski1991long}
-Richard~E Lenski, Michael~R Rose, Suzanne~C Simpson, and Scott~C Tadler.
-\newblock {Long-term experimental evolution in Escherichia coli. I. Adaptation
-  and divergence during 2,000 generations}.
-\newblock {\em American naturalist}, pages 1315--1341, 1991.
 
 \bibitem{malaspinas2012estimating}
 Anna-Sapfo Malaspinas, Orestis Malaspinas, Steven~N Evans, and Montgomery
@@ -248,6 +226,20 @@ Philipp~W Messer and Dmitri~A Petrov.
 \newblock {Population genomics of rapid adaptation by soft selective sweeps}.
 \newblock {\em Trends in ecology {\&} evolution}, 28(11):659--669, 2013.
 
+\bibitem{nair2007recurrent}
+Shalini Nair, Denae Nash, Daniel Sudimack, Anchalee Jaidee, Marion Barends,
+  Anne-Catrin Uhlemann, Sanjeev Krishna, Fran{\c{c}}ois Nosten, and Tim J~C
+  Anderson.
+\newblock {Recurrent gene amplification and soft selective sweeps during
+  evolution of multidrug resistance in malaria parasites}.
+\newblock {\em Molecular Biology and Evolution}, 24(2):562--573, 2007.
+
+\bibitem{nielsen2003correcting}
+Rasmus Nielsen and James Signorovitch.
+\newblock {Correcting for ascertainment biases when analyzing SNP data:
+  applications to the estimation of linkage disequilibrium}.
+\newblock {\em Theoretical population biology}, 63(3):245--255, 2003.
+
 \bibitem{nielsen2005genomic}
 Rasmus Nielsen, Scott Williamson, Yuseob Kim, Melissa~J Hubisz, Andrew~G Clark,
   and Carlos Bustamante.
@@ -269,34 +261,17 @@ Tugce Oz, Aysegul Guvenek, Sadik Yildiz, Enes Karaboga, Yusuf~Talha Tamer,
   contributing to the complexity of antibiotic resistance evolution}.
 \newblock {\em Molecular biology and evolution}, page msu191, 2014.
 
-\bibitem{Peng2005simuPOP}
-Bo~Peng and Marek Kimmel.
-\newblock {simuPOP: a forward-time population genetics simulation environment}.
-\newblock {\em Bioinformatics}, 21(18):3686--3687, sep 2005.
-
 \bibitem{pollak1983new}
 Edward Pollak.
 \newblock {A new method for estimating the effective population size from
   allele frequency changes}.
 \newblock {\em Genetics}, 104(3):531--548, 1983.
 
-\bibitem{przeworski2002signature}
-Molly Przeworski.
-\newblock {The signature of positive selection at randomly chosen loci}.
-\newblock {\em Genetics}, 160(3):1179--1189, 2002.
-
 \bibitem{ptak2002evidence}
 Susan~E Ptak and Molly Przeworski.
 \newblock {Evidence for population growth in humans is confounded by fine-scale
   population structure}.
 \newblock {\em Trends in Genetics}, 18(11):559--563, 2002.
-
-\bibitem{pybus2015hierarchical}
-Marc Pybus, Pierre Luisi, Giovanni~Marco Dall'Olio, Manu Uzkudun, Hafid
-  Laayouni, Jaume Bertranpetit, and Johannes Engelken.
-\newblock {Hierarchical boosting: a machine-learning framework to detect and
-  classify hard selective sweeps in human populations}.
-\newblock {\em Bioinformatics}, page btv493, 2015.
 
 \bibitem{ramos2002statistical}
 Sebastian~E Ramos-Onsins and Julio Rozas.
@@ -309,14 +284,6 @@ Brian~J Reid, Rumen Kostadinov, and Carlo~C Maley.
 \newblock {New strategies in Barrett's esophagus: integrating clonal
   evolutionary theory with clinical management}.
 \newblock {\em Clinical Cancer Research}, 17(11):3512--3519, 2011.
-
-\bibitem{Ronen2015Haplotype}
-Roy Ronen, Glenn Tesler, Ali Akbari, Shay Zakov, Noah~A Rosenberg, and Vineet
-  Bafna.
-\newblock {Haplotype Allele Frequency (HAF) Score: Predicting Carriers of
-  Ongoing Selective Sweeps Without Knowledge of the Adaptive Allele}.
-\newblock In {\em Research in Computational Molecular Biology}, pages 276--280.
-  Springer International Publishing, 2015.
 
 \bibitem{ronen2015predicting}
 Roy Ronen, Glenn Tesler, Ali Akbari, Shay Zakov, Noah~A Rosenberg, and Vineet
@@ -346,40 +313,24 @@ Stanley~A Sawyer and Daniel~L Hartl.
 \newblock {Population genetics of polymorphism and divergence.}
 \newblock {\em Genetics}, 132(4):1161--1176, 1992.
 
-\bibitem{schlotterer2015combining}
-C~Schl{\"{o}}tterer, R~Kofler, E~Versace, R~Tobler, and S~U Franssen.
-\newblock {Combining experimental evolution with next-generation sequencing: a
-  powerful tool to study adaptation from standing genetic variation}.
-\newblock {\em Heredity}, 114(5):431--440, 2015.
-
-\bibitem{schlotterer2014sequencing}
-Christian Schl{\"{o}}tterer, Raymond Tobler, Robert Kofler, and Viola Nolte.
-\newblock {Sequencing pools of individuals [mdash] mining genome-wide
-  polymorphism data without big funding}.
-\newblock {\em Nature Reviews Genetics}, 15(11):749--763, 2014.
-
-\bibitem{schrider2015soft}
-Daniel~R Schrider, F{\'{a}}bio~K Mendes, Matthew~W Hahn, and Andrew~D Kern.
-\newblock {Soft shoulders ahead: spurious signatures of soft and partial
-  selective sweeps result from linked hard sweeps}.
-\newblock {\em Genetics}, 200(1):267--284, 2015.
-
-\bibitem{Sheehan028175}
-Sara Sheehan and Yun~S Song.
-\newblock {Deep learning for population genetic inference}.
-\newblock {\em bioRxiv}, 2015.
-
-\bibitem{slatkin2008linkage}
-Montgomery Slatkin.
-\newblock {Linkage disequilibrium—understanding the evolutionary past and
-  mapping the medical future}.
-\newblock {\em Nature Reviews Genetics}, 9(6):477--485, 2008.
+\bibitem{smith1974hitch}
+John~Maynard Smith and John Haigh.
+\newblock {The hitch-hiking effect of a favourable gene}.
+\newblock {\em Genetical research}, 23(01):23--35, 1974.
 
 \bibitem{song2012simple}
 Yun~S Song and Matthias Steinr{\"{u}}cken.
 \newblock {A simple method for finding explicit analytic transition densities
   of diffusion processes with general diploid selection}.
 \newblock {\em Genetics}, 190(3):1117--1129, 2012.
+
+\bibitem{spellberg2008epidemic}
+Brad Spellberg, Robert Guidos, David Gilbert, John Bradley, Helen~W Boucher,
+  W~Michael Scheld, John~G Bartlett, John Edwards, Infectious Diseases~Society
+  of~America, and Others.
+\newblock {The epidemic of antibiotic-resistant infections: a call to action
+  for the medical community from the Infectious Diseases Society of America}.
+\newblock {\em Clinical Infectious Diseases}, 46(2):155--164, 2008.
 
 \bibitem{Steinrücken2014a}
 Matthias Steinr{\"{u}}cken, Anand Bhaskar, and Yun~S Song.
@@ -404,13 +355,6 @@ Jonathan Terhorst, Christian Schl{\"{o}}tterer, and Yun~S Song.
 \newblock {Multi-locus Analysis of Genomic Time Series Data from Experimental
   Evolution}.
 \newblock {\em PLoS Genet}, 11(4):e1005069, 2015.
-
-\bibitem{tobler2014massive}
-Ray Tobler, Susanne~U Franssen, Robert Kofler, Pablo Orozco-terWengel, Viola
-  Nolte, Joachim Hermisson, and Christian Schl{\"{o}}tterer.
-\newblock {Massive habitat-specific genomic response in D. melanogaster
-  populations during experimental evolution in hot and cold environments}.
-\newblock {\em Molecular biology and evolution}, 31(2):364--375, 2014.
 
 \bibitem{vitti2013detecting}
 Joseph~J Vitti, Sharon~R Grossman, and Pardis~C Sabeti.
@@ -448,6 +392,11 @@ Mark~A Winters, Robert~M {Lloyd Jr}, Robert~W Shafer, Michael~J Kozal,
   inhibitor mutations with protease and reverse transcriptase resistance
   mutations}.
 \newblock {\em PloS one}, 7(7):e40514, 2012.
+
+\bibitem{zahreddine2013mechanisms}
+Hiba Zahreddine and K~L Borden.
+\newblock {Mechanisms and insights into drug resistance in cancer}.
+\newblock {\em Front Pharmacol}, 4(28.10):3389, 2013.
 
 \bibitem{zhou2011experimental}
 Dan Zhou, Nitin Udpa, Merril Gersten, DeeAnn~W Visk, Ali Bashir, Jin Xue,
