@@ -656,6 +656,9 @@ sampled at the firs generation, 2 replicates at generation 15, one replicate at
 generation 23, one replicate at generation 27 and three replicates at 
 generation 37.
 
+Figure \ref{app:af} demonstrates Manhattan plot for the scan of data. Genes 
+will be extracgted ASAP.
+
 \section{Materials and Methods}
 \subsection{Least-Squares Estimate of $s$} 
 \label{sec:regression}
@@ -1071,6 +1074,15 @@ rate, selection strength, initial carrier frequency, and the initial linkage.
 	clip,width=\textwidth]{rank}
 	\caption{CDF of the rank of the adaptive allele in 100 simulations.} 
 	\label{fig:rank}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim=.2in 0 .2in 0, 
+	clip,width=\textwidth]{{real.manhattan}.png}
+	\caption{Manhattan plot of scan for selection using CLR on windows of 
+	size 50Kb and sliding window of 10Kb.} 
+	\label{fig:real}
 \end{figure}
 
 %\input{intro}
