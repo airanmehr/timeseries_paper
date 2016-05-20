@@ -186,13 +186,6 @@
 \newblock {Experimental evolution}.
 \newblock {\em Trends in ecology {\&} evolution 27}, 10 (2012), 547--560.
 
-\bibitem{kimura1955solution}
-{\sc Kimura, M.}
-\newblock {Solution of a process of random genetic drift with a continuous
-  model}.
-\newblock {\em Proceedings of the National Academy of Sciences 41}, 3 (1955),
-  144--150.
-
 \bibitem{lang2011genetic}
 {\sc Lang, G.~I., Botstein, D., and Desai, M.~M.}
 \newblock {Genetic variation and the fate of beneficial mutations in asexual
@@ -330,16 +323,17 @@
 \newblock {Population genetics of polymorphism and divergence.}
 \newblock {\em Genetics 132}, 4 (1992), 1161--1176.
 
+\bibitem{schlotterer2015combining}
+{\sc Schl{\"{o}}tterer, C., Kofler, R., Versace, E., Tobler, R., and Franssen,
+  S.~U.}
+\newblock {Combining experimental evolution with next-generation sequencing: a
+  powerful tool to study adaptation from standing genetic variation}.
+\newblock {\em Heredity 114}, 5 (2015), 431--440.
+
 \bibitem{smith1974hitch}
 {\sc Smith, J.~M., and Haigh, J.}
 \newblock {The hitch-hiking effect of a favourable gene}.
 \newblock {\em Genetical research 23}, 01 (1974), 23--35.
-
-\bibitem{song2012simple}
-{\sc Song, Y.~S., and Steinr{\"{u}}cken, M.}
-\newblock {A simple method for finding explicit analytic transition densities
-  of diffusion processes with general diploid selection}.
-\newblock {\em Genetics 190}, 3 (2012), 1117--1129.
 
 \bibitem{spellberg2008epidemic}
 {\sc Spellberg, B., Guidos, R., Gilbert, D., Bradley, J., Boucher, H.~W.,

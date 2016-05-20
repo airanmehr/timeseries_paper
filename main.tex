@@ -8,19 +8,19 @@
 \affil[1]{\footnotesize Electrical and Computer Engineering, University of California, San Diego, La Jolla, CA 92093, USA.}
 \affil[2]{\footnotesize Computer Science \& Engineering, University of California, San Diego, La Jolla, CA 92093, USA}
 \date{}
-
+\def\comale{\text{COMALE }}
 \usepackage{booktabs}
 \begin{document}
 \maketitle
 \begin{abstract}
 Experimental evolution (EE) studies are powerful tools for observing
-molecular evolution "in-action" in wild and controlled environments. This 
+molecular evolution ``in-action" in wild and controlled environments. This 
 paradigm of experiment was infeasible until recently when the whole-genome 
 and whole-population was made possible by next-generation sequencing 
 technologies. 
 However, one of the primary constraints of the EE studies 
-is the 
-limited time for the experiment, which primarily depend on the organism's 
+is the limited time for the experiment, which primarily depend on the 
+organism's 
 generation 
 time. This constraint impedes adaptation and optimization (evolvability) 
 studies, where the population 
@@ -28,63 +28,143 @@ can only evolved and re-sequenced in a small number of generations,
 relative to the number of generations required for fixation of adaptive 
 allele. 
 Although a 
-powerful library of  tests-of-selection has already been developed, they are 
-mainly designed 
-to identify adaptation in pre/post fixations in static data.
-In this article, we study the problem of identifying selection signatures in 
-allele-frequency trajectories of small number of generations. 
-We propose a Dynamic Composite Likelihood Ratio 
-(DCLR) statistic for time-series data which computes its statistic by averaging 
-likelihood ratios of each polymorphism in a sliding window. The likelihood of 
+powerful library of tests-of-selection has already been developed, they are 
+mainly designed for static data to
+to identify adaptation when the sample is taken close enough (before/after) 
+to the fixation of adaptive allele.
+In this article, we study the problem of identifying selective sweep in 
+short-term experimental evolution of sexual organisms and  propose Composite 
+Of MArkovian Likelihoods for Experimental evolution (\comale) statistic which 
+computes its score by 
+averaging 
+likelihood ratios of polymorphisms for a genomic region. 
+The likelihood of null
 (neutral) and 
-alternative (selection) hypotheses using the Wright-Fisher Markov chain model 
+alternative (selection) hypotheses calculated using the Wright-Fisher Markov 
+chain model 
 for each variant. Extensive simulation study shows that
-DCLR achieves higher detection power methods on both soft and 
-hard sweep simulations. 
-Finally, we apply the DCLR statistic to the controlled experimental 
+\comale\ achieves higher detection power methods on both soft and 
+hard sweep simulations for various selection strengths. 
+Finally, we apply the \comale\ statistic to the controlled experimental 
 evolution of D. melanogaster to detect adaptive genes/alleles under alternating 
 cold and hot temperatures.
 \end{abstract}
+
+
+
 \section{Introduction}
-Genetic adaptation is \emph{the} central evolutionary process and is at the
- core of some of the greatest challenges facing humanity. 
-For example, HIV's rapid evolution of drug resistance during treatment, makes 
-treatments ineffective and even by prescribing a combination of drugs the speed 
-of adaptation only slowed down~\cite{Feder2016More}. 
-Cancer would be much more straightforward to treat if not for
-tumor's ability to adapt to anti-cancer drugs 
-\cite{gottesman2002mechanisms,zahreddine2013mechanisms}. 
-Malaria could be treated with cheap drugs such as quinine instead of 
-being one of the world's worst killers 
-\cite{ariey2014molecular,nair2007recurrent}. 
-Crop pests would be manageable with small doses of safe insecticides 
-instead of requiring applications of ever increasing amounts of a diverse array 
-of powerful chemicals\cite{daborn2001ddt}. 
-Finally, antibiotic resistance \cite{spellberg2008epidemic} to new antibiotics 
-could return us to the pre-Antibiotic age.
-Despite enormous examples of rapid adaptation, Messer and Petrov 
-\cite{messer2013population} argued that "many, if not most, cases of adaptation 
-are yet to be discovered".
+
+\paragraph{Experimental Evolution.}
+Recent advances of whole genome sequencing has enabled us to sequence 
+populations at a reasonable cost, such that one could design experiments
+to study different forces of evolution in real-time. Modern experimental 
+evolution refers to the study of the evolutionary processes of a model organism 
+at genomic level in a 
+controlled  
+\cite{hegreness2006equivalence,lang2013pervasive,orozco2012adaptation,
+	lang2011genetic,barrick2009genome,bollback2007clonal,oz2014strength} 
+or natural 
+\cite{maldarelli2013hiv,reid2011new,denef2012situ,winters2012development,
+	daniels2013genetic,barrett2008natural,bergland2014genomic} environment.
+Constraints such as small population sizes, limited 
+timescales and oversimplified laboratory
+environments limits interpreting experimental evolution results, yet, they can 
+be used
+been used to test different hypotheses~\cite{kawecki2012experimental}
+regarding
+mutation rate, 
+inbreeding, 
+environmental variability,
+sexual selection and conflict, 
+kin selection and cooperation
+life history and sex allocation, 
+sexual reproduction and mating systems, 
+behavior and cognition, 
+host–parasite interactions, 
+speciation repeatability of evolution 
+and make more accurate inferences 
+than static data analysis 
+\cite{boyko2008assessing,desai2008polymorphism,sawyer1992population}. In 
+addition, dynamic data has been used to estimate model parameters 
+including population size
+\cite{williamson1999using,wang2001pseudo,pollak1983new,waples1989generalized,
+	Terhorst2015Multi}
+strength of selection
+\cite{mathieson2013estimating,illingworth2011distinguishing,Terhorst2015Multi,
+	bollback2008estimation,illingworth2012quantifying,malaspinas2012estimating,
+	Steinrücken2014a}, allele age
+\cite{malaspinas2012estimating}
+recombination rate~\cite{Terhorst2015Multi}, mutation
+rate~\cite{Barrick2013Genome, Terhorst2015Multi} and test neutrality hypotheses 
+\cite{feder2014Identifying,Terhorst2015Multi,burke2010genome,bergland2014genomic}.
+
+Among different types of evolution experiments 
+\cite{Barrick2013Genome,schlotterer2015combining} in 
+this 
+paper we only focus on adaptive evolution of multicellular sexual organisms 
+with 
+continues culture, fixed population size. 
+For this setting, D. melanogaster is 
+usually the model organism and it has been used to identify adaptive genes in 
+longevity and aging ~\cite{burke2010genome,remolina2012genomic} (600 and  
+generations respectively),
+courtship song \cite{turner2011population} (100 generations),
+hypoxia tolerance \cite{zhou2011experimental} (200 generations),
+adaptation to new temperatures\cite{orozco2012adaptation,tobler2014massive} (37 
+generations),
+egg size \cite{jha2015whole} (40 generations),
+C virus resistance \cite{martins2014host} (20 generations),
+and dark-fly~\cite{izutsu2015dynamics} (49 generations) experiments.
+
+\paragraph{Natural selection.} Natural selection is one of the main forces of 
+the evolutionary 
+process and 
+identifying it at the genomic level is one of the critical problems facing 
+humanity.
+For example, drug resistance in HIV ~\cite{Feder2016More}, 
+cancer~\cite{gottesman2002mechanisms,zahreddine2013mechanisms},
+malaria~\cite{ariey2014molecular,nair2007recurrent},
+pests~\cite{daborn2001ddt} or antibiotic 
+resistance~\cite{spellberg2008epidemic} are instances of genetic adaptations 
+that yet to be 
+understood at genomic level, which could potentially return us to the 
+pre-antibiotic age.
+Although, a wide range of computational methods \cite{vitti2013detecting} 
+enable us to identify different regimes of genetic adaptations, Messer 
+and Petrov 
+\cite{messer2013population} argued that ``many, if not most, cases of 
+adaptation are yet to be discovered", false-negatives. In addition, current 
+methods prone to ``pathelogical false-positives" due to other confounding 
+factors such as demography.
 
 
-Model for describing genetic adaptations, \emph{selective sweep} 
-\cite{smith1974hitch,kaplan1989hitchhiking} , take into account of associations 
-of the beneficial mutation with its surrounding loci.
+\paragraph{Selective sweep.} Selective sweep 
+\cite{smith1974hitch,kaplan1989hitchhiking} is the 
+model for describing directional single-locus selection, which takes into 
+account of associations of the beneficial mutation with its surrounding loci.
+In other words, in a selective sweep not only the adaptive locus, but also its 
+nearby loci expands to the population.
 The extent of genetic loci that are in association with the adaptive allele 
 depends on the amount of accumulated recombination events between adaptive 
-allele and the rest of genome. In the asexual populations, where no 
-recombination event occurs, the whole genome is perfectly linked to the 
-adaptive allele 
-and "clonal interference" \cite{desai2007beneficial,lang2013pervasive} 
-describes the adaptation process when more than one beneficial allele exist in 
-the population.
+allele and the rest of genome. 
+
+In the asexual populations, where no 
+crossover occurs, the whole genome is perfectly linked to the 
+adaptive allele the whole genome ``hitchhikes" with the beneficial mutation in 
+the sweep process.
+Also, when (beneficial) mutation rate is high, it is possible that more than 
+one beneficial allele exist in the population at the same time and ``clonal 
+interference" \cite{desai2007beneficial,lang2013pervasive} 
+best describes the adaptation process.
+
 On the other hand, in sexual population, the favored mutation is only in 
 linkage-disequilibrium (LD) with its nearby polymorphisms. Hence, methods for 
 identifying selective 
 sweep in sexual populations often analyze  polymorphism data of a population of 
 in a genomic region, rather than a single site. 
 
-Adaptation leaves a variety of signatures 
+\paragraph{Identifying Natural Selection.} Adaptation leaves a variety of 
+signatures 
 in different kinds of genomic data, and methods for identifying natural 
 selection are essentially \emph{data-driven}. For instance, reduction in 
 genetic 
@@ -93,162 +173,190 @@ allele-frequency data,
 prevalence of long haplotypes 
 	\cite{sabeti2006positive,vitti2013detecting} in haplotype (phased) data, 
 	population differentiation \cite{holsinger2009genetics,burke2010genome} in 
-	multiple-population 
-	data and 
-	rapid increase in allele 
+	multiple-population	data and rapid increase in allele 
 	frequencies \cite{bergland2014genomic} in the dynamic data are different 
-	traces of selective sweep in the polymorphism data.
-In the experimental evolution with pooled-sequencing, only allele frequency 
-of the population, and sometimes initial population's haplotypes are available. 
+	signatures of selective sweep in the polymorphism data.
+In this paper, we restrict our attention to the experimental evolution 
+experiments with pooled-sequencing, where dynamic allele frequency 
+of the population is available. 
 
-Traditionally, given static frequency data, Tajima's \emph{D} 
+The identification of an selection event can be done in 
+different levels of detail. At the coarsest level, identification can be done 
+by 
+determining whether a region 
+(e.g. a small region with no or low recombination) on genome is 
+under selection. 
+In the rest, 
+we consider this task to 
+be the task of \emph{detection}.
+Then, finding the causal 
+mutation/allele would be a more elaborate identification of selection, 
+henceforth, \emph{locating} selection. 
+Finally, estimating model parameters such as strength of selection and 
+overdominance at the site fully describes the selective sweep.
+
+\paragraph{Static Data.} Traditionally, given static allele frequency data, 
+Site Frequency Spectrum 
+(SFS) is computed to perform neutrality tests including Tajima's \emph{D} 
 ~\cite{tajima1989statistical}, 
 Fay and Wu's \emph{H}~\cite{fay2000hitchhiking}, 
 Composite Likelihood Ratio~\cite{nielsen2005genomic}, 
-SFSelect~\cite{ronen2013learning} test statistics can be computed using the
-distribution of polymorphisms, site-frequency spectrum (SFS), in a genomic 
+SFSelect~\cite{ronen2013learning}, in a genomic 
 region\footnote{The extent of genomic region is mainly depend on the  amount 
-background linkage in the genome.}. Despite their simplicity and intuitiveness, 
+background linkage in the genome.}. Despite their simplicity and clarity, 
 it has been shown that
-  SFS-based tests often fail to distinguish demography from adaptation. They 
+  SFS-based tests often fail to distinguish demographic changes from 
+  adaptation. They 
   are also prone to pathological false-positive/negatives
   due to low linkage of the adaptive allele to its surrounding variation and 
   ascertainment bias ~\cite{ptak2002evidence, 
   ramos2002statistical,akey2009constructing, 
   nielsen2003correcting,messer2013population}. 
 
-On the other hand, identifying selection in dynamic data is not well studied 
-yet.
-Feder et. al \cite{feder2014Identifying}  proposed Frequency Increment
- Test(FIT) for dynamic frequency data and Likelihood Ratio Test (LRT) for 
- frequency/haplotype dynamic single-population data. Burke et 
- al.~\cite{burke2010genome} applied 
+SFS (Figure \ref{fig:afs}) shows the distribution of allele 
+frequencies in a genomic region.
+Historically, SFS of static data has been extensively used to 
+``detect" genetic 
+adaption and demographic changes in a population. Basically, 
+SFS is measure of diversity in a genomic region computed from allele 
+frequencies. 
+In general, reduction in diversity is a signal of 
+selection, and detecting selection based on the reduction in 
+genomic diversity is a subtle task, because 
+\begin{enumerate}[(i)]
+	\item  in soft sweeps the genomic diversity does not 
+	necessarily reduce.
+	\item even in hard sweeps with no recombination, the 
+	reduction diversity is 
+	significant only when the SFS sample is taken close to 
+	fixation (not too 
+	far prior or after fixation)
+	\item SFS change in the same way for both selection an 
+	demography changes. 
+\end{enumerate}
+
+Although conditions (hard sweep with no recombination, not 
+far from 
+fixation, and random-mating and constant size population) 
+for detecting 
+selection based on SFS are very restrictive, SFS-based tests 
+are simple and 
+inexpensive to use and often used in combination with 
+other tests~\cite{akey2009constructing,vitti2013detecting}. 
+
+In practice, (positive and sum-to-one) weighted 
+linear combinations scaled SFS distribution \cite{achaz2009frequency}
+is used as different estimators of $\theta$ and pairwise discrepancy between 
+them is used as a test statistic for detecting selection.
+Under neutrality, the discrepancies should be distributed around zero, and a 
+simple $t$ test can provide p-value for rejecting neutrality. 
+For example, 
+test statistics for Tajima's $D$\cite{tajima1989statistical}, 
+Fay Wu's $H$~\cite{fay2000hitchhiking} and 
+SFSelect\cite{ronen2013learning} can be obtained by a dot 
+product of the scaled SFS vector with their corresponding weight vector. 
+
+
+
+
+\paragraph{Dynamic Data (ad-hoc).} On the other hand, tests-of-selection for 
+dynamic 
+data is less studied, and 
+often existing tests for static data are adopted for dynamic data in an ad-hoc 
+manner. For example, Zhu et al. \cite{zhou2011experimental} used the ratio of 
+the estimated 
+population size of case and control populations to compute test statistic for 
+each window.
+Burke et al.~\cite{burke2010genome} applied 
  Fisher exact test to the last observation of data on case and control 
  populations.
- Bergland et. al \cite{bergland2014genomic} 
+ Bergland et al. \cite{bergland2014genomic} 
  applied $F_{st}$ to populations throughout time to signify their 
  differentiation from ancestral as well as geographically different 
  populations. 
  Jha et al. \cite{jha2015whole} 
  computed test statistic of generalized 
- linear-mixed model (GLMM) directly from read counts.
- Song et al. \cite{Terhorst2015Multi} computed LRT statistic by fitting 
- parameters to a Gaussian process model. Nevertheless, their detection power 
- under short experimental evolutions are yet to be known.
+ linear-mixed model (GLMM) directly from read counts. 
+
+\paragraph{Dynamic Data (direct).} To perform statistical test on time-series 
+data directly, 
+Feder et al. \cite{feder2014Identifying} proposed Frequency Increment
+Test(FIT) for dynamic frequency data and Likelihood Ratio Test (LRT) for 
+frequency/haplotype dynamic single-population data.
+Specifically, FIT is a neutrality test which uses (continuous-time 
+continuous-state) Brownian motion process for modeling variation of 
+ allele frequencies under genetic drift. 
+ Basically, given current allele frequency 
+ $\nu_t$ at a site, Brownian motion approximation assumes 
+ future-generations allele 
+ frequencies are drawn from the Gaussian distribution
+ \beq
+ \nu_{t+\tau}\sim 
+ \Nc\left(\nu_t,\frac{2\nu_t(1-\nu_t)}{N_e}\tau\right) 
+ \label{eq:brown}
+ \eeq
+ In other words, under neutrality, increments of the consecutive observations 
+ drawn from a Gaussian with 
+ zero mean and variance of \eqref{eq:brown}, and p-value of and be readily 
+ computed via a Student's t-test. More recently, Song et al. 
+ \cite{Terhorst2015Multi} computed LRT statistic by fitting 
+ parameters to a Gaussian process model to the time series frequency data. 
  
-\paragraph{Experimental Evolution}
-Recent advances of whole genome sequencing has enabled us to sequence 
-populations at a reasonable cost, such that one could design experiments
-to study different forces of evolution in real-time. \emph{Experimental 
-evolution} is the study of the evolutionary processes of a model organism in a 
-controlled  
-\cite{hegreness2006equivalence,lang2013pervasive,orozco2012adaptation,
-	lang2011genetic,barrick2009genome,bollback2007clonal,oz2014strength} 
-or natural 
-	\cite{maldarelli2013hiv,reid2011new,denef2012situ,winters2012development,
-	daniels2013genetic,barrett2008natural,bergland2014genomic} environment.
-In this setting, constraints such as small population sizes, limited 
-timescales and oversimplified laboratory
-environments limits interpreting experimental evolution results, yet, they can 
-be used
-been used to test different hypotheses~\cite{kawecki2012experimental}
-regarding
-mutation and adaptation, 
-genetic drift and inbreeding, 
-environmental variability,
-sexual selection and conflict, 
-kin selection and cooperation
-life history and sex allocation, 
-sexual reproduction and mating systems, 
-behavior and cognition, 
-host–parasite interactions, 
-speciation
-repeatability of evolution 
-and make more accurate inferences 
-than static data analysis 
-\cite{boyko2008assessing,desai2008polymorphism,sawyer1992population}. For 
-example, dynamic data has been used to estimate model parameters 
-including population size
-\cite{williamson1999using,wang2001pseudo,pollak1983new,waples1989generalized,
-	Terhorst2015Multi}
-strength of selection
-\cite{mathieson2013estimating,illingworth2011distinguishing,Terhorst2015Multi,
-	bollback2008estimation,illingworth2012quantifying,malaspinas2012estimating,
-	Steinrücken2014a, malaspinas2012estimating}, allele age
-\cite{malaspinas2012estimating}
-recombination rate~\cite{Terhorst2015Multi}, mutation
-rate~\cite{Barrick2013Genome, Terhorst2015Multi} and test neutrality hypotheses 
-\cite{feder2014Identifying,Terhorst2015Multi,burke2010genome,bergland2014genomic}.
 
  
 
-Among different types of evolution experiments \cite{Barrick2013Genome} in 
-this 
-paper we only focus on adaptive evolution of multicellular sexual organisms 
-with 
-continues culture, fixed population size. For this setting, D. melanogaster is 
-usually the model organism and it has been used to identify adaptive genes in 
-longevity and aging ~\cite{burke2010genome,remolina2012genomic} (600 and  
-generations respectively),
-courtship song \cite{turner2011population} (100 generations),
-hypoxia tolerance \cite{zhou2011experimental} (300 generations),
-adaptation to new temperatures\cite{orozco2012adaptation,tobler2014massive} (37 
-generations),
-egg size \cite{jha2015whole} (40 generations),
-C virus resistance \cite{martins2014host} (20 generations),
-bristle development 
-and dark-fly~\cite{izutsu2015dynamics} (49 generations) experiments.
+
+ 
 
 
-\section{Background}
-\paragraph{Notation} Let $\bfX \triangleq (X_{ijk}) \in [0, 1]^{T \times 
+
+
+\paragraph{Background.}
+Selective sweep is a process which under infinite site assumption
+its dynamic is determined selection strength,
+population size, recombination rate and the underlying genealogy at the onset 
+of 
+selection. 
+As a result, the change in different population statistics, including 
+{site allele frequencies (AF), SFS and 
+	LD, can be attributed to the selection event.
+However, other independent processes such as genetic drift, 
+population expansion/bottleneck and recombination cause AF,SFS and LD to 
+change, respectively. Therefore, ``identification" of a selection of 
+selective sweep  requires disentangling effects of natural selection from 
+those of neutral evolution and demography.
+
+
+
+
+ Selection and genetic drift are the two main 
+ \emph{independent} evolutionary 
+ forces that cause change in allele frequencies, each 
+ generation. 
+ In the simplest case, models for neutral evolution of a 
+ single-locus can be 
+ used to derive a null distribution in order to detect the 
+ region under 
+ selection or locate the 
+ adaptive allele.
+
+\paragraph{Notation.} Let $\bfX = (X_{ijk}) \in [0, 1]^{T \times 
 M\times R}$ denote the population frequency where $T$ is the number of samples 
 in time, $M$ is the number of segregating sites, and $R$ is the number of 
 replicates. Samples in time are taken such that $\tau_1<\tau_2,\cdots<\tau_T$.
 To simplify our notation, we define $x_t$ as a allele frequency of a site in a
- replicate, and we denote it by $\nu_t$ if such a site is directly under 
- selection with the strength $s$. I.E., $\nu_t$ can be regarded as frequency of 
- the carrier in the  population.
-\paragraph{Simulations}
-For each experiment a diploid population is created and evolved as follows. 
-\begin{enumerate}[I.]
-	\item {\bf Creating initial founder line haplotypes}
-	First using msms program, we created neutral populations for $F$ founding 
-	haplotypes with \emph{default} parameters \texttt{\$./msms <F> 1 -t 
-	<2$\mu$LNe> 
-		-r <2rNeL> 
-		<L>} 
-	where $F=200$ is number of founder lines, $N_e=10^6$ is 
-	effective 
-	population size, $r=2*10^{-8}$ is recombination rate and $\mu=2\times 
-	10^{-9}$ is mutation rate and  $L=50K$ is the window size in base pairs 
-	which gives $\theta=2\mu N_eL=200$ and $\rho=2N_erL=2000$. For default 
-	parameter, the expected number of segregating sites in a window is 
-	\beqq
-	\Ebb[M]=\theta \sum_{i=1}^{F-1}\frac{1}{i}=1175
-	\eeqq
-	\item{\bf Creating initial diploid population} 
-	To implement similar setting for experimental evolution of diploid 
-	organisms, 
-	initial  haplotypes first cloned to create $F$ diploid homozygotes. Then 
-	each 
-	diploid individual is  cloned $N/F$ times to yield diploid population of 
-	size 
-	$N$.
-	\item{\bf Forward Simulation}
-	Given initial diploid population, position of the site under selection, 
-	selection 
-	strength $s$, number of replicates $R=3$, recombination rate 
-	$r=2\times10^{-8}$ 
-	and sampling times $\Tc=\{10,20,30,40,50\}$, \texttt{simuPop} is used to 
-	perform
-	forward simulation and  compute allele frequencies for all of the $R$ 
-	replicates. Also, to avoid spurious simulation samples, simulation results 
-	are constrained to those that the beneficial allele escapes stochastic loss 
-	of genetic drift and \emph{establishes} in all the replicates. 
-\end{enumerate}
+ replicate, and we denote it by $\nu_t(s,h)$ if such a site is directly 
+ under 
+ selection with the strength $s$ and overdominance of $h$. For 
+ notation 
+ convenience, henceforth we omit dependence of $\nu_t$ to $s$ and 
+ $h$. 
+ Thus, $\nu_t$ denotes the frequency of 
+ the carrier of beneficial allele in the population $t$ generations, since the 
+ onset of selection.
 
-\paragraph{Hard and Soft Sweep}
+
+\paragraph{Hard and Soft Sweep.}
 In this paper, we only study (positive) selection with single beneficial allele 
 under selective sweep, i.e. favored allele is in linkage disequilibrium (LD) 
 with its nearby loci. Selective sweeps are classified by the amount of 
@@ -264,101 +372,50 @@ contrast, hard sweep experiments are those that their adaptive allele is at its
 minim frequency, $1/F$, at the onset of selection.
 
 
-\paragraph{Challenges}
-Instead, 
-they observed
-incomplete fixation (`soft-sweeps') due in part to standing variation,
+\paragraph{Challenges.}
+The main constraint in the experimental evolution experiments is the 
+sampling-time-span (STS), the number of generations 
+between the first and last sampled generations in the time-series data. Given a 
+fixed amount of time for an study, the larger generation times of the organism 
+under study, the smaller number of generations we can evolve and re sequence. 
+In other words, for not strong enough-selectios, STS will be significantly 
+smaller than fixation time. As a result, tests for detecting selection on 
+static data, 
+which work the best when the beneficial allele is close to fixation, fail to 
+detect ``incomplete-sweep" in short-term experimental evolutions. 
 
-The main constraint in the experimental evolution experiments, is the 
-sampling-time-span (STS) $\tau=\tau_T-\tau_0$, the number of generations 
-between the first and last generation in the time-series data, which primarily 
-determined organism generation time. In other words, for wide range of values 
-of $s$ (not very strong selection), STS will be significantly smaller than 
-fixation time. As a result, methods for detecting selection on static data, 
-which work the best when the beneficial allele is close to fixation, would not 
-work properly for dynamic data.
-
-Moreover, in controlled experimental evolution, a population is evolve and 
-inbreed under a selective pressure. This scenario which population size is 
-effectively reduces from large number of wild type (e.g.D. melanogaster 
+Moreover, in controlled experimental evolution experiments, populations are
+evolved and 
+inbred under selective pressure. This scenario in which population 
+size 
+significantly reduces from large number of wild type (e.g.D. melanogaster 
 $N_e\approx10^6$ ) to a small number (typically $F$ is between 100-1000) of 
-founder lines for EE, resembles a severe population bottleneck. This phenomena 
-makes genetic drift quite strong and confounds polymorphism summary statistics 
-and makes difficult to detecting selection weaker selections.
+founder lines for EE, resembles a severe population bottleneck. 
+Such a intense reduction in effective population size increases the variance of 
+bionomial sampling in the Wright-Fisher model, and consequently makes genetic 
+drift quite strong. Also, most of conventional tests of selection can not 
+distinct between demographic and selection.
+As a result, strong drift and bottleneck confounds allele-frequency and SFS 
+data respectively which makes difficult to differentiate selection from drift 
+and demography.
 
-\newpage
 \section{Results}
-Selective sweep is a complex random process which under infinite site assumption
-only depends on selection strength,
-population size and the underlying genealogy at the onset of 
-selection. 
-As a result, the change in different population statistics, including 
-\emph{site 
-allele frequencies}(AF), \emph{site frequency spectrum}(SFS) and \emph{linkage 
-disequilibrium}(LD), can be attributed to the selection event.
-However, other independent processes such as genetic drift, 
-population expansion/bottleneck and recombination cause AF,SFS and LD to 
-change, respectively. Therefore, obtaining a clear understanding of dynamics of 
-selective sweep  requires disentangling effects of natural selection from 
-those of neutral evolution and demography.
 
- In the following, we examine the dynamics of AF and SFS in the experimental 
- evolution and evaluate their power in identification of selection 
- events. 
- The "identification" of a selection event can be done in 
- different levels of detail. At coarsest level, identification can be done by 
- determining whether a region 
- (e.g. a window of 50Kbp, or a gene) on genome is under selection. In the rest, 
- we consider this task to 
- be the task of \emph{detection}.
- Then, finding the causal 
- mutation/allele would be a more elaborate identification of selection, 
- henceforth, \emph{locating} selection. 
- Finally, estimating model parameters such as strength of selection and 
- overdominance at the site fully describes the selective sweep.
- 
+\paragraph{Allele Frequency Based Tests.}
 
-
-
-\paragraph{Allele Frequencies}
-Selection and genetic drift are the two main 
-\emph{independent} evolutionary 
-forces that cause change in allele frequencies, each 
-generation. 
-In the simplest case, models for neutral evolution of a 
-single-locus can be 
-used to derive a null distribution in order to detect the 
-region under 
-selection or locate the 
-adaptive allele.
-For example, Feder et al. 
-\cite{feder2014Identifying} proposed a (continues-time 
-continues-state) 
-Brownian motion process for modeling variation of allele 
-frequencies under 
-genetic drift. Basically, given current allele frequency 
-$\nu_t$ at a site 
-Brownian motion approximation assumes future-generations allele 
-frequencies are drawn from the Gaussian distribution
-\beq
-\nu_{t+\tau}\sim 
-\Nc\left(\nu_t,\frac{2\nu_t(1-\nu_t)}{N_e}\tau\right) 
-\label{eq:brown}
-\eeq
-Using \eqref{eq:brown}, Frequency Increment Test (FIT) 
-\cite{feder2014Identifying} computes p-value of 
-time-series data by a Student's t-test. However, Brownian 
-motion is a poor 
-approximation of the actual genetic drift process when 1) 
-$\nu_t$ is not close 
-to $0.5$, 2) when $\tau$ is large. A the start of selection 
+However, Brownian motion provides a poor 
+approximation for the distribution of increments of allele frequencies 
+when $\nu_0$ is not close to $0.5$, or when sampling in time is sparse i.e., 
+$t>1$, (Figure \ref{fig:markov}). At the 
+start of selection, 
 site frequencies 
 are distributed according to SFS of a neutral population, and 
 thus most of the 
-sites are at low frequencies Figure \ref{fig:afs}. Thus if the selecting site 
+sites are at low frequencies (Figure \ref{fig:afs}). Thus if the selecting 
+site 
 is 
 chosen randomly 
-with high probability its frequency will be far 0.5. 
+with high probability its frequency will be far from 0.5. 
 Moreover, in many 
 experimental evolution experiments STS $\tau$ is chosen be 
 large, e.g. of the order of 10 to 
@@ -368,14 +425,17 @@ large, e.g. of the order of 10 to
 Instead, probabilities of trajectories can be computed using 
 a 
 (discrete-time discrete-state-space) Markov Chain with 
-transition matrix $P$
+transition matrix $P$ for population of $N$ diploid individuals
 \beq
 P_{i,j}=\pr\left(\nu_{t+1}=\frac{j}{2N} \left| 
 \nu_{t}=\frac{i}{2N}\right)={2N 
 	\choose j} \right. 
 \nu_{t}^j (1-\nu_{t})^{2N-j}  
 \eeq
-which transition probabilities for $\tau$ generations ahead 
+where $N$ is the census population size, and $P_{i,j}$ denotes probability of 
+changing allele frequency of $\frac{i}{2N}$ to $\frac{j}{2N}$ in one 
+generation, due to genetic drift.
+Transition probabilities for $\tau$ generations ahead 
 can be computed by 
 powering the transition matrix to $\tau$.
 Figure \ref{fig:markov} illustrates expected and observed distribution of 
@@ -388,7 +448,7 @@ frequency is far from
 allele frequencies 
 for future generations, under genetic drift.
 
-On the other hand, alternative models for single-locus selection can be 
+Alternatively, parametric models for single-locus selection can be 
 utilized to estimate strength of selection and robustly 
 detect and locate selection by 
 evaluating two hypotheses in order to perform likelihood ratio tests.
@@ -396,7 +456,7 @@ In fact, it has been shown that the power of identifying selection can be
 improved by exploiting the mechanisms that selection changes allele 
 frequencies \cite{nielsen2005genomic} \footnote{Basically what they did is 
 quite similar to ours. First they came up with a neutrality test, then they 
-extend it by a parametric formulation whcih they can estimate $s$ and 
+extend it by a parametric formulation which they can estimate $s$ and 
 compute likelihood.}.
 
 In a pure selection process with no drift, i.e. infinite 
@@ -415,71 +475,31 @@ logistic, aka logit, function. Figure \ref{fig:sweep} depicts
 the behavior of 
 the logistic model for site allele frequencies and the 
 default sampling time 
-span(STS). Without genetic drift, soft sweeps are easier to 
+span(STS). Without genetic drift, soft sweep is easier to 
 detect, 
 because the logistic function happens to have steeper slope 
 in th STS than 
-those of hard sweeps. In addition, even in infinite 
-population size, it is 
+those of hard sweeps, due to standing variation frequency. In addition, even 
+under infinite 
+population size regime, it is 
 difficult differentiate between weak selections and genetic 
 drift (a horizontal 
-line), in 50 generations.
+line), in short (e.g. 50 generations) experimental evolutions.
 
 
 As shown in Figures \ref{fig:dynamic-weak} and \ref{fig:dynamic-strong} (first 
 row), the approximate logistic model is consistent with 
 simulated data and we 
 use it to estimate the strength of selection for 
-each site by a simple regression (see \ref{sec:regression} 
+each site by a simple regression (see Section \ref{sec:regression} 
 for details).
 
+\paragraph{SFS based tests}
+We also considered SFS based tests for dertecting selection. We looked  a nim 
+of existing tests that compute weighted sum  of scaled SFS.
+As these thests work only on one time points, we extend them to handle 
 
 
-\paragraph{Site Frequency Spectrum} SFS (Figure 
-\ref{fig:afs}) is the 
-distribution of allele 
-frequencies in a genomic region.
-Historically, SFS of static data has been extensively used to 
-"detect" genetic 
-adaption and demographic changes in a population. Basically, 
-SFS is measure of diversity in a genomic region computed from allele 
-frequencies. 
-In general, reduction in diversity is a signal of 
-selection, and detecting selection based on the reduction in 
-genomic diversity is a subtle task, because 
-\begin{enumerate}[(i)]
-	\item  in soft sweeps the genomic diversity is not is not 
-	necessarily 
-	reduced.
-	\item even in hard sweeps with no recombination, the 
-	reduction diversity is 
-	significant only when the SFS sample is taken close to 
-	fixation (not too 
-	far prior or after fixation)
-	\item SFS change in the same way for both selection an 
-	demography changes. 
-\end{enumerate}
-
-Although conditions (hard sweep with no recombination, not 
-far from 
-fixation, and random-mating and constant size population ) 
-for detecting 
-selection based on SFS are very restrictive, SFS-based tests 
-are simple and 
-inexpensive to use and often used in combination with 
-other tests~\cite{}. 
-
-In practice, SFS distribution is \emph{sclarized} by a 
-weighted 
-linear combination\cite{achaz2009frequency}. More precisely, 
-the weights should be positive and sum to 
-one, which called a convex combination, aka discrete 
-expectation. For 
-example, 
-test statistics for Tajima's $D$\cite{tajima1989statistical}, 
-Fay Wu's $H$~\cite{fay2000hitchhiking} and 
-SFSelect\cite{ronen2013learning} can be obtained by a dot 
-product of SFS vector with their weight vector. 
 
 Whether the dynamic of SFS in times-series can improve the detection power in 
 the conditions (i-iii) is not well-studied yet. Evans et al. 
@@ -555,7 +575,8 @@ bottleneck in dynamic data.
 	
 	
 	\item {\bf Fay Wu's H} As shown in the Appendix \ref{app:h}, dynamic $H$ 
-	statistic is directly related to average HAF \cite{ronen2015predicting} and 
+	statistic is directly related to average of Haplotype Allele Frequency 
+	(HAF) \cite{ronen2015predicting} and 
 	can be written
 	\beq
 	nH_t= \theta \nu_t \left(\frac{\nu_t+1}{2} - \frac{1}{(1-\nu_t)n+1}\right) +
@@ -582,7 +603,7 @@ bottleneck in dynamic data.
 
 
 \subsection{Detecting Selection}
-To evaluate detection power of the proposed method, least-squares (LS), we 
+To evaluate detection power of COMALE statistic, we 
 compare it with Gaussian process (GP) \cite{Terhorst2015Multi}, FIT 
 \cite{feder2014Identifying},  SFselect \cite{ronen2015predicting}, 
 $D$\cite{tajima1989statistical}, and $H$ \cite{fay2000hitchhiking} statistics. 
@@ -593,8 +614,8 @@ monotone, we considered the aggregation of SFSelect statistics
 along time-series as score for detecting selection.
 
 For every setting, i.e. strength of selection, initial carrier frequency, 
-sampling time span and number of replicates, we conduct 200 simulations which 
-half of them are neutral and the rest are under selection. Then prediction 
+sampling time span and number of replicates, we conduct 200 simulations of 
+which half are neutral and the rest are under selection. Then prediction 
 score of each method for all the simulations is used to compute Receiver 
 Operating Characteristic (ROC) curve \cite{fawcett2006introduction}, which is 
 the primary tool for evaluating binary decision making hypotheses.
@@ -609,11 +630,12 @@ rages between 0 to 100 and power of 5 corresponds to random prediction, i.e.
 null hypothesis.
 
 First we compare all the methods under default parameter settings, i.e., 
-$T=5$, $\tau=50$ and $R=3$, Figure \ref{fig:power}. It evident that $LS$ method 
+$T=5$, $\tau=50$ and $R=3$ (Figure \ref{fig:power}). It evident that $LS$ 
+method 
 provides better detection power in the hard and soft sweep regimes for 
 different values of selection strength. Also, except for $H$ in strong 
 selections, SFS-based scores exhibit poor performance, comparable to random 
-prediction. Also, GP and FIT methods whcih are single-locus methods, reveal 
+prediction. Also, GP and FIT methods which are single-locus methods, reveal 
 their best performance in softest sweep scenario, $\nu_0=0.1$.
 
 Also, we assessed the behavior of LS method for different values of 
@@ -672,9 +694,63 @@ generation 23, one replicate at generation 27 and three replicates at
 generation 37.
 
 Figure \ref{app:af} demonstrates Manhattan plot for the scan of data. Genes 
-will be extracgted ASAP.
+will be extracted ASAP.
 
 \section{Materials and Methods}
+\paragraph{Simulations}
+For each experiment a diploid population is created and evolved as 
+follows. 
+\begin{enumerate}[I.]
+	\item {\bf Creating initial founder line haplotypes}
+	First using msms program, we created neutral populations for $F$ 
+	founding 
+	haplotypes with \emph{default} parameters \texttt{\$./msms <F> 1 
+	-t 
+		<2$\mu$LNe> 
+		-r <2rNeL> 
+		<L>} 
+	where $F=200$ is number of founder lines, $N_e=10^6$ is 
+	effective 
+	population size, $r=2*10^{-8}$ is recombination rate and 
+	$\mu=2\times 
+	10^{-9}$ is mutation rate and  $L=50K$ is the window size in 
+	base pairs 
+	which gives $\theta=2\mu N_eL=200$ and $\rho=2N_erL=2000$. 
+	For 
+	default 
+	parameter, the expected number of segregating sites in a window 
+	is 
+	\beqq
+	\Ebb[M]=\theta \sum_{i=1}^{F-1}\frac{1}{i}=1175
+	\eeqq
+	\item{\bf Creating initial diploid population} 
+	To implement similar setting for experimental evolution of diploid 
+	organisms, 
+	initial  haplotypes first cloned to create $F$ diploid homozygotes. 
+	Then 
+	each 
+	diploid individual is  cloned $N/F$ times to yield diploid 
+	population of 
+	size 
+	$N$.
+	\item{\bf Forward Simulation}
+	Given initial diploid population, position of the site under 
+	selection, 
+	selection 
+	strength $s$, number of replicates $R=3$, recombination rate 
+	$r=2\times10^{-8}$ 
+	and sampling times $\Tc=\{10,20,30,40,50\}$, \texttt{simuPop} is 
+	used to 
+	perform
+	forward simulation and  compute allele frequencies for all of the 
+	$R$ 
+	replicates. Also, to avoid spurious simulation samples, simulation 
+	results 
+	are constrained to those that the beneficial allele escapes 
+	stochastic loss 
+	of genetic drift and \emph{establishes} in all the replicates. 
+\end{enumerate}
+
 \subsection{Least-Squares Estimate of $s$} 
 \label{sec:regression}
 In a simplest case, we have 2 observations, $\nu_0$ and $\nu_t$ and we wish to 
@@ -691,7 +767,8 @@ which selection strength can be interpreted as the normalized frequency
 increment in log-odds space.
 
 However, with more than two observations, the system become over determined and 
-we need to solve $T$ set of equations. By re-arranging 
+we need to solve $T$ set of equations, where $T$ is the number of samples in 
+time ($\bfX\in[0,1]^{T\times R \times M}$). By re-arranging 
 \eqref{eq:naive2point}, we can write a set of linear equations
 
 \beq
@@ -723,7 +800,7 @@ where $\bar{\bfb}$ is the average of $\bfb$ over $R$ replicates.
 Finally, for each replicate, instead of $T$ equations where each observation is 
 compared with $x_0$, we can take all possible pairs and solve ${T \choose 2}$ 
 set of equations.
-\subsection{Composite Likelihood Ratio Test}
+\subsection{\comale Test}
 
 Given an estimate for $s$, the Markov chain with transition 
 probabilities 
@@ -1094,13 +1171,50 @@ rate, selection strength, initial carrier frequency, and the initial linkage.
 \begin{figure}[H]
 	\centering
 	\includegraphics[trim=.2in 0 .2in 0, 
-	clip,width=\textwidth]{{real.manhattan}.png}
-	\caption{Manhattan plot of scan for selection using CLR on windows of 
+	clip,width=\textwidth]{{snpManhattan}.png}
+	\caption{Manhattan plots shows the distribution of candidate (top 2000) 
+	SNPs for BM, BF and COMALE (rows 1,2 and 3) and candidate (top 1 \%) 
+	regions of COMALE
 	size 50Kb and sliding window of 10Kb.} 
 	\label{fig:real}
 \end{figure}
 
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim=.2in 0 .2in 0, 
+	clip,width=\textwidth]{{snpManhattanOutliers}.png}
+	\caption{Manhattan plot of scan for selection using CLR on windows of 
+		size 50Kb and sliding window of 10Kb.} 
+	\label{fig:realoutlier}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim=.2in 0 .2in 0, 
+	clip,width=\textwidth]{{snpDensity}.png}
+	\caption{Manhattan plot of scan for selection using CLR on windows of 
+		size 50Kb and sliding window of 10Kb.} 
+	\label{fig:density}
+\end{figure}
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim=.2in 0 .2in 0, 
+	clip,width=\textwidth]{{hapsManhattan}.png}
+	\caption{Manhattan plot of scan for selection using CLR on windows of 
+		size 50Kb and sliding window of 10Kb.} 
+	\label{fig:density}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim=1.2in 0 .0in 0, 
+	clip,width=\textwidth]{{dominance}.png}
+	\caption{Dominance for $s=0.1$.} 
+	\label{fig:dominance}
+\end{figure}
 
 %\input{intro}
 %\input{method}
