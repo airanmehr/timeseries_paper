@@ -103,7 +103,8 @@ Among different types of evolution experiments
 this 
 paper we only focus on adaptive evolution of multicellular sexual organisms 
 with 
-continues culture, fixed population size. 
+continues culture, fixed population size, single locus selection (only one 
+causal mutation). 
 For this setting, D. melanogaster is 
 usually the model organism and it has been used to identify adaptive genes in 
 longevity and aging ~\cite{burke2010genome,remolina2012genomic} (600 and  
@@ -301,44 +302,7 @@ continuous-state) Brownian motion process for modeling variation of
  computed via a Student's t-test. More recently, Song et al. 
  \cite{Terhorst2015Multi} computed LRT statistic by fitting 
  parameters to a Gaussian process model to the time series frequency data. 
- 
 
- 
-
-
- 
-
-
-
-
-\paragraph{Background.}
-Selective sweep is a process which under infinite site assumption
-its dynamic is determined selection strength,
-population size, recombination rate and the underlying genealogy at the onset 
-of 
-selection. 
-As a result, the change in different population statistics, including 
-{site allele frequencies (AF), SFS and 
-	LD, can be attributed to the selection event.
-However, other independent processes such as genetic drift, 
-population expansion/bottleneck and recombination cause AF,SFS and LD to 
-change, respectively. Therefore, ``identification" of a selection of 
-selective sweep  requires disentangling effects of natural selection from 
-those of neutral evolution and demography.
-
-
-
-
- Selection and genetic drift are the two main 
- \emph{independent} evolutionary 
- forces that cause change in allele frequencies, each 
- generation. 
- In the simplest case, models for neutral evolution of a 
- single-locus can be 
- used to derive a null distribution in order to detect the 
- region under 
- selection or locate the 
- adaptive allele.
 
 \paragraph{Notation.} Let $\bfX = (X_{ijk}) \in [0, 1]^{T \times 
 M\times R}$ denote the population frequency where $T$ is the number of samples 
@@ -357,74 +321,70 @@ To simplify our notation, we define $x_t$ as a allele frequency of a site in a
 
 
 \paragraph{Hard and Soft Sweep.}
-In this paper, we only study (positive) selection with single beneficial allele 
-under selective sweep, i.e. favored allele is in linkage disequilibrium (LD) 
-with its nearby loci. Selective sweeps are classified by the amount of 
+Selective sweeps are classified by the amount of 
 variation exist in the individuals carrying adaptive allele. By definition, 
 hard sweep is the case when all the carriers coalesce after onset of selection 
 and thus diversity between carriers is at its minimum. 
-In general, soft sweep is difficult to detect. We conduct experiments, so that 
-evaluate prediction performance of the proposed method under hard and soft 
-sweeps with different selection strengths. Since here we consider random mating 
-with no de novo mutations, soft sweep can only happen in standing variation 
+In general, excess of genetic variation in carriers of adaptive allele, makes 
+it difficult to detect selection, i.e., soft sweep is difficult to detect. 
+In the following, we conduct and evaluate our simulations for soft and hard 
+sweep separately. Since here we do not take into account of de novo mutations, 
+soft sweep can only happen in standing variation 
 where the site under selection is at frequency is larger than $1/F$. In 
 contrast, hard sweep experiments are those that their adaptive allele is at its 
 minim frequency, $1/F$, at the onset of selection.
 
 
 \paragraph{Challenges.}
-The main constraint in the experimental evolution experiments is the 
+The main constraint in the adaptive experimental evolution is the 
 sampling-time-span (STS), the number of generations 
-between the first and last sampled generations in the time-series data. Given a 
-fixed amount of time for an study, the larger generation times of the organism 
-under study, the smaller number of generations we can evolve and re sequence. 
-In other words, for not strong enough-selectios, STS will be significantly 
-smaller than fixation time. As a result, tests for detecting selection on 
-static data, 
-which work the best when the beneficial allele is close to fixation, fail to 
-detect ``incomplete-sweep" in short-term experimental evolutions. 
+between the first and last sampled generations. Given a 
+fixed amount of time for an study, the longer generation times of the organism, 
+the smaller number of generations can be evolved and re-sequenced. 
+This implies that, only quite strong selection pressures, STS will be of the 
+same order of fixation time. As a result, the time series data usually only 
+captures a ``partial sweep".
 
 Moreover, in controlled experimental evolution experiments, populations are
 evolved and 
-inbred under selective pressure. This scenario in which population 
+inbred. This scenario in which population 
 size 
-significantly reduces from large number of wild type (e.g.D. melanogaster 
+significantly drops from the large number of wild type (e.g.D. melanogaster 
 $N_e\approx10^6$ ) to a small number (typically $F$ is between 100-1000) of 
 founder lines for EE, resembles a severe population bottleneck. 
 Such a intense reduction in effective population size increases the variance of 
 bionomial sampling in the Wright-Fisher model, and consequently makes genetic 
-drift quite strong. Also, most of conventional tests of selection can not 
-distinct between demographic and selection.
-As a result, strong drift and bottleneck confounds allele-frequency and SFS 
-data respectively which makes difficult to differentiate selection from drift 
-and demography.
+drift quite strong. Also, signal of selection in SFS is absorbed by such a 
+strong bottleneck and makes it harder to identify selection.
 
 \section{Results}
-
-\paragraph{Allele Frequency Based Tests.}
-
-However, Brownian motion provides a poor 
-approximation for the distribution of increments of allele frequencies 
+\subsection{Allele Frequency Based Tests.}
+\paragraph{FIT performs poorly when $\tau \neq 1$ or $\nu_0$ is not close to 
+0.5.}
+First we show that Brownian motion provides a poor 
+approximation for the distribution of future allele frequencies $\nu_{\tau}$
 when $\nu_0$ is not close to $0.5$, or when sampling in time is sparse i.e., 
-$t>1$, (Figure \ref{fig:markov}). At the 
-start of selection, 
-site frequencies 
-are distributed according to SFS of a neutral population, and 
-thus most of the 
-sites are at low frequencies (Figure \ref{fig:afs}). Thus if the selecting 
-site 
-is 
-chosen randomly 
-with high probability its frequency will be far from 0.5. 
-Moreover, in many 
-experimental evolution experiments STS $\tau$ is chosen be 
-large, e.g. of the order of 10 to 
-100 generations.
+$\tau>1$. To test this we simulated 150K simulations for $\nu_0=0.005$ and 
+$\tau\in\{1,10,100\}$ and 100K simulations for $\nu_0=0.1$ and 
+$\tau\in\{1,10,100\}$ . As shown in Figure \ref{fig:markov}, Brownian motion 
+performs poorly when initial frequency is small or the sampling is sparse.
 
+At the start of selection, $\nu_0$ is at its minimum in hard sweep and is at 
+low frequency in the soft sweep with standing variation due to SFS of a neutral 
+population(Figure \ref{fig:afs}). Thus if the selecting 
+site is chosen randomly 
+with high probability its frequency will be far from 0.5 and FIT will be end up 
+with high rates of false positives/negatives. 
+Moreover, in experimental evolution experiments sampling in time is quite 
+sparse e.g. $\tau_i-\tau_{i-1}$ is of the order of 10-100 generations in D 
+melanogaster studies.
 
-Instead, probabilities of trajectories can be computed using 
-a 
-(discrete-time discrete-state-space) Markov Chain with 
+\paragraph{Markovian Likelihood for Neutral Evolution.}
+Here we turn the problem of small population size in EE to our advantage to 
+compute likelihood of time series observation exactly using Wright-Fisher 
+Markov chain.
+Precisely,
+(discrete-time discrete-state-space) Wright-Fisher Markov Chain with 
 transition matrix $P$ for population of $N$ diploid individuals
 \beq
 P_{i,j}=\pr\left(\nu_{t+1}=\frac{j}{2N} \left| 
@@ -432,7 +392,7 @@ P_{i,j}=\pr\left(\nu_{t+1}=\frac{j}{2N} \left|
 	\choose j} \right. 
 \nu_{t}^j (1-\nu_{t})^{2N-j}  
 \eeq
-where $N$ is the census population size, and $P_{i,j}$ denotes probability of 
+where $P_{i,j}$ denotes probability of 
 changing allele frequency of $\frac{i}{2N}$ to $\frac{j}{2N}$ in one 
 generation, due to genetic drift.
 Transition probabilities for $\tau$ generations ahead 
@@ -441,24 +401,26 @@ powering the transition matrix to $\tau$.
 Figure \ref{fig:markov} illustrates expected and observed distribution of 
 frequencies after 
 1, 10 and 100 generations when starting frequency is 0.005 (top) and 0.1 
-(bottom) for Brownian motion and Markov chain. Brownian motion 
-exhibits poor prediction of distributions of allele frequencies when starting 
-frequency is far from 
-0.5. On the other hand, Markov chain provides an accurate distribution of 
+(bottom) using Markov chain provides an accurate distribution of 
 allele frequencies 
 for future generations, under genetic drift.
 
-Alternatively, parametric models for single-locus selection can be 
-utilized to estimate strength of selection and robustly 
-detect and locate selection by 
-evaluating two hypotheses in order to perform likelihood ratio tests.
-In fact, it has been shown that the power of identifying selection can be 
-improved by exploiting the mechanisms that selection changes allele 
-frequencies \cite{nielsen2005genomic} \footnote{Basically what they did is 
-quite similar to ours. First they came up with a neutrality test, then they 
-extend it by a parametric formulation which they can estimate $s$ and 
-compute likelihood.}.
+\paragraph{Markovian Likelihood for Selection.}
+We can also compute the Markov chain for single locus selection (see section 
+\ref{sec:comale}), compute the conditional distribution 
+$\pr(\nu_{t+1}|\nu_{t},s)$, and maximum likelihood estimate of $s$ accordingly. 
+Similar to the null model, we can compute distribution of $t$ generation ahead 
+by powering the transition matrix to $t$.
+We conducted 100K simulations with selection strength $s=0.1$ on a site with 
+frequency $\nu_0=0.005$ and computed empirical and predicted distribution of 
+frequencies after 1,10 and 100 generations by Markov chain \eqref{eq:markovs}. 
+As shown in Figure \ref{fig:markovs} the distribution of empirical data follows 
+that of Markov chain.
 
+\paragraph{Logistic Model for Selection.}
+As maximum likelihood for estimating $s$ using Markov chain is computationally 
+expensive, here we use and logistic function for modeling allele frequencies 
+undergoing selective sweep.
 In a pure selection process with no drift, i.e. infinite 
 population size, 
 dynamic of allele frequencies 
@@ -491,11 +453,13 @@ As shown in Figures \ref{fig:dynamic-weak} and \ref{fig:dynamic-strong} (first
 row), the approximate logistic model is consistent with 
 simulated data and we 
 use it to estimate the strength of selection for 
-each site by a simple regression (see Section \ref{sec:regression} 
-for details).
+each site by solving a linear system of equations(see Section 
+\ref{sec:regression} for details).
+
+
 
 \paragraph{SFS based tests}
-We also considered SFS based tests for dertecting selection. We looked  a nim 
+We also considered SFS based tests for detecting selection. We looked  a nim 
 of existing tests that compute weighted sum  of scaled SFS.
 As these thests work only on one time points, we extend them to handle 
 
@@ -800,7 +764,7 @@ where $\bar{\bfb}$ is the average of $\bfb$ over $R$ replicates.
 Finally, for each replicate, instead of $T$ equations where each observation is 
 compared with $x_0$, we can take all possible pairs and solve ${T \choose 2}$ 
 set of equations.
-\subsection{\comale Test}
+\subsection{\comale Test}\label{sec:comale}
 
 Given an estimate for $s$, the Markov chain with transition 
 probabilities 
