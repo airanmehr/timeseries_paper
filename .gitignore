@@ -4,6 +4,7 @@ library.bib
 .idea/
 *.txt
 *.csv
+*.tsv
 *~
 *.bak
 *.aux

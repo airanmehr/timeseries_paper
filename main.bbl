@@ -111,11 +111,6 @@
   vol.~27.
 \newblock Springer Science {\&} Business Media, 2012.
 
-\bibitem{fawcett2006introduction}
-{\sc Fawcett, T.}
-\newblock {An introduction to ROC analysis}.
-\newblock {\em Pattern recognition letters 27}, 8 (2006), 861--874.
-
 \bibitem{fay2000hitchhiking}
 {\sc Fay, J.~C., and Wu, C.-I.}
 \newblock {Hitchhiking under positive Darwinian selection}.
@@ -225,11 +220,6 @@
 \newblock {Estimating selection coefficients in spatially structured
   populations from time series data of allele frequencies}.
 \newblock {\em Genetics 193}, 3 (2013), 973--984.
-
-\bibitem{mcclish1989analyzing}
-{\sc McClish, D.~K.}
-\newblock {Analyzing a portion of the ROC curve}.
-\newblock {\em Medical Decision Making 9}, 3 (1989), 190--195.
 
 \bibitem{messer2013population}
 {\sc Messer, P.~W., and Petrov, D.~A.}

@@ -358,13 +358,15 @@ drift quite strong. Also, signal of selection in SFS is absorbed by such a
 strong bottleneck and makes it harder to identify selection.
 
 \section{Results}
-\subsection{Allele Frequency Based Tests.}
+\subsection{Tests for detecting selection on time series data.}
 \paragraph{FIT performs poorly when $\tau \neq 1$ or $\nu_0$ is not close to 
 0.5.}
 First we show that Brownian motion provides a poor 
 approximation for the distribution of future allele frequencies $\nu_{\tau}$
-when $\nu_0$ is not close to $0.5$, or when sampling in time is sparse i.e., 
-$\tau>1$. To test this we simulated 150K simulations for $\nu_0=0.005$ and 
+when the initial frequency $\nu_0$ is not close to $0.5$, or when sampling in 
+time is sparse i.e., 
+$\tau>1$. 
+To test this, we simulated 150K simulations for $\nu_0=0.005$ and 
 $\tau\in\{1,10,100\}$ and 100K simulations for $\nu_0=0.1$ and 
 $\tau\in\{1,10,100\}$ . As shown in Figure \ref{fig:markov}, Brownian motion 
 performs poorly when initial frequency is small or the sampling is sparse.
@@ -417,152 +419,49 @@ frequencies after 1,10 and 100 generations by Markov chain \eqref{eq:markovs}.
 As shown in Figure \ref{fig:markovs} the distribution of empirical data follows 
 that of Markov chain.
 
-\paragraph{Logistic Model for Selection.}
-As maximum likelihood for estimating $s$ using Markov chain is computationally 
-expensive, here we use and logistic function for modeling allele frequencies 
-undergoing selective sweep.
-In a pure selection process with no drift, i.e. infinite 
-population size, 
-dynamic of allele frequencies 
-can be well approximated by the logistic function (see 
-Appendix \ref{app:af} 
-for 
-derivation)
-\beq
-\nu_t=\sigma(st+\eta(\nu_0))\label{eq:nut}
-\eeq
-where $\sigma(x)=1/(1+e^{-x})$ is the logistic function, and 
-$\eta(x)=\log(x)/\log(1-x)$ is inverse of the 
-logistic, aka logit, function. Figure \ref{fig:sweep} depicts 
-the behavior of 
-the logistic model for site allele frequencies and the 
-default sampling time 
-span(STS). Without genetic drift, soft sweep is easier to 
-detect, 
-because the logistic function happens to have steeper slope 
-in th STS than 
-those of hard sweeps, due to standing variation frequency. In addition, even 
-under infinite 
-population size regime, it is 
-difficult differentiate between weak selections and genetic 
-drift (a horizontal 
-line), in short (e.g. 50 generations) experimental evolutions.
-
-
-As shown in Figures \ref{fig:dynamic-weak} and \ref{fig:dynamic-strong} (first 
-row), the approximate logistic model is consistent with 
-simulated data and we 
-use it to estimate the strength of selection for 
-each site by solving a linear system of equations(see Section 
-\ref{sec:regression} for details).
 
 
 
-\paragraph{SFS based tests}
-We also considered SFS based tests for detecting selection. We looked  a nim 
-of existing tests that compute weighted sum  of scaled SFS.
-As these thests work only on one time points, we extend them to handle 
+
+\paragraph{SFS based statistics in time series.}
+We also considered SFS based tests including Tajima's D, Fay \& Wu's H and 
+SFSelect for detecting selection. 
+As these tests work only on static data, we extend them for time series data 
+for both null and alternative hypotheses.
+More precisely, we explicitly defined functionals $D_t$ and $H_t$ as function 
+of initial carrier frequency $\nu_0$ and strength of selection $s$ (see section 
+\ref{sec:sfs-ts} for details).
+ To show that the proposed models of $D_t$ and $H_t$ are valid models, we 
+ simulated 1000 populations and computed SFS based statistics every 10 
+ generation and compared them with the proposed model.
+ As shown in the Figures \ref{fig:dynamic-weak} and \ref{fig:dynamic-strong} 
+ (last 
+row, left), models are more consistent with data in hard sweep simulations and 
+performs poorly in soft sweep experiments, where initial carrier frequency 
+$\nu_0=0.1$.
 
 
+\paragraph{SFS based tests will fail when carrier frequency $\nu_t$ is low.}
+Also, by examining the functional form of $D_t$, we will show that even in a 
+infinite population size setting, 
+differentiating the between selection and drift is difficult in early 
+generations of hard sweep. 
 
-Whether the dynamic of SFS in times-series can improve the detection power in 
-the conditions (i-iii) is not well-studied yet. Evans et al. 
-\cite{evans2007non} developed diffusion equations for 
-evolution of SFS in time series, they are difficult to solve. 
-Hence, we analyze and visualize scalar test statistics $D$, $H$ and SFSelect 
-in the dynamic data under different selection regimes.
+As shown in the Figure 
+\ref{fig:tdterms} right, in early 
+generations of hard sweep where carrier frequency is low, 
+$D_t$ is either 
+positive or close zero. In other words, the reduction in 
+diversity become 
+significant when carrier frequency is high enough.
+It can be shown that this argument holds for $H_t$ in early generations 
+of hard sweep, where carrier frequency is not high.
 
-To adapt SFS-based test for dynamic data, one can simply design statistical 
-tests to examine whether the 
-observations of $D$, $H$ and SFSelect statistics are 
-significantly deviated 
-from the null distribution, i.e. constant values in time.
-On the other hand, we can model the dynamics of SFS as a 
-function of selection 
-strength to 1)have a model for estimating model parameter 2)obtain an insight 
-regarding how does SFS statistics behave under different 
-stages of selection.
-
-As mentioned before, restricting population to $F$ founder lines ($F<<N_e$) 
-resembles a severe bottleneck event, which confound SFS. Figure 
-\ref{fig:bottleneck} demonstrates effect of controlled experimental evolution 
-on different SFS statistics under neutral evolution for 1000 simulations. The 
-mean of 
-neutral simulations can be used to empirically filter out the effect of 
-bottleneck in dynamic data. 
-
-\begin{enumerate}[I.]
-	\item {\bf Tajima's D}. As shown in the Appendix \ref{app:td}, dynamic of 
-	Tajima's D in hard sweep is
-	\beq
-	D_t=D_0-\log(1-\nu_t) \frac{W_0}{\log(2N)} -\nu_t^2 \Pi_0\label{eq:tdt}
-	\eeq
-
-	where $W_0$ and $\Pi_0$ are Watterson and Tajima estimate 
-	of $\theta$ at 
-	the first generation.
-	Given that $\nu_t$ defined in term of $\nu_0$ and $s$ in 
-	\eqref{eq:nut}, we 
-	can use \eqref{eq:tdt} to estimate the strength of 
-	selection by performing a nonlinear 
-	regression to find 
-	$s$. Then, a likelihood ratio, similar to \eqref{eq:lrt}, 
-	provides\footnote{The 
-	likelihood of the data to the model is the least-squares 
-	loss between model 
-	$D_t(\hat{(s)})$ and the observed $D$.} a predictor for 
-	detecting selection in each window. Figures \ref{fig:dynamic-weak} and 
-	\ref{fig:dynamic-strong} (last 
-	row, left), shows that the parametric model with the actual value of $s$ 
-	provides is consistent with 1000 simulations, in strong and weak 
-	selections. Also, \eqref{eq:tdt} represents dynamic of $D$ in hard 
-	sweep, and the 
-	model becomes invalid as initial carrier frequency increases, Figure 
-	\ref{fig:dynamic-weak} and \ref{fig:dynamic-strong} (last 
-	row, right).
-	
-	Finally, even in a infinite population size setting, 
-	differentiating the between selection and drift is difficult in early 
-	generations. W.l.o.g when $D_0=0$ and $\Pi_0=W_0=1$, 
-	$D_t$ is sum of the 
-	logarithmic $\frac{-\log(1-\nu_t)}{\log(2N)}$ and the squared term 
-	$\nu_t^2$, blue and green curves in 
-	Figure 
-	\ref{fig:tdterms}. As shown in the Figure 
-	\ref{fig:tdterms} right, in early 
-	generations of hard sweep where carrier frequency is low, 
-	$D_t$ is either 
-	positive or close zero. In other words, the reduction in 
-	diversity become 
-	significant when carrier frequency is high.
-	
-	
-	
-	\item {\bf Fay Wu's H} As shown in the Appendix \ref{app:h}, dynamic $H$ 
-	statistic is directly related to average of Haplotype Allele Frequency 
-	(HAF) \cite{ronen2015predicting} and 
-	can be written
-	\beq
-	nH_t= \theta \nu_t \left(\frac{\nu_t+1}{2} - \frac{1}{(1-\nu_t)n+1}\right) +
-	\theta (1-\nu_t)\left(\frac{n+1}{2n}-\frac{1}{(1-\nu_t)n+1}\right) 
-	\label{eq:ht}
-	\eeq
-	which is a good approximation only in hard sweep with strong selection, 
-	Figures 
-	\ref{fig:dynamic-weak} and \ref{fig:dynamic-strong} (second
-	row, left). Similar to $D$, it can be shown that $H$ statistics for natural 
-	selection behave similar to that of neutral evolution in early generations 
-	of hard sweep, where carrier frequency is not high.
-	
-	\item {\bf SFSelect} statistic proposed by Ronen et 
-	al. \cite{ronen2013learning} to predict selection by empirically learning 
-	the so-called \emph{optimal} weights using Support Vector Machines. 
-	Figure \ref{fig:dynamic-weak} and \ref{fig:dynamic-strong} (forth
-	row), depicts the dynamics of SFSelect for selection and neutral evolution 
-	in time, which essentially behave similar to $D$ and $H$, i.e. poor power 
-	of detection in soft sweep, and early generations of hard sweep.
-\end{enumerate}
-
+Finally, we show that SFSelect under selection exhibits a monotonously 
+non-decreasing behavior which can be differentiated from genetic drift in hard 
+sweep
+(Figure \ref{fig:dynamic-weak} and \ref{fig:dynamic-strong} (forth
+row))
 
 
 
@@ -577,37 +476,34 @@ positive and
 monotone, we considered the aggregation of SFSelect statistics 
 along time-series as score for detecting selection.
 
-For every setting, i.e. strength of selection, initial carrier frequency, 
-sampling time span and number of replicates, we conduct 200 simulations of 
-which half are neutral and the rest are under selection. Then prediction 
-score of each method for all the simulations is used to compute Receiver 
-Operating Characteristic (ROC) curve \cite{fawcett2006introduction}, which is 
-the primary tool for evaluating binary decision making hypotheses.
-Area under ROC  curve (AUC), is measure of predictive performance of a binary 
-hypothesis, but it computes the score under all possible setting of 
-false-positive rate (FPR). However, here we restrict AUC 
-\cite{mcclish1989analyzing} to those region that has FPR$\le$0.1, and 
-henceforth we call 0.1-AUC$\times$1000 as power of a method\footnote{Power can 
-be interpreted as average true positive rate when FPR$\le$0.1.}. Note that 
-power 
-rages between 0 to 100 and power of 5 corresponds to random prediction, i.e. 
-null hypothesis.
+For every experiment, (with a specific strength of selection, initial carrier 
+frequency, 
+sampling time span and number of replicates), we conduct 200 simulations of 
+which half are neutral and the rest are under selection. We define power of 
+each method as average true-positive rate when 
+false-positive rate is less than 0.1 over 200 simulations.
 
+
+\paragraph{Power for default setting.}
 First we compare all the methods under default parameter settings, i.e., 
-$T=5$, $\tau=50$ and $R=3$ (Figure \ref{fig:power}). It evident that $LS$ 
-method 
-provides better detection power in the hard and soft sweep regimes for 
-different values of selection strength. Also, except for $H$ in strong 
-selections, SFS-based scores exhibit poor performance, comparable to random 
-prediction. Also, GP and FIT methods which are single-locus methods, reveal 
-their best performance in softest sweep scenario, $\nu_0=0.1$.
+$T=5$, $\tau=50$ and $R=3$. As shown in the Figure \ref{fig:power}, \comale
+statistic provides a better detection power in both hard and soft sweep regimes 
+for all values of selection strength. 
+Also, except for $H$ in strong selections, SFS-based scores exhibit poor 
+performance, comparable to random prediction. 
+Also, GP and FIT, which are single-locus methods, reveal 
+their best performance in softest sweep, $\nu_0=0.1$.
 
-Also, we assessed the behavior of LS method for different values of 
-$\tau\in\{10,50,100\}$, 
-Figure \ref{fig:powert}. For the default set of parameters, and $\tau=100$, LS 
-method provides significantly better performance, while for $\tau=10$ detection 
+\paragraph{Power of \comale for different STS.}
+Also, we assessed the behavior of \comale for different values of STS
+$\tau\in\{10,50,100\}$. For the default set of parameters, and $\tau=100$, 
+\comale method provides significantly better performance, while for $\tau=10$ 
+detection 
 power is comparable to those of other methods for $\tau=50$ in Figure 
-\ref{fig:power}. Effects of number of replicates on the power of LS method is 
+\ref{fig:power}. 
+
+\paragraph{Power of \comale for different number of replicates.}
+Effects of number of replicates on the power of \comale method is 
 examined for $R\in\{3,5,10\}$, Figure \ref{fig:powerr}. Interestingly, 
 increasing number of replicates does not necessarily improve power, yet they 
 provide comparable power to the case with $R=3$. This observation implies that 
@@ -616,21 +512,26 @@ evaluation, and computed power of a method potentially under/over-estimated due
 to finite sample size, i.e. \emph{estimation error}. Thus, comparison using 
 small number of replicate is meaningful only when difference in performance is 
 significant and consistent for different configuration, which is the case for 
-LS method in Figure \ref{fig:power}. Finally, Figure \ref{fig:powerrt}, 
+LS method in Figure \ref{fig:power}. 
+
+\paragraph{Trade off between STS and number of replicates.}
+Finally, Figure \ref{fig:powerrt}, 
 demonstrates the power for $R=\{3,10\}$ and $\tau={50,100}$, which shows power 
 for $R=3$ and $R=10$ exhibits the similar behavior under different regimes fo 
 $\nu_0$, $s$ and $\tau$.
 
 \subsection{Locating the Adaptive Mutation}
 The secondary task in identifying selection is to locate the position of the 
-adaptive allele. Since de novo mutations are excluded, and linkage is 
-reinforced after selection, it is difficult to incorporate phylogeny into this 
-task. We consider the site with highest score as the locus of the beneficial 
-allele. For each setting of $\nu_0$ and $s$, we conducted 100 
+adaptive allele. We simply consider the site with highest score in the window 
+as the locus of the beneficial allele. 
+
+For each setting of $\nu_0$ and $s$, we conducted 100 
 simulations and computed the rank of the beneficial mutation in the sorted 
-scores. Then for each configuration distribution of ranks of 100 
-simulation is presented via their Cumulative Distribution Function (CDF), 
-Figure \ref{fig:rank}. LS works the best in hard sweep regime. For example, 
+scores. Then for each configuration, Cumulative Distribution Function (CDF) of 
+the distribution, of rank of the adaptive allele for 100 
+simulations is plotted in Figure \ref{fig:rank}. 
+
+\comale works the best in hard sweep regime. For example, 
 when $\nu_0=0.005$ and $s=0.01$ (weakest selection), the beneficial allele is 
 ranked first, in more than 60 experiments, and take rank of less than 5 in more 
 than 90\% of experiments of hard sweep. Accuracy of the locating the adaptive 
@@ -639,17 +540,24 @@ in the worst case the beneficial allele is tanked among top 50 SNPs.
 
 \subsection{Strength of  Selection}
 Finally, estimating the model parameters such as strength of selection provides 
-the finest detail of identification of a selective sweep process, because given 
+the finest detail of identification of a selective sweep process, since given 
 the model parameters we can predict the state of population, e.g. fixation 
-time, in future generations. We computed bias, $|s-\hat{s}|$ for each 
-experiment of LS, and GP. The distribution of the bias is presented in Figure 
-\ref{fig:bias} for different configurations. In general, both GP and  LS are 
+time, in future generations. 
+
+To estimate $s$, likelihood of data is computed via Wright-Fisher Markov chain 
+\eqref{eq:markovs}, and maximum likelihood $\hat{s}$ is readily computed.
+We computed bias, $s-\hat{s}$ for each 
+experiment of \comale, and GP. The distribution of the bias is presented in 
+Figure 
+\ref{fig:bias} for different configurations. In general, both GP and  \comale 
+are 
 biased for weak selections, which genetic drift dominates. However, for 
-stronger selections, e.g.$s=0.1$, LS provides estimates with smaller bias and 
+stronger sweeps, e.g.$s=0.1$, \comale provides estimates with smaller bias and 
 variance.
 
 \subsection{Analysis of Real Data}
-We finally apply LS method to the controlled experimental evolution experiment 
+We finally apply \comale method to the controlled experimental evolution 
+experiment 
 of \cite{orozco2012adaptation}, which evolves 5 replicates of a population of 
 Drosophila melanogaster for 37 generations under alternating 12-hour cycles of 
 hot (28$^{\circ}$C) and cold (18$^{\circ}$C) temperatures. Three replicates are 
@@ -661,7 +569,7 @@ Figure \ref{app:af} demonstrates Manhattan plot for the scan of data. Genes
 will be extracted ASAP.
 
 \section{Materials and Methods}
-\paragraph{Simulations}
+\subsection{Simulations}
 For each experiment a diploid population is created and evolved as 
 follows. 
 \begin{enumerate}[I.]
@@ -806,6 +714,79 @@ Ratio(CLR)\cite{nielsen2005genomic,williamson2007localizing,vitti2013detecting}.
 For each window, CLR is computed by taking average of top one percentile of the 
 likelihood ratios.
 
+\subsection{SFS based test on time series data}\label{sec:sfs-ts}
+To adapt SFS-based test for dynamic data, one can simply design statistical 
+tests to examine whether the 
+observations of $D$, $H$ and SFSelect statistics are 
+significantly deviated 
+from the null distribution, i.e. constant values in time.
+On the other hand, we can model the dynamics of SFS as a 
+function of selection 
+strength to 1)have a model for estimating model parameter 2)obtain an insight 
+regarding how does SFS statistics behave under different 
+stages of selection.
+
+As mentioned before, restricting population to $F$ founder lines ($F<<N_e$) 
+resembles a severe bottleneck event, which confound SFS. Figure 
+\ref{fig:bottleneck} demonstrates effect of controlled experimental evolution 
+on different SFS statistics under neutral evolution for 1000 simulations. The 
+mean of 
+neutral simulations can be used to empirically filter out the effect of 
+bottleneck in dynamic data. 
+
+\begin{enumerate}[I.]
+	\item {\bf Tajima's D}. As shown in the Appendix \ref{app:td}, dynamic of 
+	Tajima's D in hard sweep is
+	\beq
+	D_t=D_0-\log(1-\nu_t) \frac{W_0}{\log(2N)} -\nu_t^2 \Pi_0\label{eq:tdt}
+	\eeq
+	
+	where $W_0$ and $\Pi_0$ are Watterson and Tajima estimate 
+	of $\theta$ at 
+	the first generation.
+	Given that $\nu_t$ defined in term of $\nu_0$ and $s$ in 
+	\eqref{eq:nut}, we 
+	can use \eqref{eq:tdt} to estimate the strength of 
+	selection by performing a nonlinear 
+	regression to find 
+	$s$. Then, a likelihood ratio, similar to \eqref{eq:lrt}, 
+	provides\footnote{The 
+		likelihood of the data to the model is the least-squares 
+		loss between model 
+		$D_t(\hat{(s)})$ and the observed $D$.} a predictor for 
+	detecting selection in each window. 
+	
+	
+	
+	\item {\bf Fay Wu's H} As shown in the Appendix \ref{app:h}, dynamic $H$ 
+	statistic is directly related to average of Haplotype Allele Frequency 
+	(HAF) \cite{ronen2015predicting} and 
+	can be written
+	\beq
+	nH_t= \theta \nu_t \left(\frac{\nu_t+1}{2} - \frac{1}{(1-\nu_t)n+1}\right) +
+	\theta (1-\nu_t)\left(\frac{n+1}{2n}-\frac{1}{(1-\nu_t)n+1}\right) 
+	\label{eq:ht}
+	\eeq
+	which is a good approximation only in hard sweep with strong selection, 
+	Figures 
+	\ref{fig:dynamic-weak} and \ref{fig:dynamic-strong} (second
+	row, left). 
+	
+
+	
+	\item {\bf SFSelect} statistic proposed by Ronen et 
+	al. \cite{ronen2013learning} to predict selection by empirically learning 
+	the so-called \emph{optimal} weights using Support Vector Machines. 
+\end{enumerate}
+
+Whether the dynamic of SFS in times-series can improve the detection power in 
+the conditions (i-iii) is not well-studied yet. Evans et al. 
+\cite{evans2007non} developed diffusion equations for 
+evolution of SFS in time series, they are difficult to solve. 
+Hence, we analyze and visualize scalar test statistics $D$, $H$ and SFSelect 
+in the dynamic data under different selection regimes.
+
+
 \section{Discussion}
 
 
@@ -843,7 +824,46 @@ equation that can be readily solved
 where$\sigma(.)$ is the logistic
 function and $\eta(.)$ is logit function (inverse of the logistic function). 
 
-\subsubsection{Fay Wu's H}\label{app:h}
+\subsection{Logistic Model for Selection.}
+As maximum likelihood for estimating $s$ using Markov chain is computationally 
+expensive, here we use and logistic function for modeling allele frequencies 
+undergoing selective sweep.
+In a pure selection process with no drift, i.e. infinite 
+population size, 
+dynamic of allele frequencies 
+can be well approximated by the logistic function (see 
+Appendix \ref{app:af} 
+for 
+derivation)
+\beq
+\nu_t=\sigma(st+\eta(\nu_0))\label{eq:nut}
+\eeq
+where $\sigma(x)=1/(1+e^{-x})$ is the logistic function, and 
+$\eta(x)=\log(x)/\log(1-x)$ is inverse of the 
+logistic, aka logit, function. Figure \ref{fig:sweep} depicts 
+the behavior of 
+the logistic model for site allele frequencies and the 
+default sampling time 
+span(STS). Without genetic drift, soft sweep is easier to 
+detect, 
+because the logistic function happens to have steeper slope 
+in th STS than 
+those of hard sweeps, due to standing variation frequency. In addition, even 
+under infinite 
+population size regime, it is 
+difficult differentiate between weak selections and genetic 
+drift (a horizontal 
+line), in short (e.g. 50 generations) experimental evolutions.
+
+
+As shown in Figures \ref{fig:dynamic-weak} and \ref{fig:dynamic-strong} (first 
+row), the approximate logistic model is consistent with 
+simulated data and we 
+use it to estimate the strength of selection for 
+each site by solving a linear system of equations(see Section 
+\ref{sec:regression} for details).
+
+\subsection{Fay Wu's H}\label{app:h}
 \bl
 In any finite population size of $n$ with $m$ segregating sites, 
 allele frequencies take 
@@ -1015,7 +1035,11 @@ rate, selection strength, initial carrier frequency, and the initial linkage.
 	\centering
 	\includegraphics[trim={0in 0.1in 0in 
 		0in},clip,width=\textwidth]{{tdterms}.png}
-	\caption{Interactions of two terms in $D$.} 	 
+	\caption{Interactions of two terms in $D$. W.l.o.g when $D_0=0$ and 
+	$\Pi_0=W_0=1$, 
+		$D_t$ is sum of the 
+		logarithmic $\frac{-\log(1-\nu_t)}{\log(2N)}$ and the squared term 
+		$\nu_t^2$.} 	 
 	\label{fig:tdterms}
 \end{figure}
 
