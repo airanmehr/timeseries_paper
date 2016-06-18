@@ -511,9 +511,13 @@ generation 59.
 
 
 \paragraph{SNP-based analysis with ELRT statistic}
-aa
+Manhattan plots in Figure \ref{fig:realsnp} depicts the distribution of the top 2000 SNPs and corresponding 1961 genes. The list of genes is available in the same directory under name \texttt{genes\_SNP.txt}.
+
+
+Genes \texttt{FBgn0013718,FBgn0259236, FBgn0038652}
+
 \paragraph{Window-based analysis with \comale statistic}
-aa
+Manhattan plots in Figure \ref{fig:realsnp} depicts the distribution of the top 100 50K regions and corresponding 421 genes. The list of genes is available in the same directory under name \texttt{genes\_SNP.txt}.
 
 \section{Materials and Methods}
 \paragraph{Simulations}
@@ -570,73 +574,32 @@ follows.
 	of genetic drift and \emph{establishes} in all the replicates. 
 \end{enumerate}
 
-\paragraph{Estimating parameters} 
-\label{sec:regression}
-In a simplest case, we have 2 observations, $\nu_0$ and $\nu_t$ and we wish to 
-find 
-$\hat{s}$ so that $\nu_t=\sigma(\hat{s}t/2+\eta(\nu_0))$ which can be solved 
-analytically:
-\begin{equation}
-\hat{s}=\frac{2}{t} \log \left( \frac{\nu_t(1-\nu_0)}{\nu_0 (1-\nu_t)} \right) 
-= 
-\frac{2}{t}  \left( \eta(\nu_t)-\eta(\nu_0)\right)
-\label{eq:naive2point}
-\end{equation}
-which selection strength can be interpreted as the normalized frequency 
-increment in log-odds space.
 
-However, with more than two observations, the system become over determined and 
-we need to solve $T$ set of equations, where $T$ is the number of samples in 
-time ($\bfX\in[0,1]^{T\times R \times M}$). By re-arranging 
-\eqref{eq:naive2point}, we can write a set of linear equations
+\paragraph{Markov Chain}\label{sec:comale}
+In an dialellic diploid Wright-Fisher infinite size population with single locus selection with genotypes 0$|$0, 0$|$1 and 1$|$1 , and relative fitness $w_{00}=1$, $w_{01}=1+hs$ and  $w_{11}=1+s$ relative fitness respectively, then allele frequency of the adaptive allele change according to
+\beq
+\nu_{t+1}(s,h)&=\frac{w_{11}\nu_t^2 + w_{01}\nu_t(1-\nu_t)}{w_{11}\nu^2_t + 2w_{01}\nu_t(1-\nu_t) + 
+	w_{00}(1-\nu_t)^2} =\nu_t+\frac{s(h+(1-2h)\nu_t)\nu_t(1-\nu_t)}{1+s\nu_t(2h+(1-2h)\nu_t))}
+\label{eq:markovs}
+\eeq
+where $s,h\in \Rbb$ are selection strength and dominance parameters, respectively. 
 
-\beq
-t s&=2(\eta(\nu_t)-\eta(\nu_0)) \ \ \ \ \ \forall t \in \Tc \\ 
-\eeq
-which can be written in matrix form $\bft s =\bfb$ with
-\beq
-\bft=\begin{bmatrix}
-	\tau_1\\
-	\vdots \\
-	\tau_T
-\end{bmatrix}
-\bfb=\begin{bmatrix}
- 2(\eta(\nu_{\tau_1})-\eta(\nu_0))\\
-	\vdots \\
-2\eta(\nu_{\tau_T})-\eta(\nu_0))
-\end{bmatrix}, \ \ \ \ \ 
-\eeq
-and the solution for each replicate can be computed using pseudo inverse
 
-\beq
-\hat{s}_r=\bft^+\bfb=(\bft^T\bft)^{-1}\bft^T\bfb=\frac{\bft^T\bfb}{\|\bft\|^2}
-\eeq
-and for multiple independent replicates with the same sampling times we have
-\beq
-\hat{s}= \frac{1}{R} \sum_r^R \hat{s}_r = \bft^+\bar{\bfb}
-\eeq
-where $\bar{\bfb}$ is the average of $\bfb$ over $R$ replicates.
-Finally, for each replicate, instead of $T$ equations where each observation is 
-compared with $x_0$, we can take all possible pairs and solve ${T \choose 2}$ 
-set of equations.
-\paragraph{\comale Test}\label{sec:comale}
-
-Given an estimate for $s$, the Markov chain with transition 
+In a finite population size, however, the allele frequencies of adaptive allele are drawn from the Markov chain with with transition 
 probabilities 
 (\cite{Ewens2012Mathematical}, eq 1.58-59)
 \beq
-Q_{i,j}(s)&=\pr\left(\nu_{t+1}=\frac{j}{2N} \left| 
+Q_{i,j}(s,h)&=\pr\left(\nu_{t+1}=\frac{j}{2N} \left| 
 \nu_{t}=\frac{i}{2N}\right)={2N 
 	\choose j} \right. 
-\hat{\nu}_{t+1}^{j} (1-\hat{\nu}_{t+1})^{2N-j},\\
-\hat{\nu}_{t+1}&=\nu_t+\frac{s\nu_t(1-\nu_t)}{2+2s\nu_t}\;
-\label{eq:markovs}
+\nu_{t+1}^{j} (1-\nu_{t+1})^{2N-j}\label{eq:mkvs}
 \eeq
-computes probabilities of time-series under the alternative 
-model. Figure \ref{fig:markovs} shows that the predicted distributions of 
-frequencies using Markov chain \ref{eq:markovs} is consistent with simulation 
-data.
 
+For a given $\hat{s},\hat{h}$, the Markov chain \ref{eq:mkvs} can be readily used to
+compute likelihood $\Lc(\hat{s},\hat{h}|\bfx)$ for the sequences of allele frequencies $\bfx$.
+Figure \ref{fig:markovs} shows that the predicted distributions of 
+frequencies using Markov chain \ref{eq:markovs} after 10, 100 generations are consistent with simulated data.
+\paragraph{Test statistic}
 Likelihood of the trajectories under null and alternative 
 hypothesis can be 
 computed to perform likelihood ratio tests which provide 
@@ -646,14 +609,14 @@ robust to pathological false-positives
 Specifically, for each site, we define the likelihood-ratio 
 predictor
 \beq \label{eq:lrt}
-\Lambda(\hat{s}) = \hat{s}\log 
-\left(\frac{\Lc(\bfx|s=\hat{s})}{\Lc(\bfx|s=0)}\right)
+\Lambda(s^*,h^*) = s^*\log 
+\left(\frac{\Lc(s^*,h^*|\bfx)}{\Lc(0,0|\bfx)}\right)
 \eeq
 where $\bfx$ is the vector of trajectories and $\Lc$ is the 
 likelihood function 
 defined by the Markov chain with transition 
 \eqref{eq:markovs}.
-
+\paragraph{\comale Test}
 Given likelihood ratio \eqref{eq:lrt} for each SNP we can further exclude false 
 positives by combining likelihood ratio scores of the polymorphisms in a 
 genomic region by computing Composite 
@@ -661,7 +624,11 @@ Likelihood
 Ratio(CLR)\cite{nielsen2005genomic,williamson2007localizing,vitti2013detecting}.
 For each window, CLR is computed by taking average of top one percentile of the 
 likelihood ratios.
-
+\paragraph{Estimating parameters} 
+\label{sec:regression}
+\beq
+s^*,h^*=\underset{s,h}{\arg\max} \sum_r^R \log \left(\Lc(s,h|\bfx_r)\right)
+\eeq
 \paragraph{SFS based test on time series data}\label{sec:sfs-ts}
 To adapt SFS-based test for dynamic data, one can simply design statistical 
 tests to examine whether the 
@@ -733,7 +700,20 @@ the conditions (i-iii) is not well-studied yet. Evans et al.
 evolution of SFS in time series, they are difficult to solve. 
 Hence, we analyze and visualize scalar test statistics $D$, $H$ and SFSelect 
 in the dynamic data under different selection regimes.
-
+\paragraph{Dominance}
+Note that, for $s>0$ we have \cite{}  
+\begin{center}
+	\begin{tabular}{l|c}
+		condition & comment\\
+		\hline
+		$h<0$ &  underdominance\\
+		$h=0$ & recessive adaptive allele\\
+		$h=0.5$ & directional selection\\
+		$h=1$&	dominant adaptive allele	\\
+		$h>1$ &overdominance
+		\end{tabular}
+		\end{center}
+		
 \paragraph{Software.}
 Pre-computation of 1313 transition matrices for $s\in\{-0.5,-0.49,\ldots,0.5 \}$ and $h\in \{-1,-0.75,\ldots,2\}$ took in second on a desktop computer with a Core i7 CPU and 16GB of RAM.
 
@@ -752,16 +732,8 @@ According to the Wilks’ theorem \cite{}  log odds ratios are asymptotically di
 
 \section{Appendix}
 \subsection{Allele frequencies under selective sweep} \label{app:af}
-Let in a dialellic diploid Wright-Fisher model with single locus selection, 
-with genotypes 0|0, 0|1 and 1|1 , $w_{00}$, $w_{01}$ and  $w_{11}$ be the 
-relative fitness of each genotype at a locus. Also, consider $x$ to be 
-frequency of the allele 1 and allele 1 be the favored allele, then
+
 \beq
-&w_{00}=1,&w_{01}=1+us,&w_{11}=1+s
-\eeq
-\beq
-x_{t+1}&=\frac{w_{11}x_t^2 + w_{01}x(1-x_t)}{w_{11}x^2_t + 2w_{01}x_t(1-x_t) + 
-w_{00}(1-x_t)^2} =x_t+\frac{s(h+(1-2u)x_t)x_t(1-x_t)}{1+sx_t(2u+(1-2u)x_t))} 
 \eeq
 where $s\in \Rbb$ is the selection coefficient and $o\in[0,1]$ is the 
 overdominance parameter which for $u=0.5$ we have
@@ -1078,15 +1050,19 @@ rate, selection strength, initial carrier frequency, and the initial linkage.
 
 \begin{figure}[H]
 	\centering
-			\includegraphics[width=\textwidth]{{manhattanSNP.png}}\\	
-			\includegraphics[width=\textwidth]{{manhattanSNP.Genes}.pdf}\\
+	\includegraphics[width=\textwidth]{{manhattanSNP.png}}\\	
+	\includegraphics[width=\textwidth]{{manhattanSNP.Genes}.pdf}
+		\caption{Manhattan plots shows the distribution of candidate (top 2000) 
+		SNPs and the associated (1961) genes are denoted with blue line in the bottom plot.} 
+	\label{fig:realsnp}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
 		\includegraphics[width=\textwidth]{{manhattanWindow.pdf}}\\	
 			\includegraphics[width=\textwidth]{{manhattanWindow.Genes}.pdf}
-	\caption{Manhattan plots shows the distribution of candidate (top 2000) 
-	SNPs for BM, BF and COMALE (rows 1,2 and 3) and candidate (top 1 \%) 
-	regions of COMALE
-	size 50Kb and sliding window of 10Kb.} 
-	\label{fig:real}
+	\caption{Manhattan plots shows the distribution of candidate regions using \comale statistic which give rise to (421) genes are denoted with blue line in the bottom plot.} 
+	\label{fig:realcomale}
 \end{figure}
 
 
