@@ -55,7 +55,7 @@ cold and hot temperatures.
 \section{Introduction}
 
 \paragraph{Experimental Evolution.}
-Recent advances of whole genome sequencing has enabled us to sequence 
+Recent advances in whole genome sequencing have enabled us to sequence 
 populations at a reasonable cost to perform \emph{longitudinal studies} and  study different forces of evolution in real-time. Modern experimental 
 evolution refers to the study of the evolutionary processes of a model organism 
 at genomic level in a 
@@ -68,13 +68,12 @@ or natural
 Although constraints such as small population sizes, limited 
 timescales and oversimplified laboratory
 environments limits interpreting experimental evolution results, they can 
-be used
-been used to test different hypotheses~\cite{kawecki2012experimental}
+be used to test different hypotheses~\cite{kawecki2012experimental}
 regarding
 mutation rate, 
 inbreeding, 
 environmental variability,
-sexual selection and conflict, 
+sexual selection \& conflict, 
 kin selection and cooperation
 life history and sex allocation, 
 sexual reproduction and mating systems, 
@@ -102,7 +101,8 @@ Among different types of evolution experiments
 this 
 paper we only focus on adaptive evolution of multicellular sexual organisms 
 with 
-continues culture, fixed population size, single locus selection (only one 
+continuous culture
+, fixed population size, single locus selection (only one 
 causal mutation). 
 For this setting, D. melanogaster is 
 usually the model organism and it has been used to identify adaptive genes in 
@@ -155,7 +155,7 @@ one beneficial allele exist in the population at the same time and ``clonal
 interference" \cite{desai2007beneficial,lang2013pervasive} 
 best describes the adaptation process.
 
-On the other hand, in sexual population, the favored mutation is only in 
+On the other hand, in sexual populations, the favored mutation is only in 
 linkage-disequilibrium (LD) with its nearby polymorphisms. Hence, methods for 
 identifying selective 
 sweep in sexual populations often analyze  polymorphism data of a population of 
@@ -275,10 +275,10 @@ Burke et al.~\cite{burke2010genome} applied
  linear-mixed model (GLMM) directly from read counts. 
 
 \paragraph{Dynamic Data (general).} 
-To perform statistical test on time-series data directly, Bollback et al. \cite{bollback2008estimation} provided diffusion approximation to the continues Wright Fisher Markov process and estimated $s$ numerically. Then, they tested likelihood ration on $X^2$ distribution.
+To perform statistical test on time-series data directly, Bollback et al. \cite{bollback2008estimation} provided diffusion approximation to the continues Wright Fisher Markov process and estimated $s$ numerically. Then, they tested likelihood ration on $\Xc^2$ distribution.
 
 Feder et al. \cite{feder2014Identifying} proposed Frequency Increment
-Test(FIT) for dynamic frequency data and Empirical Likelihood Ratio Test (ELRT) instead of $X^2$ test which performs poorly when the number of independent samples (replicates) are small.
+Test(FIT) for dynamic frequency data and Empirical Likelihood Ratio Test (ELRT) instead of $\Xc^2$ test which performs poorly when the number of independent samples (replicates) are small.
 Specifically, FIT is a neutrality test which uses (continuous-time 
 continuous-state) Brownian motion process for modeling variation of 
  allele frequencies under genetic drift. 
@@ -508,13 +508,40 @@ hot (28$^{\circ}$C) and cold (18$^{\circ}$C) temperatures. Three replicates are
 sampled at the firs generation, 2 replicates at generation 15, one replicate at 
 generation 23, one replicate at generation 27 and three replicates at 
 generation 59.
+\paragraph{Heterogenocity of read depths.} \comale statistic is basically 
+computed using site allele frequencies at different generations for all 
+replicates. For real Pool-Seq data, however, allele frequencies is unknown and 
+only read counts at each site measured. As shown in Figure \ref{} read depths 
+are highly heterogeneousa and filtering low coverage sites from data strictly 
+reduces the number of SNPs. For example, by setting minimum read depth at 
+each site (for all replicates and generations), the number of SNPs shrinks from 
+1,544,374 to 10,387. 
 
+\paragraph{Uncertainity in allele frequency.} In addition to coverage 
+heterogenocity, 
+allele frequencies in principle are 
+\emph{hidden} variables for \emph{observed} data, alleles read counts. We 
+take into account of allele frequency uncertainty by computing the likelihood 
+of data using Hidden Markov Model (HMM), see section \ref{} for details.
 
 \paragraph{SNP-based analysis with ELRT statistic}
 Manhattan plots in Figure \ref{fig:realsnp} depicts the distribution of the top 2000 SNPs and corresponding 1961 genes. The list of genes is available in the same directory under name \texttt{genes\_SNP.txt}.
 
+The following genes are enriched with P-value of 0.0006725 using Fisher exact test and genes of \ref{app:af}.
 
-Genes \texttt{FBgn0013718,FBgn0259236, FBgn0038652}
+
+	FBgn0033216\\
+	FBgn0034662\\
+	FBgn0039611\\
+	FBgn0032297\\
+	FBgn0041342\\
+	FBgn0037788\\
+	FBgn0039040\\
+	FBgn0038236\\
+	FBgn0039787\\
+	FBgn0038701\\
+	FBgn0038702\\
+	FBgn0039760
 
 \paragraph{Window-based analysis with \comale statistic}
 Manhattan plots in Figure \ref{fig:realsnp} depicts the distribution of the top 100 50K regions and corresponding 421 genes. The list of genes is available in the same directory under name \texttt{genes\_SNP.txt}.
@@ -578,27 +605,42 @@ follows.
 \paragraph{Markov Chain}\label{sec:comale}
 In an dialellic diploid Wright-Fisher infinite size population with single locus selection with genotypes 0$|$0, 0$|$1 and 1$|$1 , and relative fitness $w_{00}=1$, $w_{01}=1+hs$ and  $w_{11}=1+s$ relative fitness respectively, then allele frequency of the adaptive allele change according to
 \beq
-\nu_{t+1}(s,h)&=\frac{w_{11}\nu_t^2 + w_{01}\nu_t(1-\nu_t)}{w_{11}\nu^2_t + 2w_{01}\nu_t(1-\nu_t) + 
+\hat{\nu}_{t+1} = \nu_{t+1}(s,h,\nu_t)&=\frac{w_{11}\nu_t^2 + w_{01}\nu_t(1-\nu_t)}{w_{11}\nu^2_t + 2w_{01}\nu_t(1-\nu_t) + 
 	w_{00}(1-\nu_t)^2} =\nu_t+\frac{s(h+(1-2h)\nu_t)\nu_t(1-\nu_t)}{1+s\nu_t(2h+(1-2h)\nu_t))}
-\label{eq:markovs}
+\label{eq:transition}
 \eeq
 where $s,h\in \Rbb$ are selection strength and dominance parameters, respectively. 
 
 
 In a finite population size, however, the allele frequencies of adaptive allele are drawn from the Markov chain with with transition 
 probabilities 
-(\cite{Ewens2012Mathematical}, eq 1.58-59)
+(\cite{Ewens2012Mathematical}, eq 1.58-59, page 24)
 \beq
 Q_{i,j}(s,h)&=\pr\left(\nu_{t+1}=\frac{j}{2N} \left| 
-\nu_{t}=\frac{i}{2N}\right)={2N 
+\nu_{t}=\frac{i}{2N};s,h\right)={2N 
 	\choose j} \right. 
-\nu_{t+1}^{j} (1-\nu_{t+1})^{2N-j}\label{eq:mkvs}
+\hat{\nu}_{t+1}^{j} (1-\hat{\nu}_{t+1})^{2N-j}\label{eq:mkvs}
 \eeq
+where $\hat{\nu}_{t+1}$ the rate of success in the binomial sampling which is defined in \eqref{eq:transition} and is function of $s,h,\nu_t$. 
+For example, under genetic drift, $s=0$, and $\hat{\nu}_{t+1}=\nu_t=i/2N$.
 
-For a given $\hat{s},\hat{h}$, the Markov chain \ref{eq:mkvs} can be readily used to
-compute likelihood $\Lc(\hat{s},\hat{h}|\bfx)$ for the sequences of allele frequencies $\bfx$.
+Then, the likelihood of the observed $\{\nu_t\}$ trajectory under Markov chain can be computed by
+\beq
+\Lc_{M}(s,h|\nu_0,\ldots,\nu_T)=\pr(\nu_0,\ldots,\nu_T;s,h)= \prod_{t=0}^{T-1} \pr(\nu_{t+1}|\nu_t;s,h) =  \prod_{t=0}^{T-1} Q_{\hat{i},\hat{j}}(s,h)  \label{eq:mkvlik}
+\eeq
+where observed allele frequencies $\{\nu_t\}$ translate to the indices of transition matrix, i.e., $(\hat{i},\hat{j})=(2N\nu_t, 2N\nu_{t+1})$.
 Figure \ref{fig:markovs} shows that the predicted distributions of 
-frequencies using Markov chain \ref{eq:markovs} after 10, 100 generations are consistent with simulated data.
+frequencies using Markov chain \ref{eq:mkvs} after 10, 100 generations are consistent with simulated data for $\nu_t=0.005$, i.e., when Brownian motion fails to provide a good approximation.
+
+Note that the complexity of computing likelihood is $\Oc(T)$, and can be efficiently vectorized for multiple replicates and loci.
+
+Also, since the replicates are i.i.d., the likelihood of multiple replicates is simply the product of replicate likelihoods.
+
+
+Finally, for sparse sampling in time, e.g. sampling every $k$ generations, the $k$-generation-ahead transition matrix can be computed by powering the matrix $Q_{s,h}$ to $k$, henceforth $\bfQ_{s,h}=\left[Q(s,h)\right]^k$
+
+
+
 \paragraph{Test statistic}
 Likelihood of the trajectories under null and alternative 
 hypothesis can be 
@@ -609,13 +651,12 @@ robust to pathological false-positives
 Specifically, for each site, we define the likelihood-ratio 
 predictor
 \beq \label{eq:lrt}
-\Lambda(s^*,h^*) = s^*\log 
-\left(\frac{\Lc(s^*,h^*|\bfx)}{\Lc(0,0|\bfx)}\right)
+\lambda_M &= s^*\log 
+\left(\frac{\Lc_M(s^*,h^*|\nu_{1,0},\ldots,\nu_{R,T})}{\Lc_M(0,0|\nu_{1,0},\ldots,\nu_{R,T})}\right)\\
+\lambda_{HMM} &= s^*\log 
+\left(\frac{\Lc_{HMM}(s^*,h^*|x_{1,0},\ldots,x_{R,T})}{\Lc_{HMM}(0,0|x_{1,0},\ldots,x_{R,T})}\right)
 \eeq
-where $\bfx$ is the vector of trajectories and $\Lc$ is the 
-likelihood function 
-defined by the Markov chain with transition 
-\eqref{eq:markovs}.
+where whether allele frequencies are available or not, $s^*,h^*$ are computed from either \eqref{eq:mkvml} or \eqref{eq:hmmml}.
 \paragraph{\comale Test}
 Given likelihood ratio \eqref{eq:lrt} for each SNP we can further exclude false 
 positives by combining likelihood ratio scores of the polymorphisms in a 
@@ -624,11 +665,51 @@ Likelihood
 Ratio(CLR)\cite{nielsen2005genomic,williamson2007localizing,vitti2013detecting}.
 For each window, CLR is computed by taking average of top one percentile of the 
 likelihood ratios.
+More precisely, in a genomic region, after computing the test statistic ${\lambda_i}$ for all site, the \comale is computed by
+\beq
+\comale = \frac{1}{\Ic}\sum_{i \in \Ic} \lambda_i \ ,\ \ \ \ \ \Ic=\{i | \lambda_i > q_{99}\}
+\eeq
+where $q_{99}$ is the 99$^{th}$ percentile of the distribution of ${\lambda_i}$ belonging to the examining genomic region.
+\paragraph{Hidden Markov Model}
+To model uncertainties in allele frequency due to finite read-depths, we extend model to a HMM where allele frequencies are hidden variables and only read counts are observed. In this case, the state-transition probabilities $\bfQ_{s,h}$ remain the same as they were before and we only need to specify the emission probabilities, i.e., probability of observation (read counts) given state (allele frequency).
+
+Let the tuples $\{(c_t,d_t)\}=\{x_t\}$ be the observed data for a locus of a replicate, where $c_t$ 
+is the read count of derived allele and $d_t$ is the sequencing depth of the reads at that 
+site, then emission probabilities $\bfe_{x}\in[0,1]^{2N}$ are the conditional distribution of the reads given allele 
+frequency 
+\beq
+\bfe_{x}=\pr(x|\nu)=\pr(c,d|\nu) &= {c \choose d} \nu^c(1-\nu)^{d-c}
+\eeq
+Finally, computing likelihood of observed data in HMM requires solving dynamic programming, i.e. forward algorithm, which is
+\beq
+\Lc_{HMM}(s,h|x_{1,T}, \ldots, x_{R,T})=\prod_r\sum_i \left(\bfalpha_{r,T}\right)_i 
+\label{eq:hmmlik}
+\eeq
+where 
+\beq
+\pr(\vx_t;s,h)&= \sum_{\nu_t} \pr(\vx_t,\nu_t;s,h)=\sum_i \left(\bfalpha_t\right)_i\\
+\bfalpha_t=\pr(\vx_t,\nu_t;s,h)&=
+ \sum_{\nu_{t-1}}  	\underbrace{\pr(x_t|\nu_t)}_{\bfe_{x_t}} \underbrace{\pr(\nu_t|\nu_{t-1};s,h)}_{\bfQ_{s,h}} \underbrace{\pr(\vx_{t-1},\nu_{t-1};s,h)}_{\bfalpha_{t-1}}=\left(\bfalpha_{t-1}^T\bfQ_{s,h}\right) \odot \bfe_{x_t} 
+\eeq
+where $\vx_t$ is the vector of observations up to time $t$.
+
+Note that for a given $s,h$, the state transition $\bfQ_{s,h}$ is the same for all 
+the sites, but observation-state distribution change from site to site.
+The complete likelihood is then computed
+
 \paragraph{Estimating parameters} 
 \label{sec:regression}
+Depending on data (read count or allele frequency) the optimal value of the parameters can be found by
 \beq
-s^*,h^*=\underset{s,h}{\arg\max} \sum_r^R \log \left(\Lc(s,h|\bfx_r)\right)
+s^*,h^*=\underset{s,h}{\arg\max} \sum_r^R \log \left(\Lc_M(s,h|\nu_{1,T}, \ldots, \nu_{R,T})\right) \label{eq:mkvml}
 \eeq
+
+\beq
+s^*,h^*=\underset{s,h}{\arg\max} \sum_r^R \log \left(\Lc_{HMM}(s,h|x_{1,T}, \ldots, x_{R,T})\right) \label{eq:hmmml}
+\eeq
+where likelihood for Markov chain and HMM are defined in \eqref{eq:mkvlik} and \eqref{eq:hmmlik} respectively. 
+
+It's not top priority now, but I can show that by fixing $h$, both likelihood is quasiconvex (unimodal) in $s$ and efficient algorithm, i.e. bisection to to find maximum value for $s$. Actually, it is enough to show \eqref{eq:transition} is linear fractional in $s$, which is nby definition: linear numerator and denominator, and strictly positive denominator.
 \paragraph{SFS based test on time series data}\label{sec:sfs-ts}
 To adapt SFS-based test for dynamic data, one can simply design statistical 
 tests to examine whether the 
@@ -1100,6 +1181,31 @@ rate, selection strength, initial carrier frequency, and the initial linkage.
 
 \begin{figure}[H]
 	\centering
+	\includegraphics[trim=.0in 0 .0in 0, 
+	clip,width=\textwidth]{{samplingTimes}.pdf}
+	\caption{sampling times.} 
+	\label{fig:nullpred}
+\end{figure}
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim=.2in 0 .0in 0, 
+	clip,width=\textwidth]{{candidateSNPDensity}.pdf}
+	\caption{Density.} 
+	\label{fig:nullpred}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim=.0in 0 .0in 0, 
+	clip,width=\textwidth]{{stateConditional}.pdf}
+	\caption{observation state transition.} 
+	\label{fig:nullpred}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
 	\includegraphics[trim=.2in 0 .0in 0, 
 	clip,width=\textwidth]{{nullpred}.pdf}
 	\caption{Empirical null distribution of test statistic on 1M simulations.} 
@@ -1133,6 +1239,47 @@ rate, selection strength, initial carrier frequency, and the initial linkage.
 	\label{fig:nullpred}
 \end{figure}
 
+
+\begin{figure}[H]
+	\centering
+	\begin{tabular}{cc}
+		\includegraphics[trim=.2in 0 .0in 0, 
+		clip,width=0.5\textwidth]{{nulls.reg}.pdf}
+		&\includegraphics[trim=.2in 0 .0in 0, 
+		clip,width=0.5\textwidth]{{nulls.reg.log}.pdf}
+	\end{tabular}
+	\caption{Empirical null distribution of regularized $s$ statistic on 1M simulations.} 
+	\label{fig:nullpred}
+\end{figure}
+
+
+
+\begin{figure}[H]
+	\centering
+	\begin{tabular}{c}
+				\includegraphics[trim=.2in 0 .0in 0, 
+				clip,width=\textwidth]{{HSP}.pdf}\\
+		\includegraphics[trim=.2in 0 .0in 0, 
+		clip,width=\textwidth]{{BM}.pdf}\\
+		\includegraphics[trim=.2in 0 .0in 0, 
+		clip,width=\textwidth]{{BF}.pdf}\\
+	\end{tabular}
+	\caption{Song, HSF, HSP.} 
+	\label{fig:nullpred}
+\end{figure}
+
+
+\begin{figure}[H]
+	\centering
+	\begin{tabular}{c}
+		\includegraphics[trim=.2in 0 .0in 0, 
+		clip,width=\textwidth]{{depthDist}.pdf}\\
+		\includegraphics[trim=.2in 0 .0in 0, 
+		clip,width=\textwidth]{{depthHetero}.pdf}\\
+	\end{tabular}
+	\caption{Song, HSF, HSP.} 
+	\label{fig:nullpred}
+\end{figure}
 %\input{intro}
 %\input{method}
 %\input{experiment}
