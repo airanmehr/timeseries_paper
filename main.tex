@@ -356,69 +356,154 @@ strong bottleneck and makes it harder to identify selection.
 \subsection{Tests for detecting selection on time series data.}
 \paragraph{FIT performs poorly when $\tau \neq 1$ or $\nu_0$ is not close to 
 0.5.}
-First we show that Brownian motion provides a poor 
-approximation for the distribution of future allele frequencies $\nu_{\tau}$
-when the initial frequency $\nu_0$ is not close to $0.5$, or when sampling in 
-time is sparse i.e., 
-$\tau>1$. 
-To test this, we simulated 150K simulations for $\nu_0=0.005$ and 
-$\tau\in\{1,10,100\}$ and 100K simulations for $\nu_0=0.1$ and 
-$\tau\in\{1,10,100\}$ . As shown in Figure \ref{fig:markov}, Brownian motion 
-performs poorly when initial frequency is small or the sampling is sparse.
-
-At the start of selection, $\nu_0$ is at its minimum in hard sweep and is at 
-low frequency in the soft sweep with standing variation due to SFS of a neutral 
-population(Figure \ref{fig:sfs}). Thus if the selecting 
-site is chosen randomly 
-with high probability its frequency will be far from 0.5 and FIT will be end up 
-with high rates of false positives/negatives. 
-Moreover, in experimental evolution experiments sampling in time is quite 
-sparse e.g. $\tau_i-\tau_{i-1}$ is of the order of 10-100 generations in D 
-melanogaster studies.
+\paragraph{Modeling neutral trajectories in finite populations.} Many
+tools, including FIT, have used Brownian motion to approximate the
+distribution of future allele frequencies $\nu_{\tau}$, given initial
+frequency $\nu_0$. We tested the closeness of fit using $150$K
+simulations for different values of $\nu_0$ ($\nu_0\in\{0.005,0.1\}$)
+and $\tau\in \{1,10,100\}$. Figure~\ref{fig:markov} shows that
+Brownian motion is an inadequate model when $\nu_0$ is far from $0.5$,
+and $\tau>1$ (sampling times are sparse). However, a randomly chosen
+mutation is unlikely to have frequency close to $0.5$. At the start of
+a hard selective sweep, $\nu_0$ is at its minimum possible value. Even
+in soft sweep with standing variation, the SFS of a neutral population
+dictates the initial frequency of the favored site, making it unlikely
+to be high in frequency (Supplementary Figure
+\ref{fig:sfs}). Moreover, in experimental evolution experiments
+sampling in time is quite sparse, and $\tau_i-\tau_{i-1}\in [10-100]$
+\emph{Drosophila} experiments. Therefore, a better model was needed.
 
 \paragraph{Markovian Likelihood for Neutral Evolution.}
-Here we turn the problem of small population size in EE to our advantage to 
-compute likelihood of time series observation exactly using Wright-Fisher 
-Markov chain.
-Precisely,
-(discrete-time discrete-state-space) Wright-Fisher Markov Chain with 
-transition matrix $P$ for population of $N$ diploid individuals \cite{Ewens2012Mathematical}
-\beq
-P_{i,j}=\pr\left(\nu_{t+1}=\frac{j}{2N} \left| 
-\nu_{t}=\frac{i}{2N}\right)={2N 
-	\choose j} \right. 
-\nu_{t}^j (1-\nu_{t})^{2N-j}  
-\eeq
-where $P_{i,j}$ denotes probability of 
-changing allele frequency of $\frac{i}{2N}$ to $\frac{j}{2N}$ in one 
-generation, due to genetic drift.
-Transition probabilities for $\tau$ generations ahead 
-can be computed by 
-powering the transition matrix to $\tau$.
-Figure \ref{fig:markov} illustrates expected and observed distribution of 
-frequencies after 
-1, 10 and 100 generations when starting frequency is 0.005 (top) and 0.1 
-(bottom) using Markov chain provides an accurate distribution of 
-allele frequencies 
-for future generations, under genetic drift.
+We tested a discrete-time discrete-state-space Wright-Fisher Markov
+Chain with transition matrix $P$ for population of $N$ diploid
+individuals~\cite{Ewens2012Mathematical}, where $P^{(\tau)}_{i,j}$
+denotes probability of change in allele frequency from $\frac{i}{2N}$
+to $\frac{j}{2N}$ in $\tau$ generations, due to genetic drift. $P$ is
+defined as follows:
+\begin{eqnarray}
+  P^{(1)}_{i,j} &=& \pr\left(\nu_{t+1}=\frac{j}{2N} \left|
+      \nu_{t}=\frac{i}{2N}\right)={2N \choose j} \right.  \nu_{t}^j
+  (1-\nu_{t})^{2N-j}, \;\;\\
+  P^{(\tau)} &=&   P^{(\tau-1)}P^{(1)}\\
+\end{eqnarray}
+Figure \ref{fig:markov} illustrates the computed and observed
+distribution of frequencies after $1$, $10$ and, $100$ generations,
+given $\nu_0\in\{0.005,0.1\}$. Clearly, the Markov chain provides an
+accurate modeling of allele frequency drift.
 
 \paragraph{Markovian Likelihood for Selection.}
-We can also compute the Markov chain for single locus selection (see section 
-\ref{sec:comale}), compute the conditional distribution 
-$\pr(\nu_{t+1}|\nu_{t},s)$, and maximum likelihood estimate of $s$ accordingly. 
-Similar to the null model, we can compute distribution of $t$ generation ahead 
-by powering the transition matrix to $t$.
-We conducted 100K simulations with selection strength $s=0.1$ on a site with 
-frequency $\nu_0=0.005$ and computed empirical and predicted distribution of 
-frequencies after 1,10 and 100 generations by Markov chain \eqref{eq:markovs}. 
-As shown in Figure \ref{fig:markovs} the distribution of empirical data follows 
-that of Markov chain.
+We modeled selection at a single locus using Markov
+Likelihoods. Consider a site evolving under selection constraints
+$s,h\in \Rbb$, where $s,h$ denote selection strength and dominance
+parameters, respectively. We used $Q^{(\tau)}_{i,j}(s,h)$ to denote
+the probability of transition from frequency $\frac{i}{2N}$ to
+$\frac{j}{2N}$ in $\tau$ generations, and derived an expression for
+computing $Q^{(\tau)}(s,h)$ (see Methods). The likelihood of the
+observed $\{\nu_t\}$ trajectory under Markov chain was computed using
+\begin{equation}
+  \Lc_{M}(s,h|\nu_0,\ldots,\nu_T)=\pr(\nu_0,\ldots,\nu_T;s,h)=
+  \prod_{t=0}^{T-1} \pr(\nu_{t+1}|\nu_t;s,h) = \prod_{t=0}^{T-1} Q_{\hat{i},\hat{j}}(s,h),
+  \label{eq:mkvlik}  
+\end{equation}
+where, $(\hat{i},\hat{j})=(2N\nu_t, 2N\nu_{t+1})$.\VB{We need to
+  incorporate $\tau$ in this}. Figure \ref{fig:markovs} shows that the
+predicted distributions of frequencies using Markov chain
+\ref{eq:mkvs} are consistent with simulated data for a wide range of
+simulation parameters. The complexity of computing likelihood is
+$\Oc(T)$, and can be efficiently vectorized for multiple replicates
+and loci. As the replicates are i.i.d., the likelihood of multiple
+replicates is simply the product of replicate likelihoods. We use the
+\comale\ test statistic described by:
+\begin{eqnarray}
+\lambda_M &=& s^*\log 
+\left(\frac{\Lc_M(s^*,h^*|\nu_{1,0},\ldots,\nu_{R,T})}{\Lc_M(0,0|\nu_{1,0},\ldots,\nu_{R,T})}\right)
+\label{eq:mkvml}
+\end{eqnarray}
+If the allele frequencies were obtained from low coverage sequencing
+data, we use a modification of \eqref{eq:mkvml} based on Hidden Markov
+Models (See Methods).  Given likelihood ratio \eqref{eq:lrt} for each
+SNP we further reduced false positives by combining likelihood ratio
+scores of the polymorphisms in a genomic region using a Composite
+Likelihood Ratio calculation
+(CLR)\cite{nielsen2005genomic,williamson2007localizing,vitti2013detecting}.
+For each genomic window, CLR was computed by taking average of top one
+percentile of the likelihood ratios.  More precisely, in a genomic
+region, after computing the test statistic ${\lambda_i}$ for all
+sites, \comale CLR statistic was computed using
+\begin{equation}
+ \comale = \frac{1}{\Ic}\sum_{i \in
+  \Ic} \lambda_i \ ,\ \ \ \ \ \Ic=\{i | \lambda_i > q_{99}\},  
+  \label{eq:comale}
+\end{equation}
+where $q_{99}$ is the 99$^{th}$ percentile of the distribution of
+${\lambda_i}$ in that genomic region.
+
+We conducted 100K simulations with selection strength $s=0.1$ on a
+site with frequency $\nu_0=0.005$ and computed empirical and predicted
+distribution of frequencies after 1,10 and 100 generations by Markov
+chain \eqref{eq:markovs}. The distribution of empirical data tracked
+closely with the theoretically computed frequency values
+(Figure~\ref{fig:markovs}).
+
+
+The \comale\ statistic did not explicitly model linkage between sites,
+as done for example in GP~\cite{XXX}, even though linkage can have an
+effect on allele frequencies. The reason for this is that
+incorporation of full linkage makes the computation intractable for
+most large genomic data-sets. We performed XXX simulations\VB{Show
+  running time data here}. Moreover, a site in linkage with another
+site evolving under selection will show a positive value, and
+contribute to the CLR statistic.
+
+To evaluate detection power of COMALE statistic, we compared it with
+Gaussian process (GP)~\cite{Terhorst2015Multi},
+FIT~\cite{feder2014Identifying} statistics.  For every experiment,
+(with a specific strength of selection, initial carrier frequency,
+sampling time span and number of replicates), we conducted 1000
+simulations of which half modeled neutral evolution and the rest were
+under selection. We define power of each method as average
+true-positive rate when false-positive rate is less than 0.05 over
+1000 simulations\VB{What dies it mean for FPR to be less than 0.5 over 1000?}.
+
+First we compared all the methods under default parameter settings,
+i.e., $T=5$, $\tau=50$ and $R=3$. Under all simulation parameters, the
+\comale statistic provides a better detection power
+(Figure~\ref{fig:power}).  \VB{What follows First? Also, are we using
+  \comale-CLR, or \comale?}
 
 
 
 
+\paragraph{Locating the Adaptive Mutation.}
+The secondary task in identifying selection is to locate the position
+of the adaptive allele. We simply consider the site with highest score
+in the window as the locus of the beneficial allele. For each setting
+of $\nu_0$ and $s$, we conducted 100 (\VB{Is it $500$?}) simulations
+and computed the rank of the beneficial mutation in each
+simulation. We plotted the cumulative distribution of the rank in
+Figure~\ref{fig:rank}.
 
-\paragraph{SFS based statistics in time series.}
+\comale works the best in hard sweep regime. For example, when
+$\nu_0=0.005$ and $s=0.01$ (weakest selection), the beneficial allele
+was ranked first in more than 60 experiments, and was ranked $\le 5$
+in over $90$\% of experiments of hard sweep. The accuracy decreased of
+locating the adaptive allele diminished in soft-sweep scenarios
+(larger values of $\nu_0$). Yet, in the worst case the beneficial
+allele was ranked among top 50 SNPs.
+
+\paragraph{Strength of Selection.}
+As the likelihood calculation is model based, we can also output the
+model parameters $\hat{s}$ that maximized
+likelihood~\eqref{eq:markovs}.  We computed bias, $s-\hat{s}$ for each
+experiment of \comale, and GP. The distribution of the bias is
+presented in Figure \ref{fig:bias} for different configurations. In
+general, both GP and \comale have biased results for weak selections,
+where genetic drift dominates. However, for stronger sweeps,
+e.g.$s=0.1$, \comale\ provides estimates with smaller bias and
+variance.
+
+
+\paragraph{SFS based statistics in time series.} 
 We also considered SFS based tests including Tajima's D, Fay \& Wu's H and 
 SFSelect for detecting selection. 
 As these tests work only on static data, we extend them for time series data 
@@ -446,58 +531,6 @@ of hard sweep, where carrier frequency is not high.
 
 
 
-
-\paragraph{Power of detection.}
-To evaluate detection power of COMALE statistic, we 
-compare it with Gaussian process (GP) \cite{Terhorst2015Multi}, FIT 
-\cite{feder2014Identifying} statistics. 
-For every experiment, (with a specific strength of selection, initial carrier 
-frequency, 
-sampling time span and number of replicates), we conduct 1000 simulations of 
-which half are neutral and the rest are under selection. We define power of 
-each method as average true-positive rate when 
-false-positive rate is less than 0.05 over 1000 simulations.
-
-First we compare all the methods under default parameter settings, i.e., 
-$T=5$, $\tau=50$ and $R=3$. As shown in the Figure \ref{fig:power}, \comale
-statistic provides a better detection power in both hard and soft sweep regimes 
-for all values of selection strength. 
-
-
-\paragraph{Locating the Adaptive Mutation}
-The secondary task in identifying selection is to locate the position of the 
-adaptive allele. We simply consider the site with highest score in the window 
-as the locus of the beneficial allele. 
-
-For each setting of $\nu_0$ and $s$, we conducted 100 
-simulations and computed the rank of the beneficial mutation in the sorted 
-scores. Then for each configuration, Cumulative Distribution Function (CDF) of 
-the distribution, of rank of the adaptive allele for 100 
-simulations is plotted in Figure \ref{fig:rank}. 
-
-\comale works the best in hard sweep regime. For example, 
-when $\nu_0=0.005$ and $s=0.01$ (weakest selection), the beneficial allele is 
-ranked first, in more than 60 experiments, and take rank of less than 5 in more 
-than 90\% of experiments of hard sweep. Accuracy of the locating the adaptive 
-allele diminished as sweep become softer, i.e. larger values of $\nu_0$. Yet, 
-in the worst case the beneficial allele is tanked among top 50 SNPs.
-
-\paragraph{Strength of  Selection}
-Finally, estimating the model parameters such as strength of selection provides 
-the finest detail of identification of a selective sweep process, since given 
-the model parameters we can predict the state of population, e.g. fixation 
-time, in future generations. 
-
-To estimate $s$, likelihood of data is computed via Wright-Fisher Markov chain 
-\eqref{eq:markovs}, and maximum likelihood $\hat{s}$ is readily computed.
-We computed bias, $s-\hat{s}$ for each 
-experiment of \comale, and GP. The distribution of the bias is presented in 
-Figure 
-\ref{fig:bias} for different configurations. In general, both GP and  \comale 
-are 
-biased for weak selections, which genetic drift dominates. However, for 
-stronger sweeps, e.g.$s=0.1$, \comale provides estimates with smaller bias and 
-variance.
 
 \subsection{Analysis of Real Data}
 We finally apply \comale method to the controlled experimental evolution 
@@ -730,6 +763,119 @@ According to the Wilks’ theorem \cite{}  log odds ratios are asymptotically di
 \section{Discussion}
 
 
+
+
+\section{Figures}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim={0in 0.1in 0in 
+		0in},clip,width=\textwidth]{figures/{markov0.005}.png}\\
+	\includegraphics[trim={0in 0.1in 0in 
+		0in},clip,width=\textwidth]{figures/{markov0.1}.png}
+              \caption{\VB{Make legend and axis fonts much bigger,
+                  nearly double of current size. You can write it
+                  diagonally, or use 2,4, on the X-axis. Add label to
+                  X and Y axis (e.g., $\nu_t$ for x-axis).}  predicted
+                distributions of allele frequencies of sites with
+                initial frequency $\nu_0=0.005$ (top) and $\nu_0=0.1$
+                (bottom), after $t=\{1,10,100\}$ generations, under
+                neutral evolution, by Brownian mothion and Markov
+                chain. Observed distribution of 143900 sites with
+                $\nu_0=0.005$ and 47500 with variants $\nu_0=0.1$
+                computed from neutrally evolving simulations is
+                depicted in green lines.}
+	\label{fig:markov}
+\end{figure}
+
+
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim={0in 0.1in 0in 
+		0in},clip,width=\textwidth]{figures/{markov.s0.1}.png}
+              \caption{\VB{We should combine this figure with
+                  Figure~\ref{fig:markov}}. Predicted distributions of
+                allele frequencies of sites with initial frequency
+                $\nu_0=0.005$ and selection strength $s=0.1$, after
+                $t=\{1,10,100\}$ generations,by Markov chain.
+                Observed distribution of the adaptive allele
+                (with$\nu_0=0.005$) in 10000 simulation is shown in
+                green.}
+	\label{fig:markovs}
+\end{figure}
+
+
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim=.2in 0 .2in 0 , clip,width=\textwidth]{figures/power.pdf}
+	\caption{Predictive performance of different method is evaluated on 200 
+		simulations for different values of selection strength $s$ and initial 
+		carrier frequency $\nu_0$.} \label{fig:power}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim=.2in 0 .2in 0, 
+	clip,width=\textwidth]{figures/rank.pdf}
+	\caption{CDF of the rank of the adaptive allele in 100
+          simulations. \VB{Please put rank (not log rank) in X-axis,,
+            and CDF on the Y-axis. In other words if the rank is 10,
+            the y-axis should give the fraction of simulations in
+            which the rank was 10 or better. Also, font size is way
+            too small. Please make it larger.}}
+	\label{fig:rank}
+\end{figure}
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim=.2in 0 .2in 0 , clip,width=\textwidth]{figures/bias.pdf}
+	\caption{\VB{Font size, and please write a caption}.} \label{fig:bias}
+\end{figure}
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{figures/{manhattanSNP.png}}\\	
+	\includegraphics[width=\textwidth]{figures/{manhattanSNP.Genes}.pdf}
+		\caption{Manhattan plots shows the distribution of candidate (top 2000) 
+		SNPs and the associated (1961) genes are denoted with blue line in the bottom plot.} 
+	\label{fig:realsnp}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[width=\textwidth]{figures/{manhattanWindow.pdf}}\\	
+			\includegraphics[width=\textwidth]{figures/{manhattanWindow.Genes}.pdf}
+	\caption{Manhattan plots shows the distribution of candidate regions using \comale statistic which give rise to (421) genes are denoted with blue line in the bottom plot.} 
+	\label{fig:realcomale}
+\end{figure}
+
+%\input{intro}
+%\input{method}
+%\input{experiment}
+%\input{conclusion}
+\newpage
+\bibliographystyle{acm}
+\bibliography{library}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%% Supplemental Material%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+%\newpage
+%\setcounter{page}{1}
+\setcounter{figure}{0}
+\setcounter{table}{0}
+\setcounter{equation}{0}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\theequation}{S\arabic{equation}}
+
 \section{Appendix}
 \subsection{Allele frequencies under selective sweep} \label{app:af}
 
@@ -901,19 +1047,21 @@ hard sweep. This implies that the precision of locating the selection on the
 genome is tightly dependent on a set of parameters including, recombination 
 rate, selection strength, initial carrier frequency, and the initial linkage.
 
+\clearpage
+\newpage
+\section*{Supplemental Figures}
 
 
-\section{Figures}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[trim=1in 0.1in 1in 0.1in,clip,width=\textwidth]{sfs.pdf}
+	\includegraphics[trim=1in 0.1in 1in 0.1in,clip,width=\textwidth]{figures/sfs.pdf}
 	\caption{Theoretical and Empirical SFS for a neutral population of 200 
 	individuals.}	\label{fig:sfs}
 \end{figure}
 
 \begin{figure}[H]
-	\includegraphics[trim=0in 0.1in 1in 0.1in,clip,width=\textwidth]{AF.pdf}
+	\includegraphics[trim=0in 0.1in 1in 0.1in,clip,width=\textwidth]{figures/AF.pdf}
 	\caption{Logistic model for different selection strengths 
 		for soft (left) 
 		and hard (right) sweep as a function of time in 
@@ -923,46 +1071,10 @@ rate, selection strength, initial carrier frequency, and the initial linkage.
 		shaded.} 	 
 	\label{fig:sweep}
 \end{figure}
-
 \begin{figure}[H]
 	\centering
 	\includegraphics[trim={0in 0.1in 0in 
-		0in},clip,width=\textwidth]{{markov0.005}.png}\\
-	\includegraphics[trim={0in 0.1in 0in 
-		0in},clip,width=\textwidth]{{markov0.1}.png}
-	\caption{Predicted distributions of allele frequencies of 
-		sites with 
-		initial frequency $\nu_0=0.005$ (top) and $\nu_0=0.1$ 
-		(bottom), after 
-		$t=\{1,10,100\}$ generations, under neutral evolution, by 
-		Brownian mothion 
-		and Markov chain. Observed distribution of 143900 sites 
-		with $\nu_0=0.005$ 
-		and 47500 with variants $\nu_0=0.1$ computed from 
-		neutrally evolving 
-		simulations is depicted in green lines.} 	 
-	\label{fig:markov}
-\end{figure}
-
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[trim={0in 0.1in 0in 
-		0in},clip,width=\textwidth]{{markov.s0.1}.png}
-	\caption{Predicted distributions of allele frequencies of 
-		sites with 
-		initial frequency $\nu_0=0.005$ and selection 
-		strength $s=0.1$, after 
-		$t=\{1,10,100\}$ generations,by Markov chain. 
-		Observed distribution of the adaptive allele 
-		(with$\nu_0=0.005$) in 
-		10000 simulation is shown in green.} 	 
-	\label{fig:markovs}
-\end{figure}
-\begin{figure}[H]
-	\centering
-	\includegraphics[trim={0in 0.1in 0in 
-		0in},clip,width=\textwidth]{{tdterms}.png}
+		0in},clip,width=\textwidth]{figures/{tdterms}.png}
 	\caption{Interactions of two terms in $D$. W.l.o.g when $D_0=0$ and 
 	$\Pi_0=W_0=1$, 
 		$D_t$ is sum of the 
@@ -974,7 +1086,7 @@ rate, selection strength, initial carrier frequency, and the initial linkage.
 \begin{figure}[H]
 	\centering 
 	\includegraphics[trim=3.2in 0.1in 3.2in 0.2in , 
-	clip,width=\textwidth]{bottleneck}
+	clip,width=\textwidth]{figures/bottleneck}
 	\caption{Effect of bottle neck in a typical experimental evoloution 
 		experiment where a restricted number of founder lines (here $F=200$) is 
 		selected out of a larger population size ($N_e=10^{-6}$). Tajima's D 
@@ -985,7 +1097,7 @@ rate, selection strength, initial carrier frequency, and the initial linkage.
 
 \begin{figure}[H]
 	\centering 
-	\includegraphics[width=\textwidth]{{msmsts}.pdf}
+	\includegraphics[width=\textwidth]{figures/{msmsts}.pdf}
 	\caption{Mean and 95\% CI of 1000 simulations for neutral (blue trajectories) selection with $s=0.1$ (red trajectories).}
 	\label{fig:sfsts}
 \end{figure}
@@ -994,7 +1106,7 @@ rate, selection strength, initial carrier frequency, and the initial linkage.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{decayFactors}
+	\includegraphics[width=\textwidth]{figures/decayFactors}
 	\caption{Interaction between productive factors of LD under natural 
 		selection for weak selection (s=$0.01$) and a distance of 100Kb between 
 		sites. In this setting, after about 1000 generations LD start to decay 
@@ -1005,7 +1117,7 @@ rate, selection strength, initial carrier frequency, and the initial linkage.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{LDDecay2d}
+	\includegraphics[width=\textwidth]{figures/LDDecay2d}
 	\caption{Decay of LD ($|D'|$ measure) of the minimum AF site at position 
 		500K with the rest of genome when $s=0.01$ and $r=2\times10^{-8}$. A 
 		window 
@@ -1016,8 +1128,8 @@ rate, selection strength, initial carrier frequency, and the initial linkage.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{LDDecay3dNeutral}
-	\includegraphics[width=\textwidth]{LDDecay3dSweep}
+	\includegraphics[width=\textwidth]{figures/LDDecay3dNeutral}
+	\includegraphics[width=\textwidth]{figures/LDDecay3dSweep}
 	\caption{ld} \label{fig:ld3d}
 	\caption{Decay of LD ($|D'|$ measure) of the minimum AF site at 
 		position 500K with the rest of genome in genetic drift with 
@@ -1026,50 +1138,11 @@ rate, selection strength, initial carrier frequency, and the initial linkage.
 
 
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[trim=.2in 0 .2in 0 , clip,width=\textwidth]{power.pdf}
-	\caption{Predictive performance of different method is evaluated on 200 
-		simulations for different values of selection strength $s$ and initial 
-		carrier frequency $\nu_0$.} \label{fig:power}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[trim=.2in 0 .2in 0 , clip,width=\textwidth]{bias.pdf}
-	\caption{.} \label{fig:bias}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[trim=.2in 0 .2in 0, 
-	clip,width=\textwidth]{rank.pdf}
-	\caption{CDF of the rank of the adaptive allele in 100 simulations.} 
-	\label{fig:rank}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=\textwidth]{{manhattanSNP.png}}\\	
-	\includegraphics[width=\textwidth]{{manhattanSNP.Genes}.pdf}
-		\caption{Manhattan plots shows the distribution of candidate (top 2000) 
-		SNPs and the associated (1961) genes are denoted with blue line in the bottom plot.} 
-	\label{fig:realsnp}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-		\includegraphics[width=\textwidth]{{manhattanWindow.pdf}}\\	
-			\includegraphics[width=\textwidth]{{manhattanWindow.Genes}.pdf}
-	\caption{Manhattan plots shows the distribution of candidate regions using \comale statistic which give rise to (421) genes are denoted with blue line in the bottom plot.} 
-	\label{fig:realcomale}
-\end{figure}
-
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[trim=1.2in 0 .0in 0, 
-	clip,width=\textwidth]{{dominance}.png}
+	clip,width=\textwidth]{figures/{dominance}.png}
 	\caption{Dominance for $s=0.1$.} 
 	\label{fig:dominance}
 \end{figure}
@@ -1077,7 +1150,7 @@ rate, selection strength, initial carrier frequency, and the initial linkage.
 \begin{figure}[H]
 	\centering
 	\includegraphics[trim=.2in 0 .0in 0, 
-	clip,width=\textwidth]{{qq}.pdf}
+	clip,width=\textwidth]{figures/{qq}.pdf}
 	\caption{QQ plot for a simulation.} 
 	\label{fig:qq}
 \end{figure}
@@ -1085,7 +1158,7 @@ rate, selection strength, initial carrier frequency, and the initial linkage.
 \begin{figure}[H]
 	\centering
 	\includegraphics[trim=.2in 0 .0in 0, 
-	clip,width=\textwidth]{{stab}.pdf}
+	clip,width=\textwidth]{figures/{stab}.pdf}
 	\caption{100$^{th}$ power of the transition matrix for neutral (left) and selection with $s=0.1$ (right).} 
 	\label{fig:qq}
 \end{figure}
@@ -1093,7 +1166,7 @@ rate, selection strength, initial carrier frequency, and the initial linkage.
 \begin{figure}[H]
 	\centering
 	\includegraphics[trim=.2in 0 .0in 0, 
-	clip,width=\textwidth]{{stab}.pdf}
+	clip,width=\textwidth]{figures/{stab}.pdf}
 	\caption{100$^{th}$ power of the transition matrix for neutral (left) and selection with $s=0.1$ (right).} 
 	\label{fig:qq}
 \end{figure}
@@ -1101,7 +1174,7 @@ rate, selection strength, initial carrier frequency, and the initial linkage.
 \begin{figure}[H]
 	\centering
 	\includegraphics[trim=.2in 0 .0in 0, 
-	clip,width=\textwidth]{{nullpred}.pdf}
+	clip,width=\textwidth]{figures/{nullpred}.pdf}
 	\caption{Empirical null distribution of test statistic on 1M simulations.} 
 	\label{fig:nullpred}
 \end{figure}
@@ -1112,9 +1185,9 @@ rate, selection strength, initial carrier frequency, and the initial linkage.
 	\centering
 	\begin{tabular}{cc}
 			\includegraphics[trim=.2in 0 .0in 0, 
-			clip,width=0.5\textwidth]{{nulls}.pdf}
+			clip,width=0.5\textwidth]{figures/{nulls}.pdf}
 			&\includegraphics[trim=.2in 0 .0in 0, 
-			clip,width=0.5\textwidth]{{nulls.log}.pdf}
+			clip,width=0.5\textwidth]{figures/{nulls.log}.pdf}
 	\end{tabular}
 	\caption{Empirical null distribution of $s$ statistic on 1M simulations.} 
 	\label{fig:nullpred}
@@ -1125,19 +1198,15 @@ rate, selection strength, initial carrier frequency, and the initial linkage.
 	\centering
 	\begin{tabular}{cc}
 		\includegraphics[trim=.2in 0 .0in 0, 
-		clip,width=0.5\textwidth]{{nulls.reg}.pdf}
+		clip,width=0.5\textwidth]{figures/{nulls.reg}.pdf}
 		&\includegraphics[trim=.2in 0 .0in 0, 
-		clip,width=0.5\textwidth]{{nulls.reg.log}.pdf}
+		clip,width=0.5\textwidth]{figures/{nulls.reg.log}.pdf}
 	\end{tabular}
 	\caption{Empirical null distribution of regularized $s$ statistic on 1M simulations.} 
 	\label{fig:nullpred}
 \end{figure}
 
-%\input{intro}
-%\input{method}
-%\input{experiment}
-%\input{conclusion}
-\newpage
-\bibliographystyle{acm}
-\bibliography{library}
+
+
+
 \end{document}
