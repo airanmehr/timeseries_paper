@@ -381,9 +381,9 @@ denotes probability of change in allele frequency from $\frac{i}{2N}$
 to $\frac{j}{2N}$ in $\tau$ generations, due to genetic drift. $P$ is
 defined as follows:
 \begin{eqnarray}
-  P^{(1)}_{i,j} &=& \pr\left(\nu_{t+1}=\frac{j}{2N} \left|
-      \nu_{t}=\frac{i}{2N}\right)={2N \choose j} \right.  \nu_{t}^j
-  (1-\nu_{t})^{2N-j}, \;\;\\
+  P^{(1)}_{i,j} &=& \pr\left(x_{t+1}=\frac{j}{2N} \left|
+      x_{t}=\frac{i}{2N}\right)={2N \choose j} \right.  x_{t}^j
+  (1-x_{t})^{2N-j}, \;\;\\
   P^{(\tau)} &=&   P^{(\tau-1)}P^{(1)}\\
 \end{eqnarray}
 Figure \ref{fig:markov} illustrates the computed and observed
@@ -398,22 +398,24 @@ $s,h\in \Rbb$, where $s,h$ denote selection strength and dominance
 parameters, respectively. We used $Q^{(\tau)}_{i,j}(s,h)$ to denote
 the probability of transition from frequency $\frac{i}{2N}$ to
 $\frac{j}{2N}$ in $\tau$ generations, and derived an expression for
-computing $Q^{(\tau)}(s,h)$ (see Methods). The likelihood of the
-observed $\{\nu_t\}$ trajectory under Markov chain was computed using
+computing $Q^{(\tau)}(s,h)$ (see Methods). The likelihood of observing
+the trajectory $\nu_1,\nu_2,\ldots,\nu_{T}$ at sample times
+$\tau_1,\tau_2,\ldots,\tau_T$, was computed using
 \begin{equation}
-  \Lc_{M}(s,h|\nu_0,\ldots,\nu_T)=\pr(\nu_0,\ldots,\nu_T;s,h)=
-  \prod_{t=0}^{T-1} \pr(\nu_{t+1}|\nu_t;s,h) = \prod_{t=0}^{T-1} Q_{\hat{i},\hat{j}}(s,h),
+  \Lc_{M}(s,h|\nu_0,\ldots,\nu_T)=\pr(\nu_1,\ldots,\nu_T;\nu_0,s,h)=
+  \prod_{t=0}^{T-1} \pr(\nu_{t+1}|\nu_t;s,h) = \prod_{t=0}^{T-1} Q^{(\delta_t)}_{\hat{i},\hat{j}}(s,h),
   \label{eq:mkvlik}  
 \end{equation}
-where, $(\hat{i},\hat{j})=(2N\nu_t, 2N\nu_{t+1})$.\VB{We need to
-  incorporate $\tau$ in this}. Figure \ref{fig:markovs} shows that the
-predicted distributions of frequencies using Markov chain
-\ref{eq:mkvs} are consistent with simulated data for a wide range of
-simulation parameters. The complexity of computing likelihood is
-$\Oc(T)$, and can be efficiently vectorized for multiple replicates
-and loci. As the replicates are i.i.d., the likelihood of multiple
-replicates is simply the product of replicate likelihoods. We use the
-\comale\ test statistic described by:
+where, $(\hat{i},\hat{j})=(\lfloor 2N\nu_t\rfloor, \lfloor
+2N\nu_{t+1}\rfloor)$, and $\delta_t=\tau_{t+1}-\tau_t$. Figure
+\ref{fig:markovs} shows that the predicted distributions of
+frequencies using Markov chain \ref{eq:mkvs} are consistent with
+simulated data for a wide range of simulation parameters. The
+complexity of computing likelihood is $\Oc(T)$, and can be efficiently
+vectorized for multiple replicates and loci. As the replicates are
+i.i.d., the likelihood of multiple replicates is simply the product of
+replicate likelihoods. We use the \comale\ test statistic described
+by:
 \begin{eqnarray}
 \lambda_M &=& s^*\log 
 \left(\frac{\Lc_M(s^*,h^*|\nu_{1,0},\ldots,\nu_{R,T})}{\Lc_M(0,0|\nu_{1,0},\ldots,\nu_{R,T})}\right)
@@ -431,7 +433,7 @@ percentile of the likelihood ratios.  More precisely, in a genomic
 region, after computing the test statistic ${\lambda_i}$ for all
 sites, \comale CLR statistic was computed using
 \begin{equation}
- \comale = \frac{1}{\Ic}\sum_{i \in
+ \lambda_{\mbox{{\sc clr}}} = \frac{1}{\Ic}\sum_{i \in
   \Ic} \lambda_i \ ,\ \ \ \ \ \Ic=\{i | \lambda_i > q_{99}\},  
   \label{eq:comale}
 \end{equation}
