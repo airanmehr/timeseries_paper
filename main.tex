@@ -852,10 +852,8 @@ According to the Wilks’ theorem \cite{}  log odds ratios are asymptotically di
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[trim={0in 0.1in 0in 
-		0in},clip,width=\textwidth]{figures/{markov0.005}.png}\\
-	\includegraphics[trim={0in 0.1in 0in 
-		0in},clip,width=\textwidth]{figures/{markov0.1}.png}
+	\includegraphics[trim={1in 0.1in 0in 
+		0in},clip,width=\textwidth]{figures/{markovDists}.pdf}
               \caption{\VB{Make legend and axis fonts much bigger,
                   nearly double of current size. You can write it
                   diagonally, or use 2,4, on the X-axis. Add label to
@@ -867,27 +865,20 @@ According to the Wilks’ theorem \cite{}  log odds ratios are asymptotically di
                 chain. Observed distribution of 143900 sites with
                 $\nu_0=0.005$ and 47500 with variants $\nu_0=0.1$
                 computed from neutrally evolving simulations is
-                depicted in green lines.}
-	\label{fig:markov}
-\end{figure}
-
-
-
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[trim={0in 0.1in 0in 
-		0in},clip,width=\textwidth]{figures/{markov.s0.1}.png}
-              \caption{\VB{We should combine this figure with
-                  Figure~\ref{fig:markov}}. Predicted distributions of
+                depicted in green lines.
+                \VB{We should combine this figure with
+                	Figure~\ref{fig:markov}}. Predicted distributions of
                 allele frequencies of sites with initial frequency
                 $\nu_0=0.005$ and selection strength $s=0.1$, after
                 $t=\{1,10,100\}$ generations,by Markov chain.
                 Observed distribution of the adaptive allele
                 (with$\nu_0=0.005$) in 10000 simulation is shown in
-                green.}
-	\label{fig:markovs}
+                green.
+                }
+	\label{fig:markov}
 \end{figure}
+
+
 
 
 
@@ -935,6 +926,14 @@ According to the Wilks’ theorem \cite{}  log odds ratios are asymptotically di
 		\includegraphics[width=\textwidth]{figures/{manhattanWindow.pdf}}\\	
 			\includegraphics[width=\textwidth]{figures/{manhattanWindow.Genes}.pdf}
 	\caption{Manhattan plots shows the distribution of candidate regions using \comale statistic which give rise to (421) genes are denoted with blue line in the bottom plot.} 
+	\label{fig:realcomale}
+\end{figure}
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{figures/{runTime.pdf}}
+	\caption{Running time of GP and \comale.} 
 	\label{fig:realcomale}
 \end{figure}
 
@@ -1257,7 +1256,7 @@ rate, selection strength, initial carrier frequency, and the initial linkage.
 \begin{figure}[H]
 	\centering
 	\includegraphics[trim=.0in 0 .0in 0, 
-	clip,width=\textwidth]{{samplingTimes}.pdf}
+	clip,width=\textwidth]{figures/{samplingTimes}.pdf}
 	\caption{sampling times.} 
 	\label{fig:nullpred}
 \end{figure}
@@ -1266,7 +1265,7 @@ rate, selection strength, initial carrier frequency, and the initial linkage.
 \begin{figure}[H]
 	\centering
 	\includegraphics[trim=.2in 0 .0in 0, 
-	clip,width=\textwidth]{{candidateSNPDensity}.pdf}
+	clip,width=\textwidth]{figures/{candidateSNPDensity}.pdf}
 	\caption{Density.} 
 	\label{fig:nullpred}
 \end{figure}
@@ -1274,7 +1273,7 @@ rate, selection strength, initial carrier frequency, and the initial linkage.
 \begin{figure}[H]
 	\centering
 	\includegraphics[trim=.0in 0 .0in 0, 
-	clip,width=\textwidth]{{stateConditional}.pdf}
+	clip,width=\textwidth]{figures/{stateConditional}.pdf}
 	\caption{observation state transition.} 
 	\label{fig:nullpred}
 \end{figure}
@@ -1302,46 +1301,16 @@ rate, selection strength, initial carrier frequency, and the initial linkage.
 \end{figure}
 
 
-\begin{figure}[H]
-	\centering
-	\begin{tabular}{cc}
-		\includegraphics[trim=.2in 0 .0in 0, 
-		clip,width=0.5\textwidth]{figures/{nulls.reg}.pdf}
-		&\includegraphics[trim=.2in 0 .0in 0, 
-		clip,width=0.5\textwidth]{figures/{nulls.reg.log}.pdf}
-	\end{tabular}
-	\caption{Empirical null distribution of regularized $s$ statistic on 1M simulations.} 
-	\label{fig:nullpred}
-\end{figure}
-
-
-<<<<<<< HEAD
-
-
-=======
-\begin{figure}[H]
-	\centering
-	\begin{tabular}{cc}
-		\includegraphics[trim=.2in 0 .0in 0, 
-		clip,width=0.5\textwidth]{{nulls.reg}.pdf}
-		&\includegraphics[trim=.2in 0 .0in 0, 
-		clip,width=0.5\textwidth]{{nulls.reg.log}.pdf}
-	\end{tabular}
-	\caption{Empirical null distribution of regularized $s$ statistic on 1M simulations.} 
-	\label{fig:nullpred}
-\end{figure}
-
-
 
 \begin{figure}[H]
 	\centering
 	\begin{tabular}{c}
 				\includegraphics[trim=.2in 0 .0in 0, 
-				clip,width=\textwidth]{{HSP}.pdf}\\
+				clip,width=\textwidth]{figures/{HSP}.pdf}\\
 		\includegraphics[trim=.2in 0 .0in 0, 
-		clip,width=\textwidth]{{BM}.pdf}\\
+		clip,width=\textwidth]{figures/{BM}.pdf}\\
 		\includegraphics[trim=.2in 0 .0in 0, 
-		clip,width=\textwidth]{{BF}.pdf}\\
+		clip,width=\textwidth]{figures/{BF}.pdf}\\
 	\end{tabular}
 	\caption{Song, HSF, HSP.} 
 	\label{fig:nullpred}
@@ -1352,19 +1321,43 @@ rate, selection strength, initial carrier frequency, and the initial linkage.
 	\centering
 	\begin{tabular}{c}
 		\includegraphics[trim=.2in 0 .0in 0, 
-		clip,width=\textwidth]{{depthDist}.pdf}\\
-		\includegraphics[trim=.2in 0 .0in 0, 
-		clip,width=\textwidth]{{depthHetero}.pdf}\\
+		clip,width=\textwidth]{figures/{depth}.pdf}
 	\end{tabular}
-	\caption{Song, HSF, HSP.} 
-	\label{fig:nullpred}
+	\caption{Scaled PDF (left) and CDF (right) of the overall read depth distribution (top) and minimum depth of sites (bottom).
+		Top row depicts the overall distribution of rad of all reads.} 
+	\label{fig:depth}
 \end{figure}
-%\input{intro}
-%\input{method}
-%\input{experiment}
-%\input{conclusion}
+
+\begin{figure}[H]
+	\centering
+	\begin{tabular}{c}
+		\includegraphics[trim=.2in 0 .0in 0, 
+		clip,width=\textwidth]{figures/{depthHetero}.pdf}
+	\end{tabular}
+	\caption{Read depth at four different sites. (which would be filtered if the min depth is set to 30X)} 
+	\label{fig:depthHetero}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{tabular}{c}
+		\includegraphics[trim=.2in 0 .0in 0, 
+		clip,width=\textwidth]{figures/{siteDepthDist}.pdf}\\
+	\end{tabular}
+	\caption{Distribution of the mean and variance of the minimum depth of all sites.} 
+	\label{fig:siteDepthDist}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\begin{tabular}{c}
+		\includegraphics[trim=.2in 0 .0in 0, 
+		clip,width=\textwidth]{figures/{probS}.pdf}\\
+	\end{tabular}
+	\caption{Empirical conditional distribution of $s$.} 
+	\label{fig:probS}
+\end{figure}
 \newpage
 \bibliographystyle{acm}
 \bibliography{library}
->>>>>>> arya
+
 \end{document}
