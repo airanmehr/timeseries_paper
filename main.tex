@@ -299,20 +299,20 @@ continuous-state) Brownian motion process for modeling variation of
  parameters to a Gaussian process model to the time series frequency data. 
 
 
-\paragraph{Notation.} Let $\bfX = (X_{ijk}) \in [0, 1]^{T \times 
+\paragraph{Notation.} Let $\Vc  = (\nu_{ijk}) \in [0, 1]^{T \times 
 M\times R}$ denote the population frequency where $T$ is the number of samples 
 in time, $M$ is the number of segregating sites, and $R$ is the number of 
 replicates. Samples in time are taken such that $\tau_1<\tau_2,\cdots<\tau_T$.
-To simplify our notation, we define $x_t$ as a allele frequency of a site in a
- replicate, and we denote it by $\nu_t(s,h)$ if such a site is directly 
- under 
- selection with the strength $s$ and overdominance of $h$. For 
- notation 
- convenience, henceforth we omit dependence of $\nu_t$ to $s$ and 
- $h$. 
- Thus, $\nu_t$ denotes the frequency of 
- the carrier of beneficial allele in the population $t$ generations, since the 
- onset of selection.
+%To simplify our notation, we define $x_t$ as a allele frequency of a site in a
+% replicate, and we denote it by $\nu_t(s,h)$ if such a site is directly 
+% under 
+% selection with the strength $s$ and overdominance of $h$. For 
+% notation 
+% convenience, henceforth we omit dependence of $\nu_t$ to $s$ and 
+% $h$. 
+% Thus, $\nu_t$ denotes the frequency of 
+% the carrier of beneficial allele in the population $t$ generations, since the 
+% onset of selection.
 
 
 \paragraph{Hard and Soft Sweep.}
@@ -354,9 +354,13 @@ strong bottleneck and makes it harder to identify selection.
 
 \section{Results}
 \subsection{Tests for detecting selection on time series data.}
+In general, tests of selection on dynamic data use generative models for null/alternative hypotheses to compute likelihoods of data and perform hypothesis testing. As computing exact likelihood of the (multiple loci) data is computationally intractable, either composite likelihood or likelihood of single locus is computed. In this part we first introduce a single locus statistic and then generalize it to compute composite likelihood of a genomic region.
+
 \paragraph{FIT performs poorly when $\tau \neq 1$ or $\nu_0$ is not close to 
 0.5.}
-\paragraph{Modeling neutral trajectories in finite populations.} Many
+\paragraph{Modeling neutral trajectories in finite populations.} 
+
+Many
 tools, including FIT, have used Brownian motion to approximate the
 distribution of future allele frequencies $\nu_{\tau}$, given initial
 frequency $\nu_0$. We tested the closeness of fit using $150$K
@@ -381,9 +385,9 @@ denotes probability of change in allele frequency from $\frac{i}{2N}$
 to $\frac{j}{2N}$ in $\tau$ generations, due to genetic drift. $P$ is
 defined as follows:
 \begin{eqnarray}
-  P^{(1)}_{i,j} &=& \pr\left(x_{t+1}=\frac{j}{2N} \left|
-      x_{t}=\frac{i}{2N}\right)={2N \choose j} \right.  x_{t}^j
-  (1-x_{t})^{2N-j}, \;\;\\
+  P^{(1)}_{i,j} &=& \pr\left(\nu_{t+1}=\frac{j}{2N} \left|
+      \nu_{t}=\frac{i}{2N}\right)={2N \choose j} \right.  \nu_{t}^j
+  (1-\nu_{t})^{2N-j}, \;\;\\
   P^{(\tau)} &=&   P^{(\tau-1)}P^{(1)}\\
 \end{eqnarray}
 Figure \ref{fig:markov} illustrates the computed and observed
@@ -408,7 +412,7 @@ $\tau_1,\tau_2,\ldots,\tau_T$, was computed using
 \end{equation}
 where, $(\hat{i},\hat{j})=(\lfloor 2N\nu_t\rfloor, \lfloor
 2N\nu_{t+1}\rfloor)$, and $\delta_t=\tau_{t+1}-\tau_t$. Figure
-\ref{fig:markovs} shows that the predicted distributions of
+\ref{fig:markov} shows that the predicted distributions of
 frequencies using Markov chain \ref{eq:mkvs} are consistent with
 simulated data for a wide range of simulation parameters. The
 complexity of computing likelihood is $\Oc(T)$, and can be efficiently
@@ -421,9 +425,12 @@ by:
 \left(\frac{\Lc_M(s^*,h^*|\nu_{1,0},\ldots,\nu_{R,T})}{\Lc_M(0,0|\nu_{1,0},\ldots,\nu_{R,T})}\right)
 \label{eq:mkvml}
 \end{eqnarray}
-If the allele frequencies were obtained from low coverage sequencing
-data, we use a modification of \eqref{eq:mkvml} based on Hidden Markov
-Models (See Methods).  Given likelihood ratio \eqref{eq:lrt} for each
+In experimental evolution with pooled-sequencing, and allele frequencies is computed from read counts. However, when sequencing coverage is not high enough, especially for extreme frequencies, or the read depths are heterogeneous across different replicates and generations of a locus, computing allele frequencies become a subtle task. Moreover, even in a high coverage experiment \emph{ascertainment bias} in computing SNP frequencies can have nontrivial impact \cite{}.
+To incorporate uncertainties of allele frequencies we extend the Markov chain of of \eqref{eq:mkvml} to a Hidden Markov
+Model (See Methods).  
+
+\paragraph{Composite Likelihood.}
+Given likelihood ratio \eqref{eq:lrt} for each
 SNP we further reduced false positives by combining likelihood ratio
 scores of the polymorphisms in a genomic region using a Composite
 Likelihood Ratio calculation
@@ -445,15 +452,19 @@ site with frequency $\nu_0=0.005$ and computed empirical and predicted
 distribution of frequencies after 1,10 and 100 generations by Markov
 chain \eqref{eq:markovs}. The distribution of empirical data tracked
 closely with the theoretically computed frequency values
-(Figure~\ref{fig:markovs}).
+(Figure~\ref{fig:markov}).
 
 
 The \comale\ statistic did not explicitly model linkage between sites,
-as done for example in GP~\cite{XXX}, even though linkage can have an
+as done for example in GP~\cite{Terhorst2015Multi}, even though linkage can have an
 effect on allele frequencies. The reason for this is that
 incorporation of full linkage makes the computation intractable for
-most large genomic data-sets. We performed XXX simulations\VB{Show
-  running time data here}. Moreover, a site in linkage with another
+most large genomic data-sets. 
+
+We conducted 1000 simulations and measure running time for \comale and GP. As shown in Figure \ref{fig:runTime}
+ \comale is 1000X faster \AI{I'm going to measure time for multiple locus GP as well, currently figure shows single locus GP which linkage isn't involved.} in the order of magnitude while providing better performance (Figure \ref{fig:power}).
+
+Moreover, a site in linkage with another
 site evolving under selection will show a positive value, and
 contribute to the CLR statistic.
 
@@ -465,22 +476,20 @@ sampling time span and number of replicates), we conducted 1000
 simulations of which half modeled neutral evolution and the rest were
 under selection. We define power of each method as average
 true-positive rate when false-positive rate is less than 0.05 over
-1000 simulations\VB{What dies it mean for FPR to be less than 0.5 over 1000?}.
+1000 simulations, i.e.,  cutoff is set so that at most 25 (or less) out of 500 neutral simulations predicted as natural selection, then the percentage of true positives are computed.
 
 First we compared all the methods under default parameter settings,
 i.e., $T=5$, $\tau=50$ and $R=3$. Under all simulation parameters, the
 \comale statistic provides a better detection power
-(Figure~\ref{fig:power}).  \VB{What follows First? Also, are we using
-  \comale-CLR, or \comale?}
+(Figure~\ref{fig:power}).
 
 
-
-
+\paragraph{SFS for Detection in Natural Experimental Evolution.} See figure \ref{fig:powerSFS}
 \paragraph{Locating the Adaptive Mutation.}
 The secondary task in identifying selection is to locate the position
 of the adaptive allele. We simply consider the site with highest score
 in the window as the locus of the beneficial allele. For each setting
-of $\nu_0$ and $s$, we conducted 100 (\VB{Is it $500$?}) simulations
+of $\nu_0$ and $s$, we conducted 500 simulations
 and computed the rank of the beneficial mutation in each
 simulation. We plotted the cumulative distribution of the rank in
 Figure~\ref{fig:rank}.
@@ -565,19 +574,6 @@ Manhattan plots in Figure \ref{fig:realsnp} depicts the distribution of the top 
 The following genes are enriched with P-value of 0.0006725 using Fisher exact test and genes of \ref{app:af}.
 
 
-	FBgn0033216\\
-	FBgn0034662\\
-	FBgn0039611\\
-	FBgn0032297\\
-	FBgn0041342\\
-	FBgn0037788\\
-	FBgn0039040\\
-	FBgn0038236\\
-	FBgn0039787\\
-	FBgn0038701\\
-	FBgn0038702\\
-	FBgn0039760
-
 \paragraph{Window-based analysis with \comale statistic}
 Manhattan plots in Figure \ref{fig:realsnp} depicts the distribution of the top 100 50K regions and corresponding 421 genes. The list of genes is available in the same directory under name \texttt{genes\_SNP.txt}.
 
@@ -661,10 +657,10 @@ For example, under genetic drift, $s=0$, and $\hat{\nu}_{t+1}=\nu_t=i/2N$.
 
 Then, the likelihood of the observed $\{\nu_t\}$ trajectory under Markov chain can be computed by
 \beq
-\Lc_{M}(s,h|\nu_0,\ldots,\nu_T)=\pr(\nu_0,\ldots,\nu_T;s,h)= \prod_{t=0}^{T-1} \pr(\nu_{t+1}|\nu_t;s,h) =  \prod_{t=0}^{T-1} Q_{\hat{i},\hat{j}}(s,h)  \label{eq:mkvlik}
+\Lc_{M}(s,h|\nu_0,\ldots,\nu_T)=\pr(\nu_0,\ldots,\nu_T;s,h)= \prod_{t=0}^{T-1} \pr(\nu_{t+1}|\nu_t;s,h) =  \prod_{t=0}^{T-1} Q_{\hat{i},\hat{j}}(s,h)  \label{eq:mkvlik2}
 \eeq
 where observed allele frequencies $\{\nu_t\}$ translate to the indices of transition matrix, i.e., $(\hat{i},\hat{j})=(2N\nu_t, 2N\nu_{t+1})$.
-Figure \ref{fig:markovs} shows that the predicted distributions of 
+Figure \ref{fig:markov} shows that the predicted distributions of 
 frequencies using Markov chain \ref{eq:mkvs} after 10, 100 generations are consistent with simulated data for $\nu_t=0.005$, i.e., when Brownian motion fails to provide a good approximation.
 
 Note that the complexity of computing likelihood is $\Oc(T)$, and can be efficiently vectorized for multiple replicates and loci.
@@ -854,10 +850,7 @@ According to the Wilks’ theorem \cite{}  log odds ratios are asymptotically di
 	\centering
 	\includegraphics[trim={1in 0.1in 0in 
 		0in},clip,width=\textwidth]{figures/{markovDists}.pdf}
-              \caption{\VB{Make legend and axis fonts much bigger,
-                  nearly double of current size. You can write it
-                  diagonally, or use 2,4, on the X-axis. Add label to
-                  X and Y axis (e.g., $\nu_t$ for x-axis).}  predicted
+              \caption{predicted
                 distributions of allele frequencies of sites with
                 initial frequency $\nu_0=0.005$ (top) and $\nu_0=0.1$
                 (bottom), after $t=\{1,10,100\}$ generations, under
@@ -866,8 +859,7 @@ According to the Wilks’ theorem \cite{}  log odds ratios are asymptotically di
                 $\nu_0=0.005$ and 47500 with variants $\nu_0=0.1$
                 computed from neutrally evolving simulations is
                 depicted in green lines.
-                \VB{We should combine this figure with
-                	Figure~\ref{fig:markov}}. Predicted distributions of
+Predicted distributions of
                 allele frequencies of sites with initial frequency
                 $\nu_0=0.005$ and selection strength $s=0.1$, after
                 $t=\{1,10,100\}$ generations,by Markov chain.
@@ -886,9 +878,16 @@ According to the Wilks’ theorem \cite{}  log odds ratios are asymptotically di
 \begin{figure}[H]
 	\centering
 	\includegraphics[trim=.2in 0 .2in 0 , clip,width=\textwidth]{figures/power.pdf}
-	\caption{Predictive performance of different method is evaluated on 200 
+	\caption{Predictive performance of different method is evaluated on 1000 
 		simulations for different values of selection strength $s$ and initial 
 		carrier frequency $\nu_0$.} \label{fig:power}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim=.2in 0 .2in 0 , clip,width=\textwidth]{figures/powerSFS.pdf}
+	\caption{Predictive performance of different method is evaluated on 400 
+		simulations for different values of selection strength $s$ and initial 
+		carrier frequency $\nu_0$.} \label{fig:powerSFS}
 \end{figure}
 
 \begin{figure}[H]
@@ -934,7 +933,7 @@ According to the Wilks’ theorem \cite{}  log odds ratios are asymptotically di
 	\centering
 	\includegraphics[width=\textwidth]{figures/{runTime.pdf}}
 	\caption{Running time of GP and \comale.} 
-	\label{fig:realcomale}
+	\label{fig:runTime}
 \end{figure}
 
 %\input{intro}
