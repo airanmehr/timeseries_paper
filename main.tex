@@ -346,7 +346,7 @@ bottleneck and makes it harder to identify selection.
 
 \section{Materials and Methods}
 
-\subsection*{The \comale statistic}
+\subsection{The \comale statistic}
 Consider a locus with starting derived allele frequency
 $\nu_0$. Frequencies are sampled at $T$ distinct generations specified
 by ${\cal T}= \{\tau_i: 1\le \tau_1<\tau_2,\ldots\le \tau_T\}$, and
@@ -602,7 +602,7 @@ efficient algorithms, (e.g., bisection) to compute the
 optimal. Actually, it is enough to show \eqref{eq:transition} is
 linear fractional in $s$, which is nby definition: linear numerator
 and denominator, and strictly positive denominator.
-\subsection*{Extending Site Frequency Spectrum  based tests for  time series data}
+\subsection{Extending Site Frequency Spectrum  based tests for  time series data}
 \label{sec:sfs-ts}
 The site frequency spectrum (SFS) is a mainstay of tests of neutrality
 and selection. Following Fu, 1995~\cite{XXX}, any linear combination
@@ -678,7 +678,7 @@ Pre-computation of 1313 transition matrices for $s\in\{-0.5,-0.49,\ldots,0.5 \}$
 According to the Wilks’ theorem \cite{}  log odds ratios are asymptotically distributed according to $\Xc^2$, yet \cite{feder2014Identifying} shown that in the empirical distribution is better when the number of independent samples (replicates) is small. Therefore we create $10^6$ neutral unlinked loci simulations with the same sampling rate and the same number of replicates.
 
 
-\subsection*{Simulations}
+\subsection{Simulations}
 For each experiment a diploid population is created and evolved as 
 follows. 
 \begin{enumerate}[I.]
@@ -741,6 +741,7 @@ follows.
 
 
 \section{Results}
+\ignore{
 \subsection{Tests for detecting selection on time series data.}
 In general, tests of selection on dynamic data use generative models
 for null/alternative hypotheses to compute likelihoods of data and
@@ -749,84 +750,81 @@ perform hypothesis testing. As computing exact likelihood of the
 likelihood or likelihood of single locus is computed. In this part we
 first introduce a single locus statistic and then generalize it to
 compute composite likelihood of a genomic region.
-
+}
 \paragraph{Modeling neutral trajectories in finite populations.} 
-We tested the closeness of fit using $150$K
-simulations for different values of $\nu_0$ ($\nu_0\in\{0.005,0.1\}$)
-and $\tau\in \{1,10,100\}$. Figure~\ref{fig:markov} shows that
-Brownian motion is an inadequate model when $\nu_0$ is far from $0.5$,
-and $\tau>1$ (sampling times are sparse). However, a randomly chosen
-mutation is unlikely to have frequency close to $0.5$. At the start of
-a hard selective sweep, $\nu_0$ is at its minimum possible value. Even
-in soft sweep with standing variation, the SFS of a neutral population
-dictates the initial frequency of the favored site, making it unlikely
-to be high in frequency (Supplementary Figure
-\ref{fig:sfs}). Moreover, in experimental evolution experiments
-sampling in time is quite sparse, and $\tau_i-\tau_{i-1}\in [10-100]$
-\emph{Drosophila} experiments. Therefore, a better model was needed.
+We tested the closeness of fit for the Markov Likelihood as a model
+for neutral trajectories, compared to Brownian motion. We performed
+$150$K simulations for different values of $\nu_0$
+($\nu_0\in\{0.005,0.1\}$) and time $\tau$ generations $\tau\in
+\{1,10,100\}$. Figure~\ref{fig:markov} shows that Brownian motion is
+inadequate when $\nu_0$ is far from $0.5$, and when sampling is done
+after many generations $\tau>1$. (sampling times are sparse). In most
+experimental evolution scenarios, a site is unlikely to have frequency
+close to $0.5$, and the starting frequencies are usually much
+smaller. Moreover, sampling times are sparse, with sampling done
+between $10$ and $100$ generations in \emph{Drosophila}
+experiments~\cite{XXXSchottlerr, HAddad}.
 
+In contrast, Figure~\ref{fig:markov}A-F also shows that Markov
+Likelihood predictions (Eq.~\ref{eq:mkvs}) are highly consistent with
+empirical data for a wide range of simulation parameters. We also
+tested the predictions under selection regime by conducting $100$K
+simulations with selection strength $s=0.1$ on a site with initial
+frequency $\nu_0=0.005$ and sampling after $\tau$
+$(\tau\in\{1,10,100\})$ generations. The empirical and theoretical
+distributions tracked closely (Figure~\ref{fig:markov}G-I)\VB{Give
+  P-value of match}.
 
-Figure~\ref{fig:markov} shows that the predicted distributions of
-frequencies using Markov chain (Eq.~\ref{eq:mkvs}) are consistent with
-simulated data for a wide range of simulation parameters. The
-complexity of computing likelihood is $\Oc(T)$, and can be efficiently
-vectorized for multiple replicates and loci. As the replicates are
-i.i.d., the likelihood of multiple replicates is simply the product of
-replicate likelihoods.
-
-We conducted 100K simulations with selection strength $s=0.1$ on a
-site with frequency $\nu_0=0.005$ and computed empirical and predicted
-distribution of frequencies after 1,10 and 100 generations by Markov
-chain Eq.~\ref{eq:markovs}. The distribution of empirical data tracked
-closely with the theoretically computed frequency values
-(Figure~\ref{fig:markov}).
-
-
-The \comale\ statistic did not explicitly model linkage between sites,
-as done for example in GP~\cite{Terhorst2015Multi}, even though
-linkage can have an effect on allele frequencies. The reason for this
-is that incorporation of full linkage makes the computation
-intractable for most large genomic data-sets.
-
-We conducted 1000 simulations and measure running time for \comale and
-GP. As shown in Figure \ref{fig:runTime} \comale is 1000X faster
-\AI{I'm going to measure time for multiple locus GP as well, currently
-  figure shows single locus GP which linkage isn't involved.} in the
-order of magnitude while providing better performance (Figure
-\ref{fig:power}).
-
-Moreover, a site in linkage with another
-site evolving under selection will show a positive value, and
-contribute to the CLR statistic.
-
-To evaluate detection power of \comale statistic, we compared it with
+\paragraph{Power.} We compared the detection power of \comale against
 Gaussian process (GP)~\cite{Terhorst2015Multi},
-FIT~\cite{feder2014Identifying} statistics.  For every experiment,
-(with a specific strength of selection, initial carrier frequency,
-sampling time span and number of replicates), we conducted 1000
-simulations of which half modeled neutral evolution and the rest were
-under selection. We define power of each method as average
-true-positive rate when false-positive rate is less than 0.05 over
-1000 simulations, i.e., cutoff is set so that at most 25 (or less) out
-of 500 neutral simulations predicted as natural selection, then the
-percentage of true positives are computed.
+FIT~\cite{feder2014Identifying} statistics.  For each experiment,
+(specified with values for selection coefficient $s$, starting allele
+frequency $\vu_0$, sampling time schedule ${\cal T}$, and number of
+replicates $R$), we conducted $1000$ simulations. Half of these
+modeled neutral evolution and the rest were under selection. Define
+power of a statistic as the average true-positive rate when
+false-positive rate is less than $0.05$ over $1000$ simulations. In
+other words, a cutoff was set so that at most $25$ of $500$ neutral
+simulations were predicted as being under selection, in order to
+compute the fraction of true positives. 
 
-First we compared all the methods under default parameter settings,
-i.e., $T=5$, $\tau=50$ and $R=3$. Under all simulation parameters, the
-\comale statistic provides a better detection power
-(Figure~\ref{fig:power}).
+Before computing against other methods, we first tested the use of
+percentile cut-off $\pi$ in computing compute ${\cal H}_{\pi}$ \VB{Put
+  results here.}, and the advantage of using HMM based statistic
+${\cal H}$ versus Markov Chain statistics (${\cal M}$) for read data.
+
+Under a range of simulation parameters, \comale(${\cal H}_{99}$)
+provides higher detection power compaed to FIT or
+GP(Figure~\ref{fig:power}).
+
+\paragraph{Running Time.}
+A \comale does not compute full likelihoods, or explicitly model
+linkage between sites, the complexity of computing likelihoods is
+$\Oc(TR)$, and can be efficiently vectorized for multiple replicates
+and loci. Therefore, it is expected to be faster than other approaches
+like Gaussian Process (GP)~\cite{Terhorst2015Multi}.
+
+We conducted $1000$ simulations and measured running time for \comale
+and GP. \comale is $\sim 1000\times$ faster than single locus GP
+(Figure \ref{fig:runTime}), while maintaining high power (Figure
+\ref{fig:power}). \AI{I'm going to measure time for multiple locus GP
+  as well, currently figure shows single locus GP which linkage isn't
+  involved.}
 
 
-\paragraph{SFS for Detection in Natural Experimental Evolution.} See figure \ref{fig:powerSFS}
 
-As mentioned before, restricting population to $F$ founder lines
-($F<<N_e$) resembles a severe bottleneck event, which confound
-SFS. Figure \ref{fig:bottleneck} demonstrates effect of controlled
+\paragraph{SFS for Detection in Natural Experimental Evolution.} See
+figure \ref{fig:powerSFS} We did not show the SFS based statistics in
+Figure~\ref{fig:power} as they do not perform well. In the specific
+mode of experimental evolution, we sample a restricted set of $F$
+founder lines. Here, $F<<N_e$ (Fig.~\ref{fig:XXX}) creating a severe
+bottleneck, and this bottleneck confounds
+SFS. Figure~\ref{fig:bottleneck} demonstrates the effect of
 experimental evolution on different SFS statistics under neutral
 evolution for 1000 simulations. The mean of neutral simulations can be
 used to empirically filter out the effect of bottleneck in dynamic
 data.
-
+\VB{Natural experiment results here.}
 
 
 \paragraph{Locating the Adaptive Mutation.}
@@ -927,35 +925,41 @@ Manhattan plots in Figure \ref{fig:realsnp} depicts the distribution of the top 
 \section{Discussion}
 
 
+\newpage
+\bibliographystyle{acm}
+\bibliography{library}
 
-
+\clearpage
+\newpage
 \section{Figures}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[trim={1in 0.1in 0in 
 		0in},clip,width=\textwidth]{figures/{markovDists}.pdf}
-              \caption{predicted
-                distributions of allele frequencies of sites with
-                initial frequency $\nu_0=0.005$ (top) and $\nu_0=0.1$
-                (bottom), after $t=\{1,10,100\}$ generations, under
-                neutral evolution, by Brownian mothion and Markov
-                chain. Observed distribution of 143900 sites with
-                $\nu_0=0.005$ and 47500 with variants $\nu_0=0.1$
-                computed from neutrally evolving simulations is
-                depicted in green lines.
-Predicted distributions of
-                allele frequencies of sites with initial frequency
-                $\nu_0=0.005$ and selection strength $s=0.1$, after
-                $t=\{1,10,100\}$ generations,by Markov chain.
-                Observed distribution of the adaptive allele
-                (with$\nu_0=0.005$) in 10000 simulation is shown in
-                green.
-                }
+
+
+              \caption{{\bf Comparison of empirical distributions of
+                  allele frequencies (green) versus predictions from
+                  Brownian Motion (red), and Markov
+                  Likelihoods}. Panels A-F: Experiments were conducted
+                under neutral evolution with different starting
+                frequencies $\nu_0\in\{0.005,0.1\}$ and sampling times
+                $\tau \in \{1,10,100\}$ generations. The empirical
+                distribution was computed by sampling 143,900 sites
+                with $\nu_0=0.005$ and 47,500 with variants
+                $\nu_0=0.1$.  computed from neutrally evolving
+                simulations is depicted in green lines. Panels G,H,I:
+                Comparisons of Empirical and Markov chain based
+                predicted allele frequency value distributions under a
+                selection regime with $s=0.1$. Initial frequency was
+                chosen as $\nu_0=0.005$ and sampling performed after
+                $t=\{1,10,100\}$ generations. \VB{Please label axes.}}
 	\label{fig:markov}
 \end{figure}
 
-
+\clearpage
+\newpage
 
 
 
@@ -967,6 +971,9 @@ Predicted distributions of
 		simulations for different values of selection strength $s$ and initial 
 		carrier frequency $\nu_0$.} \label{fig:power}
 \end{figure}
+\clearpage
+\newpage
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[trim=.2in 0 .2in 0 , clip,width=\textwidth]{figures/powerSFS.pdf}
@@ -974,6 +981,8 @@ Predicted distributions of
 		simulations for different values of selection strength $s$ and initial 
 		carrier frequency $\nu_0$.} \label{fig:powerSFS}
 \end{figure}
+\clearpage
+\newpage
 
 \begin{figure}[H]
 	\centering
@@ -988,6 +997,8 @@ Predicted distributions of
 	\label{fig:rank}
 \end{figure}
 
+\clearpage
+\newpage
 
 \begin{figure}[H]
 	\centering
@@ -995,6 +1006,8 @@ Predicted distributions of
 	\caption{\VB{Font size, and please write a caption}.} \label{fig:bias}
 \end{figure}
 
+\clearpage
+\newpage
 
 \begin{figure}[H]
 	\centering
@@ -1005,6 +1018,9 @@ Predicted distributions of
 	\label{fig:realsnp}
 \end{figure}
 
+\clearpage
+\newpage
+
 \begin{figure}[H]
 	\centering
 		\includegraphics[width=\textwidth]{figures/{manhattanWindow.pdf}}\\	
@@ -1012,6 +1028,8 @@ Predicted distributions of
 	\caption{Manhattan plots shows the distribution of candidate regions using \comale statistic which give rise to (421) genes are denoted with blue line in the bottom plot.} 
 	\label{fig:realcomale}
 \end{figure}
+\clearpage
+\newpage
 
 
 \begin{figure}[H]
@@ -1025,9 +1043,9 @@ Predicted distributions of
 %\input{method}
 %\input{experiment}
 %\input{conclusion}
-\newpage
-\bibliographystyle{acm}
-\bibliography{library}
+%\newpage
+%\bibliographystyle{acm}
+%\bibliography{library}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%% Supplemental Material%%%%
