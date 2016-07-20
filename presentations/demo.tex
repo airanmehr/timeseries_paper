@@ -1,0 +1,147 @@
+%\documentclass[handout]{beamer} % \pause disabled
+\documentclass[t]{beamer} % \pause enabled
+\input{../macros_arya}
+\usepackage{datetime}
+\def\vecbold#1{{\boldsymbol#1}}
+
+\newdateformat{monthyeardate}{%
+	\monthname[\THEMONTH], \THEYEAR}
+
+%\usepackage[linesnumbered,ruled]{algorithm2e}
+\usetheme{Madrid}
+\setbeamertemplate{footline}
+{
+	\leavevmode%
+	\hbox{%
+		\begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+			\usebeamerfont{author in head/foot}\insertshortauthor
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+			\usebeamerfont{title in head/foot}\insertshorttitle
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+			\usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+			\insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+		\end{beamercolorbox}}%
+		\vskip0pt%
+	}
+	\def\dHAF{\text{-HAF}}
+	\makeatother
+	\title{Detecting Selection in Experimental Evolution Experiment}
+	\subtitle{}
+	\author[Arya Iranmehr]
+	{%
+		\texorpdfstring{
+			\centering
+			Arya Iranmehr\\
+			\href{mailto:airanmehr@ucsd.edu}{airanmehr@ucsd.edu}
+		}
+		{Arya Iranmehr}
+	}
+	%\email{}
+	\institute{
+		Bafna Lab\\
+		University of California, San Diego}
+	\date{
+		\monthyeardate\today}
+	\subject{Optimization}
+	\usefonttheme{serif} % default family is serif
+	
+\begin{document}
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+	
+	\begin{frame}{Goals of COMALE: Composite Of MArkovian Likelihoods for Experimental evolution}
+\begin{figure}
+\includegraphics[trim={0.05in 0.5in 1.5in 0in},clip,width=\textwidth]{../figures/goal}
+\end{figure}
+	\end{frame}
+	
+	\begin{frame}{Simulations}
+		\begin{figure}
+			\includegraphics[trim={0.05in 0.5in 0.5in 0in},clip,scale=0.22]{../figures/ControlledExperimentalEvolution}
+		\end{figure}
+	\end{frame}	
+
+	\begin{frame}{Case I: Exact Allele Frequency}
+		\begin{itemize}
+			\item Given allele frequencies $\{\nu_0,\ldots, \nu_T\}$ at each site compute $\lambda$-statistic for each SNP by
+		\beq
+		\lambda=\frac{H_1}{H_0}=\frac{\pr(\nu_0,\ldots, \nu_T|s=s^*)}{\pr(\nu_0,\ldots, \nu_T|s=0)}
+		\eeq
+		where $s^*$ is the maximum likelihood estimate of $s$ (strength of selection).
+		\end{itemize}
+	\end{frame}	
+	
+	\begin{frame}{Probability of a Sequence: Wright-Fisher Markov Chain}
+		\begin{figure}
+		\includegraphics[trim={0.05in 0.0in 0.in 0in},clip,scale=0.18]{../figures/markoveg}
+	\end{figure}
+	\end{frame}
+	\begin{frame}{Model vs Observation}
+		\begin{figure}
+			\includegraphics[trim={0.05in 0.0in 0.in 0in},clip,scale=0.25]{../figures/AF}
+		\end{figure}
+	\end{frame}
+	
+		\begin{frame}{Depth Heterogeneity}
+			\begin{figure}
+				\includegraphics[trim={0.05in 0.0in 0.in 0in},clip,scale=0.35]{../figures/depthHetero}
+			\end{figure}
+		\end{frame}	
+	
+		\begin{frame}{Uncertainty in allele frequency}
+
+			\begin{figure}
+				\includegraphics[trim={0.05in 0.0in 0.in 0in},clip,scale=0.7]{../figures/stateConditional}
+			\end{figure}
+		\end{frame}	
+	
+	\begin{frame}{Case II: Unknown Allele Frequency (Pooled-Seq data)}
+		\begin{itemize}
+			\item Given  $\{x_0,\ldots, x_T\}$ at each site where $x_t=(c_t,d_t)$ is a tuple of derived allele read count and the read depth, we are interested in  computing $\lambda$-statistic for each SNP by
+			\beq
+			\lambda=\frac{H_1}{H_0}=\frac{\pr(x_0,\ldots, x_T|s=s^*)}{\pr(x_0,\ldots, x_T|s=0)}
+			\eeq
+			\item Hidden Markov Model computes null and alternative likelihoods.
+		\end{itemize}
+
+	\end{frame}	
+	
+
+	
+	\begin{frame}{COMALE statistic and P-Value for a region }
+		\begin{itemize}
+			\item
+			Having computed $\Lc=\{\lambda_1,\ldots,\lambda_M\}$ for each SNP of a region, COMALE is the average of top-10 elements.
+			\item  P-Value of the COMALE statistic is computed under empirical null distribution, i.e., negative control.
+		\end{itemize}
+
+	\end{frame}	
+	\begin{frame}{Detection Power}
+		\begin{figure}
+			\includegraphics[trim={0.05in 0.0in 0.in 0in},clip,width=\textwidth]{../figures/power.pdf}
+		\end{figure}
+	\end{frame}
+		\begin{frame}
+			\begin{figure}
+				\includegraphics[trim={0.05in 0.0in 0.in 2.5in},clip,width=\textwidth]{../figures/{manhattan}}
+			\end{figure}
+		\end{frame}
+		
+		\begin{frame}{Heat Protein Shock genes}
+			\begin{figure}
+				\includegraphics[trim={0.05in 0.0in 0.in 0.1in},clip,scale=0.35]{../figures/{HSP.pdf}}
+			\end{figure}
+		\end{frame}
+		\begin{frame}{\ }
+			\vspace{1	in}
+			\begin{center}
+				\huge{Thanks!}\\
+			\end{center}
+			
+		\end{frame}
+		
+\end{document}

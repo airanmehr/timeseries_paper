@@ -971,6 +971,14 @@ Manhattan plots in Figure \ref{fig:realsnp} depicts the distribution of the top 
 		simulations for different values of selection strength $s$ and initial 
 		carrier frequency $\nu_0$.} \label{fig:power}
 \end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim=.2in 0 .2in 0 , clip,width=\textwidth]{figures/{power.ReadCountData}.pdf}
+	\caption{Predictive performance of different method is evaluated on 1000 
+		simulations for different values of selection strength $s$ and initial 
+		carrier frequency $\nu_0$.} \label{fig:powerHMM}
+\end{figure}
 \clearpage
 \newpage
 
@@ -1011,10 +1019,8 @@ Manhattan plots in Figure \ref{fig:realsnp} depicts the distribution of the top 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{figures/{manhattanSNP.png}}\\	
-	\includegraphics[width=\textwidth]{figures/{manhattanSNP.Genes}.pdf}
-		\caption{Manhattan plots shows the distribution of candidate (top 2000) 
-		SNPs and the associated (1961) genes are denoted with blue line in the bottom plot.} 
+	\includegraphics[width=\textwidth]{figures/{manhattan.pdf}}
+		\caption{To be added.} 
 	\label{fig:realsnp}
 \end{figure}
 
@@ -1023,9 +1029,8 @@ Manhattan plots in Figure \ref{fig:realsnp} depicts the distribution of the top 
 
 \begin{figure}[H]
 	\centering
-		\includegraphics[width=\textwidth]{figures/{manhattanWindow.pdf}}\\	
-			\includegraphics[width=\textwidth]{figures/{manhattanWindow.Genes}.pdf}
-	\caption{Manhattan plots shows the distribution of candidate regions using \comale statistic which give rise to (421) genes are denoted with blue line in the bottom plot.} 
+		\includegraphics[width=\textwidth]{figures/{HSP.pdf}}\\	
+	\caption{HSP.} 
 	\label{fig:realcomale}
 \end{figure}
 \clearpage
@@ -1126,7 +1131,7 @@ each site by solving a linear system of equations(see Section
 \ref{sec:regression} for details).
 
 \subsection{Fay Wu's H}\label{app:h}
-\bl
+%\bl
 In any finite population size of $n$ with $m$ segregating sites, 
 allele frequencies take 
 discrete values, i.e.,  $x_j \in 
@@ -1139,7 +1144,7 @@ and we can write
 \eeq
 where $\xi_i$ is the number of sites with frequency $i/n$ and $H$ is the 
 Fay \& Wu's estimate of $\theta$.
-\el
+%\el
 
 Recently, Ronen et al. ~\cite{ronen2015predicting} devised the $1\dHAF$ 
 statistic for identifying selection on static data, which has the expected 
@@ -1461,5 +1466,6 @@ rate, selection strength, initial carrier frequency, and the initial linkage.
 \newpage
 \bibliographystyle{acm}
 \bibliography{library}
-
+\newpage
+\input{method}
 \end{document}
