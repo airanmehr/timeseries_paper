@@ -1,6 +1,6 @@
 # Time-Series Paper
 
-Bafna Lab Convention:
+Convention:
 
 1. In choosing citation keys, please do not use things like ronen2013learning, tc. as the convention is difficult, leads to duplication of bib entries and numerous problems when we are sharing our bib files (The same entry can show up with different keys). Use Ronen2013 (Last name of the first author capitalized, and full year). If there are multiple papers, use Ronen2013, Ronen2013b,...
 
