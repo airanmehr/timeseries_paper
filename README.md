@@ -1,5 +1,20 @@
 # Time-Series Paper
-Guidelines:
+
+Bafna Lab Convention:
+
+1. In choosing citation keys, please do not use things like ronen2013learning, tc. as the convention is difficult, leads to duplication of bib entries and numerous problems when we are sharing our bib files (The same entry can show up with different keys). Use Ronen2013 (Last name of the first author capitalized, and full year). If there are multiple papers, use Ronen2013, Ronen2013b,...
+
+2. Do not use \eqref{} which converts to (<eqnum>). Instead use Eq.~\ref{}.
+
+3. Please put a ~between text and reference (e.g., alpha~\cite{}, or Eq.~\ref{}) for appropriate saving.
+
+4. Put a period after paragraph.
+
+5. As far as possible, use TexMed to obtain bib entries, so that all bib entries are similarly formatted.
+
+
+
+Other Guidelines:
 
 1. To avoid conflicts create your branch
 ```

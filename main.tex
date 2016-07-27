@@ -1,12 +1,14 @@
 \documentclass[11pt]{article}
 \input{macros_vineet}
 \input{macros_arya}
-\title{Detecting Selection in Experimental Evolution Experiments}
+\title{A Hidden Markov Model for Analyzing Adaptive Experimental Evolutions with Pooled Sequencing Data}
 \author[1]{Arya Iranmehr}
 \author[1]{Ali Akbari}
-\author[2]{Vineet Bafna}
+\author[2]{Christian Schl\"{o}c tterer}
+\author[3]{Vineet Bafna}
 \affil[1]{\footnotesize Electrical and Computer Engineering, University of California, San Diego, La Jolla, CA 92093, USA.}
-\affil[2]{\footnotesize Computer Science \& Engineering, University of California, San Diego, La Jolla, CA 92093, USA}
+\affil[2]{\footnotesize Institut für Populationsgenetik, Vetmeduni, Vienna, Austria.}
+\affil[3]{\footnotesize Computer Science \& Engineering, University of California, San Diego, La Jolla, CA 92093, USA}
 \date{}
 \def\comale{\text{COMALE }}
 \usepackage{booktabs}
@@ -588,30 +590,27 @@ where $q_{99}$ is the 99$^{th}$ percentile of the distribution of ${\lambda_i}$ 
 \label{sec:regression}
 Depending on data (read count or allele frequency) the optimal value
 of the parameters can be found by 
-\begin{eqnarray}
+\beqn
 s^*,h^*&=&\underset{s,h}{\arg\max} \sum_r^R \log
-\left(\Lc_M(s,h|\bm{\nu}^{(r)}\right),\;\; \mbox{ or, }\\
+\left(\Lc_M(s,h|\bm{\nu}^{(r)}\right),\;\; \mbox{ or, }\label{eq:mcmle}\\
 s^*,h^*&=&\underset{s,h}{\arg\max} \sum_r^R \log
-\left(\Lc_H(s,h|\bm{x}^{(r)}\right).
-\end{eqnarray}
+\left(\Lc_H(s,h|\bm{x}^{(r)}\right).\label{eq:hmmmle}
+\eeqn
 where likelihoods are defined in Eq.~\ref{eq:mkvlik} and
-Eq.~\ref{eq:hmmlik}, respectively.  \VB{Please edit next sentence}. We
-use grid search, as the data is sparse. However, by fixing $h$, both
-likelihood functions are quasiconvex (unimodal) in $s$ and admit
+Eq.~\ref{eq:hmmlik}, respectively. 
+As shown in Appendix \ref{app:likelihood}, for a given $h$, Eq.~\ref{eq:mcmle} and \ref{eq:hmmmle} quasiconvex (unimodal) functions in $s$ and admit
 efficient algorithms, (e.g., bisection) to compute the
-optimal. Actually, it is enough to show \eqref{eq:transition} is
-linear fractional in $s$, which is nby definition: linear numerator
-and denominator, and strictly positive denominator.
+optimal in $\Oc(\log_2(1/\epsilon))$ steps for each site, where $\epsilon$ is the upper bound on the error in the solution. 
 \subsection{Extending Site Frequency Spectrum  based tests for  time series data}
 \label{sec:sfs-ts}
 The site frequency spectrum (SFS) is a mainstay of tests of neutrality
-and selection. Following Fu, 1995~\cite{XXX}, any linear combination
+and selection. Following Fu, 1995~\cite{fu1995statistical}, any linear combination
 of the site frequencies is an estimate of $\theta$. However, under
 non-neutral conditions, different linear combinations behave
 differently. Therefore, many popular test statistics test neutrality
 by computing differences of two estimates to check, or performing
 cross-population tests comparing the statistic in two different
-populations~\cite{Achasz,Ronen,XPEHH}. Finally, SFS can be computed
+populations~\cite{achaz2009frequency,ronen2013learning,sabeti2007genome}. Finally, SFS can be computed
 with frequency information, and does not need full haplotypes.
 
 We asked if SFS-based tests could be adapted for time-series data. A
@@ -656,8 +655,8 @@ for detecting selection in each window.
   learning the so-called \emph{optimal} weights using Support Vector
   Machines.
 \end{description}
-\paragraph{Dominance.}\VB{I did not fully understand this part. Let's discuss.}
-Note that, for $s>0$ we have \cite{}  
+\paragraph{Dominance.}
+The value of the overdominance parameter can provide an insight into the kind of adaptation \emph{using population frequency data}\footnote{It is trivial for genotyped data.}. In fact, for $s>0$ we have \cite{gillespie2010population}  
 \begin{center}
 	\begin{tabular}{l|c}
 		condition & comment\\
@@ -675,7 +674,7 @@ Pre-computation of 1313 transition matrices for $s\in\{-0.5,-0.49,\ldots,0.5 \}$
 
 
 \paragraph{P value}
-According to the Wilks’ theorem \cite{}  log odds ratios are asymptotically distributed according to $\Xc^2$, yet \cite{feder2014Identifying} shown that in the empirical distribution is better when the number of independent samples (replicates) is small. Therefore we create $10^6$ neutral unlinked loci simulations with the same sampling rate and the same number of replicates.
+According to the Wilks’ theorem \cite{williams2001weighing}  log odds ratios are asymptotically distributed according to $\Xc^2$, yet \cite{feder2014Identifying} shown that in the empirical distribution is better when the number of independent samples (replicates) is small. Therefore we create $10^6$ neutral unlinked loci simulations with the same sampling rate and the same number of replicates.
 
 
 \subsection{Simulations}
@@ -926,11 +925,6 @@ Manhattan plots in Figure \ref{fig:realsnp} depicts the distribution of the top 
 
 
 \newpage
-\bibliographystyle{acm}
-\bibliography{library}
-
-\clearpage
-\newpage
 \section{Figures}
 
 \begin{figure}[H]
@@ -972,19 +966,10 @@ Manhattan plots in Figure \ref{fig:realsnp} depicts the distribution of the top 
 		carrier frequency $\nu_0$.} \label{fig:power}
 \end{figure}
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[trim=.2in 0 .2in 0 , clip,width=\textwidth]{figures/{power.ReadCountData}.pdf}
-	\caption{Predictive performance of different method is evaluated on 1000 
-		simulations for different values of selection strength $s$ and initial 
-		carrier frequency $\nu_0$.} \label{fig:powerHMM}
-\end{figure}
-\clearpage
-\newpage
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[trim=.2in 0 .2in 0 , clip,width=\textwidth]{figures/powerSFS.pdf}
+	\includegraphics[trim=.2in 0 .2in 0 , clip,width=\textwidth]{figures/naturalee.pdf}
 	\caption{Predictive performance of different method is evaluated on 400 
 		simulations for different values of selection strength $s$ and initial 
 		carrier frequency $\nu_0$.} \label{fig:powerSFS}
@@ -997,52 +982,25 @@ Manhattan plots in Figure \ref{fig:realsnp} depicts the distribution of the top 
 	\includegraphics[trim=.2in 0 .2in 0, 
 	clip,width=\textwidth]{figures/rank.pdf}
 	\caption{CDF of the rank of the adaptive allele in 100
-          simulations. \VB{Please put rank (not log rank) in X-axis,,
-            and CDF on the Y-axis. In other words if the rank is 10,
-            the y-axis should give the fraction of simulations in
-            which the rank was 10 or better. Also, font size is way
-            too small. Please make it larger.}}
+          simulations.}
 	\label{fig:rank}
 \end{figure}
 
-\clearpage
-\newpage
-
 \begin{figure}[H]
 	\centering
-	\includegraphics[trim=.2in 0 .2in 0 , clip,width=\textwidth]{figures/bias.pdf}
-	\caption{\VB{Font size, and please write a caption}.} \label{fig:bias}
+	\includegraphics[trim=.0in 0 .2in 0 , clip,width=\textwidth]{figures/bias.pdf}
+	\caption{} \label{fig:bias}
 \end{figure}
-
-\clearpage
-\newpage
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=\textwidth]{figures/{manhattan.pdf}}
-		\caption{To be added.} 
-	\label{fig:realsnp}
-\end{figure}
-
-\clearpage
-\newpage
-
-\begin{figure}[H]
-	\centering
-		\includegraphics[width=\textwidth]{figures/{HSP.pdf}}\\	
-	\caption{HSP.} 
-	\label{fig:realcomale}
-\end{figure}
-\clearpage
-\newpage
-
-
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{figures/{runTime.pdf}}
-	\caption{Running time of GP and \comale.} 
+	\caption{Average running time of \comale, HMM, GP with single,3,5,7 and 10 loci over 1000 simulations.} 
 	\label{fig:runTime}
 \end{figure}
+
+
+
+
 
 %\input{intro}
 %\input{method}
@@ -1235,7 +1193,10 @@ Also, a window of 50Kbp around the selected site is shaded in Figure
 hard sweep. This implies that the precision of locating the selection on the 
 genome is tightly dependent on a set of parameters including, recombination 
 rate, selection strength, initial carrier frequency, and the initial linkage.
-
+\subsection{Likelihood Functions} \label{app:likelihood}
+Actually, it is enough to show \eqref{eq:transition} is
+linear fractional in $s$, which is nby definition: linear numerator
+and denominator, and strictly positive denominator.
 \clearpage
 \newpage
 \section*{Supplemental Figures}
@@ -1346,18 +1307,9 @@ rate, selection strength, initial carrier frequency, and the initial linkage.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[trim=.2in 0 .0in 0, 
-	clip,width=\textwidth]{figures/{stab}.pdf}
-	\caption{100$^{th}$ power of the transition matrix for neutral (left) and selection with $s=0.1$ (right).} 
-	\label{fig:qq}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[trim=.2in 0 .0in 0, 
-	clip,width=\textwidth]{figures/{stab}.pdf}
-	\caption{100$^{th}$ power of the transition matrix for neutral (left) and selection with $s=0.1$ (right).} 
-	\label{fig:qq}
+	\includegraphics[width=\textwidth]{figures/{manhattan.pdf}}
+	\caption{To be added.} 
+	\label{fig:realsnp}
 \end{figure}
 
 \begin{figure}[H]

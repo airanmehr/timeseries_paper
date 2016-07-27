@@ -128,6 +128,16 @@
   evolution of drug resistance in HIV-1.}
 \newblock {\em eLife 5\/} (jan 2016).
 
+\bibitem{fu1995statistical}
+{\sc Fu, Y.-X.}
+\newblock {Statistical properties of segregating sites}.
+\newblock {\em Theoretical population biology 48}, 2 (1995), 172--197.
+
+\bibitem{gillespie2010population}
+{\sc Gillespie, J.~H.}
+\newblock {\em {Population genetics: a concise guide}}.
+\newblock JHU Press, 2010.
+
 \bibitem{gottesman2002mechanisms}
 {\sc Gottesman, M.~M.}
 \newblock {Mechanisms of cancer drug resistance}.
@@ -308,6 +318,14 @@
 \newblock {Positive natural selection in the human lineage}.
 \newblock {\em science 312}, 5780 (2006), 1614--1620.
 
+\bibitem{sabeti2007genome}
+{\sc Sabeti, P.~C., Varilly, P., Fry, B., Lohmueller, J., Hostetter, E.,
+  Cotsapas, C., Xie, X., Byrne, E.~H., McCarroll, S.~A., Gaudet, R., and
+  Others}.
+\newblock {Genome-wide detection and characterization of positive selection in
+  human populations}.
+\newblock {\em Nature 449}, 7164 (2007), 913--918.
+
 \bibitem{sawyer1992population}
 {\sc Sawyer, S.~A., and Hartl, D.~L.}
 \newblock {Population genetics of polymorphism and divergence.}
@@ -387,6 +405,12 @@
 \newblock {A generalized approach for estimating effective population size from
   temporal changes in allele frequency.}
 \newblock {\em Genetics 121}, 2 (1989), 379--391.
+
+\bibitem{williams2001weighing}
+{\sc Williams, D., and Williams, D.}
+\newblock {\em {Weighing the odds: a course in probability and statistics}},
+  vol.~548.
+\newblock Springer, 2001.
 
 \bibitem{williamson1999using}
 {\sc Williamson, E.~G., and Slatkin, M.}
