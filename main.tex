@@ -4,7 +4,7 @@
 \title{A Hidden Markov Model for Analyzing Adaptive Experimental Evolutions with Pooled Sequencing Data}
 \author[1]{Arya Iranmehr}
 \author[1]{Ali Akbari}
-\author[2]{Christian Schl\"{o}c tterer}
+\author[2]{Christian Schl\"{o}ctterer}
 \author[3]{Vineet Bafna}
 \affil[1]{\footnotesize Electrical and Computer Engineering, University of California, San Diego, La Jolla, CA 92093, USA.}
 \affil[2]{\footnotesize Institut für Populationsgenetik, Vetmeduni, Vienna, Austria.}
@@ -948,7 +948,7 @@ Manhattan plots in Figure \ref{fig:realsnp} depicts the distribution of the top 
                 predicted allele frequency value distributions under a
                 selection regime with $s=0.1$. Initial frequency was
                 chosen as $\nu_0=0.005$ and sampling performed after
-                $t=\{1,10,100\}$ generations. \VB{Please label axes.}}
+                $t=\{1,10,100\}$ generations.}
 	\label{fig:markov}
 \end{figure}
 
@@ -965,8 +965,11 @@ Manhattan plots in Figure \ref{fig:realsnp} depicts the distribution of the top 
 		simulations for different values of selection strength $s$ and initial 
 		carrier frequency $\nu_0$.} \label{fig:power}
 \end{figure}
-
-
+\begin{table}[h]
+	\input{powerTable}
+	\caption{Power of methods}
+\end{table}
+\newpage
 \begin{figure}[H]
 	\centering
 	\includegraphics[trim=.2in 0 .2in 0 , clip,width=\textwidth]{figures/naturalee.pdf}
@@ -974,9 +977,12 @@ Manhattan plots in Figure \ref{fig:realsnp} depicts the distribution of the top 
 		simulations for different values of selection strength $s$ and initial 
 		carrier frequency $\nu_0$.} \label{fig:powerSFS}
 \end{figure}
-\clearpage
-\newpage
 
+\begin{table}[h]
+%	\input{powerControlledEE}
+	\caption{Power of methods in controlled EE.} 
+\end{table}
+\newpage
 \begin{figure}[H]
 	\centering
 	\includegraphics[trim=.2in 0 .2in 0, 
@@ -985,6 +991,10 @@ Manhattan plots in Figure \ref{fig:realsnp} depicts the distribution of the top 
           simulations.}
 	\label{fig:rank}
 \end{figure}
+\begin{table}[h]
+%	\input{AUCRanking}
+	\caption{AUC}
+\end{table}
 
 \begin{figure}[H]
 	\centering
@@ -1419,5 +1429,4 @@ and denominator, and strictly positive denominator.
 \bibliographystyle{acm}
 \bibliography{library}
 \newpage
-\input{method}
 \end{document}
