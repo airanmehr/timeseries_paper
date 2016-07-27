@@ -100,6 +100,12 @@
   selection}.
 \newblock {\em Genetics 180}, 4 (2008), 2175--2191.
 
+\bibitem{durbin1998biological}
+{\sc Durbin, R., Eddy, S.~R., Krogh, A., and Mitchison, G.}
+\newblock {\em {Biological sequence analysis: probabilistic models of proteins
+  and nucleic acids}}.
+\newblock Cambridge university press, 1998.
+
 \bibitem{evans2007non}
 {\sc Evans, S.~N., Shvets, Y., and Slatkin, M.}
 \newblock {Non-equilibrium theory of the allele frequency spectrum}.

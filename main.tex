@@ -470,7 +470,7 @@ probability independent of $\tau_t$. Specifically,
 For $1\le t\le T$, let $\alpha_{t,i}$ denote the probability of
 emitting $x_1,x_2,\ldots,x_t$ and ending in state $\langle t,
 i\rangle$. $\bm{\alpha}$ can be computed using dynamic
-programming~\cite{XXX}.
+programming~\cite{durbin1998biological}.
 \begin{equation}
   \alpha_{t,i} = \left( \sum_{1\le j\le 2N} \alpha_{t-1,j}\;Q^{(\delta_t)}_{s,h}[j,i] \right) {\bf e}_{i}(x_t)\;\; .
   \label{eq:hmm}
@@ -733,12 +733,6 @@ follows.
 
 
 
-
-
-
-
-
-
 \section{Results}
 \ignore{
 \subsection{Tests for detecting selection on time series data.}
@@ -762,7 +756,7 @@ experimental evolution scenarios, a site is unlikely to have frequency
 close to $0.5$, and the starting frequencies are usually much
 smaller. Moreover, sampling times are sparse, with sampling done
 between $10$ and $100$ generations in \emph{Drosophila}
-experiments~\cite{XXXSchottlerr, HAddad}.
+experiments~\cite{orozco2012adaptation, zhou2011experimental}.
 
 In contrast, Figure~\ref{fig:markov}A-F also shows that Markov
 Likelihood predictions (Eq.~\ref{eq:mkvs}) are highly consistent with
@@ -978,10 +972,6 @@ Manhattan plots in Figure \ref{fig:realsnp} depicts the distribution of the top 
 		carrier frequency $\nu_0$.} \label{fig:powerSFS}
 \end{figure}
 
-\begin{table}[h]
-%	\input{powerControlledEE}
-	\caption{Power of methods in controlled EE.} 
-\end{table}
 \newpage
 \begin{figure}[H]
 	\centering
@@ -991,10 +981,6 @@ Manhattan plots in Figure \ref{fig:realsnp} depicts the distribution of the top 
           simulations.}
 	\label{fig:rank}
 \end{figure}
-\begin{table}[h]
-%	\input{AUCRanking}
-	\caption{AUC}
-\end{table}
 
 \begin{figure}[H]
 	\centering
@@ -1009,7 +995,12 @@ Manhattan plots in Figure \ref{fig:realsnp} depicts the distribution of the top 
 \end{figure}
 
 
-
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{figures/{manhattan.pdf}}
+	\caption{To be added.} 
+	\label{fig:realsnp}
+\end{figure}
 
 
 %\input{intro}
@@ -1315,74 +1306,39 @@ and denominator, and strictly positive denominator.
 	\label{fig:qq}
 \end{figure}
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=\textwidth]{figures/{manhattan.pdf}}
-	\caption{To be added.} 
-	\label{fig:realsnp}
-\end{figure}
+
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[trim=.0in 0 .0in 0, 
 	clip,width=\textwidth]{figures/{samplingTimes}.pdf}
 	\caption{sampling times.} 
-	\label{fig:nullpred}
+	\label{fig:samplingTimes}
 \end{figure}
 
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[trim=.2in 0 .0in 0, 
-	clip,width=\textwidth]{figures/{candidateSNPDensity}.pdf}
-	\caption{Density.} 
-	\label{fig:nullpred}
-\end{figure}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[trim=.0in 0 .0in 0, 
 	clip,width=\textwidth]{figures/{stateConditional}.pdf}
 	\caption{observation state transition.} 
-	\label{fig:nullpred}
+	\label{fig:stateConditional}
 \end{figure}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[trim=.2in 0 .0in 0, 
-	clip,width=\textwidth]{figures/{nullpred}.pdf}
-	\caption{Empirical null distribution of test statistic on 1M simulations.} 
-	\label{fig:nullpred}
-\end{figure}
-
 
 
 \begin{figure}[H]
 	\centering
-	\begin{tabular}{cc}
-			\includegraphics[trim=.2in 0 .0in 0, 
-			clip,width=0.5\textwidth]{figures/{nulls}.pdf}
-			&\includegraphics[trim=.2in 0 .0in 0, 
-			clip,width=0.5\textwidth]{figures/{nulls.log}.pdf}
-	\end{tabular}
-	\caption{Empirical null distribution of $s$ statistic on 1M simulations.} 
-	\label{fig:nullpred}
-\end{figure}
-
-
-
-\begin{figure}[H]
-	\centering
-	\begin{tabular}{c}
-				\includegraphics[trim=.2in 0 .0in 0, 
-				clip,width=\textwidth]{figures/{HSP}.pdf}\\
-		\includegraphics[trim=.2in 0 .0in 0, 
-		clip,width=\textwidth]{figures/{BM}.pdf}\\
-		\includegraphics[trim=.2in 0 .0in 0, 
-		clip,width=\textwidth]{figures/{BF}.pdf}\\
+	\begin{tabular}{ccc}
+				\includegraphics[trim=.1in 0 .0in 0, 
+				clip,width=0.3\textwidth]{figures/{Song}.pdf} &
+		\includegraphics[trim=.1in 0 .0in 0, 
+		clip,width=0.3\textwidth]{figures/{BM}.pdf} &
+		\includegraphics[trim=.1in 0 .0in 0, 
+		clip,width=0.3\textwidth]{figures/{BF}.pdf}
 	\end{tabular}
 	\caption{Song, HSF, HSP.} 
-	\label{fig:nullpred}
+	\label{fig:geneRanking}
 \end{figure}
 
 
@@ -1407,24 +1363,15 @@ and denominator, and strictly positive denominator.
 	\label{fig:depthHetero}
 \end{figure}
 
-\begin{figure}[H]
-	\centering
-	\begin{tabular}{c}
-		\includegraphics[trim=.2in 0 .0in 0, 
-		clip,width=\textwidth]{figures/{siteDepthDist}.pdf}\\
-	\end{tabular}
-	\caption{Distribution of the mean and variance of the minimum depth of all sites.} 
-	\label{fig:siteDepthDist}
-\end{figure}
-\begin{figure}[H]
-	\centering
-	\begin{tabular}{c}
-		\includegraphics[trim=.2in 0 .0in 0, 
-		clip,width=\textwidth]{figures/{probS}.pdf}\\
-	\end{tabular}
-	\caption{Empirical conditional distribution of $s$.} 
-	\label{fig:probS}
-\end{figure}
+%\begin{figure}[H]
+%	\centering
+%	\begin{tabular}{c}
+%		\includegraphics[trim=.2in 0 .0in 0, 
+%		clip,width=\textwidth]{figures/{siteDepthDist}.pdf}\\
+%	\end{tabular}
+%	\caption{Distribution of the mean and variance of the minimum depth of all sites.} 
+%	\label{fig:siteDepthDist}
+%\end{figure}
 \newpage
 \bibliographystyle{acm}
 \bibliography{library}
