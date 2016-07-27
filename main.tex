@@ -755,10 +755,7 @@ like Gaussian Process (GP)~\cite{Terhorst2015Multi}.
 We conducted $1000$ simulations and measured running time for \comale
 and GP. \comale is $\sim 1000\times$ faster than single locus GP
 (Figure \ref{fig:runTime}), while maintaining high power (Figure
-\ref{fig:power}). \AI{I'm going to measure time for multiple locus GP
-  as well, currently figure shows single locus GP which linkage isn't
-  involved.}
-
+\ref{fig:power}).
 
 
 \paragraph{SFS for Detection in Natural Experimental Evolution.} See
@@ -909,22 +906,23 @@ Manhattan plots in Figure \ref{fig:realsnp} depicts the distribution of the top 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[trim=.2in 0 .2in 0 , clip,width=\textwidth]{figures/power.pdf}
-	\caption{Predictive performance of different method is evaluated on 1000 
-		simulations for different values of selection strength $s$ and initial 
-		carrier frequency $\nu_0$.} \label{fig:power}
+	\includegraphics[trim=0.4in 0 .8in 0.2in , clip,width=\textwidth]{figures/power.pdf}
+	\caption{Power, average true-positive-rate when FDR$\le$0.05, for detecting selection in a 50Kbp region for Frequency Increment Test (FIT), Gaussian Process (GP), Markov Chain ($\Mc$), Hidden Markov Model ($\Hc$) on 1000 
+		simulations for each of selection strength $s$ and initial 
+		carrier frequency $\nu_0$. To incorporate ascertainment bias, each setting is evaluated such that depth of each SNP is identically distributed from Poisson$(\lambda)$ for $\lambda \in \{30,100,\infty\}$. Average performance of each method is shown in Table \ref{tab:power}. Note that $\Hc$ and $\Mc$ become identical when $\lambda=\infty$.  } \label{fig:power}
 \end{figure}
 \begin{table}[h]
 	\input{powerTable}
-	\caption{Power of methods}
+	\caption{Average power, average true-positive-rate when FDR$\le$0.05, for detecting selection in a 50Kbp region for Frequency Increment Test (FIT), Gaussian Process (GP), Markov Chain ($\Mc$), Hidden Markov Model ($\Hc$) on 1000 
+		simulations for each of selection strength $s$ and initial 
+		carrier frequency $\nu_0$. To incorporate ascertainment bias, each setting is evaluated such that depth of each SNP is identically distributed from Poisson$(\lambda)$ for $\lambda \in \{30,100,\infty\}$.}\label{tab:power}
 \end{table}
 \newpage
 \begin{figure}[H]
 	\centering
-	\includegraphics[trim=.2in 0 .2in 0 , clip,width=\textwidth]{figures/naturalee.pdf}
-	\caption{Predictive performance of different method is evaluated on 400 
-		simulations for different values of selection strength $s$ and initial 
-		carrier frequency $\nu_0$.} \label{fig:powerSFS}
+	\includegraphics[trim=.4in 0 .8in 0.6in , clip,width=\textwidth]{figures/naturalee.pdf}
+	\caption{Power, average true-positive-rate when FDR$\le$0.05, for detecting selection in a 50Kbp region for Frequency Increment Test (FIT), Gaussian Process (GP), Markov Chain ($\Mc$)on 200 
+		simulations hard-sweep natural experimental evolution with $N_e=10^4$, for each of selection strength $s$. In this experiment start of sampling is random, then 5 samples are taken every 10 generations. Start of sampling is chosen randomly throughout the sweep $\tau_1 \sim U\left[1,t_{\nu=1}(s,N_e)\right]$ (left) and chosen in the finale of the sweep $\tau_1 \sim U\left[t_{\nu=0.9}(s,N_e),t_{\nu=1}(s,N_e)\right]$ (right), where $t_{\nu=x}(s,N_e)$ to be understood as the number of expected generations required to reach carrier frequency $x$ in a hard sweep and $U[a,b]$ is discrete uniform distribution.} \label{fig:powerSFS}
 \end{figure}
 
 \newpage
@@ -932,28 +930,27 @@ Manhattan plots in Figure \ref{fig:realsnp} depicts the distribution of the top 
 	\centering
 	\includegraphics[trim=.2in 0 .2in 0, 
 	clip,width=\textwidth]{figures/rank.pdf}
-	\caption{CDF of the rank of the adaptive allele in 100
-          simulations.}
+	\caption{Cumulative Distribution  Function (CDF) of the distribution of the rank of the adaptive allele in 500 simulations for Markov Chain ($\Mc$), Gaussian Process (GP) and Frequency Increment Test (FIT), for different values of selection strength $s$ and initial carrier frequency. Area Under Curve (AUC) is computed as a quantitative measure ranking performance of methods for each configuration.}
 	\label{fig:rank}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[trim=.0in 0 .2in 0 , clip,width=\textwidth]{figures/bias.pdf}
-	\caption{} \label{fig:bias}
+	\caption{Distribution of bias ($s-s^*$) over 500 simulations for each value of strength of selection $s$ and starting carrier frequency $\nu_0$.} \label{fig:bias}
 \end{figure}
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{figures/{runTime.pdf}}
-	\caption{Average running time of \comale, HMM, GP with single,3,5,7 and 10 loci over 1000 simulations.} 
+	\includegraphics[width=0.75\textwidth]{figures/{runTime.png}}
+	\caption{Average running time of \comale, HMM, GP with single,3,5,7 and 10 loci over 1000 simulations. Average running time for each method is shown in the horizontal axis ticks.} 
 	\label{fig:runTime}
 \end{figure}
 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{figures/{manhattan.pdf}}
-	\caption{To be added.} 
+	\includegraphics[width=\textwidth]{figures/{manhattan.png}}
+	\caption{Manhattan plot of the $p$-value of the $\Hc$ statistic (top) and the number of SNPs (bottom) in 50Kbp windows.} 
 	\label{fig:realsnp}
 \end{figure}
 
