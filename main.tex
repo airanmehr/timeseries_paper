@@ -473,27 +473,24 @@ observation (read counts) given state (allele frequency).
 
 \paragraph{Composite Likelihood.}
 Consider a small genomic window defined by a collection of segregating
-sites $L$, with little or no recombination between sites. The
-frequency of a site $\ell \in L$ is governed by the selection, drift,
-\emph{and} linkage with other sites. However, modeling the linkage is
-computationally expensive. Instead, we combine the likelihood ratio
-scores of all sites $\ell \in L$ to get a Composite Likelihood Ratio
-(CLR) for the
-region~\cite{nielsen2005genomic,williamson2007localizing,vitti2013detecting}.
-Specifically, we compute the test statistic $\Lambda_{\cal M}(\ell)$ (or,
+sites $L$, with little or no recombination between sites and we are interested in computing the likelihood for the whole region under selection and drift regimes. 
+Basically, the
+dynamic frequency of a site $\ell \in L$ is governed by the selection, drift,
+\emph{and} linkage with other sites and computing exact likelihood requires estimating the linkage throughout time which is computationally expensive and generally is a harder problem than the original problem. 
+
+In practice, for a region composite likelihood is computed by making an assumption such that all the markers independent. By this independence assumption, the likelihood of the region is computed by multiplying individual SNP likelihoods. This approximation is called Composite Likelihood Ratio
+(CLR)~\cite{nielsen2005genomic,williamson2007localizing} and has been effectively used to detect regions under selection~\cite{vitti2013detecting}.
+
+However, in a genomic region containing adaptive allele,  not all the sites are in linkage with the causal mutation. To take into account of neutrally evolving sites, we computed modified CLR on those variants such that their composite likelihood are above $\pi^{th}$ percentile of the distribution of likelihoods in that region. Specifically, we compute the test statistic $\Lambda_{\cal M}(\ell)$ (or,
 $\Lambda_{\cal H}(\ell)$) for all sites $\ell$. For percentile cut-off $\pi$,
 let $L_{\pi}\subseteq L$ denote the set of sites whose likelihood
-scores had percentile $\pi$ or better. For all $\pi$, the CLR
-statistic is computed using:
-\begin{equation}
- {\cal M}_{\pi} = \frac{1}{|L_{\pi}|}\sum_{\ell \in L_{\pi}} \Lambda_{\cal M}(\ell)\ ,
+scores had percentile $\pi$ or better. For all $\pi$, the modified CLR
+statistic for Markov chain and HMM are computed using:
+\beq
+ {\cal M}_{\pi} = \frac{1}{|L_{\pi}|}\sum_{\ell \in L_{\pi}} \Lambda_{\cal M}(\ell)\ ,\hspace{1in}
+  &{\cal H}_{\pi} = \frac{1}{|L_{\pi}|}\sum_{\ell \in L_{\pi}} \Lambda_{\cal H}(\ell)\ .
   \label{eq:pihmm}
-\end{equation}
-or (for the HMM),
-\begin{equation}
-  {\cal H}_{\pi} = \frac{1}{|L_{\pi}|}\sum_{\ell \in L_{\pi}} \Lambda_{\cal H}(\ell)\ .
-  \label{eq:pihmm}
-\end{equation}
+\eeq
 and the $p$-value for each window is computed using empirical distribution of negative controls.
 
 \ignore{
@@ -723,13 +720,13 @@ other words, a cutoff was set so that  $0,1,\ldots,25$ of $500$ neutral
 simulations were predicted as being under selection, and the fraction of true positives are averaged for all 26 cutoffs.
 
 Before computing against other methods, we first tested the use of
-percentile cut-off $\pi$ in computing compute ${\cal H}_{\pi}$ \VB{Put
-  results here.}, and the advantage of using HMM based statistic
-${\cal H}$ versus Markov Chain statistics (${\cal M}$) for read data.
+percentile cut-off $\pi$ when with no ascertainment bias (exact allele frequencies are given) is imposed, note that in this case $\Hc=\Mc$. 
+As shown in Figure~\ref{fig:powerCLR}, when averaging likelihoods over the whole window ($\pi=0$) detection power is at its lowest, due to averaging over unlinked sites to the beneficial allele. As $\pi$ increases performance improves and $\pi=99$ provides best performance in most of cases and $\pi=100$, taking maximum of likelihoods, provides significantly better performance in soft sweep with moderate selection ($s=0.05$). This is mainly because of the fact that the beneficial allele is at lower linkage with the rest of sites in soft sweep (with standing variation), than hard sweep scenario. In the rest of our experiment we use $\pi=99$ to compute modified CLR statistics $\Mc$ and $\Hc$ for a window.
 
-Under a range of simulation parameters, \comale(${\cal H}_{99}$)
-provides higher detection power compaed to FIT or
-GP(Figure~\ref{fig:power}).
+To show the performance of Markov chain, HMM, FIT and
+GP under different regimes, we computed power for different levels of ascertainment bias under hard and soft sweep.
+To incorporate ascertainment bias, depth of each marker is identically and independently distributed according to Poisson($\lambda$) for  $\lambda=\{30,100,\infty\}$\footnote{Note that $\lambda=\infty $ corresponds to the case where exact population allele frequencies are given.}. All the methods except $\Hc$, convert read counts to allele frequencies and compute their test statistic.
+As shown in Figure~\ref{fig:power} the $\Mc$ with $\lambda =\infty$ which is identical to $\Hc$ with $\lambda =\infty$, provide gold standard performance. For lower read depths $\Hc$ performs better than other methods (Table~\ref{tab:power}). 
 
 \paragraph{Running Time.}
 A \comale does not compute full likelihoods, or explicitly model
@@ -746,16 +743,18 @@ and GP. \comale is $\sim 1000\times$ faster than single locus GP
 
 \paragraph{SFS for Detection in Natural Experimental Evolution.} See
 figure \ref{fig:powerSFS} We did not show the SFS based statistics in
-Figure~\ref{fig:power} as they do not perform well. In the specific
+Figure~\ref{fig:power} as they do not perform better than random hypothesis. In the specific
 mode of experimental evolution, we sample a restricted set of $F$
-founder lines. Here, $F<<N_e$ (Fig.~\ref{fig:XXX}) creating a severe
+founder lines. Here, $F<<N_e$ (Figure ~\ref{fig:ee} right) creating a severe
 bottleneck, and this bottleneck confounds
 SFS. Figure~\ref{fig:bottleneck} demonstrates the effect of
 experimental evolution on different SFS statistics under neutral
-evolution for 1000 simulations. The mean of neutral simulations can be
-used to empirically filter out the effect of bottleneck in dynamic
-data.
-\VB{Natural experiment results here.}
+evolution for 1000 simulations. 
+
+To show performance of SFS-based statistics in natural experimental evolution, we forward conducted 200 (100 neutral and 100 sweep) simulations for every configuration with $N_e=10K$ and accumulating new mutations. In this experiment we let start of sampling to be chosen randomly.
+First we consider the case when start of sampling is chosen throughout the whole sweep, i.e., 
+ $\tau_1 \sim U\left[1,t_{\nu=1}(s,N_e)\right]$ (Figure~\ref{fig:powerSFS} left) and then we tested chosen in the \emph{finale} of the sweep, i.e., $\tau_1 \sim U\left[t_{\nu=0.9}(s,N_e),t_{\nu=1}(s,N_e)\right]$ (Figure~\ref{fig:powerSFS} right), where $t_{\nu=x}(s,N_e)$ to be understood as the number of expected generations required to reach carrier frequency $x$ in a hard sweep and $U[a,b]$ is discrete uniform distribution.
+We compared $\Hc$, GP, FIT with both static and dynamic SFS based statistics of SFSelect and Tajima's D. Figure~\ref{fig:powerSFS} left shows that SFS based statistics are outperformed by single locus and CLR methods. However, when sampling is performed close to fixation, i.e., when beneficial allele has frequency of 0.9 or higher, SFS based statistics significantly perform better than GP, FIT and $\Hc$ (Figure~\ref{fig:powerSFS} right). Moreover, dynamic SFS statistics outperform static SFS statistics.
 
 
 \paragraph{Locating the Adaptive Mutation.}
@@ -778,7 +777,7 @@ allele was ranked among top 50 SNPs.
 \paragraph{Strength of Selection.}
 As the likelihood calculation is model based, we can also output the
 model parameters $\hat{s}$ that maximized
-likelihood~\eqref{eq:markovs}.  We computed bias, $s-\hat{s}$ for each
+likelihood~\eqref{eq:hmmlik}. We computed bias, $s-\hat{s}$ for each
 experiment of \comale, and GP. The distribution of the bias is
 presented in Figure \ref{fig:bias} for different configurations. In
 general, both GP and \comale have biased results for weak selections,
@@ -895,7 +894,15 @@ Manhattan plots in Figure \ref{fig:realsnp} depicts the distribution of the top 
 	\includegraphics[trim=0.1in 0 .08in 0.02in , clip,width=0.5\textwidth]{figures/ControlledExperimentalEvolution.pdf}
 &	\includegraphics[trim=0.1in 0 .08in 0.02in , clip,width=0.5\textwidth]{figures/NaturalExperimentalEvolution.pdf}
 	\end{tabular}
-	\caption{Controlled (left) and Natural (right) experimental evolution. } \label{fig:cee}
+	\caption{Controlled (left) and Natural (right) experimental evolution. } \label{fig:ee}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim=0.4in 0 .8in 0.02in , clip,width=\textwidth]{figures/powerCLR.pdf}
+	\caption{Power, average true-positive-rate when FDR$\le$0.05, for detecting selection in a 50Kbp region for Markov Chain ($\Mc$) on 1000 
+		simulations for each of selection strength $s$ and initial 
+		carrier frequency $\nu_0$, and composite likelihood ratio cutoff $\pi$.  } \label{fig:powerCLR}
 \end{figure}
 
 \begin{figure}[H]
