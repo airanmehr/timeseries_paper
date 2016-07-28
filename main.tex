@@ -303,7 +303,6 @@ M\times R}$ denote the population frequency where $T$ is the number of samples
 in time, $M$ is the number of segregating sites, and $R$ is the number of 
 replicates. Samples in time are taken such that $\tau_1<\tau_2,\cdots<\tau_T$.
 
-\subsection{The \comale statistic}
 Consider a locus with starting derived allele frequency
 $\nu_0$. Frequencies are sampled at $T$ distinct generations specified
 by ${\cal T}= \{\tau_i: 1\le \tau_1<\tau_2,\ldots\le \tau_T\}$, and
@@ -311,34 +310,33 @@ denoted by $\bm{\nu}=\{\nu_1,\ldots,\nu_T\}$. Moreover, $R$ replicate
 measurements are made, and we denote the $r$-th replicate frequency
 data as $\bm{\nu}^{(r)}$.
 
+\subsection{The \comale statistic}
 To identify if the locus is evolving under positive selection, we
 follow previous approaches to focus on a parametrized likelihood based
-model that (a) maximizes the likelihood of the time series data under
-selection; and, (b) computes the log odds of the likelihood of
-selection compared to the likelihood of neutral evolution/drift.
+model that (a) maximizes the likelihood of the time series data w.r.t. selection strength parameter $s$; and, (b) computes the log odds ratio of the likelihood of selection model to the likelihood of neutral evolution/drift model.
 
+\paragraph{Likelihood for Neutral Model.}
 To model neutral evolution, it is natural to model the change in
-frequency $\nu_t$ over time via Brownian motion or Gaussian process
-(e.g., FIT~\cite{}). Significant deviations from this Null could be
+frequency $\nu_t$ over time via Brownian motion~\cite{feder2014Identifying} or Gaussian process~\cite{Terhorst2015Multi}. Significant deviations from this Null could be
 indicative of non-neutrality. However, in our experiments, we found
 that the Brownian motion approximation is inadequate for small
 population sizes and low starting frequencies that are typical in
-experimental evolution (see Results, and Figure~\ref{}).
+experimental evolution (see Results, and Figure~\ref{fig:markov}). In fact, other continues models such as Gaussian process for allele frequencies, suffer from the same problem.
 
-Instead, we use a discrete-time discrete-state-space Wright-Fisher
-Markov Chain with transition matrix $P$ for population of $N$ diploid
-individuals~\cite{Ewens2012Mathematical}, where $P^{(\tau)}[i,j]$
+Instead, by computing likelihood of data using discrete-time discrete-state-space Wright-Fisher Markov Chain(WFMC) we turn the problem of small-population size into an advantage. 
+WFMC for neutral evolution of a population of $N$ diploid is defined by a $2N\times2N$ transition matrix $P$, where $P^{(\tau)}[i,j]$
 denotes probability of change in allele frequency from $\frac{i}{2N}$
 to $\frac{j}{2N}$ in $\tau$ generations, solely due to genetic
-drift. $P$ is defined as follows:
+drift. $P$ is defined as follows~\cite{Ewens2012Mathematical}:
 \begin{eqnarray}
   P^{(1)}[i,j] &=& \pr\left(\nu_{t+1}=\frac{j}{2N} \left|
       \nu_{t}=\frac{i}{2N}\right)={2N \choose j} \right.  \nu_{t}^j
-  (1-\nu_{t})^{2N-j}, \;\;\\
-  P^{(\tau)} &=&   P^{(\tau-1)}P^{(1)}\\
+  (1-\nu_{t})^{2N-j}, \;\;\label{eq:P1}\\
+  P^{(\tau)} &=&   P^{(\tau-1)}P^{(1)} \label{eq:Pt}
 \end{eqnarray}
+Note that computing and storing $P^{(\tau)}$ is tractable and numerically stable for controlled experimental evolution experiments where $N\le2000$.
 
-\paragraph{Markovian Likelihood for Selection.}
+\paragraph{Likelihood for Selection Model.}
 Assume that the site is evolving under selection constraints $s,h\in
 \Rbb$, where $s,h$ denote selection strength and dominance parameters,
 respectively. By definition, the relative fitness values of genotypes
@@ -347,10 +345,10 @@ $w_{11}=1+s$. Recall that $\nu_t$ denotes the frequency of the site at
 time $\tau_t\in {\cal T}$. Then, $\nusp$, the frequency at time
 $\tau_t+1$ can be estimated using: 
 \beq \hat{\nu}_{t^+} =
-\mathbb{E}[\nusp(s,h,\nu_t)]=\frac{w_{11}\nu_t^2 +
+\mathbb{E}[\nusp|s,h,\nu_t]&=\frac{w_{11}\nu_t^2 +
   w_{01}\nu_t(1-\nu_t)}{w_{11}\nu^2_t + 2w_{01}\nu_t(1-\nu_t) +
-  w_{00}(1-\nu_t)^2}
-=\nu_t+\frac{s(h+(1-2h)\nu_t)\nu_t(1-\nu_t)}{1+s\nu_t(2h+(1-2h)\nu_t))}.
+  w_{00}(1-\nu_t)^2}\\
+&=\nu_t+\frac{s(h+(1-2h)\nu_t)\nu_t(1-\nu_t)}{1+s\nu_t(2h+(1-2h)\nu_t))}.
   \label{eq:transition}
 \eeq
 
@@ -361,20 +359,21 @@ $\tau$ generations. We model $Q$ as follows
 \begin{eqnarray}
   Q^{(1)}_{s,h}[i,j] &=& \pr\left(\nusp=\frac{j}{2N} \left\lvert
       \nu_{t}=\frac{i}{2N};s,h \right .\right)={2N \choose j}
-  \hat{\nu}_{t^+}^{j} (1-\hat{\nu}_{t^+})^{2N-j}\\
-  Q^{(\tau)}_{s,h} &=& Q^{(\tau-1)}_{s,h}Q^{(1)}_{s,h}
+  \hat{\nu}_{t^+}^{j} (1-\hat{\nu}_{t^+})^{2N-j}\label{eq:Q1}\\
+  Q^{(\tau)}_{s,h} &=& Q^{(\tau-1)}_{s,h}Q^{(1)}_{s,h}\label{eq:Qt}
   \label{eq:mkvs}   
 \end{eqnarray}
+where for $s=0$, Eq.~\ref{eq:Qt} and~\ref{eq:Q1} are identical to Eq.~\ref{eq:Pt} and~\ref{eq:P1}, respectively.
 The likelihood of observing the trajectory $\bm{\nu}$ is computed using:
 \begin{equation}
-  \Lc_{M}(s,h|\bm{\nu}) = \pr(\bm{\nu};\nu_0,s,h)=
+  \Lc_\Mc(s,h|\bm{\nu}) = \pr(\bm{\nu};\nu_0,s,h)=
   \prod_{t=1}^{T} \pr(\nu_{t}|\nu_{t-1};\nu_0,s,h) = \prod_{t=1}^{T} Q^{(\delta_t)}_{s,h}[\hat{i},\hat{j}],
 %  \label{eq:mkvlik}  
 \end{equation}
 where, $(\hat{i},\hat{j})=(\lfloor 2N\nu_{t-1}\rfloor, \lfloor
 2N\nu_{t}\rfloor)$, and $\delta_t=\tau_{t}-\tau_{t-1}$. Moreover, for $R$ independent replicates,
 \begin{equation}
-  \Lc_{M}(s,h|\{\bm{\nu}^{(r)}\}) = \prod_r   \Lc_{M}(s,h|\bm{\nu}^{(r)})
+  \Lc_\Mc(s,h|\{\bm{\nu}^{(r)}\}) = \prod_r   \Lc_\Mc(s,h|\bm{\nu}^{(r)})
   \label{eq:mkvlik}
 \end{equation}
 \ignore{
@@ -390,42 +389,37 @@ be efficiently vectorized for multiple replicates and loci.
 %computed by powering the matrix $Q_{s,h}$ to $k$, henceforth
 %$\bfQ_{s,h}=\left[Q(s,h)\right]^k$
 }
-In its simplest form, the \comale test statistic is given by
+In its simplest form, the modified likelihood ratio test statistic for each SNP is given by
 \begin{eqnarray}
-{\cal M} &=& \sgn(s^*)\log 
+\Lambda_\Mc= \sgn(s^*)\log 
 \left(\frac{\Lc_M(s^*,h^*|\{\bm{\nu}^{(r)}\})}{\Lc_M(0,0|\{\bm{\nu}^{(r)}\})}\right).
-\label{eq:mkvml}
+\label{eq:mcts}
 \end{eqnarray}
-In the following, we extend \comale to handle cases where mapped reads are
-used to estimate frequencies, and second, to compute composite
-likelihood scores in a genomic window.
+where the term $\sgn(s^*)$ favors the tests statistic into finding positive selection in one-sided tests. Note that by Wilks’ theorem \cite{williams2001weighing} the standard likelihood ratio statistic ( Eq.~\ref{eq:mcts} without $\sgn(s^*)$ factor)
+is asymptotically distributed according to $\Xc^2$, yet Feder et al. \cite{feder2014Identifying} shown that in the empirical distribution provide more accurate $p$-values than $\Xc^2$ when the number of independent samples (replicates) is small. 
+Here we compute $p$-value for the test statistic using the empirical distribution of the negative controls.
 
-\paragraph{\comale statistic for sequence data.} 
-When sequencing coverage is low, and particularly for extreme
-frequencies, or when the read depths vary across different replicates
-and generations of a locus, computing allele frequencies reliably is
-challenging. Moreover, even in a high coverage experiment
-ascertainment bias in computing SNP frequencies can have nontrivial
-impact~\cite{XXX}. To incorporate uncertainties in allele frequency
-estimates, we extend the Markov chain in Eq.~\ref{eq:mkvlik},\ref{eq:mkvml}
-to a Hidden Markov Model.
 
-Instead of sampling frequencies, we sample a sequence of tuples
+
+\paragraph{Accounting for heterogeneous ascertainment bias.} 
+So, far we assumed that the exact allele frequencies are given. However, in reality allele frequencies are \emph{hidden} and they are estimated computed either from variant data with finite samples or pooled-sequencing data with finite depth (See Figure~\ref{fig:stateConditional}). 
+Moreover, multiple replicates time series data, for each site have multiple measurements corresponding to different generations and multiple replicates, which are not necessarily homogeneous, e.g., have the same depth (See Figure~\ref{fig:depthHetero}).
+
+To account for (heterogeneous) ascertainment bias, we extend the Markov chain in Eq.~\ref{eq:mkvlik} to a Hidden Markov Model for pooled-seq data.
+
+For pooled-seq data, 
+instead of sampling allele frequencies, for each variant we sample a sequence of tuples
 $\mathbf{x}=x_1,x_2,\ldots,x_T$, where $x_t$ is sampled at time
 $\tau_t\in {\cal T}$. $x_t = \langle c_t,d_t \rangle$ where $d_t, c_t$
 represent the read depth, and the count of the derived allele,
-respectively, at time $\tau_t$. Consider an HMM $H$, with the state
-space defined by the tuples $\langle t, i\rangle$, where $1\leq t\leq
-T,\; 1\le i\le 2N$. State $\langle t, i\rangle$ emits $x$ with
-probability independent of $\tau_t$. Specifically,
+respectively, at time $\tau_t$. Consider an HMM, with the discrete state (hidden) variables $\nu_t$ and transition probabilities of Eq.~\ref{eq:Qt} 
+then observation $\langle c_t,d_t \rangle$ are binomially distributed with success rate of $\nu_t$. Specifically, since HMM is stationary (transition and emission distributions does not change over time), we can write emission probabilities $\bfe(x_t)\in[0,1]^{2N+1}$ independent of time:
 \begin{equation*}
 {\bf e}_{i}(x)=\pr\left (x|\nu=\frac{i}{2N}\right)=\pr(c,d|\nu) 
         = {c \choose d} \nu^c(1-\nu)^{d-c}.
 \end{equation*}
 For $1\le t\le T$, let $\alpha_{t,i}$ denote the probability of
-emitting $x_1,x_2,\ldots,x_t$ and ending in state $\langle t,
-i\rangle$. $\bm{\alpha}$ can be computed using dynamic
-programming~\cite{durbin1998biological}.
+observing the sequence $x_1,x_2,\ldots,x_t$ and ending in state $i^{th}$ at $t^{th}$ observation, i.e., $\pr(x_1,x_2,\ldots,x_t|\nu_t=i/2N)$. $\alpha_{t,i}$ can be computed using Forward procedure~\cite{durbin1998biological}:
 \begin{equation}
   \alpha_{t,i} = \left( \sum_{1\le j\le 2N} \alpha_{t-1,j}\;Q^{(\delta_t)}_{s,h}[j,i] \right) {\bf e}_{i}(x_t)\;\; .
   \label{eq:hmm}
@@ -433,16 +427,16 @@ programming~\cite{durbin1998biological}.
 where $\delta_t=\tau_t-\tau_{t-1}$. The joint likelihood of the
 observed data from $R$ independent observations is given by
 \begin{equation}
-  \Lc_{H}(s,h|\{\bm{x}^{(r)}\})=\prod_{r=1}^R\Lc_{H}(s,h|\mathbf{x}^{(r)}) = \prod_{r=1}^R \sum_i\alpha_{T,i}^{(r)}\;\;.
+  \Lc_{\Hc}(s,h|\{\bm{x}^{(r)}\})=\prod_{r=1}^R\Lc_{\Hc}(s,h|\bm{x}^{(r)}) = \prod_{r=1}^R \sum_i\alpha_{T,i}^{(r)}\;\;.
   \label{eq:hmmlik}
 \end{equation}
-The HMM based \comale test statistic ${\cal H}$ is computed similar to Eq.~\ref{eq:mkvml}.
+Similar to Eq.~\ref{eq:mcts}, modified likelihood statistic for pool-seq data is computed
 \begin{eqnarray}
-{\cal H} &=& \sgn(s^*)\log 
-\left(\frac{\Lc_{\cal H}(s^*,h^*|\{\bm{\nu}^{(r)}\})}{\Lc_{\cal H}(0,0|\{\bm{\nu}^{(r)}\})}\right).
+\Lambda_{\cal H} &=& \sgn(s^*)\log 
+\left(\frac{\Lc_{\cal H}(s^*,h^*|\{\bm{x}^{(r)}\})}{\Lc_{\cal H}(0,0|\{\bm{x}^{(r)}\})}\right).
 \label{eq:hmmml}
 \end{eqnarray}
-
+and the $p$-value is computed using empirical distribution of negative controls.
 
 \ignore{
 
@@ -486,25 +480,21 @@ computationally expensive. Instead, we combine the likelihood ratio
 scores of all sites $\ell \in L$ to get a Composite Likelihood Ratio
 (CLR) for the
 region~\cite{nielsen2005genomic,williamson2007localizing,vitti2013detecting}.
-Specifically, we compute the test statistic ${\cal M}(\ell)$ (or,
-${\cal H}(\ell)$) for all sites $\ell$. For percentile cut-off $\pi$,
+Specifically, we compute the test statistic $\Lambda_{\cal M}(\ell)$ (or,
+$\Lambda_{\cal H}(\ell)$) for all sites $\ell$. For percentile cut-off $\pi$,
 let $L_{\pi}\subseteq L$ denote the set of sites whose likelihood
 scores had percentile $\pi$ or better. For all $\pi$, the CLR
 statistic is computed using:
 \begin{equation}
- {\cal M}_{\pi} = \frac{1}{|L_{\pi}|}\sum_{\ell \in L_{\pi}} {\cal M}(\ell)\ ,
+ {\cal M}_{\pi} = \frac{1}{|L_{\pi}|}\sum_{\ell \in L_{\pi}} \Lambda_{\cal M}(\ell)\ ,
   \label{eq:pihmm}
 \end{equation}
 or (for the HMM),
 \begin{equation}
-  {\cal H}_{\pi} = \frac{1}{|L_{\pi}|}\sum_{\ell \in L_{\pi}} {\cal H}(\ell)\ .
+  {\cal H}_{\pi} = \frac{1}{|L_{\pi}|}\sum_{\ell \in L_{\pi}} \Lambda_{\cal H}(\ell)\ .
   \label{eq:pihmm}
 \end{equation}
-Note that in this notation, ${\cal M}_{100}$ (respectively, ${\cal
-  H}_{100}$) denote the statistic for the maximum scoring site.
-
-
-
+and the $p$-value for each window is computed using empirical distribution of negative controls.
 
 \ignore{
 
@@ -628,9 +618,6 @@ The value of the overdominance parameter can provide an insight into the kind of
 Pre-computation of 1313 transition matrices for $s\in\{-0.5,-0.49,\ldots,0.5 \}$ and $h\in \{-1,-0.75,\ldots,2\}$ took in second on a desktop computer with a Core i7 CPU and 16GB of RAM.
 
 
-\paragraph{P value}
-According to the Wilks’ theorem \cite{williams2001weighing}  log odds ratios are asymptotically distributed according to $\Xc^2$, yet \cite{feder2014Identifying} shown that in the empirical distribution is better when the number of independent samples (replicates) is small. Therefore we create $10^6$ neutral unlinked loci simulations with the same sampling rate and the same number of replicates.
-
 
 \subsection{Simulations}
 For each experiment a diploid population is created and evolved as 
@@ -723,18 +710,17 @@ $(\tau\in\{1,10,100\})$ generations. The empirical and theoretical
 distributions tracked closely (Figure~\ref{fig:markov}G-I)\VB{Give
   P-value of match}.
 
-\paragraph{Power.} We compared the detection power of \comale against
+\paragraph{Power.} We compared the detection power of $\Hc$, $\Mc$
 Gaussian process (GP)~\cite{Terhorst2015Multi},
 FIT~\cite{feder2014Identifying} statistics.  For each experiment,
 (specified with values for selection coefficient $s$, starting allele
-frequency $\vu_0$, sampling time schedule ${\cal T}$, and number of
+frequency $\nu_0$, sampling time schedule ${\cal T}$, and number of
 replicates $R$), we conducted $1000$ simulations. Half of these
 modeled neutral evolution and the rest were under selection. Define
 power of a statistic as the average true-positive rate when
 false-positive rate is less than $0.05$ over $1000$ simulations. In
-other words, a cutoff was set so that at most $25$ of $500$ neutral
-simulations were predicted as being under selection, in order to
-compute the fraction of true positives. 
+other words, a cutoff was set so that  $0,1,\ldots,25$ of $500$ neutral
+simulations were predicted as being under selection, and the fraction of true positives are averaged for all 26 cutoffs.
 
 Before computing against other methods, we first tested the use of
 percentile cut-off $\pi$ in computing compute ${\cal H}_{\pi}$ \VB{Put
@@ -903,10 +889,18 @@ Manhattan plots in Figure \ref{fig:realsnp} depicts the distribution of the top 
 
 
 
+\begin{figure}[H]
+	\centering
+	\begin{tabular}{cc}
+	\includegraphics[trim=0.1in 0 .08in 0.02in , clip,width=0.5\textwidth]{figures/ControlledExperimentalEvolution.pdf}
+&	\includegraphics[trim=0.1in 0 .08in 0.02in , clip,width=0.5\textwidth]{figures/NaturalExperimentalEvolution.pdf}
+	\end{tabular}
+	\caption{Controlled (left) and Natural (right) experimental evolution. } \label{fig:cee}
+\end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[trim=0.4in 0 .8in 0.2in , clip,width=\textwidth]{figures/power.pdf}
+	\includegraphics[trim=0.4in 0 .8in 0.02in , clip,width=\textwidth]{figures/power.pdf}
 	\caption{Power, average true-positive-rate when FDR$\le$0.05, for detecting selection in a 50Kbp region for Frequency Increment Test (FIT), Gaussian Process (GP), Markov Chain ($\Mc$), Hidden Markov Model ($\Hc$) on 1000 
 		simulations for each of selection strength $s$ and initial 
 		carrier frequency $\nu_0$. To incorporate ascertainment bias, each setting is evaluated such that depth of each SNP is identically distributed from Poisson$(\lambda)$ for $\lambda \in \{30,100,\infty\}$. Average performance of each method is shown in Table \ref{tab:power}. Note that $\Hc$ and $\Mc$ become identical when $\lambda=\infty$.  } \label{fig:power}
