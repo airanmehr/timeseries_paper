@@ -52,9 +52,9 @@ Natural selection is the key force in evolution, and a mechanism by
 which populations can adapt to external `selection'
 constraints. Examples of adaptation abound in the natural world,
 including for example, classic examples like lactose tolerance in
-Northern Europeans~\cite{XXX}, human adaptation to high
-altitudes~\cite{}, but also drug resistance in
-pests~\cite{daborn2001ddt}, HIV ~\cite{Feder2016More},
+Northern Europeans~\cite{bersaglieri2004genetic}, human adaptation to high
+altitudes~\cite{yi2010sequencing,simonson2010genetic}, but also drug resistance in
+pests~\cite{daborn2001ddt}, HIV~\cite{Feder2016More},
 cancer~\cite{gottesman2002mechanisms,zahreddine2013mechanisms},
 malarial parasite~\cite{ariey2014molecular,nair2007recurrent}, and
 other antibiotic resistance~\cite{spellberg2008epidemic}. In each of
@@ -131,8 +131,10 @@ such as strength of selection and overdominance at the site fully
 describes the selective sweep.
 
 A wide range of computational methods~\cite{vitti2013detecting} have
-been developed to identify regions under positive selection. Most
-methods have focused on \emph{static} analysis, sampling the
+been developed to identify regions under positive selection. Majority of the 
+existing
+methods have devoted to \emph{static data} analysis, statistical test on single 
+sample of the
 population at a specific time, either during the sweep, or subsequent
 to fixation of the favored allele. For instance, reduction in genetic
 diversity\cite{tajima1989statistical,fay2000hitchhiking,ronen2013learning}
@@ -250,7 +252,7 @@ the sampling-time-span (STS), the number of generations between the
 first and last sampled generations. Given a fixed amount of time for a
 study, STS depends upon the generation time of the organism, and can
 often be small. For example $30$-$50$ generations is typical for
-\emph{Drosophila}, withsome exceptions~\cite{Zhou}. Therefore, unless
+\emph{Drosophila}, with some exceptions~\cite{zhou2011experimental}. Therefore, unless
 the selection coefficient is strong the time series data will only
 capture a ``partial sweep''. On the other hand, in sampling Natural
 populations, the time of onset of selection, may not be known, and
@@ -302,16 +304,7 @@ minim frequency, $1/F$, at the onset of selection.
 }
 \section{Materials and Methods}
 
-\paragraph{Notation.} \VB{Should we remove this paragraph, as we do not
-  use this notation? In general, we should try to avoid multiple
-  superscripts and subscripts as far as possible as the top bio
-  journals do not like it. Unfortunately, we do have a lot, but that
-  is what it is}. \sout{ Let $\Vc = (\nu_{ijk}) \in [0, 1]^{T \times M\times
-  R}$ denote the population frequency where $T$ is the number of
-samples in time, $M$ is the number of segregating sites, and $R$ is
-the number of replicates. Samples in time are taken such that
-$\tau_1<\tau_2,\cdots<\tau_T$.}
-
+\paragraph{Notation.} 
 Consider a locus with starting derived allele frequency
 $\nu_0$. Frequencies are sampled at $T$ distinct generations specified
 by ${\cal T}= \{\tau_i: 1\le \tau_1<\tau_2,\ldots\le \tau_T\}$, and
@@ -411,17 +404,6 @@ where the sign $\sgn(s^*)$ helps focus on positive selection using a
 one-sided tests.  
 
 
-\VB{The following must go to a separate paragraph called FDR or
-  P-values at the very end, because it is only used in real data}.
- By Wilks’ theorem~\cite{williams2001weighing}, the
-standard likelihood ratio statistic (Eq.~\ref{eq:mcts} without
-$\sgn(s^*)$ factor) is asymptotically distributed according to
-$\Xc^2$. However, Feder et al.~\cite{feder2014Identifying} pint out
-that the empirical distribution provide more accurate $p$-values than
-$\Xc^2$ when the number of independent samples (replicates) is small.
-Here we compute $p$-value for the test statistic using the empirical
-distribution of the negative controls.
-
 
 
 \paragraph{Accounting for ascertainment bias using Hidden Markov Models.}
@@ -429,7 +411,7 @@ So, far we assumed that the exact allele frequencies are given. For
 most data-sets, allele frequencies are estimated computed from
 genotype data with finite samples or pooled-sequencing data with
 finite depth of coverage (See
-Figure~\ref{fig:stateConditional})\VB{Figure caption needs details}.
+Figure~\ref{fig:stateConditional}).
 Moreover, multiple replicates time series data, for each site have
 multiple measurements corresponding to different generations and
 multiple replicates, which are not necessarily homogeneous, e.g., have
@@ -507,9 +489,7 @@ statistic for Markov chain and HMM is computed using:
 {\cal H}_{\pi} &=& \frac{1}{|L_{\pi}|}\sum_{\ell \in L_{\pi}} \Lambda_{\cal H}(\ell)\; .
   \label{eq:pihmm}
 \end{eqnarray}
-\VB{I am a bit unhappy that we switched from $\Lambda$ to ${\cal
-    M}$. Wouldn't it be better to use ${\cal M}$ before, and ${\cal
-    M}_\pi$ now. Also, the Markov chain and HMM can be denoted simply as $M$ and $H$?}
+
 
 
 \paragraph{Estimating parameters.}
@@ -584,6 +564,18 @@ for detecting selection in each window.
   learning the so-called \emph{optimal} weights using Support Vector
   Machines.
 \end{description}
+
+\paragraph{$p$-values}
+By Wilks’ theorem~\cite{williams2001weighing}, the
+standard likelihood ratio statistic (Eq.~\ref{eq:mcts} without
+$\sgn(s^*)$ factor) is asymptotically distributed according to
+$\Xc^2$. However, Feder et al.~\cite{feder2014Identifying} pint out
+that the empirical distribution provide more accurate $p$-values than
+$\Xc^2$ when the number of independent samples (replicates) is small.
+Here we compute $p$-value for the test statistic using the empirical
+distribution of the negative controls.
+
+
 \paragraph{Dominance.}
 The value of the overdominance parameter can provide an insight into the kind of adaptation \emph{using population frequency data}\footnote{It is trivial for genotyped data.}. In fact, for $s>0$ we have \cite{gillespie2010population}  
 \begin{center}
@@ -691,8 +683,7 @@ tested the predictions under selection regime by conducting $100$K
 simulations with selection strength $s=0.1$ on a site with initial
 frequency $\nu_0=0.005$ and sampling after $\tau$
 $(\tau\in\{1,10,100\})$ generations. The empirical and theoretical
-distributions tracked closely (Figure~\ref{fig:markov}G-I)\VB{Give
-  P-value of match}.
+distributions tracked closely (Figure~\ref{fig:markov}G-I).
 
 \paragraph{Power.} We compared the detection power of $\Hc$, $\Mc$
 Gaussian process (GP)~\cite{Terhorst2015Multi},
@@ -1261,8 +1252,8 @@ and denominator, and strictly positive denominator.
 \begin{figure}[H]
 	\centering
 	\includegraphics[trim=.0in 0 .0in 0, 
-	clip,width=\textwidth]{figures/{stateConditional}.pdf}
-	\caption{observation state transition.} 
+	clip,width=0.5\textwidth]{figures/{statePosterior}.pdf}
+	\caption{Posterior distribution of allele frequencies (states), for different values of depth $d=\{5,50,500\}$. In all the cases, the number of read counts for the derived allele is one-fifth of total depth. Dealing with dynamic data (and possibly multi-replicate), each site has multiple measurements, that can have different depth, i.e. uncertainty.} 
 	\label{fig:stateConditional}
 \end{figure}
 

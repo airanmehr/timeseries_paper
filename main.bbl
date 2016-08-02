@@ -42,6 +42,14 @@
   seasonal time scales in Drosophila}.
 \newblock {\em PLoS Genet 10}, 11 (2014), e1004775.
 
+\bibitem{bersaglieri2004genetic}
+{\sc Bersaglieri, T., Sabeti, P.~C., Patterson, N., Vanderploeg, T., Schaffner,
+  S.~F., Drake, J.~A., Rhodes, M., Reich, D.~E., and Hirschhorn, J.~N.}
+\newblock {Genetic signatures of strong recent positive selection at the
+  lactase gene}.
+\newblock {\em The American Journal of Human Genetics 74}, 6 (2004),
+  1111--1120.
+
 \bibitem{bollback2007clonal}
 {\sc Bollback, J.~P., and Huelsenbeck, J.~P.}
 \newblock {Clonal interference is alleviated by high mutation rates in large
@@ -87,12 +95,6 @@
 \newblock {In situ evolutionary rate measurements show ecological success of
   recently emerged bacterial hybrids}.
 \newblock {\em Science 336}, 6080 (2012), 462--466.
-
-\bibitem{desai2007beneficial}
-{\sc Desai, M.~M., and Fisher, D.~S.}
-\newblock {Beneficial mutation--selection balance and the effect of linkage on
-  positive selection}.
-\newblock {\em Genetics 176}, 3 (2007), 1759--1798.
 
 \bibitem{desai2008polymorphism}
 {\sc Desai, M.~M., and Plotkin, J.~B.}
@@ -185,11 +187,6 @@
 \newblock {Whole-genome resequencing of experimental populations reveals
   polygenic basis of egg-size variation in Drosophila melanogaster}.
 \newblock {\em Molecular biology and evolution 32}, 10 (2015), 2616--2632.
-
-\bibitem{kaplan1989hitchhiking}
-{\sc Kaplan, N.~L., Hudson, R.~R., and Langley, C.~H.}
-\newblock {The" hitchhiking effect" revisited.}
-\newblock {\em Genetics 123}, 4 (1989), 887--899.
 
 \bibitem{kawecki2012experimental}
 {\sc Kawecki, T.~J., Lenski, R.~E., Ebert, D., Hollis, B., Olivieri, I., and
@@ -344,10 +341,11 @@
   powerful tool to study adaptation from standing genetic variation}.
 \newblock {\em Heredity 114}, 5 (2015), 431--440.
 
-\bibitem{smith1974hitch}
-{\sc Smith, J.~M., and Haigh, J.}
-\newblock {The hitch-hiking effect of a favourable gene}.
-\newblock {\em Genetical research 23}, 01 (1974), 23--35.
+\bibitem{simonson2010genetic}
+{\sc Simonson, T.~S., Yang, Y., Huff, C.~D., Yun, H., Qin, G., Witherspoon,
+  D.~J., Bai, Z., Lorenzo, F.~R., Xing, J., Jorde, L.~B., and Others}.
+\newblock {Genetic evidence for high-altitude adaptation in Tibet}.
+\newblock {\em Science 329}, 5987 (2010), 72--75.
 
 \bibitem{spellberg2008epidemic}
 {\sc Spellberg, B., Guidos, R., Gilbert, D., Bradley, J., Boucher, H.~W.,
@@ -437,6 +435,12 @@
   inhibitor mutations with protease and reverse transcriptase resistance
   mutations}.
 \newblock {\em PloS one 7}, 7 (2012), e40514.
+
+\bibitem{yi2010sequencing}
+{\sc Yi, X., Liang, Y., Huerta-Sanchez, E., Jin, X., Cuo, Z. X.~P., Pool,
+  J.~E., Xu, X., Jiang, H., Vinckenbosch, N., Korneliussen, T.~S., and Others}.
+\newblock {Sequencing of 50 human exomes reveals adaptation to high altitude}.
+\newblock {\em Science 329}, 5987 (2010), 75--78.
 
 \bibitem{zahreddine2013mechanisms}
 {\sc Zahreddine, H., and Borden, K.~L.}
