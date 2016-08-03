@@ -5,6 +5,11 @@
 \newblock {Frequency spectrum neutrality tests: one for all and all for one}.
 \newblock {\em Genetics 183}, 1 (2009), 249--258.
 
+\bibitem{agresti2011categorical}
+{\sc Agresti, A., and Kateri, M.}
+\newblock {\em {Categorical data analysis}}.
+\newblock Springer, 2011.
+
 \bibitem{akey2009constructing}
 {\sc Akey, J.~M.}
 \newblock {Constructing genomic maps of positive selection in humans: Where do
@@ -17,6 +22,12 @@
 \newblock {A molecular marker of artemisinin-resistant Plasmodium falciparum
   malaria}.
 \newblock {\em Nature 505}, 7481 (2014), 50--55.
+
+\bibitem{baldwin2014power}
+{\sc Baldwin-Brown, J.~G., Long, A.~D., and Thornton, K.~R.}
+\newblock {The power to detect quantitative trait loci using resequenced,
+  experimentally evolved populations of diploid, sexual organisms}.
+\newblock {\em Molecular biology and evolution\/} (2014), msu048.
 
 \bibitem{barrett2008natural}
 {\sc Barrett, R. D.~H., Rogers, S.~M., and Schluter, D.}
