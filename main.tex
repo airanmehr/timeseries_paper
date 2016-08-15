@@ -865,10 +865,48 @@ Manhattan plots in Figure \ref{fig:realsnp} depicts the distribution of the top 
 		carrier frequency $\nu_0$. To incorporate ascertainment bias, each setting is evaluated such that depth of each SNP is identically distributed from Poisson$(\lambda)$ for $\lambda \in \{30,100,\infty\}$. Average performance of each method is shown in Table \ref{tab:power}. Note that $\Hc$ and $\Mc$ become identical when $\lambda=\infty$.  } \label{fig:power}
 \end{figure}
 \begin{table}[h]
-	\input{powerTable}
-	\caption{Average power, average true-positive-rate when FDR$\le$0.05, for detecting selection in a 50Kbp region for Frequency Increment Test (FIT), Gaussian Process (GP), Markov Chain ($\Mc$), Hidden Markov Model ($\Hc$) on 1000 
+	\begin{tabular}{c||c}
+		Hard Sweep & Soft Sweep\\ \\  
+		\input{powerHard.tex}
+				&\input{powerSoft.tex}
+	\end{tabular}
+	\caption{Average power, average true-positive-rate when FDR$\le$0.05, for 
+	detecting selection in a 50Kbp region for Frequency Increment Test (FIT), 
+	Gaussian Process (GP), Markov Chain ($\Mc$), Hidden Markov Model ($\Hc$) on 
+	1000 
 		simulations for each of selection strength $s$ and initial 
-		carrier frequency $\nu_0$. To incorporate ascertainment bias, each setting is evaluated such that depth of each SNP is identically distributed from Poisson$(\lambda)$ for $\lambda \in \{30,100,\infty\}$.}\label{tab:power}
+		carrier frequency $\nu_0$. To incorporate ascertainment bias, each 
+		setting is evaluated such that depth of each SNP is identically 
+		distributed from Poisson$(\lambda)$ for $\lambda \in 
+		\{30,100,\infty\}$.}\label{tab:power}
+\end{table}
+\newpage
+\begin{table}[h]
+	\begin{tabular}{c}
+		\input{transcriptGO}
+	\end{tabular}
+	\caption{GO enrichment when all the SNPs in the genes are taken into 
+	account. .}\label{tab:transcriptGO}
+\end{table}
+\begin{table}[h]
+	\begin{tabular}{c}
+		\input{nonsynonymousGO}
+	\end{tabular}
+	\caption{GO enrichment when synonymous variants are 
+	excluded.}\label{tab:nonsynonymousGO}
+\end{table}
+
+\begin{table}[h]
+	\begin{tabular}{c}
+		\input{exonGO}
+	\end{tabular}
+	\caption{GO enrichment on missense variants.}\label{tab:exonGO}
+\end{table}
+\begin{table}[h]
+	\begin{tabular}{c}
+		\input{lofGO}
+	\end{tabular}
+	\caption{GO enrichment on loss of function variants.}\label{tab:lofGO}
 \end{table}
 \newpage
 \begin{figure}[H]
