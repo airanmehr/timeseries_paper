@@ -808,9 +808,20 @@ each site (for all replicates and generations), the number of SNPs shrinks from
 
 \paragraph{Scan.} 
 We computed \comale statistic for sliding window of 50Kbp with steps of 10Kbp 
-over the whole genome, and identified 25 intervals (see 
+over the whole genome  and observed that there is a negative correlation 
+between $\Hc$ and the number of SNPs in each  window, 
+Figure~\ref{fig:manhattan}.
+More precisely Pearson correlation is $\rho(M,\Hc)=-0.03$ when all the windows 
+are taken into account and $\rho(M,\Hc)=-0.27$ when restricting to the 
+candidate regions. This nine-fold increase in correlation indicates that $\Hc$ 
+statistic takes more extreme values when SNPs are depleted and the number of 
+variants are less than expected ($\approx$1100).
+To remedy this, we filtered out those windows with less than 500 SNPs and 
+Pearson correlation changed from $\rho(M,\Hc)=-0.08$ to $\rho(M,\Hc)=-0.09$, 
+see Figure~\ref{fig:manhattancutoffed}.
+We identified 25 contiguous intervals (see 
 \texttt{data/intervals.tsv}) providing signal of 
-selection Figure \ref{fig:realsnp}.
+selection.
 
 \paragraph{Gene Set Enrichment on Regions under Selection}\AI{This favors 
 longer shorter lists, i.e. specific GO terms}
@@ -823,7 +834,7 @@ existing Gene Ontology terms~\ref{tab:Fisher}.
 lists, i.e. general GO terms}
 We also performed another enrichment analysis on the all variant genes without 
 excluding any gene as follows. For each gene we computed \comale score on the 
-\emph{transcript}, \emph{synonymous-exclouded}, \emph{exon}, and \emph{loss of 
+\emph{transcript}, \emph{synonymous-excluded}, \emph{exon}, and \emph{loss of 
 function}
  SNPs with $s*\ge0$ to favor genes under positive selection. Given each subset 
  of SNPs \comale computes a different score for each gene. By ranking all the 
@@ -836,9 +847,7 @@ Interestingly, GO terms corresponding to membrane are enriched which are known
 to be responsive to thermal adaptation\cite{hazel1995thermal}.
 
 
-\section{Discussion}
-
-
+\input{method}
 \newpage
 \section{Figures}
 
@@ -1002,9 +1011,35 @@ to be responsive to thermal adaptation\cite{hazel1995thermal}.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{figures/{manhattan.png}}
-	\caption{Manhattan plot of the $p$-value of the $\Hc$ statistic (top) and the number of SNPs (bottom) in 50Kbp windows.} 
-	\label{fig:realsnp}
+	\includegraphics[width=\textwidth]{figures/manhattan.pdf}
+	\caption{Manhattan plot of the composite $\Hc$ statistic (top) 
+		and the number of SNPs (bottom) in 50Kbp sliding window with steps of 
+		10Kbp. Regions in which their $\Hc$ statistic falls in top one 
+		percentile 
+		distribution is denoted with red color. Pearson correlation between $M$ 
+		and 
+		$\Hc$ of all windows is -0.03 and for the candidate regions is -0.27. 
+		This 
+		nine-fold increase in correlation implies that the $\Hc$ statistic 
+		takes 
+		more extreme values as the number of SNPs in the window is less than 
+		expected ($\approx$1100).} 
+	\label{fig:manhattan}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{figures/{manhattan.min500snp}.pdf}
+	\caption{Manhattan plot of the composite $\Hc$ statistic (top) 
+		and the number of SNPs (bottom) in 50Kbp sliding window with steps of 
+		10Kbp, excluding windows with less that 500 SNPs. Regions in which 
+		their $\Hc$ statistic falls in top one percentile 
+		distribution is denoted with red color. Pearson correlation between $M$ 
+		and 
+		$\Hc$ of all windows is -0.09 and for the candidate regions is -0.08. 
+		This indicates the spurious effect of windows with low diversity is 
+		removed from out study (potentially at cost of some false negatives). } 
+	\label{fig:manhattancutoffed}
 \end{figure}
 
 
