@@ -663,22 +663,44 @@ distributions tracked closely (Figure~\ref{fig:markov}G-I).
 Gaussian process (GP)~\cite{Terhorst2015Multi},
 FIT~\cite{feder2014Identifying} statistics.  For each experiment,
 (specified with values for selection coefficient $s$, starting allele
-frequency $\nu_0$, sampling time schedule ${\cal T}$, and number of
+frequency $\nu_0$, coverage $\lambda$, sampling time schedule ${\cal T}$, and 
+number of
 replicates $R$), we conducted $1000$ simulations. Half of these
 modeled neutral evolution and the rest were under selection. Define
-power of a statistic as the average true-positive rate when
+power of a statistic as the area under Receiver Operating Characteristic (ROC) 
+curve, when false positive rate is less that 0.05, see Figure \ref{}. 
+\ignore{
+average true-positive rate when
 false-positive rate is less than $0.05$ over $1000$ simulations. In
 other words, a cutoff was set so that  $0,1,\ldots,25$ of $500$ neutral
-simulations were predicted as being under selection, and the fraction of true positives are averaged for all 26 cutoffs.
+simulations were predicted as being under selection, and the fraction of true 
+positives are averaged for all 26 cutoffs.}
 
-Before computing against other methods, we first tested the use of
-percentile cut-off $\pi$ when with no ascertainment bias (exact allele frequencies are given) is imposed, note that in this case $\Hc=\Mc$. 
-As shown in Figure~\ref{fig:powerCLR}, when averaging likelihoods over the whole window ($\pi=0$) detection power is at its lowest, due to averaging over unlinked sites to the beneficial allele. As $\pi$ increases performance improves and $\pi=99$ provides best performance in most of cases and $\pi=100$, taking maximum of likelihoods, provides significantly better performance in soft sweep with moderate selection ($s=0.05$). This is mainly because of the fact that the beneficial allele is at lower linkage with the rest of sites in soft sweep (with standing variation), than hard sweep scenario. In the rest of our experiment we use $\pi=99$ to compute modified CLR statistics $\Mc$ and $\Hc$ for a window.
+\paragraph{Composite Likelihood}
+Before computing against other methods, we first evaluate the use of
+HMM and Markov chain composite likelihoods of under different levels of 
+ascertainment bias. For this comparison, we calculated power for composite 
+likelihood of HMM and Markov with $\pi \in \{0,0.99,100\}$ when $\lambda\in 
+\{30,100,\infty\}$.
+As shown in Figure~\ref{fig:powerCLR}, 
+performance of HMM is robust to the noise of finite coverage, while Markov 
+chain's power decay quickly as coverage depth decreases.
+Also, the best composite of likelihoods achieved when likelihoods  are averaged 
+over all the SNPs in the window ($\pi=0$).
+It should be noted that when $\pi=100$ the composite likelihood statistic is 
+the maximum of likelihoods of the individual SNPs in the window. From 
+table~\ref{tab:powerCLR}, it is evident that as detection performance is better 
+and more robust as composite of likelihood is computed over all the loci in a 
+window in both hard and soft sweep. Henceforth, we use $\pi=0$ to compute 
+composite of likelihoods and only report performance of HMM as it is a 
+generalization of Markov chain method.
 
-To show the performance of Markov chain, HMM, FIT and
+
+To show the performance of HMM, FIT and
 GP under different regimes, we computed power for different levels of ascertainment bias under hard and soft sweep.
 To incorporate ascertainment bias, depth of each marker is identically and independently distributed according to Poisson($\lambda$) for  $\lambda=\{30,100,\infty\}$\footnote{Note that $\lambda=\infty $ corresponds to the case where exact population allele frequencies are given.}. All the methods except $\Hc$, convert read counts to allele frequencies and compute their test statistic.
-As shown in Figure~\ref{fig:power} the $\Mc$ with $\lambda =\infty$ which is identical to $\Hc$ with $\lambda =\infty$, provide gold standard performance. For lower read depths $\Hc$ performs better than other methods (Table~\ref{tab:power}). 
+As shown in Figure~\ref{fig:power} the HMM provide much better and more stable 
+than GP and FIT (Table~\ref{tab:power}). 
 
 \paragraph{Running Time.}
 A \comale\ does not compute full likelihoods, or explicitly model
@@ -770,38 +792,48 @@ of hard sweep, where carrier frequency is not high.
 \subsection{Analysis of Real Data}
 We finally apply \comale\ method to the controlled experimental evolution 
 experiment 
-of \cite{orozco2012adaptation}, which evolves 5 replicates of a population of 
-Drosophila melanogaster for 37 generations under alternating 12-hour cycles of 
-hot (28$^{\circ}$C) and cold (18$^{\circ}$C) temperatures. Three replicates are 
-sampled at the firs generation, 2 replicates at generation 15, one replicate at 
-generation 23, one replicate at generation 27 and three replicates at 
-generation 59.
+of \cite{orozco2012adaptation}, which evolves 3 replicates of a population of 
+Drosophila melanogaster for 59 generations under alternating 12-hour cycles of 
+hot (28$^{\circ}$C) and cold (18$^{\circ}$C) temperatures and sequenced at 
+different generation for each replicate, Figure~\ref{fig:samplingTimes}.
 \paragraph{Heterogenocity of read depths.} \comale\ statistic is basically 
 computed using site allele frequencies at different generations for all 
 replicates. For real Pool-Seq data, however, allele frequencies is unknown and 
-only read counts at each site measured. As shown in Figure \ref{} read depths 
-are highly heterogeneousa and filtering low coverage sites from data strictly 
+only read counts at each site measured. As shown in Figure 
+\ref{fig:depthHetero}, \ref{fig:depth}  read depths 
+are highly heterogeneous and filtering low coverage sites from data strictly 
 reduces the number of SNPs. For example, by setting minimum read depth at 
 each site (for all replicates and generations), the number of SNPs shrinks from 
 1,544,374 to 10,387. 
 
-\paragraph{Uncertainity in allele frequency.} In addition to coverage 
-heterogenocity, 
-allele frequencies in principle are 
-\emph{hidden} variables for \emph{observed} data, alleles read counts. We 
-take into account of allele frequency uncertainty by computing the likelihood 
-of data using Hidden Markov Model (HMM), see section \ref{} for details.
+\paragraph{Scan.} 
+We computed \comale statistic for sliding window of 50Kbp with steps of 10Kbp 
+over the whole genome, and identified 25 intervals (see 
+\texttt{data/intervals.tsv}) providing signal of 
+selection Figure \ref{fig:realsnp}.
 
-\paragraph{SNP-based analysis with ELRT statistic}
-Manhattan plots in Figure \ref{fig:realsnp} depicts the distribution of the top 2000 SNPs and corresponding 1961 genes. The list of genes is available in the same directory under name \texttt{genes\_SNP.txt}.
-
-The following genes are enriched with P-value of 0.0006725 using Fisher exact test and genes of \ref{app:af}.
-
-
-\paragraph{Window-based analysis with \comale\  statistic}
-Manhattan plots in Figure \ref{fig:realsnp} depicts the distribution of the top 100 50K regions and corresponding 421 genes. The list of genes is available in the same directory under name \texttt{genes\_SNP.txt}.
+\paragraph{Gene Set Enrichment on Regions under Selection}\AI{This favors 
+longer shorter lists, i.e. specific GO terms}
+We found 243 out of the total 13,965 variant genes to be in the regions under 
+selection and applied Fisher exact test for gene lists corresponding to the 
+existing Gene Ontology terms~\ref{tab:Fisher}.
 
 
+\paragraph{Gene Set Enrichment on Whole Genome} \AI{This favors longer gene 
+lists, i.e. general GO terms}
+We also performed another enrichment analysis on the all variant genes without 
+excluding any gene as follows. For each gene we computed \comale score on the 
+\emph{transcript}, \emph{synonymous-exclouded}, \emph{exon}, and \emph{loss of 
+function}
+ SNPs with $s*\ge0$ to favor genes under positive selection. Given each subset 
+ of SNPs \comale computes a different score for each gene. By ranking all the 
+ variant genes according to their \comale score, we computed $p$-value for each 
+ gene list using Mann–Whitney U test, aka Wilcoxon rank-sum test, 
+ Tables~\ref{tab:transcriptGO},~\ref{tab:nonsynonymousGO},
+~\ref{tab:exonGO},~\ref{tab:lofGO}.
+
+Interestingly, GO terms corresponding to membrane are enriched which are known 
+to be responsive to thermal adaptation\cite{hazel1995thermal}.
 
 
 \section{Discussion}
@@ -878,6 +910,26 @@ Manhattan plots in Figure \ref{fig:realsnp} depicts the distribution of the top 
 		carrier frequency $\nu_0$. To incorporate ascertainment bias, each 
 		setting is evaluated such that depth of each SNP is identically 
 		distributed from Poisson$(\lambda)$ for $\lambda \in 
+		\{30,100,\infty\}$.}\label{tab:powerCLR}
+\end{table}
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{ccc}
+		Hard Sweep & &Soft Sweep\\ \\  
+		\input{tables/powerHardMathods.tex}
+		&&\input{tables/powerSoftMethods.tex}
+	\end{tabular}
+	\caption{Average power, average true-positive-rate when FDR$\le$0.05, for 
+		detecting selection in a 50Kbp region for Frequency Increment Test 
+		(FIT), 
+		Gaussian Process (GP), Markov Chain ($\Mc$), Hidden Markov Model 
+		($\Hc$) on 
+		1000 
+		simulations for each of selection strength $s$ and initial 
+		carrier frequency $\nu_0$. To incorporate ascertainment bias, each 
+		setting is evaluated such that depth of each SNP is identically 
+		distributed from Poisson$(\lambda)$ for $\lambda \in 
 		\{30,100,\infty\}$.}\label{tab:power}
 \end{table}
 \newpage
@@ -908,6 +960,16 @@ Manhattan plots in Figure \ref{fig:realsnp} depicts the distribution of the top 
 	\end{tabular}
 	\caption{GO enrichment on loss of function variants.}\label{tab:lofGO}
 \end{table}
+
+
+\begin{table}[h]
+	\begin{tabular}{c}
+		\input{tables/transcriptFisher}
+	\end{tabular}
+	\caption{Gene set enrichment of 243 genes within 25 intervals under 
+	selection using Fisher exact test.}\label{tab:Fisher}
+\end{table}
+
 \newpage
 \begin{figure}[H]
 	\centering
