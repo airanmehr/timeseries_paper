@@ -797,6 +797,31 @@ Interestingly, GO terms corresponding to membrane are enriched which are known
 to be responsive to thermal adaptation\cite{hazel1995thermal}.
 
 \section{Discussion}
+Experimental evolution approaches along with time-series sequencing of
+the evolving population are being applied in an increasing number of
+scenarios. In the development of \comale, we show that it is important
+to make appropriate choices to achieve high power as well as
+computational efficiency.
+
+In our simulations, we found that the power of a method also depends a
+lot on when the populations are sampled, and the span of
+sampling. Many experimental evolution methods start sampling at the
+onset of selection, and continue up to $50$ or so generations. For
+small values of the selection coefficient, this may not be
+sufficient. However, even if it were possible to sample over a larger
+time-span, many methods, especially the ones that compute full
+likelihoods cannot compute evolutionary trajectories over a large span
+of generations. In contrast \comale\ precomputes the transition
+matrices, and can work for any span and time of sampling.
+
+We also show to extend SFS based methods to handle time-series
+data. In initial experiments, we found that these methods do not fare
+well in the traditional regimes of sampling. However, for many naturally
+occurring populations, it may be advantageous to sample many
+generations after the onset of selection, when the favored allele is
+close to being fixed. In those scearios, SFS based methods can indeed
+provide higher power.
+
 
 
 %\input{method}
