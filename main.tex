@@ -229,7 +229,10 @@ they outperform other methods in when dynamic data is collected from
 natural populations with a higher frequency of the favored allele,
 i.e., the favored allele is closer to fixation.
 
-\VB{This below is inappropriately placed. Move to discussion?} Second,
+\VB{This below is inappropriately placed. Move to discussion?}
+\AI{make sense, as in PLOS discussion comes before methods, I'm letting you 
+doing it, since it will be a big reorganization}
+ Second,
 in controlled experimental evolution experiments, populations are
 evolved and inbred. This scenario in which population size
 significantly drops from the large number of wild type (e.g., for
@@ -497,10 +500,13 @@ provides\footnote{The likelihood of the data to the model is the
 %  This good approximation only in hard sweep with strong
 %  selection, Figures~\ref{fig:dynamic-weak},\ref{fig:dynamic-strong} (second row, left).
 	
-\item[SFSelect.] \VB{Why do we need this here?} The SFSelect statistic
+\item[SFSelect.] The SFSelect statistic
   was proposed by Ronen et al.~\cite{ronen2013learning} to predict
   selection by empirically learning the so-called \emph{optimal}
-  weights using Support Vector Machines.
+  weights using Support Vector Machines. Since SFSelect statistic is 
+  non-negative and there is no functional form for computing static statistic, 
+  we simply consider aggregation of the SFSelect statistic throughout time as a 
+  statistic for time series.
 \end{description}
 
 \paragraph{$p$-value computation.}
@@ -514,25 +520,13 @@ $p$-value for the test statistic using the empirical distribution of
 the negative controls.
 
 
-\paragraph{Dominance.}\VB{This is somewhat incomplete. Let's discuss.}
-The value of the overdominance parameter can provide an insight into the kind of adaptation \emph{using population frequency data}\footnote{It is trivial for genotyped data.}. In fact, for $s>0$ we have~\cite{gillespie2010population}  
-\begin{center}
-	\begin{tabular}{l|c}
-		condition & comment\\
-		\hline
-		$h<0$ &  underdominance\\
-		$h=0$ & recessive adaptive allele\\
-		$h=0.5$ & directional selection\\
-		$h=1$&	dominant adaptive allele	\\
-		$h>1$ &overdominance
-		\end{tabular}
-		\end{center}
 		
-\paragraph{Software.}
+\paragraph{Precomputing Transition Matrices.}
 \comale\ requires pre-computation of matrices $P$, and $Q_{s,h}$ for
 the entire range of $s,h$ values. Pre-computation of $1313$ transition
 matrices for $s\in\{-0.5,-0.49,\ldots,0.5 \}$ and $h\in
-\{-1,-0.75,\ldots,2\}$ took in second \VB{Typo?} on a desktop computer
+\{-1,-0.75,\ldots,2\}$ took less that 20 minute ($\approx$ 1 second per matrix) 
+on a desktop computer
 with a Core i7 CPU and 16GB of RAM.
 
 
@@ -542,26 +536,19 @@ For each experiment a diploid population is created and evolved as
 described below. See also, Fig.~\ref{fig:ee}.
 \begin{enumerate}[I.]
 \item {\bf Creating initial founder line haplotypes.} Using msms
-  program~\cite{XXX}, we created neutral populations for $F$ founding
+  program~\cite{ewing2010msms}, we created neutral populations for $F$ founding
   haplotypes with \emph{default} parameters \texttt{\$./msms <F> 1 -t
     <2$\mu$LNe> -r <2rNeL> <L>}, where $F=200$ is number of founder
   lines, $N_e=10^6$ is effective population size, $r=2*10^{-8}$ is
   recombination rate, $\mu=2\times 10^{-9}$ is mutation rate and
   $L=50K$ is the window size in base pairs which gives $\theta=2\mu
-  N_eL=200$ and $\rho=2N_erL=2000$.  \VB{Why is this line here?} For
-  default parameters, the expected number of segregating sites in a
-  window is given by:
-  \begin{equation}
-    \Ebb[M]=\theta \sum_{i=1}^{F-1}\frac{1}{i}=1175     
-    \label{eq:watterson}
-  \end{equation}
+  N_eL=200$ and $\rho=2N_erL=2000$. 
   
 \item{\bf Creating initial diploid population.} To simulate
   experimental evolution of diploid organisms, initial haplotypes were
   first cloned to create $F$ diploid homozygotes. Next, each diploid
   individual was cloned $N/F$ times to yield diploid population of
-  size $N$ \VB{Shouldn't we create haploid clones, and then sample
-    diploids?}.
+  size $N$.
 
 \item{\bf Forward Simulation.} Given initial diploid population,
   position of the site under selection, selection strength $s$, number
@@ -574,7 +561,11 @@ described below. See also, Fig.~\ref{fig:ee}.
   established in all replicates.
 \end{enumerate}
 
-
+\paragraph{Power}.
+We define power of a statistic as the area under
+Receiver Operating Characteristic (ROC) curve, of set of experiments when 
+false-positive
+rate is less that 0.05, see Figure
 
 \section{Results}
 \paragraph{Modeling neutral trajectories in finite populations.} 
@@ -582,7 +573,7 @@ We tested the closeness of fit for the Markov Likelihood as a model
 for neutral trajectories, compared to Brownian motion. We performed
 $150$K simulations for different values of $\nu_0$
 ($\nu_0\in\{0.005,0.1\}$) and time $\tau$ generations $\tau\in
-\{1,10,100\}$. \VB{Why does this start from Fig.~3?}
+\{1,10,100\}$. 
 Figure~\ref{fig:markov} shows that Brownian motion is inadequate when
 $\nu_0$ is far from $0.5$, and when sampling is done after many
 generations $\tau>1$. (sampling times are sparse). In most
@@ -601,19 +592,14 @@ frequency $\nu_0=0.005$ and sampling after $\tau$
 $(\tau\in\{1,10,100\})$ generations. The empirical and theoretical
 distributions tracked closely (Figure~\ref{fig:markov}G-I).
 
-\paragraph{Power.} We compared the detection power of $\Hc$, $\Mc$
+\paragraph{Detection Power.} We compared the detection power of $\Hc$, $\Mc$
 Gaussian process (GP)~\cite{Terhorst2015Multi},
 FIT~\cite{feder2014Identifying} statistics.  For each experiment,
 (specified with values for selection coefficient $s$, starting allele
 frequency $\nu_0$, coverage $\lambda$, sampling time schedule ${\cal
   T}$, and number of replicates $R$), we conducted $1000$
 simulations. Half of these modeled neutral evolution and the rest were
-under selection. Define power of a statistic as the area under
-Receiver Operating Characteristic (ROC) curve, when false positive
-rate is less that 0.05, \VB{this is badly written} see Figure
-\ref{}\VB{Please rewrite previous sentence. Never separate sentences
-  using commas. Either use a period, or semi-colon if absolutely
-  necessary. }
+under selection. 
 
 Before comparing against other methods, we first evaluated the use of
 HMM and Markov chain composite likelihoods of under different levels
@@ -630,8 +616,8 @@ shows the highest power (Figure~\ref{fig:powerCLR}, and
 Table~\ref{tab:power}).  Therefore, we used ${\cal H} = {\cal H}_0$ as
 the default statistic for all subsequent calculations. We compared
 $\Hc$ against FIT and GP, and found that $\Hc$ improves upon the
-previous statistics for all parameter choices (Figure~\ref{fig:power})
-\VB{(I cannot see GP curves in Figure)}. Note that all methods other
+previous statistics for all parameter choices (Figure~\ref{fig:power}). Note 
+that all methods other
 than \comale\ convert read counts to allele frequencies and compute
 their test statistic.
 
@@ -696,9 +682,7 @@ $\nu_0=0.005$ and $s=0.01$ (weakest selection), the favored allele was
 ranked first in more than 60 experiments, and was ranked $\le 5$ in
 over $90$\% of experiments of hard sweep. The accuracy of locating the
 favored allele diminished in soft-sweep scenarios (larger values of
-$\nu_0$). Yet, in the worst case the favored allele was ranked among
-top 50 SNPs\VB{Needs to be explained}.
-
+$\nu_0$). 
 \paragraph{Strength of Selection.}
 As the likelihood calculation is model based, we can also output the
 model parameters $\hat{s}$ that maximized
@@ -753,8 +737,8 @@ depths are highly heterogeneous
 (Suppl. Figures~\ref{fig:depthHetero},~\ref{fig:depth}). Filtering low
 coverage sites from data dramatically reduces data available for
 analysis. For example, by setting minimum read depth at each site
-\VB{Setting to what minimum?} (for all replicates and generations),
-the number of SNPs shrinks from 1,544,374 to 10,387.
+to 30 (for all replicates and generations),
+the number of SNPs drops from 1,544,374 to 10,387.
 
 We computed \comale\ statistic for sliding window of 50Kbp with steps
 of 10Kbp over the whole genome and observed a negative correlation
@@ -765,12 +749,15 @@ was $\rho(w,\Hc)=-0.03$ overall. However, when restricting to the
 candidate regions, we found $\rho(M,\Hc)=-0.27$ . This nine-fold
 increase in correlation indicates that $\Hc$ statistic takes more
 extreme values when SNPs are depleted and the number of variants are
-less than expected ($\approx$1100).  To remedy this, we filtered out
+less than expected\footnote{ For
+	default parameters, the expected number of segregating sites in a
+	window is given by:
+$$\Ebb[M]=\theta \sum_{i=1}^{F-1}\frac{1}{i}=1175 $$}, $\approx$1175.  
+To remedy this, we filtered out
 those genomic regions with less than $500$ SNPs and Pearson
 correlation changed from $\rho(M,\Hc)=-0.08$ to
 $\rho(M,\Hc)=-0.09$. Figure~\ref{fig:manhattancutoffed} shows $25$
-contiguous\VB{why `contiguous'} intervals (see
-\texttt{data/intervals.tsv}) that exceeded \VB{XXX}, covering $243$ of
+distinct intervals (supplemental data) that exceeded \VB{XXX}, covering $243$ of
 the $13,965$ genes that encoded variants.
 
 \paragraph{Gene Set Enrichment on Regions under Selection.}\AI{This favors 
@@ -795,6 +782,22 @@ function}
 
 Interestingly, GO terms corresponding to membrane are enriched which are known 
 to be responsive to thermal adaptation\cite{hazel1995thermal}.
+
+\paragraph{Dominance.}
+The value of the overdominance parameter can provide an insight into the kind 
+of adaptation \emph{using population frequency data}\footnote{It is trivial for 
+genotyped data.}. In fact, for $s>0$ we have~\cite{gillespie2010population}  
+\begin{center}
+	\begin{tabular}{l|c}
+		condition & comment\\
+		\hline
+		$h<0$ &  underdominance\\
+		$h=0$ & recessive adaptive allele\\
+		$h=0.5$ & directional selection\\
+		$h=1$&	dominant adaptive allele	\\
+		$h>1$ &overdominance
+	\end{tabular}
+\end{center}
 
 \section{Discussion}
 \VB{Poorly written draft version. Will edit it more.} Experimental
@@ -864,6 +867,13 @@ provide higher power.
                 chosen as $\nu_0=0.005$ and sampling performed after
                 $t=\{1,10,100\}$ generations.}
 	\label{fig:markov}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim=0.4in 0 .8in 0.02in , 
+	clip,width=\textwidth]{figures/powerROC.pdf}
+	\caption{Statdard ROC curve (left) and the same ROC curve when FPR$\le 
+	0.05$.} \label{fig:powerROC}
 \end{figure}
 
 \begin{figure}[H]
@@ -951,6 +961,12 @@ provide higher power.
 	\label{fig:manhattancutoffed}
 \end{figure}
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{figures/trajectoryReal.pdf}
+	\caption{Trajectory of top 3 sites.} 
+	\label{fig:trajectoryReal}
+\end{figure}
 
 
 \clearpage

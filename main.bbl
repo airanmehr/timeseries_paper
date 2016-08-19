@@ -130,6 +130,12 @@
   vol.~27.
 \newblock Springer Science {\&} Business Media, 2012.
 
+\bibitem{ewing2010msms}
+{\sc Ewing, G., and Hermisson, J.}
+\newblock {MSMS: a coalescent simulation program including recombination,
+  demographic structure and selection at a single locus}.
+\newblock {\em Bioinformatics 26}, 16 (2010), 2064--2065.
+
 \bibitem{fay2000hitchhiking}
 {\sc Fay, J.~C., and Wu, C.-I.}
 \newblock {Hitchhiking under positive Darwinian selection}.
