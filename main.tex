@@ -11,6 +11,7 @@
 \affil[3]{\footnotesize Computer Science \& Engineering, University of California, San Diego, La Jolla, CA 92093, USA}
 \date{}
 \def\comale{\text{{\sc Comale}}}
+\renewcommand{\figurename}{Fig.}
 \usepackage{booktabs}
 \begin{document}
 \maketitle
@@ -236,7 +237,7 @@ Null could be indicative of non-neutrality. However, in our
 experiments, we found that the Brownian motion approximation is
 inadequate for small population sizes and low starting frequencies
 that are typical in experimental evolution (see Results, and
-Figure~\ref{fig:markov}). In fact, other continuous models such as
+Fig.~\ref{fig:markov}). In fact, other continuous models such as
 Gaussian process for allele frequencies, are also susceptible to this
 issue.
 
@@ -287,7 +288,7 @@ For $s=0$, Eq.~\ref{eq:Q1} and~\ref{eq:Qt} are identical to
 Eq.~\ref{eq:P1} and~\ref{eq:Pt}, respectively.  The likelihood of
 observing the trajectory $\bm{\nu}$ is computed using:
 \begin{equation}
-  \Lc_\Mc(s,h|\bm{\nu}) = \pr(\bm{\nu};\nu_0,s,h)=
+  \Lc_M(s,h|\bm{\nu}) = \pr(\bm{\nu};\nu_0,s,h)=
   \prod_{t=1}^{T} \pr(\nu_{t}|\nu_{t-1};\nu_0,s,h) = \prod_{t=1}^{T} Q^{(\delta_t)}_{s,h}[\hat{i},\hat{j}],
 %  \label{eq:mkvlik}  
 \end{equation}
@@ -296,14 +297,14 @@ where, $(\hat{i},\hat{j})=(\lfloor 2N\nu_{t-1}\rfloor, \lfloor
 likelihood over independent replicate samples $\bm{\nu}^{(r)}$, we
 get:
 \begin{equation}
-  \Lc_\Mc(s,h|\{\bm{\nu}^{(r)}\}) = \prod_r   \Lc_\Mc(s,h|\bm{\nu}^{(r)}).
+  \Lc_M(s,h|\{\bm{\nu}^{(r)}\}) = \prod_r   \Lc_M(s,h|\bm{\nu}^{(r)}).
   \label{eq:mkvlik}
 \end{equation}
 Let $s^*,h^*$ denote the parameters that maximize the likelihood. The
 simplest form of the test statistic for each variant is given by
 \begin{eqnarray}
-\Lambda_\Mc= \log 
-\left(\frac{\Lc_\Mc(s^*,h^*|\{\bm{\nu}^{(r)}\})}{\Lc_\Mc(0,0|\{\bm{\nu}^{(r)}\})}\right).
+M= \log 
+\left(\frac{\Lc_M(s^*,h^*|\{\bm{\nu}^{(r)}\})}{\Lc_M(0,0|\{\bm{\nu}^{(r)}\})}\right).
 \label{eq:mcts}
 \end{eqnarray}
 %where the sign $\sgn(s^*)$ helps focus on positive selection using a one-sided test.  
@@ -315,9 +316,9 @@ simplest form of the test statistic for each variant is given by
 So, far we assumed that the exact allele frequencies are given. For
 most data-sets, allele frequencies are estimated computed from
 genotype data with finite samples or pooled-sequencing data with
-finite depth of coverage (See Figure~\ref{fig:stateConditional}).
+finite depth of coverage (See Fig.~\ref{fig:stateConditional}).
 Moreover, the depth at a site varies for different replicates, and
-different time samples (Figure~\ref{fig:depthHetero}). To account for
+different time samples (Fig~\ref{fig:depthHetero}). To account for
 this heterogeneity, we extend the Markov chain in Eq.~\ref{eq:mkvlik}
 to a Hidden Markov Model for pooled-seq data.
 
@@ -345,15 +346,16 @@ forward-procedure~\cite{durbin1998biological}:
 where $\delta_t=\tau_t-\tau_{t-1}$. The joint likelihood of the
 observed data from $R$ independent observations is given by
 \begin{equation}
-  \Lc_{\Hc}(s,h|\{\bm{x}^{(r)}\})=\prod_{r=1}^R\Lc_{\Hc}(s,h|\bm{x}^{(r)}) = \prod_{r=1}^R \sum_i\alpha_{T,i}^{(r)}\;\;.
+  \Lc_{H}(s,h|\{\bm{x}^{(r)}\})=\prod_{r=1}^R\Lc_{H}(s,h|\bm{x}^{(r)}) = 
+  \prod_{r=1}^R \sum_i\alpha_{T,i}^{(r)}\;\;.
   \label{eq:hmmlik}
 \end{equation}
 Similar to Eq.~\ref{eq:mcts}, let $s^*,h^*$ denote the parameters that
 maximize likelihood. The modified likelihood statistic for pool-seq
 data is given by
 \begin{eqnarray}
-\Lambda_{\cal H} &=& \log 
-\left(\frac{\Lc_{\cal H}(s^*,h^*|\{\bm{x}^{(r)}\})}{\Lc_{\cal H}(0,0|\{\bm{x}^{(r)}\})}\right).
+H &=& \log 
+\left(\frac{\Lc_H(s^*,h^*|\{\bm{x}^{(r)}\})}{\Lc_H(0,0|\{\bm{x}^{(r)}\})}\right).
 \label{eq:hmmml}
 \end{eqnarray}
 
@@ -385,14 +387,13 @@ denote the set of sites whose likelihood ratio scores had percentile
 $\pi$ or better. For all $\pi$, the modified CLR statistic for Markov
 chain and HMM is computed using:
 \begin{eqnarray}
-  {\cal M}_{\pi} &=& \frac{1}{|L_{\pi}|}\sum_{\ell \in L_{\pi}} \Lambda_{\cal
-  M}(\ell)\;,\\
-{\cal H}_{\pi} &=& \frac{1}{|L_{\pi}|}\sum_{\ell \in L_{\pi}} \Lambda_{\cal H}(\ell)\; .
+  {\cal M}_{\pi} &=& \frac{1}{|L_{\pi}|}\sum_{\ell \in L_{\pi}}M_\ell\;,\\
+{\cal H}_{\pi} &=& \frac{1}{|L_{\pi}|}\sum_{\ell \in L_{\pi}} H_\ell\; .
   \label{eq:pihmm}
 \end{eqnarray}
-Note that ${\cal M}_0,{\cal H}_0$ (respectively, ${\cal M}_{100},
-{\cal H}_{100}$) correspond to the CLR after choosing all
-(respectively, best) site(s) in the region.
+Note that ${\cal M}_{100},{\cal H}_{100}$ (respectively, ${\cal M}_0,{\cal 
+H}_0$) correspond to the CLR after choosing the best
+(respectively, all) site(s) in the region.
 
 
 \paragraph{Estimating parameters.}
@@ -431,18 +432,24 @@ populations at time $0$ (before onset of selection), and at time
 sample $\tau_t$, for each $t$. However, these tests are not
 independent. Evans et al.~\cite{evans2007non} developed diffusion
 equations for evolution of SFS in time series, but they are difficult
-to solve. Here, we explicitly derive many of the common test
+to solve. 
+In the appendix~\ref{app:td} we derive the dynamic of Tajima'D statistic at 
+generation $t$, $D_t$ in term of initial statistic $D_0$, initial carrier 
+frequency $\nu_0$ and $s$. However as $\nu_0$ and $D_0$ are unknown in the 
+sampling from natural population experiments, we can not use Eq.~\ref{eq:tdt} 
+to estimate $s$ and compute likelihood ratio, respectively. Instead, we simply 
+aggregate statistics throughout time to compute time-series score.
+\ignore{
+Here, we explicitly derive many of the common test
 statistics as functions of frequency of the favored site in the form
 $S_t=f_S(\nu_t,\nu_0)$, where $\nu_t$ itself can be written as a
 function of $s,t$ (Eq.~\ref{eq:nut}). This allows us to compute
 $\Lc_S(s,h; \{S_t\})$ for many SFS based statistics. Then, a
 likelihood ratio, similar to Eqns.~\ref{eq:mcts},~\ref{eq:hmmml}
-provides\footnote{The likelihood of the data to the model is the
-  least-squares loss between model $D_t(\hat{(s)})$ and the observed
-  $D$.} a predictor for detecting selection in each window.
+provides a statistic for detecting selection in each window.
 \begin{description}
 \item [Tajima's D.] Let $D_t$ denote the value of Tajima's D in a hard
-  sweep at time $t$. We show (Appendix \ref{app:td}), that
+  sweep at time $t$. We show (Appendix ), that
   \begin{equation}
     D_t=D_0-\log(1-\nu_t) \frac{W_0}{\log(2N)} -\nu_t^2 \Pi_0
     \label{eq:tdt}    
@@ -460,7 +467,8 @@ provides\footnote{The likelihood of the data to the model is the
     \label{eq:ht}
   \end{equation}	
 %  This good approximation only in hard sweep with strong
-%  selection, Figures~\ref{fig:dynamic-weak},\ref{fig:dynamic-strong} (second row, left).
+%  selection, Figures~\ref{fig:dynamic-weak},\ref{fig:dynamic-strong} (second 
+%row, left).
 	
 \item[SFSelect.] The SFSelect statistic
   was proposed by Ronen et al.~\cite{ronen2013learning} to predict
@@ -470,7 +478,9 @@ provides\footnote{The likelihood of the data to the model is the
   we simply consider aggregation of the SFSelect statistic throughout time as a 
   statistic for time series.
 \end{description}
+}
 
+\ignore{
 \paragraph{$p$-value computation.}
 By Wilks’ theorem~\cite{williams2001weighing}, the standard likelihood
 ratio statistic (Eq.~\ref{eq:mcts}) is asymptotically distributed
@@ -479,9 +489,7 @@ al.~\cite{feder2014Identifying} point out that the empirical
 distribution provide more accurate $p$-values than $\Xc^2$ when the
 number of independent samples (replicates) is small.  Here we compute
 $p$-value for the test statistic using the empirical distribution of
-the negative controls.
-
-
+the negative controls.}
 		
 \paragraph{Precomputing Transition Matrices.}
 \comale\ requires pre-computation of matrices $P$, and $Q_{s,h}$ for
@@ -494,8 +502,8 @@ with a Core i7 CPU and 16GB of RAM.
 
 
 \subsection{Simulations}
-For each experiment a diploid population is created and evolved as
-described below. See also, Fig.~\ref{fig:ee}.
+To implement real world scenario for experimental evolution we created 
+simulated data as follows (see also, Fig.~\ref{fig:ee} B for illustration):
 \begin{enumerate}[I.]
 \item {\bf Creating initial founder line haplotypes.} Using msms
   program~\cite{ewing2010msms}, we created neutral populations for $F$ founding
@@ -521,13 +529,25 @@ described below. See also, Fig.~\ref{fig:ee}.
   simulation results were constrained to those samples where the
   favored allele escaped stochastic loss due genetic drift, and
   established in all replicates.
+  \item{\bf Sequencing Simulation.} Give allele frequency trajectories we 
+  sampled depth of each site  identically and independently from 
+  Poisson($\lambda$), where $\lambda \in \{30,100,\infty\}$ is the coverage for 
+  the experiment. Once depth $d$ are drawn for the site with frequency $\nu$, 
+  the number of derived allele read counts $c$ are sampled according to 
+  Binomial$(d,\nu)$. For the experiments with finite depth the tuple $(c,d)$ is 
+  the input data for each site, and for infinite depth experiments simply 
+  allele frequency is given and Markov Chain is evaluated for the HMM method, 
+  i.e. $\Hc=\Mc$.
 \end{enumerate}
 
-\paragraph{Power}.
-We define power of a statistic as the area under
-Receiver Operating Characteristic (ROC) curve, of set of experiments when 
-false-positive
-rate is less that 0.05, see Figure
+We also conducted simulation to test methods in the 
+sampling-from-natural-populations setting. \texttt{msms} simulator is used to 
+forward simulate a population with $N_e=10^4$, $\nu_0=10^{-4}$ and recored SFS 
+of a 50Kbp region as well as the frequency. The reset of parameters are chosen 
+the same as experimental evolution (see Fig.~\ref{fig:ee} A).
+beneficial allele.
+
+
 
 \section{Results}
 \paragraph{Modeling neutral trajectories in finite populations.} 
@@ -536,7 +556,7 @@ for neutral trajectories, compared to Brownian motion. We performed
 $150$K simulations for different values of $\nu_0$
 ($\nu_0\in\{0.005,0.1\}$) and time $\tau$ generations $\tau\in
 \{1,10,100\}$. 
-Figure~\ref{fig:markov} shows that Brownian motion is inadequate when
+Fig.~\ref{fig:markov} shows that Brownian motion is inadequate when
 $\nu_0$ is far from $0.5$, and when sampling is done after many
 generations $\tau>1$. (sampling times are sparse). In most
 experimental evolution scenarios, a site is unlikely to have frequency
@@ -545,16 +565,43 @@ smaller. Moreover, sampling times are sparse, with sampling done
 between $10$ and $100$ generations in \emph{Drosophila}
 experiments~\cite{orozco2012adaptation, zhou2011experimental}.
 
-In contrast, Figure~\ref{fig:markov}A-F also shows that Markov
+In contrast, Fig.~\ref{fig:markov}A-F also shows that Markov
 Likelihood predictions (Eq.~\ref{eq:mkvs}) are highly consistent with
 empirical data for a wide range of simulation parameters. We also
 tested the predictions under selection regime by conducting $100$K
 simulations with selection strength $s=0.1$ on a site with initial
 frequency $\nu_0=0.005$ and sampling after $\tau$
 $(\tau\in\{1,10,100\})$ generations. The empirical and theoretical
-distributions tracked closely (Figure~\ref{fig:markov}G-I).
+distributions tracked closely (Fig.~\ref{fig:markov}G-I).
 
-\paragraph{Detection Power.} We compared the detection power of $\Hc$, $\Mc$
+\paragraph{Detection Power.} 
+To evaluate performance of each method, For a set of experiments, we define 
+power as the area under
+Receiver Operating Characteristic (ROC) curve when 
+false-positive rate is less that 0.05, see Fig.~\ref{fig:powerROC}.
+Before comparing against other methods, we first evaluated the use of
+HMM and Markov chain composite likelihoods ($\Hc$ and $\Mc$) with different 
+percentile-cutoffs $\pi$ (see eq.~\ref{eq:pihmm}) under different sequence 
+coverage settings. We chose the 
+sequence depth of each marker by
+identically and independently sampling according to Poisson
+distribution with parameter $\lambda\in
+\{30,100,\infty\}$. We
+computed power for ${\cal H}_\pi$ and ${\cal M}_{\pi}$, with $\pi \in
+\{0,0.99,100\}$. See Fig.~\ref{fig:powerCLR}. The performance of HMM
+is robust with coverage, while Markov chain's power decay
+quickly. Also, the composite likelihood for all variants ($\pi=0$)
+shows the highest power (Fig.~\ref{fig:powerCLR}, and
+Table~\ref{tab:power}).  Therefore, we used ${\cal H} = {\cal H}_0$ as
+the default statistic for all subsequent calculations. We compared
+$\Hc$ against FIT and GP, and found that $\Hc$ improves upon the
+previous statistics for all parameter choices (Fig.~\ref{fig:power}). Note 
+that all methods other
+than \comale\ convert read counts to allele frequencies and compute
+their test statistic.
+
+
+We compared the power of $\Hc$, $\Mc$
 Gaussian process (GP)~\cite{Terhorst2015Multi},
 FIT~\cite{feder2014Identifying} statistics.  For each experiment,
 (specified with values for selection coefficient $s$, starting allele
@@ -563,25 +610,7 @@ frequency $\nu_0$, coverage $\lambda$, sampling time schedule ${\cal
 simulations. Half of these modeled neutral evolution and the rest were
 under selection. 
 
-Before comparing against other methods, we first evaluated the use of
-HMM and Markov chain composite likelihoods of under different levels
-of sequence coverage. We chose the sequence depth of each marker by
-identically and independently sampling according to Poisson
-distribution with parameter $\lambda\in
-\{30,100,\infty\}$\footnote{Note that $\lambda=\infty $ corresponds to
-  the case where exact population allele frequencies are given.}. We
-computed power for ${\cal H}_\pi$ and ${\cal M}_{\pi}$, with $\pi \in
-\{0,0.99,100\}$. See Figure~\ref{fig:powerCLR}. The performance of HMM
-is robust with coverage, while Markov chain's power decay
-quickly. Also, the composite likelihood for all variants ($\pi=0$)
-shows the highest power (Figure~\ref{fig:powerCLR}, and
-Table~\ref{tab:power}).  Therefore, we used ${\cal H} = {\cal H}_0$ as
-the default statistic for all subsequent calculations. We compared
-$\Hc$ against FIT and GP, and found that $\Hc$ improves upon the
-previous statistics for all parameter choices (Figure~\ref{fig:power}). Note 
-that all methods other
-than \comale\ convert read counts to allele frequencies and compute
-their test statistic.
+
 
 
 \paragraph{Running Time.}
@@ -654,9 +683,9 @@ presented in Figure \ref{fig:bias} for different configurations. In
 general, both GP and \comale\ have biased results for weak selections,
 where genetic drift dominates. However, for stronger sweeps,
 e.g.$s=0.1$, \comale\ provides estimates with smaller bias and
-variance \VB{Quantify variance and bias here?}.
+variance. \AI{variance will be added when GP runs completed.}
 
-
+\ignore{
 \paragraph{SFS based statistics in time series.} \VB{We need to delete, and move some of this earlier.}
 We also considered SFS based tests including Tajima's D, Fay \& Wu's H and 
 SFSelect for detecting selection. 
@@ -685,7 +714,7 @@ of initial carrier frequency $\nu_0$ and strength of selection $s$ (see section
  It can be shown that this argument holds for $H_t$ in early
  generations of hard sweep, where carrier frequency is not high.
 
-
+}
 
 
 \subsection{Drosophila experimental evolution with temperature extremes}
@@ -711,44 +740,34 @@ was $\rho(w,\Hc)=-0.03$ overall. However, when restricting to the
 candidate regions, we found $\rho(M,\Hc)=-0.27$ . This nine-fold
 increase in correlation indicates that $\Hc$ statistic takes more
 extreme values when SNPs are depleted and the number of variants are
-less than expected\footnote{ For
-	default parameters, the expected number of segregating sites in a
-	window is given by:
-$$\Ebb[M]=\theta \sum_{i=1}^{F-1}\frac{1}{i}=1175 $$}, $\approx$1175.  
+less than expected, $\approx$1175 (Watterson estimate).  
 To remedy this, we filtered out
 those genomic regions with less than $500$ SNPs and Pearson
 correlation changed from $\rho(M,\Hc)=-0.08$ to
-$\rho(M,\Hc)=-0.09$. Figure~\ref{fig:manhattancutoffed} shows $25$
-distinct intervals (supplemental data) that exceeded \VB{XXX}, covering $243$ of
+$\rho(M,\Hc)=-0.09$. Fig.~\ref{fig:manhattancutoffed} shows $25$
+distinct intervals (supplemental data) that exceeded top one percentile cutoff, 
+covering $243$ of
 the $13,965$ genes that encoded variants.
 
-\paragraph{Gene Set Enrichment on Regions under Selection.}\AI{This favors 
-longer shorter lists, i.e. specific GO terms}
+\paragraph{Gene Set Enrichment on Regions under Selection.}
 We found 243 out of the total 13,965 variant genes to be in the regions under 
 selection and applied Fisher exact test for gene lists corresponding to the 
 existing Gene Ontology terms Table~\ref{tab:Fisher}.
 
+\begin{table}[H]
+	\begin{tabular}{c}
+		\input{tables/transcriptFisher}
+	\end{tabular}
+	\caption{Gene set enrichment of 243 genes within 25 intervals under 
+		selection using Fisher exact test.}\label{tab:Fisher}
+\end{table}
 
-\paragraph{Gene Set Enrichment on Whole Genome} \AI{This favors longer gene 
-lists, i.e. general GO terms}\VB{Let's exclude this}
-We also performed another enrichment analysis on the all variant genes without 
-excluding any gene as follows. For each gene we computed \comale\ score on the 
-\emph{transcript}, \emph{synonymous-excluded}, \emph{exon}, and \emph{loss of 
-function}
- SNPs with $s*\ge0$ to favor genes under positive selection. Given each subset 
- of SNPs \comale\ computes a different score for each gene. By ranking all the 
- variant genes according to their \comale\ score, we computed $p$-value for each 
- gene list using Mann–Whitney U test, aka Wilcoxon rank-sum test, 
- Tables~\ref{tab:transcriptGO},~\ref{tab:nonsynonymousGO},
-~\ref{tab:exonGO},~\ref{tab:lofGO}.
-
-Interestingly, GO terms corresponding to membrane are enriched which are known 
-to be responsive to thermal adaptation\cite{hazel1995thermal}.
 
 \paragraph{Dominance.}
 The value of the overdominance parameter can provide an insight into the kind 
-of adaptation \emph{using population frequency data}\footnote{It is trivial for 
-genotyped data.}. In fact, for $s>0$ we have~\cite{gillespie2010population}  
+of adaptation \emph{using population frequency data}. In fact, for $s>0$ we 
+	have~\cite{gillespie2010population}  
+	\AI{results to be added }
 \begin{center}
 	\begin{tabular}{l|c}
 		condition & comment\\
@@ -761,36 +780,102 @@ genotyped data.}. In fact, for $s>0$ we have~\cite{gillespie2010population}
 	\end{tabular}
 \end{center}
 
+\section{Discussion}
+Experimental
+evolution approaches along with time-series sequencing of the evolving
+population are being applied in an increasing number of scenarios. In
+the development of \comale, we show that dealing with heterogeneous data, it is 
+possible to achieve significantly higher detection power as well as 
+computational efficiency.
+
+
+A serious constraint in
+adaptive experimental evolution experiment is the
+\emph{sampling-time-span}, the number of generations between the first
+and last sampled generations. Given a fixed amount of time for a
+study, sampling-time-span depends upon the generation time of the
+organism, and can often be small relative to fixation time. For
+example $30$-$50$ generations is typical for \emph{Drosophila}, with
+some exceptions~\cite{zhou2011experimental}.  Therefore, unless the
+selection coefficient is very strong the time series data will only
+capture a ``partial sweep''.  This limitation is more critical in the
+controlled experimental evolutions, where the sampling starts at the
+onset of selection, and favored allele grows in frequency very slowly.
+On the other hand, in sampling Natural populations, the time of onset
+of selection, may not be known. In a second contribution, we extend
+SFS based statistics to analyze dynamic data. We demonstrate the
+strengths and weaknesses of the dynamic SFS statistics, and show that
+they outperform other methods in when dynamic data is collected from
+natural populations with a higher frequency of the favored allele,
+i.e., the favored allele is closer to fixation.
+
+Second,
+in controlled experimental evolution experiments, populations are
+evolved and inbred. This scenario in which population size
+significantly drops from the large number of wild type (e.g., for
+\emph{Drosophila}, ($N_e\approx10^6$) to a small number of founder
+lines $F$ ($\approx 10^2$) for Experimental Evolution, resembles a
+severe population bottleneck. Such a intense reduction in effective
+population size have confounds both dynamic-SFS statistics and dynamic
+site allele frequency based statistics (Smaller population
+	size implies stronger genetic drift. In small population
+	experiments, drift can be so strong that the frequency of a site
+	changes rapidly so that it predicted as a site under selection)
+which leads to high false-positives.
+
+
+In our simulations, we found that the power of detection can be severely 
+affected by sampling regime as well as initial state of beneficial allele. In 
+experimental evolution, the span of sampling is the 
+. Many experimental evolution methods start sampling at the
+onset of selection, and continue up to $50$ or so generations. For
+small values of the selection coefficient, this may not be
+sufficient. However, even if it were possible to sample over a larger
+time-span, many methods, especially the ones that compute full
+likelihoods cannot compute evolutionary trajectories over a large span
+of generations. In contrast \comale\ precomputes the transition
+matrices, and can work for any span and time of sampling.
+
+We also show to extend SFS based methods to handle time-series
+data. In initial experiments, we found that these methods do not fare
+well in the traditional regimes of sampling. However, for many naturally
+occurring populations, it may be advantageous to sample many
+generations after the onset of selection, when the favored allele is
+close to being fixed. In those scearios, SFS based methods can indeed
+provide higher power.
+
+
+\section*{Acknowledgments}
 
 
 
-
-%\input{method}
-\newpage
 \section{Figures}
 \begin{figure}[H]
 	\centering
-	\begin{tabular}{cc}
-	\includegraphics[trim=0.1in 0 .08in 0.02in , clip,width=0.5\textwidth]{figures/ControlledExperimentalEvolution.pdf}
-&	\includegraphics[trim=0.1in 0 .08in 0.02in , clip,width=0.5\textwidth]{figures/NaturalExperimentalEvolution.pdf}
-	\end{tabular}
-	\caption{ Simulations for Experimental Evolution and Natural
-          evolution. } \label{fig:ee}
+	\includegraphics[trim=0.1in 0 .08in 0.02in , 
+	clip,width=\textwidth]{figures/ExperimentalEvolution.pdf}
+	\caption{ {\bf Two different settings for collecting genomic time series 
+	data.}
+Tow different setting in which dynamic data is collected is depicted with 
+typical parameters of Drosophila Melanogaster. In both settings 6 samples 
+(vertical red dashed lines) are taken every 10 generation.
+When sampling from naturally evolving populations (A), the onset of selection 
+is unknown, population size is larger. For (controlled) experimental evolution, 
+first founder lines are sampled from natural population to create a homogenous 
+population. Multiple replicates of the curated population is evolved and 
+sampled thought time.
+ } 
+	\label{fig:ee}
 \end{figure}
 
-\clearpage
-\newpage
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[trim={1in 0.1in 0in 
-		0in},clip,width=\textwidth]{figures/{markovDists}.pdf}
-
-
+	\includegraphics[width=\textwidth]{figures/{markovDists}.pdf}
               \caption{{\bf Comparison of empirical distributions of
                   allele frequencies (green) versus predictions from
                   Brownian Motion (red), and Markov
-                  Likelihoods}. Panels A-F: Experiments were conducted
+                  Chain (blue).} Panels A-F: Experiments were conducted
                 under neutral evolution with different starting
                 frequencies $\nu_0\in\{0.005,0.1\}$ and sampling times
                 $\tau \in \{1,10,100\}$ generations. The empirical
@@ -805,45 +890,36 @@ genotyped data.}. In fact, for $s>0$ we have~\cite{gillespie2010population}
                 $t=\{1,10,100\}$ generations.}
 	\label{fig:markov}
 \end{figure}
+
 \begin{figure}[H]
 	\centering
-	\includegraphics[trim=0.4in 0 .8in 0.02in , 
-	clip,width=\textwidth]{figures/powerROC.pdf}
-	\caption{Statdard ROC curve (left) and the same ROC curve when FPR$\le 
-	0.05$.} \label{fig:powerROC}
+	\includegraphics[width=\textwidth]{figures/powerCLR.pdf}
+	\caption{{\bf Detection power for Markov chain and HMM with different 
+	composite statistics.} 
+Detection power for Markov chain ($\Mc$) and HMM ($\Hc$) under hard sweep (top)
+and soft sweep (bottom), for different coverage $\lambda$ and selection 
+strength $s$.
+Each point represent power, scaled area under ROC curve when FPR <0.05, of 1000 
+simulations of 50Kbp regions with default parameter setting.
+} \label{fig:powerCLR}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[trim=0.4in 0 .8in 0.02in , clip,width=\textwidth]{figures/powerCLR.pdf}
-	\caption{{\bf Power calculations for detection of selection.} $1000$
-          simulations were performed for each choice of selection
-          coefficient $s$, and initial carrier frequency
-          $\nu_0$. Power was computed as average true-positive-rate of
-          detecting selection in a 50Kbp region, while
-          FDR$\le$0.05.} \label{fig:powerCLR}
+	\includegraphics[width=\textwidth]{figures/power.pdf}
+	\caption{ {\bf Power calculations for detection of selection.}
+		Detection power for \comale ($\Hc$), Frequency Increment Test
+		(FIT), Gaussian Process under hard 
+		sweep (top)
+		and soft sweep (bottom), for different coverage $\lambda$ and selection 
+		strength $s$.
+		Each point represent power, scaled area under ROC curve when FPR <0.05, 
+		of 1000 simulations.} \label{fig:power}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[trim=0.4in 0 .8in 0.02in , clip,width=\textwidth]{figures/power.pdf}
-	\caption{ Power, average
-          true-positive-rate when FDR$\le$0.05, for detecting
-          selection in a 50Kbp region for Frequency Increment Test
-          (FIT), Gaussian Process (GP), Markov Chain ($\Mc$), Hidden
-          Markov Model ($\Hc$) on 1000 simulations for each of
-          selection strength $s$ and initial carrier frequency
-          $\nu_0$. To incorporate ascertainment bias, each setting is
-          evaluated such that depth of each SNP is identically
-          distributed from Poisson$(\lambda)$ for $\lambda \in
-          \{30,100,\infty\}$. Average performance of each method is
-          shown in Table \ref{tab:power}. Note that $\Hc$ and $\Mc$
-          become identical when $\lambda=\infty$.  } \label{fig:power}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[trim=.4in 0 .8in 0.6in , clip,width=\textwidth]{figures/naturalee.pdf}
+	\includegraphics[width=0.7\textwidth]{figures/naturalee.pdf}
 	\caption{{\bf power of SFS based statistics.} Power, average
           true-positive-rate when FDR$\le$0.05, for detecting
           selection in a 50Kbp region for Frequency Increment Test
@@ -878,7 +954,7 @@ genotyped data.}. In fact, for $s>0$ we have~\cite{gillespie2010population}
 \end{figure}
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.75\textwidth]{figures/{runTime.png}}
+	\includegraphics[width=0.75\textwidth]{figures/{runTime.pdf}}
 	\caption{Average running time of \comale, HMM, GP with single,3,5,7 and 10 loci over 1000 simulations. Average running time for each method is shown in the horizontal axis ticks.} 
 	\label{fig:runTime}
 \end{figure}
@@ -898,63 +974,14 @@ genotyped data.}. In fact, for $s>0$ we have~\cite{gillespie2010population}
 	\label{fig:manhattancutoffed}
 \end{figure}
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=\textwidth]{figures/trajectoryReal.pdf}
-	\caption{Trajectory of top 3 sites.} 
-	\label{fig:trajectoryReal}
-\end{figure}
 
 
-\clearpage
-\newpage
-\begin{table}[h]
-	\begin{tabular}{c}
-		\input{tables/transcriptGO}
-	\end{tabular}
-	\caption{GO enrichment when all the SNPs in the genes are taken into 
-	account. .}\label{tab:transcriptGO}
-\end{table}
-\begin{table}[h]
-	\begin{tabular}{c}
-		\input{tables/nonsynonymousGO}
-	\end{tabular}
-	\caption{GO enrichment when synonymous variants are 
-	excluded.}\label{tab:nonsynonymousGO}
-\end{table}
-
-\begin{table}[h]
-	\begin{tabular}{c}
-		\input{tables/exonGO}
-	\end{tabular}
-	\caption{GO enrichment on missense variants.}\label{tab:exonGO}
-\end{table}
-\begin{table}[h]
-	\begin{tabular}{c}
-		\input{tables/lofGO}
-	\end{tabular}
-	\caption{GO enrichment on loss of function variants.}\label{tab:lofGO}
-\end{table}
 
 
-\begin{table}[h]
-	\begin{tabular}{c}
-		\input{tables/transcriptFisher}
-	\end{tabular}
-	\caption{Gene set enrichment of 243 genes within 25 intervals under 
-	selection using Fisher exact test.}\label{tab:Fisher}
-\end{table}
+\section*{References}
 
-\newpage
-
-
-%\input{intro}
-%\input{method}
-%\input{experiment}
-%\input{conclusion}
-%\newpage
-%\bibliographystyle{acm}
-%\bibliography{library}
+\bibliographystyle{Vancouver}
+\bibliography{library}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%% Supplemental Material%%%%
@@ -969,8 +996,8 @@ genotyped data.}. In fact, for $s>0$ we have~\cite{gillespie2010population}
 \renewcommand{\thetable}{S\arabic{table}}
 \renewcommand{\theequation}{S\arabic{equation}}
 
-
-
+\section*{Main text figure captions}
+\section*{Supporting information captions}
 \section{Appendix}
 \subsection{Allele frequencies under selective sweep} \label{app:af}
 
@@ -1013,7 +1040,7 @@ derivation)
 \eeq
 where $\sigma(x)=1/(1+e^{-x})$ is the logistic function, and 
 $\eta(x)=\log(x)/\log(1-x)$ is inverse of the 
-logistic, aka logit, function. Figure \ref{fig:sweep} depicts 
+logistic, aka logit, function. Fig. \ref{fig:sweep} depicts 
 the behavior of 
 the logistic model for site allele frequencies and the 
 default sampling time 
@@ -1029,7 +1056,7 @@ drift (a horizontal
 line), in short (e.g. 50 generations) experimental evolutions.
 
 
-As shown in Figures \ref{fig:dynamic-weak} and \ref{fig:dynamic-strong} (first 
+As shown in Figs. \ref{fig:dynamic-weak} and \ref{fig:dynamic-strong} (first 
 row), the approximate logistic model is consistent with 
 simulated data and we 
 use it to estimate the strength of selection for 
@@ -1102,7 +1129,9 @@ undergone neutral evolution is $(1-\nu_t)n +1$, which leads to
 putting all together 
 \beq
 D_t&= (1-\nu_t^2)\Pi_0 - (1+ \frac{ \log(1-\nu_t)}{\log(n)} ) W_0 = 
-D_0-\log(1-\nu_t) \frac{W_0}{\log(n)} -\nu_t^2 \Pi_0
+D_0-\log(1-\nu_t) \frac{W_0}{\log(n)} -\nu_t^2 \Pi_0=\\
+&D_0-\log(1-\sigma(s,\nu_0)) \frac{W_0}{\log(n)} -\sigma^2(s,\nu_0) \Pi_0 
+\label{eq:tdt}.
 \eeq
 
 
@@ -1126,29 +1155,29 @@ the recombination rate/bp/gen. The decay factor $\alpha_t=e^{-rtl}$ is the
 product of recombination and growth factor $\beta_t$ (eq. 30-31 in 
 \cite{Stephan2006The})is the outcome of 
 selection. For $s=0.01$, $l=100K$bp, the log of decay, growth and product of 
-both is depicted in Figure \ref{fig:ldf}. It is evident that, for these 
+both is depicted in Fig. \ref{fig:ldf}. It is evident that, for these 
 parameters LD does not start to decay until generation 1000, which would be  
 problematic when $\rho_0$. For example, in the case of hard sweep, the 
 selection is imposed on the site with minimum AF, which is at perfect linkage 
-($|D'|=1$) with all the other loci.\footnote{This is because, between the 
-	selected site and all the other sites frequency of one gamete is zero.}
-We this phenomenon is shown in the Figures \ref{fig:ld2d}, \ref{fig:ld3d} where 
+($|D'|=1$) with all the other loci.This is because, between the 
+	selected site and all the other sites frequency of one gamete is zero.
+We this phenomenon is shown in the Figs. \ref{fig:ld2d}, \ref{fig:ld3d} where 
 at generation zero the site at position 500K is at perfect linkage with all the 
 other sites, and linkage of the middle site with all the genome is depicted 
 for both genetic drift and natural selection, in different generations.
-Also, a window of 50Kbp around the selected site is shaded in Figure 
+Also, a window of 50Kbp around the selected site is shaded in Fig. 
 \ref{fig:ld2d} to demonstrate the value of LD in the window under drift and 
 hard sweep. This implies that the precision of locating the selection on the 
 genome is tightly dependent on a set of parameters including, recombination 
 rate, selection strength, initial carrier frequency, and the initial linkage.
+
 \subsection{Likelihood Functions} \label{app:likelihood}
 Actually, it is enough to show \eqref{eq:transition} is
 linear fractional in $s$, which is nby definition: linear numerator
 and denominator, and strictly positive denominator.
 \clearpage
-\newpage
 
-\section{Supplemental Figures and Tables}
+\section{Supplemental Figs. and Tables}
 
 \begin{figure}[H]
 	\centering
@@ -1243,17 +1272,6 @@ and denominator, and strictly positive denominator.
 	\caption{Dominance for $s=0.1$.} 
 	\label{fig:dominance}
 \end{figure}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[trim=.2in 0 .0in 0, 
-	clip,width=\textwidth]{figures/{qq}.pdf}
-	\caption{QQ plot for a simulation.} 
-	\label{fig:qq}
-\end{figure}
-
-
-
 \begin{figure}[H]
 	\centering
 	\includegraphics[trim=.0in 0 .0in 0, 
@@ -1276,20 +1294,6 @@ and denominator, and strictly positive denominator.
 	\label{fig:stateConditional}
 \end{figure}
 
-
-\begin{figure}[H]
-	\centering
-	\begin{tabular}{ccc}
-				\includegraphics[trim=.1in 0 .0in 0, 
-				clip,width=0.3\textwidth]{figures/{Song}.pdf} &
-		\includegraphics[trim=.1in 0 .0in 0, 
-		clip,width=0.3\textwidth]{figures/{BM}.pdf} &
-		\includegraphics[trim=.1in 0 .0in 0, 
-		clip,width=0.3\textwidth]{figures/{BF}.pdf}
-	\end{tabular}
-	\caption{Song, HSF, HSP.} 
-	\label{fig:geneRanking}
-\end{figure}
 
 
 \begin{figure}[H]
@@ -1367,19 +1371,17 @@ and denominator, and strictly positive denominator.
 \end{figure}
 
 
-
-
-%\begin{figure}[H]
-%	\centering
-%	\begin{tabular}{c}
-%		\includegraphics[trim=.2in 0 .0in 0, 
-%		clip,width=\textwidth]{figures/{siteDepthDist}.pdf}\\
-%	\end{tabular}
-%	\caption{Distribution of the mean and variance of the minimum depth of all sites.} 
-%	\label{fig:siteDepthDist}
-%\end{figure}
-\newpage
-\bibliographystyle{acm}
-\bibliography{library}
-\newpage
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim=0.4in 0 .8in 0.02in , 
+	clip,width=\textwidth]{figures/powerROC.pdf}
+	\caption{Statdard ROC curve (left) and the same ROC curve when FPR$\le 
+		0.05$.} \label{fig:powerROC}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{figures/trajectoryReal.pdf}
+	\caption{Trajectory of top 3 sites.} 
+	\label{fig:trajectoryReal}
+\end{figure}
 \end{document}
