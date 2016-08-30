@@ -1,480 +1,498 @@
 \begin{thebibliography}{10}
 
 \bibitem{achaz2009frequency}
-{\sc Achaz, G.}
+Guillaume Achaz.
 \newblock {Frequency spectrum neutrality tests: one for all and all for one}.
-\newblock {\em Genetics 183}, 1 (2009), 249--258.
+\newblock {\em Genetics}, 183(1):249--258, 2009.
 
 \bibitem{agresti2011categorical}
-{\sc Agresti, A., and Kateri, M.}
+Alan Agresti and Maria Kateri.
 \newblock {\em {Categorical data analysis}}.
 \newblock Springer, 2011.
 
 \bibitem{akey2009constructing}
-{\sc Akey, J.~M.}
+Joshua~M Akey.
 \newblock {Constructing genomic maps of positive selection in humans: Where do
   we go from here?}
-\newblock {\em Genome research 19}, 5 (2009), 711--722.
+\newblock {\em Genome research}, 19(5):711--722, 2009.
 
 \bibitem{ariey2014molecular}
-{\sc Ariey, F., Witkowski, B., Amaratunga, C., Beghain, J., Langlois, A.-C.,
-  Khim, N., Kim, S., Duru, V., Bouchier, C., Ma, L., and Others}.
+Fr{\'{e}}d{\'{e}}ric Ariey, Benoit Witkowski, Chanaki Amaratunga, Johann
+  Beghain, Anne-Claire Langlois, Nimol Khim, Saorin Kim, Valentine Duru,
+  Christiane Bouchier, Laurence Ma, and Others.
 \newblock {A molecular marker of artemisinin-resistant Plasmodium falciparum
   malaria}.
-\newblock {\em Nature 505}, 7481 (2014), 50--55.
+\newblock {\em Nature}, 505(7481):50--55, 2014.
 
 \bibitem{baldwin2014power}
-{\sc Baldwin-Brown, J.~G., Long, A.~D., and Thornton, K.~R.}
+James~G Baldwin-Brown, Anthony~D Long, and Kevin~R Thornton.
 \newblock {The power to detect quantitative trait loci using resequenced,
   experimentally evolved populations of diploid, sexual organisms}.
-\newblock {\em Molecular biology and evolution\/} (2014), msu048.
+\newblock {\em Molecular biology and evolution}, page msu048, 2014.
 
 \bibitem{barrett2008natural}
-{\sc Barrett, R. D.~H., Rogers, S.~M., and Schluter, D.}
+Rowan D~H Barrett, Sean~M Rogers, and Dolph Schluter.
 \newblock {Natural selection on a major armor gene in threespine stickleback}.
-\newblock {\em Science 322}, 5899 (2008), 255--257.
+\newblock {\em Science}, 322(5899):255--257, 2008.
 
 \bibitem{Barrick2013Genome}
-{\sc Barrick, J.~E., and Lenski, R.~E.}
+Jeffrey~E Barrick and Richard~E Lenski.
 \newblock {Genome dynamics during experimental evolution}.
-\newblock {\em Nat Rev Genet 14}, 12 (dec 2013), 827--839.
+\newblock {\em Nat Rev Genet}, 14(12):827--839, dec 2013.
 
 \bibitem{barrick2009genome}
-{\sc Barrick, J.~E., Yu, D.~S., Yoon, S.~H., Jeong, H., Oh, T.~K., Schneider,
-  D., Lenski, R.~E., and Kim, J.~F.}
+Jeffrey~E Barrick, Dong~Su Yu, Sung~Ho Yoon, Haeyoung Jeong, Tae~Kwang Oh,
+  Dominique Schneider, Richard~E Lenski, and Jihyun~F Kim.
 \newblock {Genome evolution and adaptation in a long-term experiment with
   Escherichia coli}.
-\newblock {\em Nature 461}, 7268 (2009), 1243--1247.
+\newblock {\em Nature}, 461(7268):1243--1247, 2009.
 
 \bibitem{bergland2014genomic}
-{\sc Bergland, A.~O., Behrman, E.~L., O'Brien, K.~R., Schmidt, P.~S., and
-  Petrov, D.~A.}
+Alan~O Bergland, Emily~L Behrman, Katherine~R O'Brien, Paul~S Schmidt, and
+  Dmitri~A Petrov.
 \newblock {Genomic evidence of rapid and stable adaptive oscillations over
   seasonal time scales in Drosophila}.
-\newblock {\em PLoS Genet 10}, 11 (2014), e1004775.
+\newblock {\em PLoS Genet}, 10(11):e1004775, 2014.
 
 \bibitem{bersaglieri2004genetic}
-{\sc Bersaglieri, T., Sabeti, P.~C., Patterson, N., Vanderploeg, T., Schaffner,
-  S.~F., Drake, J.~A., Rhodes, M., Reich, D.~E., and Hirschhorn, J.~N.}
+Todd Bersaglieri, Pardis~C Sabeti, Nick Patterson, Trisha Vanderploeg, Steve~F
+  Schaffner, Jared~A Drake, Matthew Rhodes, David~E Reich, and Joel~N
+  Hirschhorn.
 \newblock {Genetic signatures of strong recent positive selection at the
   lactase gene}.
-\newblock {\em The American Journal of Human Genetics 74}, 6 (2004),
-  1111--1120.
+\newblock {\em The American Journal of Human Genetics}, 74(6):1111--1120, 2004.
 
 \bibitem{bollback2007clonal}
-{\sc Bollback, J.~P., and Huelsenbeck, J.~P.}
+Jonathan~P Bollback and John~P Huelsenbeck.
 \newblock {Clonal interference is alleviated by high mutation rates in large
   populations}.
-\newblock {\em Molecular biology and evolution 24}, 6 (2007), 1397--1406.
+\newblock {\em Molecular biology and evolution}, 24(6):1397--1406, 2007.
 
 \bibitem{bollback2008estimation}
-{\sc Bollback, J.~P., York, T.~L., and Nielsen, R.}
+Jonathan~P Bollback, Thomas~L York, and Rasmus Nielsen.
 \newblock {Estimation of 2Nes from temporal allele frequency data}.
-\newblock {\em Genetics 179}, 1 (2008), 497--502.
+\newblock {\em Genetics}, 179(1):497--502, 2008.
 
 \bibitem{boyko2008assessing}
-{\sc Boyko, A.~R., Williamson, S.~H., Indap, A.~R., Degenhardt, J.~D.,
-  Hernandez, R.~D., Lohmueller, K.~E., Adams, M.~D., Schmidt, S., Sninsky,
-  J.~J., Sunyaev, S.~R., and Others}.
+Adam~R Boyko, Scott~H Williamson, Amit~R Indap, Jeremiah~D Degenhardt, Ryan~D
+  Hernandez, Kirk~E Lohmueller, Mark~D Adams, Steffen Schmidt, John~J Sninsky,
+  Shamil~R Sunyaev, and Others.
 \newblock {Assessing the evolutionary impact of amino acid mutations in the
   human genome}.
-\newblock {\em PLoS Genet 4}, 5 (2008), e1000083.
+\newblock {\em PLoS Genet}, 4(5):e1000083, 2008.
 
 \bibitem{burke2010genome}
-{\sc Burke, M.~K., Dunham, J.~P., Shahrestani, P., Thornton, K.~R., Rose,
-  M.~R., and Long, A.~D.}
+Molly~K Burke, Joseph~P Dunham, Parvin Shahrestani, Kevin~R Thornton, Michael~R
+  Rose, and Anthony~D Long.
 \newblock {Genome-wide analysis of a long-term evolution experiment with
   Drosophila}.
-\newblock {\em Nature 467}, 7315 (2010), 587--590.
+\newblock {\em Nature}, 467(7315):587--590, 2010.
 
 \bibitem{daborn2001ddt}
-{\sc Daborn, P., Boundy, S., Yen, J., Pittendrigh, B., and Others}.
+P~Daborn, S~Boundy, J~Yen, B~Pittendrigh, and Others.
 \newblock {DDT resistance in Drosophila correlates with Cyp6g1 over-expression
   and confers cross-resistance to the neonicotinoid imidacloprid}.
-\newblock {\em Molecular Genetics and Genomics 266}, 4 (2001), 556--563.
+\newblock {\em Molecular Genetics and Genomics}, 266(4):556--563, 2001.
 
 \bibitem{daniels2013genetic}
-{\sc Daniels, R., Chang, H.-H., S{\'{e}}ne, P.~D., Park, D.~C., Neafsey, D.~E.,
-  Schaffner, S.~F., Hamilton, E.~J., Lukens, A.~K., {Van Tyne}, D., Mboup, S.,
-  and Others}.
+Rachel Daniels, Hsiao-Han Chang, Papa~Diogoye S{\'{e}}ne, Danny~C Park,
+  Daniel~E Neafsey, Stephen~F Schaffner, Elizabeth~J Hamilton, Amanda~K Lukens,
+  Daria {Van Tyne}, Souleymane Mboup, and Others.
 \newblock {Genetic surveillance detects both clonal and epidemic transmission
   of malaria following enhanced intervention in Senegal}.
-\newblock {\em PLoS One 8}, 4 (2013), e60780.
+\newblock {\em PLoS One}, 8(4):e60780, 2013.
 
 \bibitem{denef2012situ}
-{\sc Denef, V.~J., and Banfield, J.~F.}
+Vincent~J Denef and Jillian~F Banfield.
 \newblock {In situ evolutionary rate measurements show ecological success of
   recently emerged bacterial hybrids}.
-\newblock {\em Science 336}, 6080 (2012), 462--466.
+\newblock {\em Science}, 336(6080):462--466, 2012.
 
 \bibitem{desai2008polymorphism}
-{\sc Desai, M.~M., and Plotkin, J.~B.}
+Michael~M Desai and Joshua~B Plotkin.
 \newblock {The polymorphism frequency spectrum of finitely many sites under
   selection}.
-\newblock {\em Genetics 180}, 4 (2008), 2175--2191.
+\newblock {\em Genetics}, 180(4):2175--2191, 2008.
 
 \bibitem{durbin1998biological}
-{\sc Durbin, R., Eddy, S.~R., Krogh, A., and Mitchison, G.}
+Richard Durbin, Sean~R Eddy, Anders Krogh, and Graeme Mitchison.
 \newblock {\em {Biological sequence analysis: probabilistic models of proteins
   and nucleic acids}}.
 \newblock Cambridge university press, 1998.
 
 \bibitem{evans2007non}
-{\sc Evans, S.~N., Shvets, Y., and Slatkin, M.}
+Steven~N Evans, Yelena Shvets, and Montgomery Slatkin.
 \newblock {Non-equilibrium theory of the allele frequency spectrum}.
-\newblock {\em Theoretical population biology 71}, 1 (2007), 109--119.
+\newblock {\em Theoretical population biology}, 71(1):109--119, 2007.
 
 \bibitem{Ewens2012Mathematical}
-{\sc Ewens, W.~J.}
+Warren~J Ewens.
 \newblock {\em {Mathematical Population Genetics 1: Theoretical Introduction}},
-  vol.~27.
+  volume~27.
 \newblock Springer Science {\&} Business Media, 2012.
 
 \bibitem{ewing2010msms}
-{\sc Ewing, G., and Hermisson, J.}
+Gregory Ewing and Joachim Hermisson.
 \newblock {MSMS: a coalescent simulation program including recombination,
   demographic structure and selection at a single locus}.
-\newblock {\em Bioinformatics 26}, 16 (2010), 2064--2065.
+\newblock {\em Bioinformatics}, 26(16):2064--2065, 2010.
 
 \bibitem{fay2000hitchhiking}
-{\sc Fay, J.~C., and Wu, C.-I.}
+Justin~C Fay and Chung-I Wu.
 \newblock {Hitchhiking under positive Darwinian selection}.
-\newblock {\em Genetics 155}, 3 (2000), 1405--1413.
+\newblock {\em Genetics}, 155(3):1405--1413, 2000.
 
 \bibitem{feder2014Identifying}
-{\sc Feder, A.~F., Kryazhimskiy, S., and Plotkin, J.~B.}
+Alison~F Feder, Sergey Kryazhimskiy, and Joshua~B Plotkin.
 \newblock {Identifying signatures of selection in genetic time series}.
-\newblock {\em Genetics 196}, 2 (2014), 509--522.
+\newblock {\em Genetics}, 196(2):509--522, 2014.
 
 \bibitem{Feder2016More}
-{\sc Feder, A.~F., Rhee, S.-Y., Holmes, S.~P., Shafer, R.~W., Petrov, D.~A.,
-  and Pennings, P.~S.}
+Alison~F Feder, Soo-Yon Rhee, Susan~P Holmes, Robert~W Shafer, Dmitri~A Petrov,
+  and Pleuni~S Pennings.
 \newblock {More effective drugs lead to harder selective sweeps in the
   evolution of drug resistance in HIV-1.}
-\newblock {\em eLife 5\/} (jan 2016).
+\newblock {\em eLife}, 5, jan 2016.
 
 \bibitem{fu1995statistical}
-{\sc Fu, Y.-X.}
+Yun-Xin Fu.
 \newblock {Statistical properties of segregating sites}.
-\newblock {\em Theoretical population biology 48}, 2 (1995), 172--197.
+\newblock {\em Theoretical population biology}, 48(2):172--197, 1995.
 
 \bibitem{gillespie2010population}
-{\sc Gillespie, J.~H.}
+John~H Gillespie.
 \newblock {\em {Population genetics: a concise guide}}.
 \newblock JHU Press, 2010.
 
 \bibitem{gottesman2002mechanisms}
-{\sc Gottesman, M.~M.}
+Michael~M Gottesman.
 \newblock {Mechanisms of cancer drug resistance}.
-\newblock {\em Annual review of medicine 53}, 1 (2002), 615--627.
+\newblock {\em Annual review of medicine}, 53(1):615--627, 2002.
 
-\bibitem{hazel1995thermal}
-{\sc Hazel, J.~R.}
-\newblock {Thermal adaptation in biological membranes: is homeoviscous
-  adaptation the explanation?}
-\newblock {\em Annual review of physiology 57}, 1 (1995), 19--42.
+\bibitem{gulen2004effect}
+Hatice Gulen and Atilla Eris.
+\newblock {Effect of heat stress on peroxidase activity and total protein
+  content in strawberry plants}.
+\newblock {\em Plant Science}, 166(3):739--744, 2004.
 
 \bibitem{hegreness2006equivalence}
-{\sc Hegreness, M., Shoresh, N., Hartl, D., and Kishony, R.}
+Matthew Hegreness, Noam Shoresh, Daniel Hartl, and Roy Kishony.
 \newblock {An equivalence principle for the incorporation of favorable
   mutations in asexual populations}.
-\newblock {\em Science 311}, 5767 (2006), 1615--1617.
+\newblock {\em Science}, 311(5767):1615--1617, 2006.
 
 \bibitem{holsinger2009genetics}
-{\sc Holsinger, K.~E., and Weir, B.~S.}
+Kent~E Holsinger and Bruce~S Weir.
 \newblock {Genetics in geographically structured populations: defining,
   estimating and interpreting FST}.
-\newblock {\em Nature Reviews Genetics 10}, 9 (2009), 639--650.
+\newblock {\em Nature Reviews Genetics}, 10(9):639--650, 2009.
 
 \bibitem{illingworth2011distinguishing}
-{\sc Illingworth, C. J.~R., and Mustonen, V.}
+Christopher J~R Illingworth and Ville Mustonen.
 \newblock {Distinguishing driver and passenger mutations in an evolutionary
   history categorized by interference}.
-\newblock {\em Genetics 189}, 3 (2011), 989--1000.
+\newblock {\em Genetics}, 189(3):989--1000, 2011.
 
 \bibitem{illingworth2012quantifying}
-{\sc Illingworth, C. J.~R., Parts, L., Schiffels, S., Liti, G., and Mustonen,
-  V.}
+Christopher J~R Illingworth, Leopold Parts, Stephan Schiffels, Gianni Liti, and
+  Ville Mustonen.
 \newblock {Quantifying selection acting on a complex trait using allele
   frequency time series data}.
-\newblock {\em Molecular biology and evolution 29}, 4 (2012), 1187--1197.
+\newblock {\em Molecular biology and evolution}, 29(4):1187--1197, 2012.
 
 \bibitem{izutsu2015dynamics}
-{\sc Izutsu, M., Toyoda, A., Fujiyama, A., Agata, K., and Fuse, N.}
+Minako Izutsu, Atsushi Toyoda, Asao Fujiyama, Kiyokazu Agata, and Naoyuki Fuse.
 \newblock {Dynamics of Dark-Fly Genome Under Environmental Selections}.
-\newblock {\em G3: Genes| Genomes| Genetics\/} (2015), g3----115.
+\newblock {\em G3: Genes| Genomes| Genetics}, pages g3----115, 2015.
 
 \bibitem{jha2015whole}
-{\sc Jha, A.~R., Miles, C.~M., Lippert, N.~R., Brown, C.~D., White, K.~P., and
-  Kreitman, M.}
+Aashish~R Jha, Cecelia~M Miles, Nodia~R Lippert, Christopher~D Brown, Kevin~P
+  White, and Martin Kreitman.
 \newblock {Whole-genome resequencing of experimental populations reveals
   polygenic basis of egg-size variation in Drosophila melanogaster}.
-\newblock {\em Molecular biology and evolution 32}, 10 (2015), 2616--2632.
+\newblock {\em Molecular biology and evolution}, 32(10):2616--2632, 2015.
 
 \bibitem{kawecki2012experimental}
-{\sc Kawecki, T.~J., Lenski, R.~E., Ebert, D., Hollis, B., Olivieri, I., and
-  Whitlock, M.~C.}
+Tadeusz~J Kawecki, Richard~E Lenski, Dieter Ebert, Brian Hollis, Isabelle
+  Olivieri, and Michael~C Whitlock.
 \newblock {Experimental evolution}.
-\newblock {\em Trends in ecology {\&} evolution 27}, 10 (2012), 547--560.
+\newblock {\em Trends in ecology {\&} evolution}, 27(10):547--560, 2012.
+
+\bibitem{konstandi2005enzymatic}
+Ourania~A Konstandi, Issidora~S Papassideri, Dimitrios~J Stravopodis,
+  Christos~A Kenoutis, Zulfiqar Hasan, Theodoros Katsorchis, Ron Wever, and
+  Lukas~H Margaritis.
+\newblock {The enzymatic component of Drosophila melanogaster chorion is the
+  Pxd peroxidase}.
+\newblock {\em Insect biochemistry and molecular biology}, 35(9):1043--1057,
+  2005.
 
 \bibitem{lang2011genetic}
-{\sc Lang, G.~I., Botstein, D., and Desai, M.~M.}
+Gregory~I Lang, David Botstein, and Michael~M Desai.
 \newblock {Genetic variation and the fate of beneficial mutations in asexual
   populations}.
-\newblock {\em Genetics 188}, 3 (2011), 647--661.
+\newblock {\em Genetics}, 188(3):647--661, 2011.
 
 \bibitem{lang2013pervasive}
-{\sc Lang, G.~I., Rice, D.~P., Hickman, M.~J., Sodergren, E., Weinstock, G.~M.,
-  Botstein, D., and Desai, M.~M.}
+Gregory~I Lang, Daniel~P Rice, Mark~J Hickman, Erica Sodergren, George~M
+  Weinstock, David Botstein, and Michael~M Desai.
 \newblock {Pervasive genetic hitchhiking and clonal interference in forty
   evolving yeast populations}.
-\newblock {\em Nature 500}, 7464 (2013), 571--574.
+\newblock {\em Nature}, 500(7464):571--574, 2013.
+
+\bibitem{li2006major}
+Junsuo~S Li and Jianyong Li.
+\newblock {Major chorion proteins and their crosslinking during chorion
+  hardening in Aedes aegypti mosquitoes}.
+\newblock {\em Insect biochemistry and molecular biology}, 36(12):954--964,
+  2006.
 
 \bibitem{malaspinas2012estimating}
-{\sc Malaspinas, A.-S., Malaspinas, O., Evans, S.~N., and Slatkin, M.}
+Anna-Sapfo Malaspinas, Orestis Malaspinas, Steven~N Evans, and Montgomery
+  Slatkin.
 \newblock {Estimating allele age and selection coefficient from time-serial
   data}.
-\newblock {\em Genetics 192}, 2 (2012), 599--607.
+\newblock {\em Genetics}, 192(2):599--607, 2012.
 
 \bibitem{maldarelli2013hiv}
-{\sc Maldarelli, F., Kearney, M., Palmer, S., Stephens, R., Mican, J., Polis,
-  M.~A., Davey, R.~T., Kovacs, J., Shao, W., Rock-Kress, D., and Others}.
+Frank Maldarelli, Mary Kearney, Sarah Palmer, Robert Stephens, JoAnn Mican,
+  Michael~A Polis, Richard~T Davey, Joseph Kovacs, Wei Shao, Diane Rock-Kress,
+  and Others.
 \newblock {HIV populations are large and accumulate high genetic diversity in a
   nonlinear fashion}.
-\newblock {\em Journal of virology 87}, 18 (2013), 10313--10323.
+\newblock {\em Journal of virology}, 87(18):10313--10323, 2013.
 
 \bibitem{martins2014host}
-{\sc Martins, N.~E., Faria, V.~G., Nolte, V., Schl{\"{o}}tterer, C., Teixeira,
-  L., Sucena, {\'{E}}., and Magalh{\~{a}}es, S.}
+Nelson~E Martins, V{\'{i}}tor~G Faria, Viola Nolte, Christian
+  Schl{\"{o}}tterer, Luis Teixeira, {\'{E}}lio Sucena, and Sara
+  Magalh{\~{a}}es.
 \newblock {Host adaptation to viruses relies on few genes with different
   cross-resistance properties}.
-\newblock {\em Proceedings of the National Academy of Sciences 111}, 16 (2014),
-  5938--5943.
+\newblock {\em Proceedings of the National Academy of Sciences},
+  111(16):5938--5943, 2014.
 
 \bibitem{mathieson2013estimating}
-{\sc Mathieson, I., and McVean, G.}
+Iain Mathieson and Gil McVean.
 \newblock {Estimating selection coefficients in spatially structured
   populations from time series data of allele frequencies}.
-\newblock {\em Genetics 193}, 3 (2013), 973--984.
+\newblock {\em Genetics}, 193(3):973--984, 2013.
 
 \bibitem{messer2013population}
-{\sc Messer, P.~W., and Petrov, D.~A.}
+Philipp~W Messer and Dmitri~A Petrov.
 \newblock {Population genomics of rapid adaptation by soft selective sweeps}.
-\newblock {\em Trends in ecology {\&} evolution 28}, 11 (2013), 659--669.
+\newblock {\em Trends in ecology {\&} evolution}, 28(11):659--669, 2013.
 
 \bibitem{nair2007recurrent}
-{\sc Nair, S., Nash, D., Sudimack, D., Jaidee, A., Barends, M., Uhlemann,
-  A.-C., Krishna, S., Nosten, F., and Anderson, T. J.~C.}
+Shalini Nair, Denae Nash, Daniel Sudimack, Anchalee Jaidee, Marion Barends,
+  Anne-Catrin Uhlemann, Sanjeev Krishna, Fran{\c{c}}ois Nosten, and Tim J~C
+  Anderson.
 \newblock {Recurrent gene amplification and soft selective sweeps during
   evolution of multidrug resistance in malaria parasites}.
-\newblock {\em Molecular Biology and Evolution 24}, 2 (2007), 562--573.
+\newblock {\em Molecular Biology and Evolution}, 24(2):562--573, 2007.
 
 \bibitem{nielsen2003correcting}
-{\sc Nielsen, R., and Signorovitch, J.}
+Rasmus Nielsen and James Signorovitch.
 \newblock {Correcting for ascertainment biases when analyzing SNP data:
   applications to the estimation of linkage disequilibrium}.
-\newblock {\em Theoretical population biology 63}, 3 (2003), 245--255.
+\newblock {\em Theoretical population biology}, 63(3):245--255, 2003.
 
 \bibitem{nielsen2005genomic}
-{\sc Nielsen, R., Williamson, S., Kim, Y., Hubisz, M.~J., Clark, A.~G., and
-  Bustamante, C.}
+Rasmus Nielsen, Scott Williamson, Yuseob Kim, Melissa~J Hubisz, Andrew~G Clark,
+  and Carlos Bustamante.
 \newblock {Genomic scans for selective sweeps using SNP data}.
-\newblock {\em Genome research 15}, 11 (2005), 1566--1575.
+\newblock {\em Genome research}, 15(11):1566--1575, 2005.
 
 \bibitem{orozco2012adaptation}
-{\sc OROZCO-terWENGEL, P., Kapun, M., Nolte, V., Kofler, R., Flatt, T., and
-  Schl{\"{o}}tterer, C.}
+PABLO OROZCO-terWENGEL, Martin Kapun, Viola Nolte, Robert Kofler, Thomas Flatt,
+  and Christian Schl{\"{o}}tterer.
 \newblock {Adaptation of Drosophila to a novel laboratory environment reveals
   temporally heterogeneous trajectories of selected alleles}.
-\newblock {\em Molecular ecology 21}, 20 (2012), 4931--4941.
+\newblock {\em Molecular ecology}, 21(20):4931--4941, 2012.
 
 \bibitem{oz2014strength}
-{\sc Oz, T., Guvenek, A., Yildiz, S., Karaboga, E., Tamer, Y.~T., Mumcuyan, N.,
-  Ozan, V.~B., Senturk, G.~H., Cokol, M., Yeh, P., and Others}.
+Tugce Oz, Aysegul Guvenek, Sadik Yildiz, Enes Karaboga, Yusuf~Talha Tamer,
+  Nirva Mumcuyan, Vedat~Burak Ozan, Gizem~Hazal Senturk, Murat Cokol, Pamela
+  Yeh, and Others.
 \newblock {Strength of selection pressure is an important parameter
   contributing to the complexity of antibiotic resistance evolution}.
-\newblock {\em Molecular biology and evolution\/} (2014), msu191.
+\newblock {\em Molecular biology and evolution}, page msu191, 2014.
 
 \bibitem{pollak1983new}
-{\sc Pollak, E.}
+Edward Pollak.
 \newblock {A new method for estimating the effective population size from
   allele frequency changes}.
-\newblock {\em Genetics 104}, 3 (1983), 531--548.
+\newblock {\em Genetics}, 104(3):531--548, 1983.
 
 \bibitem{ptak2002evidence}
-{\sc Ptak, S.~E., and Przeworski, M.}
+Susan~E Ptak and Molly Przeworski.
 \newblock {Evidence for population growth in humans is confounded by fine-scale
   population structure}.
-\newblock {\em Trends in Genetics 18}, 11 (2002), 559--563.
+\newblock {\em Trends in Genetics}, 18(11):559--563, 2002.
 
 \bibitem{ramos2002statistical}
-{\sc Ramos-Onsins, S.~E., and Rozas, J.}
+Sebastian~E Ramos-Onsins and Julio Rozas.
 \newblock {Statistical properties of new neutrality tests against population
   growth}.
-\newblock {\em Molecular biology and evolution 19}, 12 (2002), 2092--2100.
+\newblock {\em Molecular biology and evolution}, 19(12):2092--2100, 2002.
 
 \bibitem{reid2011new}
-{\sc Reid, B.~J., Kostadinov, R., and Maley, C.~C.}
+Brian~J Reid, Rumen Kostadinov, and Carlo~C Maley.
 \newblock {New strategies in Barrett's esophagus: integrating clonal
   evolutionary theory with clinical management}.
-\newblock {\em Clinical Cancer Research 17}, 11 (2011), 3512--3519.
+\newblock {\em Clinical Cancer Research}, 17(11):3512--3519, 2011.
 
 \bibitem{remolina2012genomic}
-{\sc Remolina, S.~C., Chang, P.~L., Leips, J., Nuzhdin, S.~V., and Hughes,
-  K.~A.}
+Silvia~C Remolina, Peter~L Chang, Jeff Leips, Sergey~V Nuzhdin, and Kimberly~A
+  Hughes.
 \newblock {Genomic basis of aging and life-history evolution in Drosophila
   melanogaster}.
-\newblock {\em Evolution 66}, 11 (2012), 3390--3403.
+\newblock {\em Evolution}, 66(11):3390--3403, 2012.
 
 \bibitem{ronen2015predicting}
-{\sc Ronen, R., Tesler, G., Akbari, A., Zakov, S., Rosenberg, N.~A., and Bafna,
-  V.}
+Roy Ronen, Glenn Tesler, Ali Akbari, Shay Zakov, Noah~A Rosenberg, and Vineet
+  Bafna.
 \newblock {Predicting Carriers of Ongoing Selective Sweeps Without Knowledge of
   the Favored Allele}.
-\newblock {\em PLoS Genet 11}, 9 (2015), e1005527.
+\newblock {\em PLoS Genet}, 11(9):e1005527, 2015.
 
 \bibitem{ronen2013learning}
-{\sc Ronen, R., Udpa, N., Halperin, E., and Bafna, V.}
+Roy Ronen, Nitin Udpa, Eran Halperin, and Vineet Bafna.
 \newblock {Learning natural selection from the site frequency spectrum}.
-\newblock {\em Genetics 195}, 1 (2013), 181--193.
+\newblock {\em Genetics}, 195(1):181--193, 2013.
 
 \bibitem{sabeti2006positive}
-{\sc Sabeti, P.~C., Schaffner, S.~F., Fry, B., Lohmueller, J., Varilly, P.,
-  Shamovsky, O., Palma, A., Mikkelsen, T.~S., Altshuler, D., and Lander, E.~S.}
+P~C Sabeti, S~F Schaffner, B~Fry, J~Lohmueller, P~Varilly, O~Shamovsky,
+  A~Palma, T~S Mikkelsen, D~Altshuler, and E~S Lander.
 \newblock {Positive natural selection in the human lineage}.
-\newblock {\em science 312}, 5780 (2006), 1614--1620.
+\newblock {\em science}, 312(5780):1614--1620, 2006.
 
 \bibitem{sabeti2007genome}
-{\sc Sabeti, P.~C., Varilly, P., Fry, B., Lohmueller, J., Hostetter, E.,
-  Cotsapas, C., Xie, X., Byrne, E.~H., McCarroll, S.~A., Gaudet, R., and
-  Others}.
+Pardis~C Sabeti, Patrick Varilly, Ben Fry, Jason Lohmueller, Elizabeth
+  Hostetter, Chris Cotsapas, Xiaohui Xie, Elizabeth~H Byrne, Steven~A
+  McCarroll, Rachelle Gaudet, and Others.
 \newblock {Genome-wide detection and characterization of positive selection in
   human populations}.
-\newblock {\em Nature 449}, 7164 (2007), 913--918.
+\newblock {\em Nature}, 449(7164):913--918, 2007.
 
 \bibitem{sawyer1992population}
-{\sc Sawyer, S.~A., and Hartl, D.~L.}
+Stanley~A Sawyer and Daniel~L Hartl.
 \newblock {Population genetics of polymorphism and divergence.}
-\newblock {\em Genetics 132}, 4 (1992), 1161--1176.
+\newblock {\em Genetics}, 132(4):1161--1176, 1992.
 
 \bibitem{schlotterer2015combining}
-{\sc Schl{\"{o}}tterer, C., Kofler, R., Versace, E., Tobler, R., and Franssen,
-  S.~U.}
+Christian Schl{\"{o}}tterer, R~Kofler, E~Versace, R~Tobler, and S~U Franssen.
 \newblock {Combining experimental evolution with next-generation sequencing: a
   powerful tool to study adaptation from standing genetic variation}.
-\newblock {\em Heredity 114}, 5 (2015), 431--440.
+\newblock {\em Heredity}, 114(5):431--440, 2015.
 
 \bibitem{simonson2010genetic}
-{\sc Simonson, T.~S., Yang, Y., Huff, C.~D., Yun, H., Qin, G., Witherspoon,
-  D.~J., Bai, Z., Lorenzo, F.~R., Xing, J., Jorde, L.~B., and Others}.
+Tatum~S Simonson, Yingzhong Yang, Chad~D Huff, Haixia Yun, Ga~Qin, David~J
+  Witherspoon, Zhenzhong Bai, Felipe~R Lorenzo, Jinchuan Xing, Lynn~B Jorde,
+  and Others.
 \newblock {Genetic evidence for high-altitude adaptation in Tibet}.
-\newblock {\em Science 329}, 5987 (2010), 72--75.
+\newblock {\em Science}, 329(5987):72--75, 2010.
 
 \bibitem{spellberg2008epidemic}
-{\sc Spellberg, B., Guidos, R., Gilbert, D., Bradley, J., Boucher, H.~W.,
-  Scheld, W.~M., Bartlett, J.~G., Edwards, J., of~America, I. D.~S., and
-  Others}.
+Brad Spellberg, Robert Guidos, David Gilbert, John Bradley, Helen~W Boucher,
+  W~Michael Scheld, John~G Bartlett, John Edwards, Infectious Diseases~Society
+  of~America, and Others.
 \newblock {The epidemic of antibiotic-resistant infections: a call to action
   for the medical community from the Infectious Diseases Society of America}.
-\newblock {\em Clinical Infectious Diseases 46}, 2 (2008), 155--164.
+\newblock {\em Clinical Infectious Diseases}, 46(2):155--164, 2008.
 
 \bibitem{Steinrücken2014a}
-{\sc Steinr{\"{u}}cken, M., Bhaskar, A., and Song, Y.~S.}
+Matthias Steinr{\"{u}}cken, Anand Bhaskar, and Yun~S Song.
 \newblock {A novel spectral method for inferring general diploid selection from
   time series genetic data}.
-\newblock {\em The annals of applied statistics 8}, 4 (2014), 2203.
+\newblock {\em The annals of applied statistics}, 8(4):2203, 2014.
 
 \bibitem{Stephan2006The}
-{\sc Stephan, W., Song, Y.~S., and Langley, C.~H.}
+Wolfgang Stephan, Yun~S Song, and Charles~H Langley.
 \newblock {The Hitchhiking Effect on Linkage Disequilibrium Between Linked
   Neutral Loci}.
-\newblock {\em Genetics 172}, 4 (apr 2006), 2647--2663.
+\newblock {\em Genetics}, 172(4):2647--2663, apr 2006.
 
 \bibitem{tajima1989statistical}
-{\sc Tajima, F.}
+Fumio Tajima.
 \newblock {Statistical method for testing the neutral mutation hypothesis by
   DNA polymorphism.}
-\newblock {\em Genetics 123}, 3 (1989), 585--595.
+\newblock {\em Genetics}, 123(3):585--595, 1989.
 
 \bibitem{Terhorst2015Multi}
-{\sc Terhorst, J., Schl{\"{o}}tterer, C., and Song, Y.~S.}
+Jonathan Terhorst, Christian Schl{\"{o}}tterer, and Yun~S Song.
 \newblock {Multi-locus Analysis of Genomic Time Series Data from Experimental
   Evolution}.
-\newblock {\em PLoS Genet 11}, 4 (2015), e1005069.
+\newblock {\em PLoS Genet}, 11(4):e1005069, 2015.
 
 \bibitem{tobler2014massive}
-{\sc Tobler, R., Franssen, S.~U., Kofler, R., Orozco-terWengel, P., Nolte, V.,
-  Hermisson, J., and Schl{\"{o}}tterer, C.}
+Ray Tobler, Susanne~U Franssen, Robert Kofler, Pablo Orozco-terWengel, Viola
+  Nolte, Joachim Hermisson, and Christian Schl{\"{o}}tterer.
 \newblock {Massive habitat-specific genomic response in D. melanogaster
   populations during experimental evolution in hot and cold environments}.
-\newblock {\em Molecular biology and evolution 31}, 2 (2014), 364--375.
+\newblock {\em Molecular biology and evolution}, 31(2):364--375, 2014.
 
 \bibitem{turner2011population}
-{\sc Turner, T.~L., Stewart, A.~D., Fields, A.~T., Rice, W.~R., and Tarone,
-  A.~M.}
+Thomas~L Turner, Andrew~D Stewart, Andrew~T Fields, William~R Rice, and Aaron~M
+  Tarone.
 \newblock {Population-based resequencing of experimentally evolved populations
   reveals the genetic basis of body size variation in Drosophila melanogaster}.
-\newblock {\em PLoS Genet 7}, 3 (2011), e1001336.
+\newblock {\em PLoS Genet}, 7(3):e1001336, 2011.
 
 \bibitem{vitti2013detecting}
-{\sc Vitti, J.~J., Grossman, S.~R., and Sabeti, P.~C.}
+Joseph~J Vitti, Sharon~R Grossman, and Pardis~C Sabeti.
 \newblock {Detecting natural selection in genomic data}.
-\newblock {\em Annual review of genetics 47\/} (2013), 97--120.
+\newblock {\em Annual review of genetics}, 47:97--120, 2013.
 
 \bibitem{wang2001pseudo}
-{\sc Wang, J.}
+Jinliang Wang.
 \newblock {A pseudo-likelihood method for estimating effective population size
   from temporally spaced samples}.
-\newblock {\em Genetical research 78}, 03 (2001), 243--257.
+\newblock {\em Genetical research}, 78(03):243--257, 2001.
 
 \bibitem{waples1989generalized}
-{\sc Waples, R.~S.}
+Robin~S Waples.
 \newblock {A generalized approach for estimating effective population size from
   temporal changes in allele frequency.}
-\newblock {\em Genetics 121}, 2 (1989), 379--391.
-
-\bibitem{williams2001weighing}
-{\sc Williams, D., and Williams, D.}
-\newblock {\em {Weighing the odds: a course in probability and statistics}},
-  vol.~548.
-\newblock Springer, 2001.
+\newblock {\em Genetics}, 121(2):379--391, 1989.
 
 \bibitem{williamson1999using}
-{\sc Williamson, E.~G., and Slatkin, M.}
+Ellen~G Williamson and Montgomery Slatkin.
 \newblock {Using maximum likelihood to estimate population size from temporal
   changes in allele frequencies}.
-\newblock {\em Genetics 152}, 2 (1999), 755--761.
+\newblock {\em Genetics}, 152(2):755--761, 1999.
 
 \bibitem{williamson2007localizing}
-{\sc Williamson, S.~H., Hubisz, M.~J., Clark, A.~G., Payseur, B.~A.,
-  Bustamante, C.~D., and Nielsen, R.}
+Scott~H Williamson, Melissa~J Hubisz, Andrew~G Clark, Bret~A Payseur, Carlos~D
+  Bustamante, and Rasmus Nielsen.
 \newblock {Localizing recent adaptive evolution in the human genome}.
-\newblock {\em PLoS Genet 3}, 6 (2007), e90.
+\newblock {\em PLoS Genet}, 3(6):e90, 2007.
 
 \bibitem{winters2012development}
-{\sc Winters, M.~A., {Lloyd Jr}, R.~M., Shafer, R.~W., Kozal, M.~J., Miller,
-  M.~D., and Holodniy, M.}
+Mark~A Winters, Robert~M {Lloyd Jr}, Robert~W Shafer, Michael~J Kozal,
+  Michael~D Miller, and Mark Holodniy.
 \newblock {Development of elvitegravir resistance and linkage of integrase
   inhibitor mutations with protease and reverse transcriptase resistance
   mutations}.
-\newblock {\em PloS one 7}, 7 (2012), e40514.
+\newblock {\em PloS one}, 7(7):e40514, 2012.
 
 \bibitem{yi2010sequencing}
-{\sc Yi, X., Liang, Y., Huerta-Sanchez, E., Jin, X., Cuo, Z. X.~P., Pool,
-  J.~E., Xu, X., Jiang, H., Vinckenbosch, N., Korneliussen, T.~S., and Others}.
+Xin Yi, Yu~Liang, Emilia Huerta-Sanchez, Xin Jin, Zha Xi~Ping Cuo, John~E Pool,
+  Xun Xu, Hui Jiang, Nicolas Vinckenbosch, Thorfinn~Sand Korneliussen, and
+  Others.
 \newblock {Sequencing of 50 human exomes reveals adaptation to high altitude}.
-\newblock {\em Science 329}, 5987 (2010), 75--78.
+\newblock {\em Science}, 329(5987):75--78, 2010.
 
 \bibitem{zahreddine2013mechanisms}
-{\sc Zahreddine, H., and Borden, K.~L.}
+Hiba Zahreddine and K~L Borden.
 \newblock {Mechanisms and insights into drug resistance in cancer}.
-\newblock {\em Front Pharmacol 4}, 28.10 (2013), 3389.
+\newblock {\em Front Pharmacol}, 4(28.10):3389, 2013.
 
 \bibitem{zhou2011experimental}
-{\sc Zhou, D., Udpa, N., Gersten, M., Visk, D.~W., Bashir, A., Xue, J., Frazer,
-  K.~A., Posakony, J.~W., Subramaniam, S., Bafna, V., and Others}.
+Dan Zhou, Nitin Udpa, Merril Gersten, DeeAnn~W Visk, Ali Bashir, Jin Xue,
+  Kelly~A Frazer, James~W Posakony, Shankar Subramaniam, Vineet Bafna, and
+  Others.
 \newblock {Experimental selection of hypoxia-tolerant Drosophila melanogaster}.
-\newblock {\em Proceedings of the National Academy of Sciences 108}, 6 (2011),
-  2349--2354.
+\newblock {\em Proceedings of the National Academy of Sciences},
+  108(6):2349--2354, 2011.
 
 \end{thebibliography}

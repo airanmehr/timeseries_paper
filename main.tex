@@ -45,14 +45,11 @@
   evolution of D. melanogaster to detect adaptive genes/alleles under
   alternating cold and hot temperatures, and identify many genes that
   are adapting to the selection constraints.
-
-
   \end{abstract}
 
 
 
 \section{Introduction}
-
 Natural selection is the key force in evolution, and a mechanism by
 which populations can adapt to external `selection'
 constraints. Examples of adaptation abound in the natural world,
@@ -217,10 +214,7 @@ detecting selection in short-term experimental evolution with pooled
 sequencing (read count) data.  We show that \comale\ is orders of
 magnitude faster, and shows higher or similar sensitivity, compared to
 the state-of the art methods for a wide range of parameters in
-simulated data.\VB{I need to rescue some stuff about SFS, and other
-  secondary contributions. Can you please send me an older version
-  from the repository by email?}
-
+simulated data.
 
 \section{Materials and Methods}
 
@@ -422,7 +416,7 @@ s^*,h^*&=&\underset{s,h}{\arg\max} \sum_r^R \log
 where likelihoods are defined in Eq.~\ref{eq:mkvlik} and
 Eq.~\ref{eq:hmmlik}, respectively. For a given $h$,
 Equations~\ref{eq:mcmle} and \ref{eq:hmmmle} are quasiconvex
-(unimodal) functions in $s$ (see Appendix \ref{app:likelihood}) and
+(unimodal) functions in $s$ (see Appendix~\ref{app:likelihood}) and
 admit efficient algorithms, (e.g., bisection). The bisection
 methods can be used to compute the optimum parameters within error
 $\epsilon$ in $\Oc(\log_2(1/\epsilon))$ steps.
@@ -435,7 +429,8 @@ matrices for $s\in\{-0.5,-0.49,\ldots,0.5 \}$ and $h\in
 per matrix) on a desktop computer with a Core i7 CPU and 16GB of RAM.
 
 
-\subsection{Extending Site Frequency Spectrum  based tests for  time series data}
+\subsection{Extending Site Frequency Spectrum  based tests for  time series 
+data}\label{sec:extending-sfs}
 \label{sec:sfs-ts}
 The site frequency spectrum (SFS) is a mainstay of tests of neutrality
 and selection, and can be computed using allele frequencies (does not
@@ -463,7 +458,7 @@ $D_0$, initial carrier frequency $\nu_0$ and $s$, as
 \end{equation}
 where $W_0$ and $\Pi_0$ are Watterson and Tajima estimates of $\theta$
 in the initial generation (Appendix~\ref{app:td}). Similarly, we show
-(Appendix \ref{app:h}), that the dynamics of the $H$ statistic are
+(Appendix~\ref{app:h}), that the dynamics of the $H$ statistic are
 directly related to average of Haplotype Allele Frequency (HAF)
 score~\cite{ronen2015predicting}, and can be written as a function of
 $\nu_t$ as follows:
@@ -481,9 +476,10 @@ statistic for detecting selection in each window.
 
 However, as $\nu_0$ and $D_0$ are often unknown in the sampling from
 natural population experiments, we cannot directly use
-Eqns.~\ref{eq:tdt},~\ref{eq:ht}. Instead, we simply aggregate statistics
+Eqns.~\ref{eq:tdt},~\ref{eq:ht}. Instead, we heuristically aggregate statistics
 throughout time to compute time-series score. See details in
-Appendix~\ref{XXX} \VB{Please provide full detail in Appendix}.
+Appendix~\ref{app:agg}.
+
 
 \ignore{
 \paragraph{$p$-value computation.}
@@ -526,8 +522,10 @@ illustration):
   of the $R$ replicates. Also, to avoid spurious simulation samples,
   simulation results were constrained to those samples where the
   favored allele escaped stochastic loss due genetic drift, and
-  established in all replicates. \VB{Please add details of how hard
-    and soft sweep were simulated}. We note that all experiments
+  established in all replicates. For hard sweep (and soft sweep) simulations we 
+  randomly chosen a site with initial frequency of $\nu_0=0.005$ (and 
+  $\nu_0=0.1$ for soft sweep) to be the beneficial allele. We note that all 
+  experiments
   denoted as `soft-sweep' in the results are soft-sweep due to
   standing variation.
   \item{\bf Sequencing Simulation.} Give allele frequency trajectories we 
@@ -542,7 +540,9 @@ illustration):
 \end{enumerate}
 
 We also conducted simulations to test methods in the
-sampling-from-natural-populations setting. \texttt{msms} simulator is
+sampling-from-natural-populations setting. Unlike the experimental evolution 
+simulation, here mutations after onset of selection are taken into account. 
+\texttt{msms} simulator is
 used to forward simulate a population with $N_e=10^4$, $\nu_0=10^{-4}$
 and recored SFS of a 50Kbp region as well as the frequency. The reset
 of parameters are chosen the same as experimental evolution (see
@@ -616,27 +616,31 @@ $\Oc(TR)$, and can be efficiently vectorized for multiple replicates
 and loci. Therefore, it is expected to be faster than other approaches
 like Gaussian Process (GP)~\cite{Terhorst2015Multi}. We conducted
 $1000$ simulations and measured running time for \comale\ and
-GP. \comale\ is $\sim 10^3\times$ faster than single locus GP (Figure
+GP. \comale\ is $\sim 10^3\times$ faster than single locus GP (Fig.
 \ref{fig:runTime}), while maintaining high power. These times have a
-practical consequence. \VB{Fill in the following.} To run GP in the
-single locus mode on the entire Drosophila genome (XXX variant sites),
-would take XXX cpu-hours. In contrast, \comale\ ran in XXX
-cpu-minutes.
+practical consequence. To run GP in the
+single locus mode on the entire Drosophila genome of a small sample (e.g. 2M 
+variant sites),
+would take 1444 CPU-hours ($\approx$ 1 month). In contrast, \comale\ ran in 22 
+hours CPU-minutes plus half an hour for precomputation of transition matrices. 
+In addition, core computations of \comale\ are matrix products, which can be 
+efficiently vectorized. We vectorized operations using \texttt{numba} package, 
+which reduced run time of over 1.5M variant sites to less an hour.
 
 
 \paragraph{SFS for Detection in Natural Samples.} We did not show the
-SFS based statistics in Figure~\ref{fig:power} as they did not perform
+SFS based statistics in Fig.~\ref{fig:power} as they did not perform
 better than random. In many experimental evolution settings, we sample
 a restricted set of $F$ founder lines, where $F<<N_e$
-(Figure~\ref{fig:ee}B). This creates a severe bottleneck, confounding
-SFS. The Supplemental Figure~\ref{fig:bottleneck} demonstrates the
+(Fig.~\ref{fig:ee}B). This creates a severe bottleneck, confounding
+SFS. The Supplemental Fig.~\ref{fig:bottleneck} demonstrates the
 effect of experimental evolution on different SFS statistics under
-neutral evolution for 1000 simulations \VB{See note in the figure
-  caption}. A second problem with using SFS for experimental evolution
+neutral evolution for 1000 simulations. A second problem with using SFS for 
+experimental evolution
 is that the sampling starts right after the onset of experimentally
 induced selection, and the favored allele may not reach high enough
 frequency to influence the site frequency spectrum
-(Figure~\ref{fig:sweep}).
+(Fig.~\ref{fig:sweep}).
 
 However, in experiments involving naturally occurring populations,
 even if the span of the time-series is small, the onset of selection
@@ -651,19 +655,18 @@ $x$ in a hard sweep and $U[a,b]$ denote discrete uniform distribution
 in the interval $[a,b]$. First we considered the case when start of
 sampling is chosen throughout the whole sweep. i.e., $\tau_1 \sim
 U\left[1,t_{\nu=1}(s,N_e)\right]$
-(Figure~\ref{fig:powerSFS}A). \VB{Check caption of
-  Figure~\ref{fig:powerSFS}}). Next, we considered sampling start time
+(Fig.~\ref{fig:powerSFS}A). Next, we considered sampling start time
   chosen nearer to fixation of the favored allele, i.e., $\tau_1 \sim
   U\left[t_{\nu=0.9}(s,N_e),t_{\nu=1}(s,N_e)\right]$
-  (Figure~\ref{fig:powerSFS}B). In both scenarions, sampling was done
+  (Fig.~\ref{fig:powerSFS}B). In both scenarios, sampling was done
   over $5$ time points within $50$ generations of $\tau_1$. We
   compared $\Hc$, GP, FIT with both static and dynamic SFS based
-  statistics of SFSelect and Tajima's D. Figure~\ref{fig:powerSFS}A
+  statistics of SFSelect and Tajima's D. Fig.~\ref{fig:powerSFS}A
   shows that SFS based statistics are outperformed by single locus and
   CLR methods. However, when sampling is performed close to fixation,
   i.e., when the favored allele has frequency of 0.9 or higher, SFS
   based statistics perform significantly better than GP, FIT and $\Hc$
-  (Figure~\ref{fig:powerSFS}b). Moreover, dynamic SFS statistics
+  (Fig.~\ref{fig:powerSFS}b). Moreover, dynamic SFS statistics
   outperform static SFS statistics, demonstrating that in these
   scenarios SFS based statistics should be used to detect selection.
 
@@ -675,25 +678,25 @@ in the window as the locus of the favored allele. For each setting
 of $\nu_0$ and $s$, we conducted 500 simulations
 and computed the rank of the favored mutation in each
 simulation. We plotted the cumulative distribution of the rank in
-Figure~\ref{fig:rank}.
-
-\comale\ works the best in hard sweep regime. For example, when
-$\nu_0=0.005$ and $s=0.01$ (weakest selection), the favored allele was
-ranked first in more than 60 experiments, and was ranked $\le 5$ in
-over $90$\% of experiments of hard sweep. The accuracy of locating the
-favored allele diminished in soft-sweep scenarios (larger values of
-$\nu_0$)\VB{Is this correct? What does it mean?}.
+Fig.~\ref{fig:rank}. In all configuration \comale\ ranks favored allele higher 
+than GP. In particular when selection is strong ($s=0.1$), \comale\ confidently 
+picks the beneficial allele, i.e., when $s=0.1$, the beneficial allele is 
+ranked first in 99\% of the soft sweep simulations and ranked first in 95\% of 
+the simulations.
  
 \paragraph{Strength of Selection.}
 As the \comale\ likelihood calculation is model based, we can also
 compute the model parameters $\hat{s}$ that maximized
 likelihood~\eqref{eq:hmmlik}. We computed bias, $s-\hat{s}$ for each
 experiment of \comale, and compared it against GP. The distribution of
-the bias is presented in Figure \ref{fig:bias} for different
+the bias is presented in Fig.~\ref{fig:bias} for different
 configurations. In general, both GP and \comale\ have biased results
 for weak selection, where genetic drift dominates. However, for
 stronger sweeps, e.g.$s=0.1$, \comale\ provides estimates with smaller
-bias and variance. \AI{variance will be added when GP runs completed.}
+bias and variance. Standard deviation of the bias of $\Hc$ is 0.025 and 0.011 
+in hard and soft sweep scenarios, while it is 0.043 and 0.013 for GP, 
+respectively.
+
 
 \ignore{
 \paragraph{SFS based statistics in time series.} \VB{We need to delete, and move some of this earlier.}
@@ -707,17 +710,18 @@ of initial carrier frequency $\nu_0$ and strength of selection $s$ (see section
  To show that the proposed models of $D_t$ and $H_t$ are valid models, we 
  simulated 1000 populations and computed SFS based statistics every 10 
  generation and compared them with the proposed model.
- As shown in the Figures \ref{fig:sfs} proposed models are more consistent with data.
+ As shown in the Fig.~\ref{fig:sfs} proposed models are more consistent with 
+ data.
 
  \paragraph{SFS based tests will fail when carrier frequency $\nu_t$
    is low.} \VB{We need to delete, and move some of this earlier.}
- Importantly, Figures \ref{fig:sfs} shows the increase in variance of
+ Importantly, Fig.~\ref{fig:sfs} shows the increase in variance of
  the trajectories associated with SFS, compared to carrier
  frequency. Moreover, it is difficult to distinguish SFS trajectories
  of selection and neutral populations, when carrier frequency is
- small, e.g. first 50 generations of Figures \ref{fig:sfs}.  This,
+ small, e.g. first 50 generations of Fig.~\ref{fig:sfs}.  This,
  observation can be verified by examining the terms in the functional
- form of $D_t$.  As shown in the Figure \ref{fig:tdterms} right, in
+ form of $D_t$.  As shown in the Fig.~\ref{fig:tdterms} right, in
  early generations of hard sweep where carrier frequency is low, $D_t$
  is either positive or close zero. In other words, the reduction in
  diversity become significant when carrier frequency is high enough.
@@ -725,6 +729,9 @@ of initial carrier frequency $\nu_0$ and strength of selection $s$ (see section
  generations of hard sweep, where carrier frequency is not high.
 
 }
+
+
+
 
 
 \subsection{Drosophila experimental evolution with temperature extremes}
@@ -741,7 +748,7 @@ be $30$, allowing the site to be retained only if the depth for all
 time points, and all replicates exceeded $30$, the number of sites
 analyzed would drop from from 1,544,374 to 10,387. Instead, \comale\
 considers all sites adjusting likelihood based on coverage (\VB{Please
-  edit the line above for accuracy}).
+	edit the line above for accuracy}).
 
 We computed the \comale\ ${\cal H}$ \VB{Check?} statistic for sliding
 window of 50Kbp with steps of 10Kbp over the whole genome. We observed
@@ -759,24 +766,32 @@ repeating the test, the average PCC for all windows was computed to be
 $\rho(w,\Hc)=-0.08$, and for windows with a high value of $\Hc$, it
 remained close at
 $\rho(w,\Hc)=-0.09$. Fig.~\ref{fig:manhattancutoffed} shows a
-Manhattan plot of scores. The 1\%-ile cut-off reveals $25$ distinct
-intervals (supplemental data\VB{XXX}) spanning $243$ of the $13,965$
-genes that encoded variants.
+Manhattan plot of scores. Our results are consistent with previous
+studies~\cite{orozco2012adaptation} in showing an over-representation
+of significant variants on Chromosome 3R.
 
-We found $36$ GO \VB{Which of the 3 GO ontologies was it} terms
-over-represented in the $243$ genes using a Fisher exact test for
-significance. Table~\ref{tab:Fisher} describes all terms that were
-significant, and contained at least $3$ genes\VB{Check}. The effect of
-high temperature on metabolism is profound, and it is not surprising
-that the enriched GO terms include many generic stress and stress
-response genes, but also include $5$ of $7$ genes with aminoacylase
-activity, and $4$ of $17$ genes involved in peroxidase activity. In
-Strawberry, high temperature adaptation led to an increase in
-expression of peroxidase genes (that convert excess $H_2O_2$ to oxygen
-and water), and a reduction in total protein content due to protein
-denaturation, and inhibited synthesis~\cite{XXX}.
+The 1\%-ile cut-off reveals $25$ distinct intervals (supplemental
+data\VB{XXX}) spanning $243$ of the $13,965$ genes that encoded
+variants. We found $36$ GO \VB{Which of the 3 GO ontologies was it}
+terms to be over-represented in the $243$ genes using a Fisher exact
+test for significance. Table~\ref{tab:Fisher} describes all terms that
+were significant, and contained at least $3$ genes\VB{Check}. The
+effect of high temperature on metabolism is profound, and it is not
+surprising that the enriched GO terms include many generic stress and
+stress response genes. They also include $5$ of $7$ genes with
+aminoacylase activity, and $4$ of $17$ genes involved in peroxidase
+activity. Stress induced formation of reactive oxygen species (ROS)
+can have deleterious effects. In many plants, including strawberry,
+high temperature adaptation led to an increase in expression of ROS
+scavenging genes, including peroxidase, and a reduction in total
+protein content due to protein denaturation, and inhibited
+synthesis~\cite{gulen2004effect}, and these effects are also observed in
+potato. The genes include Pxd (CG3477), the peroxidase component of the
+chorion~\cite{konstandi2005enzymatic}. Chorion peroxidases are conjectured
+to play a role in ROS defense during egg formation in 
+mosquitoes~\cite{li2006major}. 
 
-
+\ignore{
 \paragraph{Dominance.}
 The value of the overdominance parameter can provide an insight into the kind 
 of adaptation \emph{using population frequency data}. In fact, for $s>0$ we 
@@ -792,8 +807,10 @@ of adaptation \emph{using population frequency data}. In fact, for $s>0$ we
 		$h=1$&	dominant adaptive allele	\\
 		$h>1$ &overdominance
 	\end{tabular}
-\end{center}
-
+\end{center}}
+\paragraph{Software}
+The source code and running scripts for \comale\ is publicly available at \\
+\href{https://github.com/bafnalab/comale}{https://github.com/bafnalab/comale}.
 \section{Discussion}
 
 We developed a computational tool \comale, that can detect regions
@@ -888,7 +905,7 @@ performance in locating the favored allele, and some future work will
 be devoted to identifying the favored allele with higher confidence.
 
 Here, we applied \comale\ to the analysis of temperature sensitive
-adaptation in \emph{Dosophila}. However, as EE experiments with
+adaptation in \emph{Drosophila}. However, as EE experiments with
 sampling of genomic sequence increase in popularity, computational
 tools for identifying the genetic basis of adaption will play a key
 role in observing evolution in action.
@@ -957,7 +974,8 @@ sampled thought time.
 Detection power for Markov chain ($\Mc$) and HMM ($\Hc$) under hard sweep (top)
 and soft sweep (bottom), for different coverage $\lambda$ and selection 
 strength $s$.
-Each point represent power, scaled area under ROC curve when FPR <0.05, of 1000 
+Each point represent power, scaled area under ROC curve when FPR $\le$0.05, of 
+1000 
 simulations of 50Kbp regions with default parameter setting.
 } \label{fig:powerCLR}
 \end{figure}
@@ -971,7 +989,8 @@ simulations of 50Kbp regions with default parameter setting.
 		sweep (top)
 		and soft sweep (bottom), for different coverage $\lambda$ and selection 
 		strength $s$.
-		Each point represent power, scaled area under ROC curve when FPR <0.05, 
+		Each point represent power, scaled area under ROC curve when 
+		FPR$\le$0.05, 
 		of 1000 simulations.} \label{fig:power}
 \end{figure}
 
@@ -983,7 +1002,8 @@ simulations of 50Kbp regions with default parameter setting.
 	\caption{{\bf Running time}. Box plot of running times
         (cpu-secs.) of \comale, HMM, GP with single, 3, 5, 7, and 10
         loci over 1000 simulations conducted on a workstation with
-        \VB{XXX processor, XXX}. The average running time for each method
+        4th Generation Intel Core i7 processor. The average running time 
+        for each method
         is shown on the x-axis.}
 	\label{fig:runTime}
 \end{figure}
@@ -993,13 +1013,15 @@ simulations of 50Kbp regions with default parameter setting.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\textwidth]{figures/naturalee.pdf}
-	\caption{{\bf power of SFS based statistics.} Power, average
-          true-positive-rate when FDR$\le$0.05, for detecting
+	\caption{{\bf power of SFS based statistics.} Power, area under ROC curve 
+	when FPR$\le$0.05, for detecting
           selection in a 50Kbp region for Frequency Increment Test
-          (FIT), Gaussian Process (GP), \VB{Do we test ${\cal M}$ or ${\cal
-              H}$ } Markov Chain ($\Mc$)on 200 simulations hard-sweep
-          natural experimental evolution with $N_e=10^4$, for each of
-          selection strength $s$. In this experiment start of sampling
+          (FIT), Gaussian Process (GP), \comale\ ($\Hc$) on 200 simulations 
+          hard-sweep
+          natural experimental evolution with $N_e=10^4$ and depth 
+          $\lambda=\infty$, for each of
+          selection strength $s$. 
+          In this experiment start of sampling
           is random, then 5 samples are taken every 10
           generations. (a) Start of sampling is chosen randomly
           throughout the sweep $\tau_1 \sim
@@ -1017,7 +1039,7 @@ simulations of 50Kbp regions with default parameter setting.
 \begin{figure}[H]
 	\centering
 	\includegraphics[trim=.2in 0 .2in 0, 
-	clip,width=\textwidth]{figures/rank.pdf}
+	clip,width=\textwidth]{figures/rankinf.pdf}
 	\caption{Cumulative Distribution  Function (CDF) of the distribution of the rank of the adaptive allele in 500 simulations for Markov Chain ($\Mc$), Gaussian Process (GP) and Frequency Increment Test (FIT), for different values of selection strength $s$ and initial carrier frequency. Area Under Curve (AUC) is computed as a quantitative measure ranking performance of methods for each configuration.}
 	\label{fig:rank}
 \end{figure}
@@ -1026,7 +1048,7 @@ simulations of 50Kbp regions with default parameter setting.
 \newpage
 \begin{figure}[H]
 	\centering
-	\includegraphics[trim=.0in 0 .2in 0 , clip,width=\textwidth]{figures/bias.pdf}
+	\includegraphics[width=0.7\textwidth]{figures/bias.pdf}
 	\caption{Distribution of bias ($s-s^*$) over 500 simulations for each value of strength of selection $s$ and starting carrier frequency $\nu_0$.} \label{fig:bias}
 \end{figure}
 
@@ -1040,13 +1062,12 @@ simulations of 50Kbp regions with default parameter setting.
           steps of 10Kbp, excluding windows with less that 500
           SNPs. Regions in which their $\Hc$ statistic falls in top
           one percentile distribution is denoted with red
-          color. Pearson correlation between $M$ \VB{We should not use
-            $M$ for number of SNPs, and in fact, we may not need a
-            symbol at all. Otherwise use $w$} and $\Hc$ of all windows
+          color. Pearson correlation between the number of SNPs and $\Hc$ of 
+          all windows
           is -0.09 and for the candidate regions is -0.08.  This
           indicates the spurious effect of windows with low diversity
           is removed from out study (potentially at cost of some false
-          negatives). }
+          negatives). See Fig.~\ref{fig:manhattan}.}
 	\label{fig:manhattancutoffed}
 \end{figure}
 
@@ -1059,15 +1080,15 @@ simulations of 50Kbp regions with default parameter setting.
 		\input{tables/transcriptFisher}
 	\end{tabular}
 	\caption{Gene set enrichment of 243 genes within 25 intervals under 
-          selection using Fisher exact test. \VB{This is not gene set enrichment?}}\label{tab:Fisher}
+          selection using Fisher exact test.}\label{tab:Fisher}
 \end{table}
 \clearpage
 \newpage
 
 
 %\section*{References}
-
-\bibliographystyle{Vancouver}
+\bibliographystyle{plain}
+%bibliographystyle{Vanc5ouver}
 \bibliography{library}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1087,22 +1108,7 @@ simulations of 50Kbp regions with default parameter setting.
 %\section*{Supporting information captions}
 \section{Appendix}
 \subsection{Allele frequencies under selective sweep} \label{app:af}
-
-\beq \eeq \VB{Somehow there is a cut and paste which eliminated some
-  real text. Please provide full details, and feel free to copy from
-  main text if needed. It should read like a standalone document. Also, whenever
-  you use the \\ref command and \\cite command, please give proper
-  spacing by using tilde sign. The order in which material appears
-  here must follow the order in which we refer to it in the main text
-  as much as possible}.
-
-where $s\in \Rbb$ is the selection coefficient and $o\in[0,1]$ is the 
-overdominance parameter which for $u=0.5$ we have
-\begin{equation}
-x_{t+1}=x_t+\frac{sx_t(1-x_t)}{2+2sx_t}\;.
-\label{eq:transition}
-\end{equation}
-we also have
+when $h=0.5$ we have
 \beq
 \frac{\bfd x_t}{\bfd t} = \frac{sx_t(1-x_t)}{2+2sx_t}
 \eeq
@@ -1127,7 +1133,7 @@ function (see Section~\ref{app:af} for derivation) \beq
 \nu_t=\sigma(st+\eta(\nu_0))\label{eq:nut} \eeq where
 $\sigma(x)=1/(1+e^{-x})$ is the logistic function, and
 $\eta(x)=\log(x)/\log(1-x)$ is inverse of the logistic, aka logit,
-function. Fig. \ref{fig:sweep} depicts the behavior of the logistic
+function. Fig.~\ref{fig:sweep} depicts the behavior of the logistic
 model for site allele frequencies and the default sampling time
 span(STS). Without genetic drift, soft sweep is easier to detect,
 because the logistic function happens to have steeper slope in th STS
@@ -1137,11 +1143,6 @@ differentiate between weak selections and genetic drift (a horizontal
 line), in short (e.g. 50 generations) experimental evolutions.
 
 
-As shown in Figs. \ref{fig:dynamic-weak} and \ref{fig:dynamic-strong}
-(first row), the approximate logistic model is consistent with
-simulated data and we use it to estimate the strength of selection for
-each site by solving a linear system of equations(see Section
-\ref{sec:regression} for details).
 
 \subsection{Dynamic of Tajima's D}\label{app:td}
 Let $D_0, \Pi_0, W_0$, be Tajima's D, Tajima's estimate of  $\theta$, and 
@@ -1177,8 +1178,7 @@ putting all together
 \beq
 D_t&= (1-\nu_t^2)\Pi_0 - (1+ \frac{ \log(1-\nu_t)}{\log(n)} ) W_0 = 
 D_0-\log(1-\nu_t) \frac{W_0}{\log(n)} -\nu_t^2 \Pi_0=\\
-&D_0-\log(1-\sigma(s,\nu_0)) \frac{W_0}{\log(n)} -\sigma^2(s,\nu_0) \Pi_0 
-\label{eq:tdt}.
+&D_0-\log(1-\sigma(s,\nu_0)) \frac{W_0}{\log(n)} -\sigma^2(s,\nu_0) \Pi_0.
 \eeq
 
 
@@ -1214,6 +1214,19 @@ where easily follows that
 \beq
 \theta_H(t)=\frac{n-1}{2} g(\nu_t)
 \eeq
+\subsection{Greedy computation of time-series SFS-based  
+statistics}\label{app:agg}
+As discussed in Section~\ref{sec:extending-sfs}, modeling dynamic of Tajima's 
+$D$ (and Fay\&Wu's $H$) requires knowledge of initial carrier frequency $\nu_0$ 
+and the value of $D$ (and $H$) statistic at the onset of selection, which are 
+often unknown.
+As these statistics are monotonously decreasing (or increasing for SFSelect) 
+under no demographic changes, we chose to greedily aggregate statistics 
+throughout time. For example, for Tajima's $D$, we have 
+\beq
+\Dc = \sum_{t \in \Tc} D_t
+\eeq
+where the same procedure applies to Fay\&Wu's $H$ and SFSelect.
 
 
 \subsection{Linkage Disequilibrium}
@@ -1236,13 +1249,13 @@ the recombination rate/bp/gen. The decay factor $\alpha_t=e^{-rtl}$ is the
 product of recombination and growth factor $\beta_t$ (eq. 30-31 in 
 \cite{Stephan2006The})is the outcome of 
 selection. For $s=0.01$, $l=100K$bp, the log of decay, growth and product of 
-both is depicted in Fig. \ref{fig:ldf}. It is evident that, for these 
+both is depicted in Fig.~\ref{fig:ldf}. It is evident that, for these 
 parameters LD does not start to decay until generation 1000, which would be  
 problematic when $\rho_0$. For example, in the case of hard sweep, the 
 selection is imposed on the site with minimum AF, which is at perfect linkage 
 ($|D'|=1$) with all the other loci.This is because, between the 
 	selected site and all the other sites frequency of one gamete is zero.
-We this phenomenon is shown in the Figs. \ref{fig:ld2d}, \ref{fig:ld3d} where 
+We this phenomenon is shown in the Figs.~\ref{fig:ld2d}, \ref{fig:ld3d} where 
 at generation zero the site at position 500K is at perfect linkage with all the 
 other sites, and linkage of the middle site with all the genome is depicted 
 for both genetic drift and natural selection, in different generations.
@@ -1252,8 +1265,7 @@ hard sweep. This implies that the precision of locating the selection on the
 genome is tightly dependent on a set of parameters including, recombination 
 rate, selection strength, initial carrier frequency, and the initial linkage.
 
-\subsection{Likelihood Functions} \label{app:likelihood} \VB{Please
-  elaborate. What is the point of this statement?} Actually, it is
+\subsection{Likelihood Functions} \label{app:likelihood} Actually, it is
 enough to show \eqref{eq:transition} is linear fractional in $s$,
 which is nby definition: linear numerator and denominator, and
 strictly positive denominator.  
@@ -1276,8 +1288,7 @@ strictly positive denominator.
               \caption{Interactions of two terms in $D$. W.l.o.g when
                 $D_0=0$ and $\Pi_0=W_0=1$, $D_t$ is sum of the
                 logarithmic $\frac{-\log(1-\nu_t)}{\log(2N)}$ and the
-                squared term $\nu_t^2$. \VB{No conclusion. What is the
-                  point of this figure?} }
+                squared term $\nu_t^2$.  }
 	\label{fig:tdterms}
 \end{figure}
 
@@ -1292,24 +1303,37 @@ strictly positive denominator.
           under neutral scenario ($s=h=0$). The statistics for
           Tajima's D (left), Fay Wu's H (middle) and SFSelect were
           computed for 1000 neutral simulations and the mean and 95\%
-          confidence interval plotted. \VB{You have not made any
-            conclusion here. Also, have you taken the negative of
-            Tajima's D? If so, please say that on the $y$-axis, and
-            also enlarge the fonts on the axes}. }
+          confidence interval plotted. Under neutral evolution all the 
+          statistics expected to be constant throughout time and when 
+          population is under selection $D$ and $H$ take negative values and 
+          SFSelect take positive values. In experimental evolution, bottleneck 
+          effect will suppress the signal of selection, especially in early 
+          generations. }
 	\label{fig:bottleneck}
 \end{figure}
 
 
 \begin{figure}[H]
-	\includegraphics[trim=0in 0.1in 1in 0.1in,clip,width=\textwidth]{figures/AF.pdf}
-	\caption{{\bf Frequency of the favored allele for hard and
-            soft sweep scenarios}. A logistic curve models the
-          frequency of the favored allele with the sharpness depending
-          upon strength of selection. The shaded column corresponds to
-          the first $50$ generations. Many EE experiments start with
-          the onset of selection and continue for $\approx$ 50
-          generations, when the signal is very weak. \VB{Panels C,D
-            are soft sweep? Can you explain the 4 panels.}}
+	\includegraphics[trim=1in 0.1in 1in 
+	0.1in,clip,width=\textwidth]{figures/AF.pdf}
+	\caption{{\bf Theoretical (Markov Chain) and Empirical trajectories of 
+	favored allele for hard and soft sweep scenarios}. 
+		Theoretical and empirical (1000 simulations) trajectories of the 
+		frequency of the favored 
+		allele for experimental evolution when census (diploid) population size 
+		is $1000$. In each panel $s=0$ denotes neutral (blue) evolution, 
+		$s=0.01$ represents weak selection (green), and $s=0.1$ illustrates 
+		strong selection, and 95\% confidence interval is shaded with the same 
+		color. In all cases, A) theoretical hard sweep, B) empirical hard 
+		sweep, C) theoretical soft sweep and D) empirical soft sweep the 
+		theoretical model is consistent with simulations.
+		Also, first 50 generation since the onset of selection, which is 
+		considered to be typical sampling span for experimental evolution, is 
+		shaded in gray. It is evident that sampling span is negligible to the 
+		time required for fixation, even for strong selection, winch makes it 
+		difficult to differentiate between neutral evolution and natural 
+		selection.
+}
 	\label{fig:sweep}
 \end{figure}
 
@@ -1365,14 +1389,6 @@ strictly positive denominator.
 	\caption{Dominance for $s=0.1$.} 
 	\label{fig:dominance}
 \end{figure}
-\begin{figure}[H]
-	\centering
-	\includegraphics[trim=.0in 0 .0in 0, 
-	clip,width=\textwidth]{figures/{samplingTimes}.pdf}
-	\caption{sampling times.} 
-	\label{fig:samplingTimes}
-\end{figure}
-
 
 
 \begin{figure}[H]
@@ -1411,7 +1427,7 @@ strictly positive denominator.
 \end{figure}
 
 
-\begin{table}[h]
+\begin{table}[H]
 	\begin{tabular}{c||c}
 		Hard Sweep & Soft Sweep\\ \\  
 		\input{tables/powerHard.tex}
@@ -1426,6 +1442,14 @@ strictly positive denominator.
 		setting is evaluated such that depth of each SNP is identically 
 		distributed from Poisson$(\lambda)$ for $\lambda \in 
 		\{30,100,\infty\}$.}\label{tab:powerCLR}
+\end{table}
+
+
+\begin{table}[h]
+	\begin{tabular}{c}
+		%\input{tables/powerSoft.tex}
+	\end{tabular}
+	\caption{.}\label{tab:intervals}
 \end{table}
 
 \begin{table}[h]
@@ -1455,13 +1479,13 @@ strictly positive denominator.
 	\caption{Manhattan plot of the composite $\Hc$ statistic (top) 
 	and the number of SNPs (bottom) in 50Kbp sliding window with steps of 
 	10Kbp. Regions in which their $\Hc$ statistic falls in top one percentile 
-	distribution is denoted with red color. Pearson correlation between $M$ and 
-	$\Hc$ of all windows is -0.03 and for the candidate regions is -0.27. This 
+	distribution is denoted with red color. Pearson correlation between the 
+	number of SNPs and 
+	$\Hc$ of all windows is -0.03 and is -0.27 when restricting to the 
+	candidate regions is -0.27. This 
 	nine-fold increase in correlation implies that the $\Hc$ statistic takes 
 	more extreme values as the number of SNPs in the window is less than 
-	expected ($\approx$1100). \VB{We should not use
-            $M$ for number of SNPs, and in fact, we may not need a
-            symbol at all. Otherwise use $w$} } 
+	expected ($\approx$1100). } 
 	\label{fig:manhattan}
 \end{figure}
 
