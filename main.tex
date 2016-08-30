@@ -747,10 +747,10 @@ for analysis. For example, by setting minimum read depth at a site to
 be $30$, allowing the site to be retained only if the depth for all
 time points, and all replicates exceeded $30$, the number of sites
 analyzed would drop from from 1,544,374 to 10,387. Instead, \comale\
-considers all sites adjusting likelihood based on coverage (\VB{Please
-	edit the line above for accuracy}).
+computes $\Hc$ statistic for all sites where the sites with low coverage will 
+take lower scores by \comale.
 
-We computed the \comale\ ${\cal H}$ \VB{Check?} statistic for sliding
+We computed the \comale\ ${\cal H}$ statistic for sliding
 window of 50Kbp with steps of 10Kbp over the whole genome. We observed
 a spurious negative correlation between $\Hc$ and the number of SNPs
 in each window (Suppl. Figure~\ref{fig:manhattan}). To make this
@@ -770,12 +770,13 @@ Manhattan plot of scores. Our results are consistent with previous
 studies~\cite{orozco2012adaptation} in showing an over-representation
 of significant variants on Chromosome 3R.
 
-The 1\%-ile cut-off reveals $25$ distinct intervals (supplemental
-data\VB{XXX}) spanning $243$ of the $13,965$ genes that encoded
-variants. We found $36$ GO \VB{Which of the 3 GO ontologies was it}
-terms to be over-represented in the $243$ genes using a Fisher exact
+The 1\%-ile cut-off reveals $25$ distinct intervals 
+(Table~\ref{tab:intervals})  spanning $243$ of 
+the $13,965$ genes that encoded
+variants. We found $36$ GO terms associated with ``Biological Process" to be 
+over-represented in the $243$ genes using a Fisher exact
 test for significance. Table~\ref{tab:Fisher} describes all terms that
-were significant, and contained at least $3$ genes\VB{Check}. The
+were significant, and contained at least $3$ genes. The
 effect of high temperature on metabolism is profound, and it is not
 surprising that the enriched GO terms include many generic stress and
 stress response genes. They also include $5$ of $7$ genes with
@@ -863,7 +864,9 @@ selection, may not be known. Even in this setting \comale\ outperforms
 other tools including SFS based statistics, except in the case where
 beneficial allele is close to fixation. For this specific scenario, we
 developed time-dependent SFS based tests, and show excellent
-performance compared to all other tests \VB{Let's discuss this point}.
+performance compared to all other tests. Both \comale\ and SFS based tests 
+are implemented in the \comale\ software, and the ``default scan" computes 
+scores for all the tests to identify regions under selection.
 	
 
 In our simulations, we found that the power of detection can be
@@ -1446,10 +1449,11 @@ strictly positive denominator.
 
 
 \begin{table}[h]
+	\centering
 	\begin{tabular}{c}
-		%\input{tables/powerSoft.tex}
+		\input{tables/intervals.tex}
 	\end{tabular}
-	\caption{.}\label{tab:intervals}
+	\caption{Intervals.}\label{tab:intervals}
 \end{table}
 
 \begin{table}[h]
