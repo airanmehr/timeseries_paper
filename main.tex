@@ -34,8 +34,18 @@
   propagated for a small number of generations, relative to the
   fixation time of the favored allele.  
 
-  In this article, we study the problem of identifying selective sweep
-  in short-term experimental evolution of sexual organisms and propose
+
+In the course of an EE study, multiple replicates of population is sampled and 
+sequenced using pooled-sequencing techniques. 
+Reads of each locus reads are mapped for all replicates and generations.
+Even if the sequencing coverage be the same for all the generations and 
+replicates, depth of each site would not necessarily be the same, which leads 
+to the problem of heterogeneous ascertainment bias across generations.
+
+  In this article, we directly target these problems to
+  study the problem of identifying selective sweep
+  in short-term and pool-sequenced experimental evolution of sexual 
+  organisms and propose
   Composite Of MArkovian Likelihoods for Experimental evolution
   (\comale) statistic. Extensive simulations show that \comale\
   achieves higher detection power over a wide range of parameters,
@@ -49,14 +59,15 @@
 
 
 
+
 \section{Introduction}
 Natural selection is the key force in evolution, and a mechanism by
 which populations can adapt to external `selection'
 constraints. Examples of adaptation abound in the natural world,
 including for example, classic examples like lactose tolerance in
 Northern Europeans~\cite{bersaglieri2004genetic}, human adaptation to high
-altitudes~\cite{yi2010sequencing,simonson2010genetic}, but also drug resistance 
-in
+altitudes~\cite{yi2010sequencing,simonson2010genetic}, but also drug 
+resistance in
 pests~\cite{daborn2001ddt}, HIV~\cite{Feder2016More},
 cancer~\cite{gottesman2002mechanisms,zahreddine2013mechanisms},
 malarial parasite~\cite{ariey2014molecular,nair2007recurrent}, and
@@ -74,11 +85,11 @@ or natural
   daniels2013genetic,barrett2008natural,bergland2014genomic}
 environment. Recent advances in whole genome sequencing have enabled
 us to sequence populations at a reasonable cost even when the genomes
-are large, and both pooled and individual sequencing is
-possible. Perhaps more important for experimental evolution studies,
+are large. Perhaps more important for experimental evolution studies,
 we can now obtain and sequence \emph{longitudinal time-series data},
 sampling populations over a period of time, and investigating the
-dynamics of evolution. Although constraints such as small population
+dynamics of evolution at molecular level. 
+Although constraints such as small population
 sizes, limited timescales, and oversimplified laboratory environments
 limits interpreting experimental evolution results, EE studies are
 being used to test different hypotheses regarding mutation rate,
@@ -109,8 +120,8 @@ for the most part, positive single locus selection (only one favored
 mutation). This regime has been extensively applied, often with
 \emph{Drosophila} as the model organism of choice. It has been used to
 identify adaptive genes in longevity and aging
-~\cite{burke2010genome,remolina2012genomic} (600 and generations
-respectively), courtship song~\cite{turner2011population} (100
+~\cite{burke2010genome,remolina2012genomic} (600 generations), 
+courtship song~\cite{turner2011population} (100
 generations), hypoxia tolerance~\cite{zhou2011experimental} (200
 generations), adaptation to new
 temperatures~\cite{orozco2012adaptation,tobler2014massive} (59
@@ -208,12 +219,17 @@ recently, Song et al.~\cite{Terhorst2015Multi} proposed empirical
 Gaussian Process (GP) likelihood ratio test for single and multiple
 loci dynamic allele frequency data. The heavy computational
 requirements of these methods makes it difficult to apply them in a
-whole genome setting. A key contribution of our paper is the
+whole genome setting. 
+A key contribution of our paper is the
 development of a direct, and significantly faster method, \comale, for
 detecting selection in short-term experimental evolution with pooled
-sequencing (read count) data.  We show that \comale\ is orders of
-magnitude faster, and shows higher or similar sensitivity, compared to
-the state-of the art methods for a wide range of parameters in
+sequencing (read count) data.  We show that \comale\ , provides higher 
+power for detecting selection, 
+is robust to ascertainment bias,
+estimates model parameters consistently, 
+and localized beneficial allele more accurately
+ compared to the state-of the art methods, while being orders of
+ magnitude faster, for a wide range of parameters in
 simulated data.
 
 \section{Materials and Methods}
@@ -1110,55 +1126,38 @@ simulations of 50Kbp regions with default parameter setting.
 %\section*{Main text figure captions}
 %\section*{Supporting information captions}
 \section{Appendix}
-\subsection{Allele frequencies under selective sweep} \label{app:af}
-when $h=0.5$ we have
+\subsection{Approximate logistic for allele frequency} \label{app:af}
+In this part we show that the dynamic of the beneficial allele can be modeled 
+via a logistic function, when directional selection is the case ($h=0.5$). By 
+taking derivative of Eq.~\ref{eq:transition} we have
 \beq
-\frac{\bfd x_t}{\bfd t} = \frac{sx_t(1-x_t)}{2+2sx_t}
+\frac{\bfd \nu_t}{\bfd t} = \frac{s\nu_t(1-\nu_t)}{2+2s\nu_t}
 \eeq
 which is a differential equation that is difficult to solve. However if take 
-the approximation $2+2sx_t \approx 2$, it becomes an ordinary differential 
-equation that can be readily solved
-
+the approximation $2+2s\nu_t \approx 2$, it becomes an 
+ordinary differential equation that can be readily solved
 \begin{equation}
-\nu_t =\frac{1}{1+\frac{1-x_0}{x_0}e^{-st/2}} = \sigma(st/2+\eta(x_0)) 
+\nu_t =\frac{1}{1+\frac{1-\nu_0}{\nu_0}e^{-st/2}} = \sigma(st/2+\eta(\nu_0)) 
 \label{eq:inf-pop}
 \end{equation}
-where$\sigma(.)$ is the logistic
-function and $\eta(.)$ is logit function (inverse of the logistic function). 
-
-\subsection{Logistic Model for Selection.}
-As maximum likelihood for estimating $s$ using Markov chain is
-computationally expensive, here we use and logistic function for
-modeling allele frequencies undergoing selective sweep.  In a pure
-selection process with no drift, i.e. infinite population size,
-dynamic of allele frequencies can be well approximated by the logistic
-function (see Section~\ref{app:af} for derivation) \beq
-\nu_t=\sigma(st+\eta(\nu_0))\label{eq:nut} \eeq where
-$\sigma(x)=1/(1+e^{-x})$ is the logistic function, and
-$\eta(x)=\log(x)/\log(1-x)$ is inverse of the logistic, aka logit,
-function. Fig.~\ref{fig:sweep} depicts the behavior of the logistic
-model for site allele frequencies and the default sampling time
-span(STS). Without genetic drift, soft sweep is easier to detect,
-because the logistic function happens to have steeper slope in th STS
-than those of hard sweeps, due to standing variation frequency. In
-addition, even under infinite population size regime, it is difficult
-differentiate between weak selections and genetic drift (a horizontal
-line), in short (e.g. 50 generations) experimental evolutions.
-
-
+where $\sigma(.)$ is the logistic function and $\eta(.)$ is logit function 
+(inverse of the logistic function). 
 
 \subsection{Dynamic of Tajima's D}\label{app:td}
+In this part we derive dynamic of Tajima's $D$ statistic in \emph{hard sweep} 
+as function of its 
+value at the onset of selection, $D_0$, selection strength and the frequency of 
+the beneficial allele at the onset of selection.
 Let $D_0, \Pi_0, W_0$, be Tajima's D, Tajima's estimate of  $\theta$, and 
 Watterson's estimate of $\theta$ at time zero and $D_0=\Pi_0 - W_0$.
 In order to compute, $D_t=\Pi_t - W_t$ we compute $\Pi_t$ and $W_t$ separately 
-as follows.
-
-Let $P$ be the $n \times n$ matrix of pairwise heterozygosity if individuals, 
+as follows. Let $P$ be the $n \times n$ matrix of pairwise heterozygosity if 
+individuals, 
 then $\Pi=\frac{1}{n^2}\sum P_{ij}$. So, if the population consist of $\nu n$ 
 identical carrier haplotype (due to lack of recombination), their pairwise 
 hamming distance is zero and should be subtracted from the total $\Pi_t$:
 \beq
-\Pi_t&= (1-\nu_t^2)\Pi_0 
+\Pi_t&= (1-\nu_t^2)\Pi_0 \label{eq:tdt0}
 \eeq
 
 To compute $W_t$, first remember that $W_t= \frac{m_t}{S_n}$ where $m_t$ is the 
@@ -1166,25 +1165,38 @@ number of segregating sites at time $t$ and $S_n= \sum_i^n 1/i \approx
 \log(n)$. Also we have
 \beq
 \frac{W_t}{W_0}&=\frac{\frac{m_t}{S}}{\frac{m_0}{S}} \ \ \Rightarrow 
-W_t=\frac{m_t}{m_0}W0 
+W_t=\frac{m_t}{m_0}W0 \label{eq:tdt1}
 \eeq
-where $m_t$ to be interpreted as the expected number of segregating sites at 
-time $t$, under neutral evolution. At time $t$, the number of individuals that 
-undergone neutral evolution is $(1-\nu_t)n +1$, which leads to
+Because of hard sweep and lack of recombination assumption, the population 
+at time $t$ consist of $(1-\nu_t)n$ non-carrier haplotypes and $\nu_tn$ 
+identical carrier haplotypes. Since the identical carrier haplotypes does not 
+contribute to the $m_t$ more than any single of them, here the number of 
+segregating sites is 
+equal to the sample of $(1-\nu_t)n+1$ individuals from a naturally evolving 
+population.  
+\AI{Reading it again, I just realized that this assumption is not entirely true.
+	The noncarier haplotypes does not under go neutral evolution. They are 
+	under (soft sweep) negative selection. So $m_t$ is not right.
+	}
+Therefore, we have
 \beq
 \frac{m_t}{m_0}&=\frac{\log\left((1-\nu_t)n +1 \right)\theta}{\log(n)\theta} 
 \approx  
 \frac{\log\left((1-\nu_t)n\right)}{\log(n)} = \frac{\log(1-\nu_t)+\log(n)}{\log(n)} = 
-1+ \frac{ \log(1-\nu_t)}{\log(n)} 
+1+ \frac{ \log(1-\nu_t)}{\log(n)}. \label{eq:tdt2}
 \eeq
-putting all together 
+Finally, by putting Eqs.~\ref{eq:tdt0},~\ref{eq:tdt1},~\ref{eq:tdt2} together, we 
+can explicitly write the dynmics of $D$ statistic as
 \beq
-D_t&= (1-\nu_t^2)\Pi_0 - (1+ \frac{ \log(1-\nu_t)}{\log(n)} ) W_0 = 
-D_0-\log(1-\nu_t) \frac{W_0}{\log(n)} -\nu_t^2 \Pi_0=\\
-&D_0-\log(1-\sigma(s,\nu_0)) \frac{W_0}{\log(n)} -\sigma^2(s,\nu_0) \Pi_0.
+D_t&= (1-\nu_t^2)\Pi_0 - (1+ \frac{ \log(1-\nu_t)}{\log(n)} ) W_0 \\&= 
+D_0-\log(1-\nu_t) \frac{W_0}{\log(n)} -\nu_t^2 \Pi_0\\
+&\approx D_0-\log(1-\sigma(st/2+\eta(\nu_0))) \frac{W_0}{\log(n)} 
+-\sigma(st/2+\eta(\nu_0))^2
+\Pi_0.
 \eeq
+where $\sigma$ and $\eta$ are logistic and logit functions.
 
-
+\ignore{
 \subsection{Dynamics of Fay and Wu's H}\label{app:h}
 %\bl
 In any finite population size of $n$ with $m$ segregating sites, 
@@ -1198,7 +1210,8 @@ and we can write
 \frac{ (n-1)}{2n}H 
 \eeq
 where $\xi_i$ is the number of sites with frequency $i/n$ and $H$ is the 
-Fay \& Wu's estimate of $\theta$.
+Fay \& Wu's estimate of $\theta$ and $\bfx \in (0,1)^m$ is the vector of allele 
+frequency of a region with $m$ segregating sites.
 %\el
 
 Recently, Ronen et al.~\cite{ronen2015predicting} devised the $1\dHAF$ 
@@ -1216,7 +1229,7 @@ g(\nu_t)= \theta \nu_t \left(\frac{\nu_t+1}{2} - \frac{1}{(1-\nu_t)n+1}\right) +
 where easily follows that
 \beq
 \theta_H(t)=\frac{n-1}{2} g(\nu_t)
-\eeq
+\eeq}
 \subsection{Greedy computation of time-series SFS-based  
 statistics}\label{app:agg}
 As discussed in Section~\ref{sec:extending-sfs}, modeling dynamic of Tajima's 
@@ -1233,47 +1246,56 @@ where the same procedure applies to Fay\&Wu's $H$ and SFSelect.
 
 
 \subsection{Linkage Disequilibrium}
-Nonrandom associations between polymorphisms are established in the 
-substitution process according to the phylogeny, broken by recombination events 
-and reinforced by selection. Although in EE the experiments with pooled 
-sequencing, LD can not be measured throughout evolution, it is still worthwhile 
+Nonrandom associations, Linkage Disequilibrium (LD), between 
+polymorphisms are established in the 
+substitution process, broken by recombination events 
+and reinforced by selection. 
+Although LD can not be measured in pooled sequencing data (phased 
+haplotype data is required), it is still worthwhile 
 to examine the behavior of LD as a result of the interaction between 
-recombination and natural selection, to take into account of some of EE 
-implicit constraints. 
+recombination and natural selection. In this part we theoretically overview 
+expected LD in short EEs.
 
-Let $\rho_0$ be the LD at time zero between the site under selection and a 
+Let $\rho_0$ be the LD at time zero between the beneficial allele and a 
 segregating site $l$ base-pairs away, then under natural selection we have
 \beq
-\rho_t= \alpha_t\beta_t \rho_0=e^{-rtl} \left(\frac{H_t}{H0}\right)  
+\rho_t= \alpha_t\beta_t \rho_0=e^{-rtl} \left(\frac{H_t}{H_0}\right)  
 \rho_0\label{eq:ldt}
 \eeq
-where $H_T=2\nu_0(1-\nu_0)$ is the heterozygousity at the selected site, $r$ is 
-the recombination rate/bp/gen. The decay factor $\alpha_t=e^{-rtl}$ is the 
-product of recombination and growth factor $\beta_t$ (eq. 30-31 in 
-\cite{Stephan2006The})is the outcome of 
-selection. For $s=0.01$, $l=100K$bp, the log of decay, growth and product of 
-both is depicted in Fig.~\ref{fig:ldf}. It is evident that, for these 
-parameters LD does not start to decay until generation 1000, which would be  
-problematic when $\rho_0$. For example, in the case of hard sweep, the 
-selection is imposed on the site with minimum AF, which is at perfect linkage 
-($|D'|=1$) with all the other loci.This is because, between the 
-	selected site and all the other sites frequency of one gamete is zero.
-We this phenomenon is shown in the Figs.~\ref{fig:ld2d}, \ref{fig:ld3d} where 
-at generation zero the site at position 500K is at perfect linkage with all the 
-other sites, and linkage of the middle site with all the genome is depicted 
-for both genetic drift and natural selection, in different generations.
-Also, a window of 50Kbp around the selected site is shaded in Fig. 
-\ref{fig:ld2d} to demonstrate the value of LD in the window under drift and 
-hard sweep. This implies that the precision of locating the selection on the 
-genome is tightly dependent on a set of parameters including, recombination 
-rate, selection strength, initial carrier frequency, and the initial linkage.
+where $H_t=2\nu_t(1-\nu_t)$ is the heterozygousity at the selected site, $r$ is 
+the recombination rate/bp/gen. The 
+\emph{decay factor}, $\alpha_t=e^{-rtl}$,
+and \emph{growth factor}, $\beta_t$ (see Eq. 30-31 in 
+\cite{Stephan2006The}), are result of recombination and 
+selection, respectively. Fig.~\ref{fig:ld3d} presents the expected theoretical 
+value of LD when $\rho_0=0.5$ between beneficial allele (site at position 500K) 
+and the rest of 
+genome, and $\nu_0=0.1$. For neutral evolution (top), LD decays exponentially 
+through space and time, while in natural selection (bottom), LD increases and 
+then decreases. Interestingly, LD increases to its maximum value, 1, for the 
+nearby region (the plateau in the Fig.~\ref{fig:ld3d} bottom) of the beneficial 
+allele.
 
-\subsection{Likelihood Functions} \label{app:likelihood} Actually, it is
-enough to show \eqref{eq:transition} is linear fractional in $s$,
-which is nby definition: linear numerator and denominator, and
-strictly positive denominator.  
+In principle, LD increases after the onset of selection, until $\log(\alpha_t) 
++\log(\beta_t) 
+>0$, see Eq.~\ref{eq:ldt}. 
+Specifically, log of decay term is linear and, using 
+Eq.~\ref{eq:inf-pop}, we write growth 
+factor in term of initial frequency $\nu_0$ and selection strength $s$. 
+Fig.~\ref{fig:ldf} depicts interaction of decay and growth factors for weak and 
+strong selection and soft and hard sweeps. In all the case, LD of the 
+beneficial allele with a segregating site 50Kbp away, increases in the first 50 
+generations, which give rise to increasing number of \emph{hitchhikers}. 
 
-\clearpage
+Increase of LD in a large (100Kbp) region is particularly advantageous to the 
+task of identifying the region under selection, if the composite statistics is 
+used. As a result, $\Hc$ statistic outperforms existing (single-loci) tools in 
+identifying selection. In contrast, augmentation of LD, increases the 
+number 
+of candidates for 
+the beneficial allele, which makes is difficult to localize the beneficial 
+allele.
+
 \newpage
 \section{Supplemental Figs. and Tables}
 
@@ -1284,16 +1306,7 @@ strictly positive denominator.
 	individuals.}	\label{fig:sfs}
 \end{figure}
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[trim={0in 0.1in 0in 
-		0in},clip,width=\textwidth]{figures/{tdterms}.png}
-              \caption{Interactions of two terms in $D$. W.l.o.g when
-                $D_0=0$ and $\Pi_0=W_0=1$, $D_t$ is sum of the
-                logarithmic $\frac{-\log(1-\nu_t)}{\log(2N)}$ and the
-                squared term $\nu_t^2$.  }
-	\label{fig:tdterms}
-\end{figure}
+
 
 \begin{figure}[H]
 	\centering 
@@ -1352,7 +1365,15 @@ strictly positive denominator.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{figures/decayFactors}
+	\begin{tabular}{l|l}
+			(A)&(B)\\
+			\includegraphics[width=0.5\textwidth]{figures/decayFactors0}
+			&\includegraphics[width=0.5\textwidth]{figures/decayFactors1}\\
+			\hline(C)&(D)\\
+			\includegraphics[width=0.5\textwidth]{figures/decayFactors2}
+			&\includegraphics[width=0.5\textwidth]{figures/decayFactors3}		
+	\end{tabular}
+
 	\caption{Interaction between productive factors of LD under natural 
 		selection for weak selection (s=$0.01$) and a distance of 100Kb between 
 		sites. In this setting, after about 1000 generations LD start to decay 
@@ -1361,21 +1382,11 @@ strictly positive denominator.
 \end{figure}
 
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=\textwidth]{figures/LDDecay2d}
-	\caption{Decay of LD ($|D'|$ measure) of the minimum AF site at position 
-		500K with the rest of genome when $s=0.01$ and $r=2\times10^{-8}$. A 
-		window 
-		of 50Kb is shaded at the center of genome to illustrate high values of 
-		linkage in both selection and drift.} \label{fig:ld2d}
-\end{figure}
 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{figures/LDDecay3dNeutral}
-	\includegraphics[width=\textwidth]{figures/LDDecay3dSweep}
+	\includegraphics[width=\textwidth]{figures/LDDecay3d}
 	\caption{ld} \label{fig:ld3d}
 	\caption{Decay of LD ($|D'|$ measure) of the minimum AF site at 
 		position 500K with the rest of genome in genetic drift with 
@@ -1383,7 +1394,7 @@ strictly positive denominator.
 \end{figure}
 
 
-
+\ignore{
 
 \begin{figure}[H]
 	\centering
@@ -1392,7 +1403,7 @@ strictly positive denominator.
 	\caption{Dominance for $s=0.1$.} 
 	\label{fig:dominance}
 \end{figure}
-
+}
 
 \begin{figure}[H]
 	\centering
