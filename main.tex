@@ -25,36 +25,38 @@
   adaptation. While many computational tests have been developed for
   detecting regions under selection, they are mainly designed for
   static (single time) data, and work best when the favored allele is
-  close to fixation. EE studies provide samples over multiple time
-  points, underscoring the need for tools that can exploit the
-  data. At the same time, EE studies are constrained by the limited
-  time span since onset of selection, depending upon the generation
-  time for the organism. This constraint impedes adaptation and
-  optimization (evolvability) studies, as the population can only be
-  propagated for a small number of generations, relative to the
-  fixation time of the favored allele.  
+  close to fixation. 
 
+  EE studies provide samples over multiple time points, underscoring
+  the need for tools that can exploit the data. At the same time, EE
+  studies are constrained by the limited time span since onset of
+  selection, depending upon the generation time for the organism. This
+  constraint impedes adaptation and optimization studies, as the
+  population can only be propagated for a small number of generations,
+  relative to the fixation time of the favored allele.  Moreover,
+  sequencing depths of pooled experiments vary across replicates and
+  time points, leading to ascertainment bias.
 
-In the course of an EE study, multiple replicates of population is sampled and 
-sequenced using pooled-sequencing techniques. 
-Reads of each locus reads are mapped for all replicates and generations.
-Even if the sequencing coverage be the same for all the generations and 
-replicates, depth of each site would not necessarily be the same, which leads 
-to the problem of heterogeneous ascertainment bias across generations.
+ %In the course of an EE study, multiple replicates of population are
+ %sampled and sequenced using pooled-sequencing techniques.  Reads of
+ %each locus reads are mapped for all replicates and generations.
+ %Even if the sequencing coverage be the same for all the generations
+ %and replicates, depth of each site would not necessarily be the
+ %same, which leads to the problem of heterogeneous ascertainment bias
+ %across generations.
 
-  In this article, we directly target these problems to
-  study the problem of identifying selective sweep
-  in short-term and pool-sequenced experimental evolution of sexual 
-  organisms and propose
-  Composite Of MArkovian Likelihoods for Experimental evolution
-  (\comale) statistic. Extensive simulations show that \comale\
-  achieves higher detection power over a wide range of parameters,
-  including both soft and hard sweep scenarios, and is many orders of
-  magnitude faster than other methods, making genomic scans feasible.
-  We apply the \comale\ statistic to the controlled experimental
-  evolution of D. melanogaster to detect adaptive genes/alleles under
-  alternating cold and hot temperatures, and identify many genes that
-  are adapting to the selection constraints.
+  In this article, we directly address these issues while developing
+  tools for identifying selective sweep in short-term and
+  pool-sequenced experimental evolution of sexual organisms and
+  propose Composite Of MArkovian Likelihoods for Experimental
+  evolution (\comale) statistic. Extensive simulations show that
+  \comale\ achieves higher detection power over a wide range of
+  parameters, including both soft and hard sweep scenarios, and is
+  many orders of magnitude faster than other methods, making genomic
+  scans feasible.  We apply the \comale\ statistic to the controlled
+  experimental evolution of D. melanogaster to detect adaptive
+  genes/alleles under alternating cold and hot temperatures, and
+  identify many genes that are adapting to the selection constraints.
   \end{abstract}
 
 
@@ -88,43 +90,42 @@ us to sequence populations at a reasonable cost even when the genomes
 are large. Perhaps more important for experimental evolution studies,
 we can now obtain and sequence \emph{longitudinal time-series data},
 sampling populations over a period of time, and investigating the
-dynamics of evolution at molecular level. 
-Although constraints such as small population
-sizes, limited timescales, and oversimplified laboratory environments
-limits interpreting experimental evolution results, EE studies are
-being used to test different hypotheses regarding mutation rate,
-inbreeding, environmental variability, sexual selection \& conflict,
-kin selection and cooperation life history and sex allocation, sexual
-reproduction and mating systems, behavior and cognition, and
-host-–parasite interactions~\cite{kawecki2012experimental} and also
+dynamics of evolution at molecular level.  Although constraints such
+as small population sizes, limited timescales, and oversimplified
+laboratory environments limit the interpretation of EE results, these
+studies are increasingly being used to test hypotheses regarding
+mutation rate, inbreeding, environmental variability, sexual selection
+\& conflict, kin selection and cooperation, life history and sex
+allocation, sexual reproduction and mating systems, behavior and
+cognition, and host-–parasite
+interactions~\cite{kawecki2012experimental}. In many cases, they
 provide more accurate inferences than static data analysis
-\cite{boyko2008assessing,desai2008polymorphism,sawyer1992population}. In
-addition, dynamic data has been used to estimate model parameters
-including population
+\cite{boyko2008assessing,desai2008polymorphism,sawyer1992population}. Dynamic
+data is also being used to estimate model parameters including
+population
 size~\cite{williamson1999using,wang2001pseudo,pollak1983new,waples1989generalized,
-  Terhorst2015Multi} strength of
+  Terhorst2015Multi}, strength of
 selection~\cite{mathieson2013estimating,illingworth2011distinguishing,Terhorst2015Multi,
   bollback2008estimation,illingworth2012quantifying,malaspinas2012estimating,
   Steinrücken2014a}, allele age~\cite{malaspinas2012estimating}
 recombination rate~\cite{Terhorst2015Multi}, mutation
 rate~\cite{Barrick2013Genome, Terhorst2015Multi}, quantitative trait
-loci~\cite{baldwin2014power} and test neutrality
+loci~\cite{baldwin2014power} and for tests of neutrality
 hypotheses~\cite{feder2014Identifying,Terhorst2015Multi,burke2010genome,bergland2014genomic}.
 
 
 While different types of EE experiments have been
 proposed~\cite{Barrick2013Genome,schlotterer2015combining} our focus
-here is the adaptive evolution of multicellular sexual organisms. For
+here is the adaptive evolution of multi-cellular sexual organisms. For
 simplicity, we assume continuous culture, fixed population size, and
 for the most part, positive single locus selection (only one favored
 mutation). This regime has been extensively applied, often with
 \emph{Drosophila} as the model organism of choice. It has been used to
 identify adaptive genes in longevity and aging
-~\cite{burke2010genome,remolina2012genomic} (600 generations), 
-courtship song~\cite{turner2011population} (100
-generations), hypoxia tolerance~\cite{zhou2011experimental} (200
-generations), adaptation to new
-temperatures~\cite{orozco2012adaptation,tobler2014massive} (59
+~\cite{burke2010genome,remolina2012genomic} (600 generations),
+courtship song~\cite{turner2011population} (100 generations), hypoxia
+tolerance~\cite{zhou2011experimental} (200 generations), adaptation to
+new temperatures~\cite{orozco2012adaptation,tobler2014massive} (59
 generations), egg size~\cite{jha2015whole} (40 generations), C virus
 resistance~\cite{martins2014host} (20 generations), and
 dark-fly~\cite{izutsu2015dynamics} (49 generations) experiments. Our
@@ -143,16 +144,17 @@ specificity. At the coarsest level, identification could simply refer
 to deciding whether some genomic region is under selection or not.  In
 the following, we refer to this task as \emph{detection}. In contrast,
 the task of \emph{site-identification} corresponds to the process of
-finding the favored mutation/allele itself. Finally, estimating model
-parameters such as strength of selection and overdominance at the site
-can provide a comprehensive description of the selection process.
+finding the favored mutation/allele itself. Finally, \emph{estimation
+  of model parameters} such as strength of selection and over-dominance
+at the site can provide a comprehensive description of the selection
+process.
 
 A wide range of computational methods~\cite{vitti2013detecting} have
 been developed to detect regions under positive selection. A majority
-of the existing methods have devoted to \emph{static data} analysis,
-statistical test on single sample of the population at a specific
-time, either during the sweep, or subsequent to fixation of the
-favored allele. For instance, reduction in genetic
+of the existing methods focus on static data analysis--analyzing a
+single sample of the population at a specific time, either during the
+sweep, or subsequent to fixation of the favored allele. For instance,
+reduction in genetic
 diversity~\cite{tajima1989statistical,fay2000hitchhiking,ronen2013learning}
 in allele-frequency data, prevalence of long
 haplotypes~\cite{sabeti2006positive,vitti2013detecting} in haplotype
@@ -167,10 +169,10 @@ Ratio~\cite{nielsen2005genomic}, were all shown to be weighted linear
 combination of the SFS values~\cite{achaz2009frequency}. However, the
 SFS of a sample under selection changes with time since onset of
 selection, the frequency of the favored allele at the onset of
-selection (High initial frequency of the favored allele is also
-referred to as standing variation) and other parameters. Therefore,
-different weights used by different tests influence their power under
-different selection regimes. This insight can be exploited to learn
+selection, (high initial frequency of the favored allele is also
+referred to as standing variation) and other parameters. Not
+surprisingly, the power of these SFS based tests depends upon
+different selection parameters. This insight can be exploited to learn
 the right weights for each regime and improve detection
 accuracy~\cite{ronen2013learning}.
 
@@ -179,58 +181,56 @@ negatives~\cite{messer2013population}, as also false-discoveries due
 to confounding factors such as demography, including bottleneck and
 population expansions, and ascertainment bias ~\cite{ptak2002evidence,
   ramos2002statistical,akey2009constructing,
-  nielsen2003correcting,messer2013population}. Nevertheless, SFS-based
+  nielsen2003correcting,messer2013population}. Nevertheless, SFS based
 tests are simple and inexpensive and continue to be used, often in
 combination with other
 tests~\cite{akey2009constructing,vitti2013detecting}. It remains an
-open question if the analysis of \emph{dynamic} time-series data can
-improve the power of these methods.
+open question if the analysis of dynamic time-series data can improve
+the power of SFS based methods.
 
 Relative to the analysis of static samples, fewer tests-of-selection
 for dynamic time-series data have been proposed. Often, existing tests
 for static data are adopted for dynamic data with two time-points. Zhu
 et al.~\cite{zhou2011experimental} used the ratio of the estimated
 population size of case and control populations to compute test
-statistic for each genomic region. Burke et al.~\cite{burke2010genome}
-applied Fisher exact test to the last observation of data on case and
-control populations.  Orozco-Terwengel et
-al.~\cite{orozco2012adaptation} used Cochran-Mantel-Haenszel
-test~\cite{agresti2011categorical} to detect SNPs that their read
-counts are consistently changed in all the replicates of two
-time-point data.  Turner et al.~\cite{turner2011population} proposed
-the diffStat statistic to test whether the change in allele
-frequencies of two population deviates from the distribution of change
-in allele frequencies of two drifting populations.  Bergland et
-al.~\cite{bergland2014genomic} applied $F_{st}$ to populations
+statistic for each genomic region. Burke \emph{et
+  al.}~\cite{burke2010genome} applied Fisher exact test to the last
+observation of data on case and control populations.  Orozco-Terwengel
+\emph{et al.}~\cite{orozco2012adaptation} used the
+Cochran-Mantel-Haenszel (CMH) test~\cite{agresti2011categorical} to
+detect SNPs whose read counts change consistently across all
+replicates of two time-point data.  Turner \emph{et
+  al.}~\cite{turner2011population} proposed the diffStat statistic to
+test whether the change in allele frequencies of two population
+deviates from the distribution of change in allele frequencies of two
+drifting populations.  Bergland \emph{et
+  al.}~\cite{bergland2014genomic} applied $F_{st}$ to populations
 throughout time to signify their differentiation from ancestral (two
-time-point data) as well as geographically different populations.  Jha
-et al.~\cite{jha2015whole} computed test statistic of generalized
-linear-mixed model directly from read counts.  Bollback et
+time-point data) as well as geographically different populations. Jha
+\emph{et al.}~\cite{jha2015whole} computed test statistic of
+generalized linear-mixed model directly from read counts.  Bollback et
 al.~\cite{bollback2008estimation} provided diffusion approximation to
 the continues Wright Fisher Markov process and estimated $s$
 numerically and performed standard likelihood ratio test under $\Xc^2$
-distribution. 
+distribution.
 
 It is only recently that direct tests for analyzing time-series data
 have been developed. Using (continuous-time continuous-state) Brownian
-motion process, Feder et al.~\cite{feder2014Identifying} proposed the
-Frequency Increment Test (FIT) for dynamic allele frequency data. More
-recently, Song et al.~\cite{Terhorst2015Multi} proposed empirical
-Gaussian Process (GP) likelihood ratio test for single and multiple
-loci dynamic allele frequency data. The heavy computational
-requirements of these methods makes it difficult to apply them in a
-whole genome setting. 
-A key contribution of our paper is the
-development of a direct, and significantly faster method, \comale, for
-detecting selection in short-term experimental evolution with pooled
-sequencing (read count) data.  We show that \comale\ , provides higher 
-power for detecting selection, 
-is robust to ascertainment bias,
-estimates model parameters consistently, 
-and localized beneficial allele more accurately
- compared to the state-of the art methods, while being orders of
- magnitude faster, for a wide range of parameters in
-simulated data.
+motion process, Feder \emph{et al.}~\cite{feder2014Identifying}
+proposed the Frequency Increment Test (FIT) for dynamic allele
+frequency data. More recently, Song \emph{et
+  al.}~\cite{Terhorst2015Multi} proposed empirical Gaussian Process
+(GP) likelihood ratio test for single and multiple loci dynamic allele
+frequency data. The heavy computational requirements of these methods
+makes it difficult to apply them in a whole genome setting.  A key
+contribution of our paper is the development of a direct, and
+significantly faster method, \comale, for detecting selection in
+short-term experimental evolution with pooled sequencing (read count)
+data.  We show for a wide range of parameters that \comale\ provides
+higher power for detecting selection, is robust to ascertainment bias,
+estimates model parameters consistently, and localizes beneficial
+allele more accurately compared to the state-of the art methods, while
+being orders of magnitude faster.
 
 \section{Materials and Methods}
 
@@ -463,7 +463,7 @@ We asked if SFS-based tests could be adapted for time-series data. A
 simple approach is to use cross-population SFS tests on the
 populations at time $0$ (before onset of selection), and at time
 sample $\tau_t$, for each $t$. However, these tests are not
-independent. Evans et al.~\cite{evans2007non} developed diffusion
+independent. Evans \emph{et al.}~\cite{evans2007non} developed diffusion
 equations for evolution of SFS in time series, but they are difficult
 to solve. Instead, we derive a formula for computing $D_t$, the
 dynamic of Tajima's D at generation $t$, in terms of initial statistic
@@ -530,7 +530,10 @@ illustration):
   individual was cloned $N/F$ times to yield diploid population of
   size $N$.
 
-\item{\bf Forward Simulation.} Given initial diploid population,
+\item{\bf Forward Simulation.} We used forward simulations for
+  evolving populations under selection. We note that all experiments
+  denoted as `soft-sweep' in the results are soft-sweep when selection
+  acts upon standing variation. Given initial diploid population,
   position of the site under selection, selection strength $s$, number
   of replicates $R=3$, recombination rate $r=2\times10^{-8}$ and
   sampling times $\Tc=\{10,20,30,40,50\}$, \texttt{simuPop} was used
@@ -538,12 +541,10 @@ illustration):
   of the $R$ replicates. Also, to avoid spurious simulation samples,
   simulation results were constrained to those samples where the
   favored allele escaped stochastic loss due genetic drift, and
-  established in all replicates. For hard sweep (and soft sweep) simulations we 
-  randomly chosen a site with initial frequency of $\nu_0=0.005$ (and 
-  $\nu_0=0.1$ for soft sweep) to be the beneficial allele. We note that all 
-  experiments
-  denoted as `soft-sweep' in the results are soft-sweep due to
-  standing variation.
+  established in all replicates. For hard sweep (and soft sweep)
+  simulations we randomly chosen a site with initial frequency of
+  $\nu_0=0.005$ (and $\nu_0=0.1$ for soft sweep) to be the favored
+  allele.
   \item{\bf Sequencing Simulation.} Give allele frequency trajectories we 
   sampled depth of each site  identically and independently from 
   Poisson($\lambda$), where $\lambda \in \{30,100,\infty\}$ is the coverage for 
@@ -556,13 +557,13 @@ illustration):
 \end{enumerate}
 
 We also conducted simulations to test methods in the
-sampling-from-natural-populations setting. Unlike the experimental evolution 
-simulation, here mutations after onset of selection are taken into account. 
-\texttt{msms} simulator is
-used to forward simulate a population with $N_e=10^4$, $\nu_0=10^{-4}$
-and recored SFS of a 50Kbp region as well as the frequency. The reset
-of parameters are chosen the same as experimental evolution (see
-Fig.~\ref{fig:ee}A). 
+sampling-from-natural-populations setting. Unlike the experimental
+evolution simulation, here mutations after onset of selection are
+taken into account.  \texttt{msms} simulator is used to forward
+simulate a population with $N_e=10^4$, $\nu_0=10^{-4}$ and record SFS
+of a 50Kbp region as well as the frequency. The reset of parameters
+are chosen the same as experimental evolution (see
+Fig.~\ref{fig:ee}A).
 
 
 
@@ -572,42 +573,42 @@ We tested the closeness of fit for the Markov Likelihood as a model
 for neutral trajectories, compared to Brownian motion. We performed
 $150$K simulations for different values of $\nu_0$
 ($\nu_0\in\{0.005,0.1\}$) and time $\tau$ generations $\tau\in
-\{1,10,100\}$. 
-Fig.~\ref{fig:markov} shows that Brownian motion is inadequate when
-$\nu_0$ is far from $0.5$, and when sampling is done after many
-generations $\tau>1$. (sampling times are sparse). In most
+\{1,10,100\}$.  Fig.~\ref{fig:markov} shows that Brownian motion is
+inadequate when $\nu_0$ is far from $0.5$, and when sampling is done
+after many generations $\tau>1$. (sampling times are sparse). In most
 experimental evolution scenarios, a site is unlikely to have frequency
 close to $0.5$, and the starting frequencies are usually much
-smaller. Moreover, sampling times are sparse, with sampling done
-between $10$ and $100$ generations in \emph{Drosophila}
-experiments~\cite{orozco2012adaptation, zhou2011experimental}.
+smaller. Moreover, sampling times are sparse. In typical
+\emph{Drosophila} experiments for example, $<10$ time points are
+samples in a span of $100$ generations from the onset of
+selection~\cite{orozco2012adaptation, zhou2011experimental}.
 
 In contrast, Fig.~\ref{fig:markov}A-F also shows that Markov
 Likelihood predictions (Eq.~\ref{eq:mkvs}) are highly consistent with
 empirical data for a wide range of simulation parameters. We also
-tested the predictions under selection regime by conducting $100$K
-simulations with selection strength $s=0.1$ on a site with initial
-frequency $\nu_0=0.005$ and sampling after $\tau$
-$(\tau\in\{1,10,100\})$ generations. The empirical and theoretical
-distributions tracked closely (Fig.~\ref{fig:markov}G-I).
+tested the model under selection by conducting $100$K simulations with
+selection strength $s=0.1$ on a site with initial frequency
+$\nu_0=0.005$ and sampling after $\tau$ $(\tau\in\{1,10,100\})$
+generations. The empirical and theoretical distributions tracked
+closely (Fig.~\ref{fig:markov}G-I).
 
 \paragraph{Detection Power.} 
 To evaluate performance of each method, define power as the fraction
-of true positives identified with the false-positive rate less that
-0.05 (Fig.~\ref{fig:powerROC}). Before comparing against other
-methods, we first evaluated the use of HMM and Markov chain composite
-likelihoods ($\Hc$ and $\Mc$) with different percentile-cutoffs $\pi$
-(see eq.~\ref{eq:pihmm}) under different sequence coverage
-settings. We chose the sequence depth of each marker by identically
-and independently sampling according to Poisson distribution with
-parameter $\lambda\in \{30,100,\infty\}$. We computed power for ${\cal
-  H}_\pi$ and ${\cal M}_{\pi}$, with $\pi \in \{0,0.99,100\}$. See
+of true positives identified with false-positive rate $\le 0.05$
+(Fig.~\ref{fig:powerROC}). Before comparing against other methods, we
+first evaluated the use of HMM and Markov chain composite likelihoods
+($\Hc$ and $\Mc$) in \comale\ with different percentile-cutoffs $\pi$
+(Eq.~\ref{eq:pihmm}) under different sequence coverage settings. We
+chose the sequence depth of each marker by identically and
+independently sampling from a Poisson distribution with parameter
+$\lambda\in \{30,100,\infty\}$. We computed power for ${\cal H}_\pi$
+and ${\cal M}_{\pi}$, with $\pi \in \{0,0.99,100\}$. See
 Fig.~\ref{fig:powerCLR}. The performance of HMM is robust with
-coverage, while Markov chain's power decays for low coverage
+coverage, while the Markov chain's power decays for low coverage
 values. Also, the composite likelihood for all variants ($\pi=0$)
 shows the highest power (Fig.~\ref{fig:powerCLR}, and
 Table~\ref{tab:power}).  Therefore, we used ${\cal H} = {\cal H}_0$ as
-the default statistic for all subsequent calculations. 
+the default statistic for all subsequent calculations.
 
 We compared the power of $\Hc$, $\Mc$ Gaussian process
 (GP)~\cite{Terhorst2015Multi}, FIT~\cite{feder2014Identifying}
@@ -618,9 +619,9 @@ starting allele frequency $\nu_0$, coverage $\lambda$, sampling time
 schedule ${\cal T}$, and number of replicates $R$), we conducted
 $1000$ simulations. Half of these modeled neutral evolution and the
 rest were under selection. \comale\ shows the highest power across
-these range of parameters. However, for perfect coverage
-($\lambda=\infty$), and high selection coefficient $s=0.1$, GP has
-comparable power. 
+these range of parameters (Fig.~\ref{fig:power}). However, for perfect
+coverage ($\lambda=\infty$), and high selection coefficient $s=0.1$,
+GP has comparable power.
 
 
 
@@ -634,14 +635,14 @@ like Gaussian Process (GP)~\cite{Terhorst2015Multi}. We conducted
 $1000$ simulations and measured running time for \comale\ and
 GP. \comale\ is $\sim 10^3\times$ faster than single locus GP (Fig.
 \ref{fig:runTime}), while maintaining high power. These times have a
-practical consequence. To run GP in the
-single locus mode on the entire Drosophila genome of a small sample (e.g. 2M 
-variant sites),
-would take 1444 CPU-hours ($\approx$ 1 month). In contrast, \comale\ ran in 22 
-hours CPU-minutes plus half an hour for precomputation of transition matrices. 
-In addition, core computations of \comale\ are matrix products, which can be 
-efficiently vectorized. We vectorized operations using \texttt{numba} package, 
-which reduced run time of over 1.5M variant sites to less an hour.
+practical consequence. To run GP in the single locus mode on the
+entire Drosophila genome of a small sample (2M variant sites), would
+take 1444 CPU-hours ($\approx$ 1 CPU-month). In contrast, \comale\ ran
+in 22 CPU-hours in addition to 30 mins. for precomputation of
+transition matrices.  In addition, core computations of \comale\ are
+matrix products, which can be efficiently vectorized. We vectorized
+operations using \texttt{numba} package, which reduced run time of
+over 1.5M variant sites to less an hour.
 
 
 \paragraph{SFS for Detection in Natural Samples.} We did not show the
@@ -649,14 +650,13 @@ SFS based statistics in Fig.~\ref{fig:power} as they did not perform
 better than random. In many experimental evolution settings, we sample
 a restricted set of $F$ founder lines, where $F<<N_e$
 (Fig.~\ref{fig:ee}B). This creates a severe bottleneck, confounding
-SFS. The Supplemental Fig.~\ref{fig:bottleneck} demonstrates the
-effect of experimental evolution on different SFS statistics under
-neutral evolution for 1000 simulations. A second problem with using SFS for 
-experimental evolution
-is that the sampling starts right after the onset of experimentally
-induced selection, and the favored allele may not reach high enough
-frequency to influence the site frequency spectrum
-(Fig.~\ref{fig:sweep}).
+SFS. The Supp. Fig.~\ref{fig:bottleneck} demonstrates the effect of
+experimental evolution on different SFS statistics under neutral
+evolution for 1000 simulations. A second problem with using SFS for
+experimental evolution is that the sampling starts right after the
+onset of experimentally induced selection, and the favored allele may
+not reach high enough frequency to modify the site frequency spectrum
+(Suppl. Fig.~\ref{fig:sweep}).
 
 However, in experiments involving naturally occurring populations,
 even if the span of the time-series is small, the onset of selection
@@ -825,14 +825,14 @@ of adaptation \emph{using population frequency data}. In fact, for $s>0$ we
 		$h>1$ &overdominance
 	\end{tabular}
 \end{center}}
-\paragraph{Software}
-The source code and running scripts for \comale\ is publicly available at \\
+\paragraph{Software.}
+The source code and running scripts for \comale\ are available at \\
 \href{https://github.com/bafnalab/comale}{https://github.com/bafnalab/comale}.
 \section{Discussion}
 
 We developed a computational tool \comale, that can detect regions
 under selection experimental evolution experiments of sexual
-populations. Using an extensive simulations, we show that \comale\
+populations. Using extensive simulations, we show that \comale\
 outperforms existing methods in detecting selection, locating the
 favored allele, and estimating selection parameters. Importantly, we
 make design choices that make \comale\ very fast in practice, allowing
@@ -844,9 +844,10 @@ studies. The statistics used by \comale\ perform well because they
 account for many of these aspects, including complete and exact
 modeling of time-series data, not restricted to two-time point
 time-series, correction of ascertainment bias for finite-depth
-pooled-seq or finite sample variant data, linkage within a region
-using composite likelihood statistics and provides estimates of model
-parameters $s$ and $h$ as side-product.
+pooled-seq or finite sample variant data, and linkage within a region
+using composite likelihood statistics. \comale\ uses $s,h$ as model
+parameters in its likelihood calculation, and provides optimized
+estimates of these parameters.
 
 In general, while EE studies are powerful, they also pose some
 challenges that are not adequately considered by other tools. One
@@ -860,9 +861,9 @@ selection coefficient is very strong the time series data will only
 capture a `partial sweep'.  This limitation is more critical in the
 controlled experimental evolution, where the sampling often starts at
 the onset of selection, and favored allele grows in frequency even
-more slowly if the initial frequency of the beneficial allele is close
-to zero (hard sweep). Through careful modeling, \comale\ performs
-better than competing tools in these constrained scenarios.
+more slowly if the initial frequency of the favored allele is close to
+zero (hard sweep). Through careful modeling, \comale\ performs better
+than competing tools in these constrained scenarios.
 
 In controlled experimental evolution experiments, populations are
 evolved and inbred. As this scenario involves picking a small number
@@ -880,14 +881,15 @@ selection, may not be known. Even in this setting \comale\ outperforms
 other tools including SFS based statistics, except in the case where
 beneficial allele is close to fixation. For this specific scenario, we
 developed time-dependent SFS based tests, and show excellent
-performance compared to all other tests. Both \comale\ and SFS based tests 
-are implemented in the \comale\ software, and the ``default scan" computes 
-scores for all the tests to identify regions under selection.
+performance compared to all other tests. Both \comale\ and SFS based
+tests are implemented in the \comale\ software. In the default mode,
+\comale\ computes scores for all tests, to identify regions under
+selection.
 	
 
 In our simulations, we found that the power of detection can be
-severely affected by sampling regime as well as initial state of
-beneficial allele. Many experimental evolution methods start sampling
+severely affected by sampling schedule as well as initial frequency of
+the favored allele. Many experimental evolution methods start sampling
 at the onset of selection, and continue up to $50$ or so
 generations. For small values of the selection coefficient, this may
 not be sufficient, and other experiments might be possible that span
@@ -901,8 +903,8 @@ time-span in which they were acquired.
 
 Sequence coverage is a practical consideration that is often ignored
 by other tools.  In \comale\ we use HMMs to explicitly model variation
-in coverage. Consequently, its performance decays more slowly with
-decrease in coverage relative to other tools.
+in coverage. Consequently, its performance is robust with decrease in
+coverage relative to other tools.
 
 The performance of tools in hard versus soft (standing variation)
 scenarios is a bit counter-intuitive. On the one hand, linkage is
@@ -918,16 +920,18 @@ soft-sweep scenarios, where $\nu_0>>0$ (close to one), the beneficial
 allele is at low LD with its vicinity, and larger $\pi$ works better
 by filtering out sites that are not linked with the favored
 allele. The automated choice for the best value of $\pi$ will be a
-subject of future research. Here we show results only $\pi=0$. Giving
-attention to these parameters, also helps \comale\ achieve better
-performance in locating the favored allele, and some future work will
-be devoted to identifying the favored allele with higher confidence.
+subject of future research. Here we show results fixing
+$\pi=0$. Contextually modifying these parameters helps \comale\
+achieve better performance in locating the favored allele, and future
+work will be devoted to identifying the favored allele with higher
+power.
 
-Here, we applied \comale\ to the analysis of temperature sensitive
-adaptation in \emph{Drosophila}. However, as EE experiments with
-sampling of genomic sequence increase in popularity, computational
-tools for identifying the genetic basis of adaption will play a key
-role in observing evolution in action.
+Here, we applied \comale\ to a single example of experimental
+evolution--analysis of temperature sensitive adaptation in
+\emph{Drosophila}. However, as EE experiments with sampling of genomic
+sequence increase in popularity, computational tools for identifying
+the genetic basis of adaption will play a key role in observing
+evolution in action.
 	
 
 
@@ -988,29 +992,26 @@ sampled thought time.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{figures/powerCLR.pdf}
-	\caption{{\bf Detection power for Markov chain and HMM with different 
-	composite statistics.} 
-Detection power for Markov chain ($\Mc$) and HMM ($\Hc$) under hard sweep (top)
-and soft sweep (bottom), for different coverage $\lambda$ and selection 
-strength $s$.
-Each point represent power, scaled area under ROC curve when FPR $\le$0.05, of 
-1000 
-simulations of 50Kbp regions with default parameter setting.
-} \label{fig:powerCLR}
+	\caption{{\bf Detection power for Markov chain and HMM with
+            different composite statistics.}  Detection power for
+          Markov chain ($\Mc$) and HMM ($\Hc$) under hard sweep (top)
+          and soft sweep (bottom), for different coverage $\lambda$
+          and selection strength $s$.  Each point represent power,
+          scaled area under ROC curve when FPR $\le$0.05, of 1000
+          simulations of 50Kbp regions with default parameter setting.
+        } \label{fig:powerCLR}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{figures/power.pdf}
 	\caption{ {\bf Power calculations for detection of selection.}
-		Detection power for \comale ($\Hc$), Frequency Increment Test
-		(FIT), Gaussian Process under hard 
-		sweep (top)
-		and soft sweep (bottom), for different coverage $\lambda$ and selection 
-		strength $s$.
-		Each point represent power, scaled area under ROC curve when 
-		FPR$\le$0.05, 
-		of 1000 simulations.} \label{fig:power}
+          Detection power for \comale ($\Hc$), Frequency Increment
+          Test (FIT), Gaussian Process under hard sweep (top) and soft
+          sweep (bottom), for different coverage $\lambda$ and
+          selection strength $s$.  Each point represent power, scaled
+          area under ROC curve when FPR$\le$0.05, of 1000
+          simulations.} \label{fig:power}
 \end{figure}
 
 \clearpage
@@ -1214,7 +1215,7 @@ Fay \& Wu's estimate of $\theta$ and $\bfx \in (0,1)^m$ is the vector of allele
 frequency of a region with $m$ segregating sites.
 %\el
 
-Recently, Ronen et al.~\cite{ronen2015predicting} devised the $1\dHAF$ 
+Recently, Ronen \emph{et al.}~\cite{ronen2015predicting} devised the $1\dHAF$ 
 statistic for identifying selection on static data, which has the expected 
 value related to the $\|\bfx\|^2$:
 \begin{equation} 
