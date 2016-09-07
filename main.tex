@@ -12,7 +12,8 @@
 \date{}
 \def\comale{\text{{\sc Comale}}}
 \renewcommand{\figurename}{Fig.}
-\usepackage{booktabs}
+
+
 \begin{document}
 \maketitle
 \begin{abstract}
@@ -161,7 +162,9 @@ haplotypes~\cite{sabeti2006positive,vitti2013detecting} in haplotype
 (phased) data, population
 differentiation~\cite{holsinger2009genetics,burke2010genome} in
 multiple-population data and others. An important component of many
-methods is the analysis of the Site Frequency Spectrum (SFS) to
+methods is the analysis of the Site Frequency Spectrum (SFS) for an example, 
+see 
+Fig.~\ref{fig:sfs}, to
 identify departure from neutrality. Classical examples including
 Tajima's \emph{D}~\cite{tajima1989statistical}, Fay and Wu's
 \emph{H}~\cite{fay2000hitchhiking}, Composite Likelihood
@@ -226,7 +229,8 @@ makes it difficult to apply them in a whole genome setting.  A key
 contribution of our paper is the development of a direct, and
 significantly faster method, \comale, for detecting selection in
 short-term experimental evolution with pooled sequencing (read count)
-data.  We show for a wide range of parameters that \comale\ provides
+data (see Fig.~\ref{fig:trajectoryReal} for an example).  We show for a wide 
+range of parameters that \comale\ provides
 higher power for detecting selection, is robust to ascertainment bias,
 estimates model parameters consistently, and localizes beneficial
 allele more accurately compared to the state-of the art methods, while
@@ -322,14 +326,15 @@ get:
   \Lc_M(s,h|\{\bm{\nu}^{(r)}\}) = \prod_r   \Lc_M(s,h|\bm{\nu}^{(r)}).
   \label{eq:mkvlik}
 \end{equation}
-Let $s^*,h^*$ denote the parameters that maximize the likelihood. The
+Let $\hat{s},\hat{h}$ denote the parameters that maximize the likelihood. The
 simplest form of the test statistic for each variant is given by
 \begin{eqnarray}
 M= \log 
-\left(\frac{\Lc_M(s^*,h^*|\{\bm{\nu}^{(r)}\})}{\Lc_M(0,0|\{\bm{\nu}^{(r)}\})}\right).
+\left(\frac{\Lc_M(\hat{s},\hat{h}|\{\bm{\nu}^{(r)}\})}{\Lc_M(0,0|\{\bm{\nu}^{(r)}\})}\right).
 \label{eq:mcts}
 \end{eqnarray}
-%where the sign $\sgn(s^*)$ helps focus on positive selection using a one-sided test.  
+%where the sign $\sgn(\hat{s})$ helps focus on positive selection using a 
+%one-sided test.  
 
 
 
@@ -340,7 +345,7 @@ are supplied. However, in most cases, allele frequencies are estimated
 from genotype data with finite samples or pooled-sequencing data with
 finite depth of coverage (See Fig.~\ref{fig:stateConditional}).
 Moreover, the depth at a site varies for different replicates, and
-different time samples (Fig~\ref{fig:depthHetero}). To account for
+different time samples (Fig.~\ref{fig:depthHetero}). To account for
 this heterogeneity, we extend the Markov chain in Eq.~\ref{eq:mkvlik}
 to a Hidden Markov Model for pooled-seq data.
 
@@ -424,18 +429,17 @@ H}_0$) correspond to the CLR after choosing the best
 Depending on data (read count or allele frequency) the optimal value
 of the parameters can be found by 
 \beqn
-s^*,h^*&=&\underset{s,h}{\arg\max} \sum_r^R \log
+\hat{s},\hat{h}&=&\underset{s,h}{\arg\max} \sum_r^R \log
 \left(\Lc_{\cal M}(s,h|\bm{\nu}^{(r)}\right),\;\; \mbox{ or, }\label{eq:mcmle}\\
-s^*,h^*&=&\underset{s,h}{\arg\max} \sum_r^R \log
+\hat{s},\hat{h}&=&\underset{s,h}{\arg\max} \sum_r^R \log
 \left(\Lc_{\cal H}(s,h|\bm{x}^{(r)}\right).\label{eq:hmmmle}
 \eeqn
 where likelihoods are defined in Eq.~\ref{eq:mkvlik} and
-Eq.~\ref{eq:hmmlik}, respectively. For a given $h$,
-Equations~\ref{eq:mcmle} and \ref{eq:hmmmle} are quasiconvex
-(unimodal) functions in $s$ (see Appendix~\ref{app:likelihood}) and
-admit efficient algorithms, (e.g., bisection). The bisection
-methods can be used to compute the optimum parameters within error
-$\epsilon$ in $\Oc(\log_2(1/\epsilon))$ steps.
+Eq.~\ref{eq:hmmlik}, respectively. 
+Objective functions Eqs.~\ref{eq:mcmle}, ~\ref{eq:hmmmle} are optimized using a 
+a simple grid search and the operations are vectorized
+for all variants. Using this simple optimization, solution is obtained in a 
+reasonable time (see Fig.~\ref{fig:runTime}).
 
 \paragraph{Precomputing Transition Matrices.}
 \comale\ requires pre-computation of matrices $P$ and $Q_{s,h}$ for
@@ -466,7 +470,8 @@ sample $\tau_t$, for each $t$. However, these tests are not
 independent. Evans \emph{et al.}~\cite{evans2007non} developed diffusion
 equations for evolution of SFS in time series, but they are difficult
 to solve. Instead, we derive a formula for computing $D_t$, the
-dynamic of Tajima's D at generation $t$, in terms of initial statistic
+dynamic of Tajima's D at generation $t$ (see Fig.~\ref{fig:sfs}), in terms of 
+initial statistic
 $D_0$, initial carrier frequency $\nu_0$ and $s$, as
 \begin{equation}
   D_t=D_0-\log(1-\nu_t) \frac{W_0}{\log(2N)} -\nu_t^2 \Pi_0\;,
@@ -485,7 +490,7 @@ $\nu_t$ as follows:
   \label{eq:ht}
 \end{equation}	
 In both cases, $\nu_t$ itself can be written as a function of $s,t$
-(Eq.~\ref{eq:nut}). This allows us to compute likelihood functions
+(Eq.~\ref{eq:inf-pop}). This allows us to compute likelihood functions
 $\Lc_S(s,h; \{D_t\})$ or $\Lc_S(s,h; \{H_t\})$. Then, a likelihood
 ratio, similar to Eqns.~\ref{eq:mcts},~\ref{eq:hmmml} provides a
 statistic for detecting selection in each window.
@@ -757,7 +762,7 @@ were chosen from a population of Drosophila melanogaster for 59
 generations under alternating 12-hour cycles of hot (28$^{\circ}$C)
 and cold (18$^{\circ}$C) temperatures and sequenced. The sampling read
 depths are highly heterogeneous
-(Suppl. Figures~~\ref{fig:depth},~\ref{fig:depthHetero}). Filtering
+(Suppl. Figs.~~\ref{fig:depth},~\ref{fig:depthHetero}). Filtering
 low coverage sites from data can dramatically reduce data available
 for analysis. For example, by setting minimum read depth at a site to
 be $30$, allowing the site to be retained only if the depth for all
@@ -769,7 +774,7 @@ take lower scores by \comale.
 We computed the \comale\ ${\cal H}$ statistic for sliding
 window of 50Kbp with steps of 10Kbp over the whole genome. We observed
 a spurious negative correlation between $\Hc$ and the number of SNPs
-in each window (Suppl. Figure~\ref{fig:manhattan}). To make this
+in each window (Suppl. Fig.~\ref{fig:manhattan}). To make this
 precise, we computed the Pearson correlation between the number of
 variants $w$ in a window, and $\Hc$ as $\rho(w,\Hc)=-0.03$
 overall. However, when restricted to the candidate regions with a high
@@ -1059,7 +1064,7 @@ sampled thought time.
 \begin{figure}[H]
 	\centering
 	\includegraphics[trim=.2in 0 .2in 0, 
-	clip,width=\textwidth]{figures/rankinf.pdf}
+	clip,width=\textwidth]{figures/{rank100.0}.pdf}
 	\caption{Cumulative Distribution  Function (CDF) of the distribution of the rank of the adaptive allele in 500 simulations for Markov Chain ($\Mc$), Gaussian Process (GP) and Frequency Increment Test (FIT), for different values of selection strength $s$ and initial carrier frequency. Area Under Curve (AUC) is computed as a quantitative measure ranking performance of methods for each configuration.}
 	\label{fig:rank}
 \end{figure}
@@ -1068,8 +1073,14 @@ sampled thought time.
 \newpage
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\textwidth]{figures/bias.pdf}
-	\caption{Distribution of bias ($s-s^*$) over 500 simulations for each value of strength of selection $s$ and starting carrier frequency $\nu_0$.} \label{fig:bias}
+(A)	\\ \includegraphics[width=0.7\textwidth]{figures/{bias.30}.pdf} \\
+(B)\\	\includegraphics[width=0.7\textwidth]{figures/{bias.100}.pdf}\\
+(C)\\	\includegraphics[width=0.7\textwidth]{figures/{bias.inf}.pdf}
+	\caption{Distribution of bias ($s-\hat{s}$) over 500 simulations for each 
+	value of strength of selection $s$ and starting carrier frequency $\nu_0$. 
+	Results for when coverage $\lambda=30,100,\infty$ is shown in panels (A), 
+	(B), (C), respectively.} 
+	\label{fig:bias}
 \end{figure}
 
 \clearpage
@@ -1197,7 +1208,7 @@ D_0-\log(1-\nu_t) \frac{W_0}{\log(n)} -\nu_t^2 \Pi_0\\
 \eeq
 where $\sigma$ and $\eta$ are logistic and logit functions.
 
-\ignore{
+
 \subsection{Dynamics of Fay and Wu's H}\label{app:h}
 %\bl
 In any finite population size of $n$ with $m$ segregating sites, 
@@ -1230,7 +1241,7 @@ g(\nu_t)= \theta \nu_t \left(\frac{\nu_t+1}{2} - \frac{1}{(1-\nu_t)n+1}\right) +
 where easily follows that
 \beq
 \theta_H(t)=\frac{n-1}{2} g(\nu_t)
-\eeq}
+\eeq
 \subsection{Greedy computation of time-series SFS-based  
 statistics}\label{app:agg}
 As discussed in Section~\ref{sec:extending-sfs}, modeling dynamic of Tajima's 
@@ -1299,12 +1310,59 @@ allele.
 
 \newpage
 \section{Supplemental Figs. and Tables}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{figures/trajectoryReal.pdf}
+	\caption{{\bf Dynamic pool-sequenced data trajectory.} Trajectory of three 
+	different variants which evidently raise in frequency. Note that for read 
+	count data allele frequency is hidden. Here we draw the posterior  
+	distribution of the allele frequency at each time point using box plot. The 
+	median of each distribution is denoted by dots and the variance of each box 
+	is inversely related to the depth of the measurement.
+	sites.} 
+	\label{fig:trajectoryReal}
+\end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[trim=1in 0.1in 1in 0.1in,clip,width=\textwidth]{figures/sfs.pdf}
-	\caption{Theoretical and Empirical SFS for a neutral population of 200 
-	individuals.}	\label{fig:sfs}
+	\includegraphics[trim=.0in 0 .0in 0, 
+	clip,width=0.5\textwidth]{figures/{statePosterior}.pdf}
+	\caption{{\bf Posterior distribution of allele frequency.} Distribution of 
+	allele hidden frequency for 
+		different values of depth $d=\{5,50,500\}$. In all the cases, the 
+		number of 
+		read counts for the derived allele is one-fifth of total depth. Dealing 
+		with dynamic data (and possibly multi-replicate), each site has 
+		multiple 
+		measurements, that can have different depth, i.e. uncertainty.} 
+	\label{fig:stateConditional}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\begin{tabular}{c}
+		\includegraphics[trim=.2in 0 .0in 0, 
+		clip,width=\textwidth]{figures/{depthHetero}.pdf}
+	\end{tabular}
+	\caption{{\bf Heterogeneous depth throughout time series data.} Read depth 
+	at 
+	four different sites in real data showing that ascertainment bias is 
+	different for each measurement.} 
+	\label{fig:depthHetero}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim=0.4in 0 .8in 0.02in , 
+	clip,width=\textwidth]{figures/powerROC.pdf}
+	\caption{{\bf Power of detecting selection.} 
+		Statdard ROC curve (left) for the task of detecting selection on 1000 
+		simulations (500 selection and 500 neutral). The diagonal black line 
+		represents performance of a random hypothesis which achieves AUC of 
+		0.5. To avoid computing AUC for the regions that FPR is high, we 
+		restrict ROC curve to the regions where FPR$\le 
+		0.05$ (right). In this case, we define power to be the (scaled) AUC of 
+		the 
+		restricted regions.} \label{fig:powerROC}
 \end{figure}
 
 
@@ -1354,28 +1412,67 @@ allele.
 	\label{fig:sweep}
 \end{figure}
 
-
 \begin{figure}[H]
-	\centering 
-	\includegraphics[width=\textwidth]{figures/{msmsts}.pdf}
-	\caption{Mean and 95\% CI of 1000 simulations for neutral (blue trajectories) selection with $s=0.1$ (red trajectories).}
-	\label{fig:sfsts}
+	\centering
+	\begin{tabular}{c}
+		\includegraphics[trim=.2in 0 .0in 0, 
+		clip,width=\textwidth]{figures/{depth}.pdf}
+	\end{tabular}
+	\caption{ {\bf Distribution of depth in the real data.}
+		 Scaled PDF (A) and CDF (B) of the read depths of all ($\approx$20.1M) 
+		 measurements, i.e., all replicates and time points of the all 
+		 ($\approx$1.5M) variants.
+		 Scaled PDF (C) and CDF (D) of the minimum depth of sites. Although 
+		 most ($\approx$11.5M) of the measurements have depth of 50 or greater 
+		 (dashed line in (A),(B)), only a small fraction ($\approx$10K) of 
+		 variants (dashed line in (C),(D)) pass the filter of having minimum 
+		 depth of 50.}  
+	\label{fig:depth}
 \end{figure}
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{figures/manhattan.pdf}
+	\caption{{\bf Manhattan plot.} Distribution of the composite $\Hc$ 
+	statistic (top) 
+		and the number of SNPs (bottom) for 50Kbp sliding window with steps of 
+		10Kbp across genome. Regions in which their $\Hc$ statistic falls in 
+		top one 
+		percentile 
+		distribution is denoted with red color. Pearson correlation between the 
+		number of SNPs and 
+		$\Hc$ of all windows is -0.03 and is -0.27 when restricting to the 
+		candidate regions is -0.27. This 
+		nine-fold increase in correlation implies that the $\Hc$ statistic 
+		takes 
+		more extreme values as the number of SNPs in the window is less than 
+		expected ($\approx$1100). } 
+	\label{fig:manhattan}
+\end{figure}
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{figures/LDDecay3d}
+	\caption{ {Dynamic of LD.}
+		Decay of LD ($|D'|$ measure) of the minimum AF site at 
+		position 500K with the rest of genome in genetic drift with 
+		$r=2\times10^{-8}$ (top) and hard sweep with $s=0.01$ (bottom).}	
+		\label{fig:ld3d}
+\end{figure}
 
 \begin{figure}[H]
 	\centering
 	\begin{tabular}{l|l}
-			(A)&(B)\\
-			\includegraphics[width=0.5\textwidth]{figures/decayFactors0}
-			&\includegraphics[width=0.5\textwidth]{figures/decayFactors1}\\
-			\hline(C)&(D)\\
-			\includegraphics[width=0.5\textwidth]{figures/decayFactors2}
-			&\includegraphics[width=0.5\textwidth]{figures/decayFactors3}		
+		(A)&(B)\\
+		\includegraphics[width=0.5\textwidth]{figures/decayFactors0}
+		&\includegraphics[width=0.5\textwidth]{figures/decayFactors1}\\
+		\hline(C)&(D)\\
+		\includegraphics[width=0.5\textwidth]{figures/decayFactors2}
+		&\includegraphics[width=0.5\textwidth]{figures/decayFactors3}		
 	\end{tabular}
-
-	\caption{Interaction between productive factors of LD under natural 
+	
+	\caption{{\bf Interaction between growth and decay factors of LD.}
+		Expected evolution of LD under natural 
 		selection for weak selection (s=$0.01$) and a distance of 100Kb between 
 		sites. In this setting, after about 1000 generations LD start to decay 
 		(red 
@@ -1384,63 +1481,53 @@ allele.
 
 
 
-
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{figures/LDDecay3d}
-	\caption{ld} \label{fig:ld3d}
-	\caption{Decay of LD ($|D'|$ measure) of the minimum AF site at 
-		position 500K with the rest of genome in genetic drift with 
-		$r=2\times10^{-8}$ (top) and hard sweep with $s=0.01$ (bottom).}
+	\includegraphics[trim=1in 0.1in 1in 
+	0.1in,clip,width=\textwidth]{figures/sfs.pdf}
+	\caption{{\bf Site Frequency Spectrum.} Theoretical and Empirical SFS for a 
+	neutral population of 200 
+		individuals.}	\label{fig:sfs}
+\end{figure}
+
+\begin{figure}[H]
+	\centering 
+	\includegraphics[width=\textwidth]{figures/{msmsts}.pdf}
+	\caption{{\bf Dynamic SFS-base statistics.} Mean and 95\% CI of 100 
+	simulations for neutral (blue trajectories) selection with $s=0.1$ (red 
+	trajectories).}
+	\label{fig:sfsts}
 \end{figure}
 
 
 \ignore{
-
 \begin{figure}[H]
 	\centering
 	\includegraphics[trim=1.2in 0 .0in 0, 
 	clip,width=\textwidth]{figures/{dominance}.png}
 	\caption{Dominance for $s=0.1$.} 
 	\label{fig:dominance}
-\end{figure}
-}
+\end{figure}}
 
-\begin{figure}[H]
+\begin{table}[h]
 	\centering
-	\includegraphics[trim=.0in 0 .0in 0, 
-	clip,width=0.5\textwidth]{figures/{statePosterior}.pdf}
-	\caption{Posterior distribution of allele frequencies (states), for 
-	different values of depth $d=\{5,50,500\}$. In all the cases, the number of 
-	read counts for the derived allele is one-fifth of total depth. Dealing 
-	with dynamic data (and possibly multi-replicate), each site has multiple 
-	measurements, that can have different depth, i.e. uncertainty.} 
-	\label{fig:stateConditional}
-\end{figure}
-
-
-
-\begin{figure}[H]
-	\centering
-	\begin{tabular}{c}
-		\includegraphics[trim=.2in 0 .0in 0, 
-		clip,width=\textwidth]{figures/{depth}.pdf}
+	\begin{tabular}{ccc}
+		Hard Sweep & &Soft Sweep\\ \\  
+		\input{tables/powerHardMathods.tex}
+		&&\input{tables/powerSoftMethods.tex}
 	\end{tabular}
-	\caption{Scaled PDF (left) and CDF (right) of the overall read depth distribution (top) and minimum depth of sites (bottom).
-		Top row depicts the overall distribution of rad of all reads.} 
-	\label{fig:depth}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-	\begin{tabular}{c}
-		\includegraphics[trim=.2in 0 .0in 0, 
-		clip,width=\textwidth]{figures/{depthHetero}.pdf}
-	\end{tabular}
-	\caption{Read depth at four different sites. (which would be filtered if the min depth is set to 30X)} 
-	\label{fig:depthHetero}
-\end{figure}
-
+	\caption{Average power, average true-positive-rate when FDR$\le$0.05, for 
+		detecting selection in a 50Kbp region for Frequency Increment Test 
+		(FIT), 
+		Gaussian Process (GP), Markov Chain ($\Mc$), Hidden Markov Model 
+		($\Hc$) on 
+		1000 
+		simulations for each of selection strength $s$ and initial 
+		carrier frequency $\nu_0$. To incorporate ascertainment bias, each 
+		setting is evaluated such that depth of each SNP is identically 
+		distributed from Poisson$(\lambda)$ for $\lambda \in 
+		\{30,100,\infty\}$.}\label{tab:power}
+\end{table}
 
 \begin{table}[H]
 	\begin{tabular}{c||c}
@@ -1467,56 +1554,28 @@ allele.
 	\end{tabular}
 	\caption{Intervals.}\label{tab:intervals}
 \end{table}
-
-\begin{table}[h]
-	\centering
-	\begin{tabular}{ccc}
-		Hard Sweep & &Soft Sweep\\ \\  
-		\input{tables/powerHardMathods.tex}
-		&&\input{tables/powerSoftMethods.tex}
-	\end{tabular}
-	\caption{Average power, average true-positive-rate when FDR$\le$0.05, for 
-		detecting selection in a 50Kbp region for Frequency Increment Test 
-		(FIT), 
-		Gaussian Process (GP), Markov Chain ($\Mc$), Hidden Markov Model 
-		($\Hc$) on 
-		1000 
-		simulations for each of selection strength $s$ and initial 
-		carrier frequency $\nu_0$. To incorporate ascertainment bias, each 
-		setting is evaluated such that depth of each SNP is identically 
-		distributed from Poisson$(\lambda)$ for $\lambda \in 
-		\{30,100,\infty\}$.}\label{tab:power}
-\end{table}
-
-
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{figures/manhattan.pdf}
-	\caption{Manhattan plot of the composite $\Hc$ statistic (top) 
-	and the number of SNPs (bottom) in 50Kbp sliding window with steps of 
-	10Kbp. Regions in which their $\Hc$ statistic falls in top one percentile 
-	distribution is denoted with red color. Pearson correlation between the 
-	number of SNPs and 
-	$\Hc$ of all windows is -0.03 and is -0.27 when restricting to the 
-	candidate regions is -0.27. This 
-	nine-fold increase in correlation implies that the $\Hc$ statistic takes 
-	more extreme values as the number of SNPs in the window is less than 
-	expected ($\approx$1100). } 
-	\label{fig:manhattan}
-\end{figure}
-
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[trim=0.4in 0 .8in 0.02in , 
-	clip,width=\textwidth]{figures/powerROC.pdf}
-	\caption{Statdard ROC curve (left) and the same ROC curve when FPR$\le 
-		0.05$.} \label{fig:powerROC}
+	\includegraphics[trim=.2in 0 .2in 0, 
+	clip,width=\textwidth]{figures/{rank30.0}.pdf}
+	\caption{Cumulative Distribution  Function (CDF) of the distribution of the 
+	rank of the adaptive allele in 500 simulations for Markov Chain ($\Mc$), 
+	Gaussian Process (GP) and Frequency Increment Test (FIT), for different 
+	values of selection strength $s$ and initial carrier frequency. Area Under 
+	Curve (AUC) is computed as a quantitative measure ranking performance of 
+	methods for each configuration.}
+	\label{fig:rank30}
 \end{figure}
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{figures/trajectoryReal.pdf}
-	\caption{Trajectory of top 3 sites.} 
-	\label{fig:trajectoryReal}
+	\includegraphics[trim=.2in 0 .2in 0, 
+	clip,width=\textwidth]{figures/rankinf.pdf}
+	\caption{Cumulative Distribution  Function (CDF) of the distribution of the 
+	rank of the adaptive allele in 500 simulations for Markov Chain ($\Mc$), 
+	Gaussian Process (GP) and Frequency Increment Test (FIT), for different 
+	values of selection strength $s$ and initial carrier frequency. Area Under 
+	Curve (AUC) is computed as a quantitative measure ranking performance of 
+	methods for each configuration.}
+	\label{fig:rankinf}
 \end{figure}
 \end{document}
