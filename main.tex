@@ -945,29 +945,31 @@ evolution in action.
 The authors were supported by grants from the NIH (1R01GM114362) and
 NSF (DBI-1458557 and IIS-1318386).
 
-\section*{conflict of interest}
+\section*{Conflict of interest}
 VB is a co-founder, has an equity interest, and receives income from
 Digital Proteomics, LLC (DP).  The terms of this arrangement have been
 reviewed and approved by the University of California, San Diego in
 accordance with its conflict of interest policies.  DP was not
 involved in the research presented here.
+\clearpage
+\newpage
 
 \section{Figures}
 \begin{figure}[H]
 	\centering
 	\includegraphics[trim=0.1in 0 .08in 0.02in , 
 	clip,width=\textwidth]{figures/ExperimentalEvolution.pdf}
-	\caption{ {\bf Two different settings for collecting genomic time series 
-	data.}
-Tow different setting in which dynamic data is collected is depicted with 
-typical parameters of Drosophila Melanogaster. In both settings 6 samples 
-(vertical red dashed lines) are taken every 10 generation.
-When sampling from naturally evolving populations (A), the onset of selection 
-is unknown, population size is larger. For (controlled) experimental evolution, 
-first founder lines are sampled from natural population to create a homogenous 
-population. Multiple replicates of the curated population is evolved and 
-sampled thought time.
- } 
+	\caption{ {\bf Two settings for collecting genomic time series
+            data.}  Different settings in which dynamic data is
+          collected are depicted with typical parameters for \emph{D.
+            melanogaster}. In both settings, 6 samples (vertical red
+          dashed lines) are taken every 10 generation.  When sampling
+          from naturally evolving populations (A), the time of onset
+          of selection is unknown, and population size is larger. For
+          (controlled) experimental evolution, founder lines are first
+          sampled from a natural population to create a homogeneous
+          population. Multiple replicates of this population are
+          evolved and sampled over time. }
 	\label{fig:ee}
 \end{figure}
 
@@ -975,22 +977,19 @@ sampled thought time.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{figures/{markovDists}.pdf}
-              \caption{{\bf Comparison of empirical distributions of
-                  allele frequencies (green) versus predictions from
-                  Brownian Motion (red), and Markov
-                  Chain (blue).} Panels A-F: Experiments were conducted
-                under neutral evolution with different starting
-                frequencies $\nu_0\in\{0.005,0.1\}$ and sampling times
-                $\tau \in \{1,10,100\}$ generations. The empirical
-                distribution was computed by sampling 143,900 sites
-                with $\nu_0=0.005$ and 47,500 with variants
-                $\nu_0=0.1$.  computed from neutrally evolving
-                simulations is depicted in green lines. Panels G,H,I:
-                Comparisons of Empirical and Markov chain based
-                predicted allele frequency value distributions under a
-                selection regime with $s=0.1$. Initial frequency was
-                chosen as $\nu_0=0.005$ and sampling performed after
-                $t=\{1,10,100\}$ generations.}
+        \caption{{\bf Comparison of empirical distributions of allele
+            frequencies (green) versus predictions from Brownian
+            Motion (red), and Markov Chain (blue).} Panels A-F:
+          Experiments were conducted under neutral evolution with
+          different starting frequencies $\nu_0\in\{0.005,0.1\}$ and
+          sampling times $\tau \in \{1,10,100\}$ generations. The
+          empirical distribution was computed by sampling 143,900
+          sites with $\nu_0=0.005$ and 47,500 variants with
+          $\nu_0=0.1$. Panels G,H,I: Comparisons of Empirical and
+          Markov chain based allele frequency distributions under a
+          selection regime with $s=0.1$. Initial frequency was chosen
+          as $\nu_0=0.005$ and sampling performed after $\tau$
+          generations for $\tau \in \{1,10,100\}$.}
 	\label{fig:markov}
 \end{figure}
 
@@ -999,12 +998,12 @@ sampled thought time.
 	\includegraphics[width=\textwidth]{figures/powerCLR.pdf}
 	\caption{{\bf Detection power for Markov chain and HMM with
             different composite statistics.}  Detection power for
-          Markov chain ($\Mc$) and HMM ($\Hc$) under hard sweep (top)
-          and soft sweep (bottom), for different coverage $\lambda$
-          and selection strength $s$.  Each point represent power,
-          scaled area under ROC curve when FPR $\le$0.05, of 1000
-          simulations of 50Kbp regions with default parameter setting.
-        } \label{fig:powerCLR}
+          Markov chain ($\Mc$) and HMM ($\Hc$) under hard (top) and
+          soft sweep (bottom) scenarios, for different settings of
+          mean coverage $\lambda$ and selection strength $s$.  The
+          $y$-axis measures power -- sensitivity with false positive
+          rate FPR $\le 0.05$ -- for $1,000$ simulations of $50$Kbp
+          regions.  } \label{fig:powerCLR}
 \end{figure}
 
 \begin{figure}[H]
@@ -1012,11 +1011,12 @@ sampled thought time.
 	\includegraphics[width=\textwidth]{figures/power.pdf}
 	\caption{ {\bf Power calculations for detection of selection.}
           Detection power for \comale ($\Hc$), Frequency Increment
-          Test (FIT), Gaussian Process under hard sweep (top) and soft
-          sweep (bottom), for different coverage $\lambda$ and
-          selection strength $s$.  Each point represent power, scaled
-          area under ROC curve when FPR$\le$0.05, of 1000
-          simulations.} \label{fig:power}
+          Test (FIT), Gaussian Process, and CMH under hard (top) and
+          soft sweep (bottom) scenarios. $\lambda$, $s$ denote the
+          mean coverage and selection coefficient, respectively. The
+          $y$-axis measures power -- sensitivity with false positive
+          rate FPR $\le 0.05$ -- for $1,000$ simulations of $50$Kbp
+          regions. } \label{fig:power}
 \end{figure}
 
 \clearpage
@@ -1025,11 +1025,10 @@ sampled thought time.
 	\centering
 	\includegraphics[width=0.75\textwidth]{figures/{runTime.pdf}}
 	\caption{{\bf Running time}. Box plot of running times
-        (cpu-secs.) of \comale, HMM, GP with single, 3, 5, 7, and 10
-        loci over 1000 simulations conducted on a workstation with
-        4th Generation Intel Core i7 processor. The average running time 
-        for each method
-        is shown on the x-axis.}
+          (cpu-secs.) of \comale, HMM, GP with single, 3, 5, 7, and 10
+          loci over 1000 simulations conducted on a workstation with
+          4th Generation Intel Core i7 processor. The average running
+          time for each method is shown on the x-axis.}
 	\label{fig:runTime}
 \end{figure}
 \clearpage
@@ -1038,25 +1037,23 @@ sampled thought time.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\textwidth]{figures/naturalee.pdf}
-	\caption{{\bf power of SFS based statistics.} Power, area under ROC curve 
-	when FPR$\le$0.05, for detecting
-          selection in a 50Kbp region for Frequency Increment Test
-          (FIT), Gaussian Process (GP), \comale\ ($\Hc$) on 200 simulations 
-          hard-sweep
-          natural experimental evolution with $N_e=10^4$ and depth 
-          $\lambda=\infty$, for each of
-          selection strength $s$. 
-          In this experiment start of sampling
-          is random, then 5 samples are taken every 10
-          generations. (a) Start of sampling is chosen randomly
-          throughout the sweep $\tau_1 \sim
-          U\left[1,t_{\nu=1}(s,N_e)\right]$ (left) and chosen in the
-          finale of the sweep $\tau_1 \sim
-          U\left[t_{\nu=0.9}(s,N_e),t_{\nu=1}(s,N_e)\right]$ (right),
-          where $t_{\nu=x}(s,N_e)$ to be understood as the number of
-          expected generations required to reach carrier frequency $x$
-          in a hard sweep and $U[a,b]$ is discrete uniform
-          distribution.} \label{fig:powerSFS}
+	\caption{{\bf Power of SFS based statistics.} Power of
+          detecting selection for Frequency Increment Test (FIT),
+          Gaussian Process (GP), \comale\ ($\Hc$) on hard-sweep
+          natural experimental evolution with $N_e=10^4$ and depth
+          $\lambda=\infty$. The measurements are conducted for a range
+          of selection coefficients, $s$. Each point represents the
+          mean of 200 simulations. For each simulation, sampling
+          starts at a randomly chosen time, and subsequently 5
+          replicate samples are acquired every $10$ generations.  (A)
+          Start of sampling is chosen randomly throughout the sweep
+          $\tau_1 \sim U\left[1,t_{\nu=1}(s,N_e)\right]$, where
+          $t_{\nu=x}(s,N_e)$ denotes is the expected time to reach
+          carrier frequency $x$ in a hard sweep and $U[a,b]$ is
+          discrete uniform distribution. (B) The start of sampling is
+          chosen near fixation of the favored allele, i.e. $\tau_1
+          \sim
+          U\left[t_{\nu=0.9}(s,N_e),t_{\nu=1}(s,N_e)\right]$.} \label{fig:powerSFS}
 \end{figure}
 
 \clearpage
@@ -1065,7 +1062,14 @@ sampled thought time.
 	\centering
 	\includegraphics[trim=.2in 0 .2in 0, 
 	clip,width=\textwidth]{figures/{rank100.0}.pdf}
-	\caption{Cumulative Distribution  Function (CDF) of the distribution of the rank of the adaptive allele in 500 simulations for Markov Chain ($\Mc$), Gaussian Process (GP) and Frequency Increment Test (FIT), for different values of selection strength $s$ and initial carrier frequency. Area Under Curve (AUC) is computed as a quantitative measure ranking performance of methods for each configuration.}
+	\caption{Cumulative Distribution Function (CDF) of the
+          distribution of the rank of the adaptive allele in 500
+          simulations for Markov Chain ($\Mc$), Gaussian Process (GP),
+          CMH, and Frequency Increment Test (FIT), for different
+          values of selection coefficient $s$ and initial carrier
+          frequency. Area Under Curve (AUC) is computed as a
+          quantitative measure ranking performance of methods for each
+          configuration.}
 	\label{fig:rank}
 \end{figure}
 
@@ -1073,13 +1077,15 @@ sampled thought time.
 \newpage
 \begin{figure}[H]
 	\centering
-(A)	\\ \includegraphics[width=0.7\textwidth]{figures/{bias.30}.pdf} \\
-(B)\\	\includegraphics[width=0.7\textwidth]{figures/{bias.100}.pdf}\\
-(C)\\	\includegraphics[width=0.7\textwidth]{figures/{bias.inf}.pdf}
-	\caption{Distribution of bias ($s-\hat{s}$) over 500 simulations for each 
-	value of strength of selection $s$ and starting carrier frequency $\nu_0$. 
-	Results for when coverage $\lambda=30,100,\infty$ is shown in panels (A), 
-	(B), (C), respectively.} 
+(A)	\\ \includegraphics[width=0.6\textwidth]{figures/{bias.30}.pdf} \\
+(B)\\	\includegraphics[width=0.6\textwidth]{figures/{bias.100}.pdf}\\
+(C)\\	\includegraphics[width=0.6\textwidth]{figures/{bias.inf}.pdf}
+\caption{{\bf Distribution of bias}. The distribution of bias
+  ($s-\hat{s}$) in estimating selection coefficient over 500
+  simulations is shown for a range of choices for the selection
+  coefficient $s$ and starting carrier frequency $\nu_0$. Panels A,B,C
+  show results for choice of mean coverage $\lambda=30,100,\infty$,
+  respectively.}
 	\label{fig:bias}
 \end{figure}
 
@@ -1088,17 +1094,11 @@ sampled thought time.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{figures/{manhattan.min500snp}.pdf}
-	\caption{Manhattan plot of the composite $\Hc$ statistic (top)
-          and the number of SNPs (bottom) in 50Kbp sliding window with
-          steps of 10Kbp, excluding windows with less that 500
-          SNPs. Regions in which their $\Hc$ statistic falls in top
-          one percentile distribution is denoted with red
-          color. Pearson correlation between the number of SNPs and $\Hc$ of 
-          all windows
-          is -0.09 and for the candidate regions is -0.08.  This
-          indicates the spurious effect of windows with low diversity
-          is removed from out study (potentially at cost of some false
-          negatives). See Fig.~\ref{fig:manhattan}.}
+	\caption{{\bf \comale\ analysis of a \emph{Drosophila} EE
+            experiment}. Manhattan plot of the composite $\Hc$
+          statistic (top) and the number of SNPs (bottom) in 50Kbp
+          sliding window with steps of 10Kbp, excluding windows with
+          less that 500 SNPs.}
 	\label{fig:manhattancutoffed}
 \end{figure}
 
@@ -1138,16 +1138,22 @@ sampled thought time.
 %\section*{Main text figure captions}
 %\section*{Supporting information captions}
 \section{Appendix}
-\subsection{Approximate logistic for allele frequency} \label{app:af}
-In this part we show that the dynamic of the beneficial allele can be modeled 
-via a logistic function, when directional selection is the case ($h=0.5$). By 
-taking derivative of Eq.~\ref{eq:transition} we have
-\beq
-\frac{\bfd \nu_t}{\bfd t} = \frac{s\nu_t(1-\nu_t)}{2+2s\nu_t}
-\eeq
-which is a differential equation that is difficult to solve. However if take 
-the approximation $2+2s\nu_t \approx 2$, it becomes an 
-ordinary differential equation that can be readily solved
+\subsection{An approximate logistic function  for allele frequency dynamics} \label{app:af}
+Assume that a site is evolving under selection constraints $s,h\in
+\Rbb$, where $s$ and $h$ denote selection strength and dominance,
+respectively. Let $\nu_t$ denotes the frequency of the site at
+time $\tau_t\in {\cal T}$. Then, $\nusp$, the frequency at time
+$\tau_t+1$ can be estimated (See Eq.~\ref{eq:transition}) using: 
+\[\hat{\nu}_{t^+}
+=\nu_t+\frac{s(h+(1-2h)\nu_t)\nu_t(1-\nu_t)}{1+s\nu_t(2h+(1-2h)\nu_t))}.
+  \label{eq:transition}
+\]
+We can show that the dynamic of the beneficial allele can be modeled
+via a logistic function, in the case of directional selection
+($h=0.5$). Taking derivatives of Eq.~\ref{eq:transition}, we have
+\beq \frac{\bfd \nu_t}{\bfd t} = \frac{s\nu_t(1-\nu_t)}{2+2s\nu_t}
+\eeq To, solve the differential equation, note that for small $s$,
+$2+2s\nu_t \approx 2$. Substituting,
 \begin{equation}
 \nu_t =\frac{1}{1+\frac{1-\nu_0}{\nu_0}e^{-st/2}} = \sigma(st/2+\eta(\nu_0)) 
 \label{eq:inf-pop}
@@ -1156,79 +1162,59 @@ where $\sigma(.)$ is the logistic function and $\eta(.)$ is logit function
 (inverse of the logistic function). 
 
 \subsection{Dynamic of Tajima's D}\label{app:td}
-In this part we derive dynamic of Tajima's $D$ statistic in \emph{hard sweep} 
-as function of its 
-value at the onset of selection, $D_0$, selection strength and the frequency of 
-the beneficial allele at the onset of selection.
-Let $D_0, \Pi_0, W_0$, be Tajima's D, Tajima's estimate of  $\theta$, and 
-Watterson's estimate of $\theta$ at time zero and $D_0=\Pi_0 - W_0$.
-In order to compute, $D_t=\Pi_t - W_t$ we compute $\Pi_t$ and $W_t$ separately 
-as follows. Let $P$ be the $n \times n$ matrix of pairwise heterozygosity if 
-individuals, 
-then $\Pi=\frac{1}{n^2}\sum P_{ij}$. So, if the population consist of $\nu n$ 
-identical carrier haplotype (due to lack of recombination), their pairwise 
-hamming distance is zero and should be subtracted from the total $\Pi_t$:
-\beq
-\Pi_t&= (1-\nu_t^2)\Pi_0 \label{eq:tdt0}
-\eeq
+In this part we derive dynamic of Tajima's $D$ statistic in \emph{hard
+  sweep} as function of its value at the onset of selection, $D_0$,
+selection strength and the frequency of the beneficial allele at the
+onset of selection.  Let $D_0, \Pi_0, W_0$, be Tajima's D, Tajima's
+estimate of $\theta$, and Watterson's estimate of $\theta$ at time
+zero and $D_0=\Pi_0 - W_0$.  In order to compute, $D_t=\Pi_t - W_t$ we
+compute $\Pi_t$ and $W_t$ separately as follows. Let $P$ be the $n
+\times n$ matrix of pairwise heterozygosity if individuals, then
+$\Pi=\frac{1}{n^2}\sum P_{ij}$. So, if the population consist of $\nu
+n$ identical carrier haplotype (due to lack of recombination), their
+pairwise hamming distance is zero and should be subtracted from the
+total $\Pi_t$: \beq \Pi_t&= (1-\nu_t^2)\Pi_0 \label{eq:tdt0} \eeq
 
-To compute $W_t$, first remember that $W_t= \frac{m_t}{S_n}$ where $m_t$ is the 
-number of segregating sites at time $t$ and $S_n= \sum_i^n 1/i \approx 
-\log(n)$. Also we have
-\beq
-\frac{W_t}{W_0}&=\frac{\frac{m_t}{S}}{\frac{m_0}{S}} \ \ \Rightarrow 
-W_t=\frac{m_t}{m_0}W0 \label{eq:tdt1}
-\eeq
-Because of hard sweep and lack of recombination assumption, the population 
-at time $t$ consist of $(1-\nu_t)n$ non-carrier haplotypes and $\nu_tn$ 
-identical carrier haplotypes. Since the identical carrier haplotypes does not 
-contribute to the $m_t$ more than any single of them, here the number of 
-segregating sites is 
-equal to the sample of $(1-\nu_t)n+1$ individuals from a naturally evolving 
-population.  
-\AI{Reading it again, I just realized that this assumption is not entirely true.
-	The noncarier haplotypes does not under go neutral evolution. They are 
-	under (soft sweep) negative selection. So $m_t$ is not right.
-	}
-Therefore, we have
-\beq
-\frac{m_t}{m_0}&=\frac{\log\left((1-\nu_t)n +1 \right)\theta}{\log(n)\theta} 
-\approx  
-\frac{\log\left((1-\nu_t)n\right)}{\log(n)} = \frac{\log(1-\nu_t)+\log(n)}{\log(n)} = 
-1+ \frac{ \log(1-\nu_t)}{\log(n)}. \label{eq:tdt2}
-\eeq
-Finally, by putting Eqs.~\ref{eq:tdt0},~\ref{eq:tdt1},~\ref{eq:tdt2} together, we 
-can explicitly write the dynmics of $D$ statistic as
-\beq
-D_t&= (1-\nu_t^2)\Pi_0 - (1+ \frac{ \log(1-\nu_t)}{\log(n)} ) W_0 \\&= 
+To compute $W_t$, first remember that $W_t= \frac{m_t}{S_n}$ where
+$m_t$ is the number of segregating sites at time $t$ and $S_n=
+\sum_i^n 1/i \approx \log(n)$. Also we have \beq
+\frac{W_t}{W_0}&=\frac{\frac{m_t}{S}}{\frac{m_0}{S}} \ \ \Rightarrow
+W_t=\frac{m_t}{m_0}W0 \label{eq:tdt1} \eeq Because of hard sweep and
+lack of recombination assumption, the population at time $t$ consist
+of $(1-\nu_t)n$ non-carrier haplotypes and $\nu_tn$ identical carrier
+haplotypes. While not strictly correct, we assume that the
+$(1-\nu_t)n+1$ individuals are evolving neutrally. Using this
+assumption, we have \beq \frac{m_t}{m_0}&=\frac{\log\left((1-\nu_t)n
+    +1 \right)\theta}{\log(n)\theta} \approx
+\frac{\log\left((1-\nu_t)n\right)}{\log(n)} =
+\frac{\log(1-\nu_t)+\log(n)}{\log(n)} = 1+ \frac{
+  \log(1-\nu_t)}{\log(n)}. \label{eq:tdt2} \eeq Finally, by putting
+Eqs.~\ref{eq:tdt0},~\ref{eq:tdt1},~\ref{eq:tdt2} together, we can
+explicitly write the dynmics of $D$ statistic as \beq D_t&=
+(1-\nu_t^2)\Pi_0 - (1+ \frac{ \log(1-\nu_t)}{\log(n)} ) W_0 \\&=
 D_0-\log(1-\nu_t) \frac{W_0}{\log(n)} -\nu_t^2 \Pi_0\\
-&\approx D_0-\log(1-\sigma(st/2+\eta(\nu_0))) \frac{W_0}{\log(n)} 
--\sigma(st/2+\eta(\nu_0))^2
-\Pi_0.
-\eeq
-where $\sigma$ and $\eta$ are logistic and logit functions.
+&\approx D_0-\log(1-\sigma(st/2+\eta(\nu_0))) \frac{W_0}{\log(n)}
+-\sigma(st/2+\eta(\nu_0))^2 \Pi_0.  \eeq where $\sigma$ and $\eta$ are
+logistic and logit functions.
 
 
 \subsection{Dynamics of Fay and Wu's H}\label{app:h}
 %\bl
-In any finite population size of $n$ with $m$ segregating sites, 
-allele frequencies take 
-discrete values, i.e.,  $x_j \in 
-\{\frac{1}{n},\frac{2}{n},\ldots,\frac{n-1}{n}\}, \ \forall j \in{1,\cdot,m}$ 
-and we can write
-\beq
-\|\bfx\|^2= \sum_{j=1}^{m} x_j^2 = 
-\sum_{i=1}^{n-1}\left(\frac{i}{n}\right)^2\xi_i= 
-\frac{ (n-1)}{2n}H 
-\eeq
-where $\xi_i$ is the number of sites with frequency $i/n$ and $H$ is the 
-Fay \& Wu's estimate of $\theta$ and $\bfx \in (0,1)^m$ is the vector of allele 
-frequency of a region with $m$ segregating sites.
-%\el
-
-Recently, Ronen \emph{et al.}~\cite{ronen2015predicting} devised the $1\dHAF$ 
-statistic for identifying selection on static data, which has the expected 
-value related to the $\|\bfx\|^2$:
+In any finite population size of $n$ with $m$ segregating sites,
+allele frequencies take discrete values, i.e., $x_j \in
+\{\frac{1}{n},\frac{2}{n},\ldots,\frac{n-1}{n}\}, \ \forall j
+\in{1,\ldots,m}$. We have the following:
+\begin{equation*} 
+\|\bfx\|^2= \sum_{j=1}^{m} x_j^2
+= \sum_{i=1}^{n-1}\left(\frac{i}{n}\right)^2\xi_i= \frac{ (n-1)}{2n}H,
+\end{equation*} 
+where $\xi_i$ is the number of sites with frequency $i/n$ and $H$ is
+the Fay \& Wu's estimate of $\theta$ and $\bfx \in (0,1)^m$ is the
+vector of allele frequency of a region with $m$ segregating
+sites. Recently, Ronen \emph{et al.}~\cite{ronen2015predicting}
+devised the $1\dHAF$ statistic for identifying selection on static
+data, and showed that the expected value of $1\dHAF$ statistic is
+given by:
 \begin{equation} 
 \Ebb[1\dHAF(t)]= n\| \bfx_t\|^2\approx ng(\nu_t)
 \end{equation} 
@@ -1238,23 +1224,21 @@ g(\nu_t)= \theta \nu_t \left(\frac{\nu_t+1}{2} - \frac{1}{(1-\nu_t)n+1}\right) +
 \theta (1-\nu_t)\left(\frac{n+1}{2n}-\frac{1}{(1-\nu_t)n+1}\right)
 \label{eq:hafscorepooled}
 \eeq
-where easily follows that
+It follows that \VB{$\theta_H(t)$ is not defined?}
 \beq
 \theta_H(t)=\frac{n-1}{2} g(\nu_t)
 \eeq
 \subsection{Greedy computation of time-series SFS-based  
 statistics}\label{app:agg}
-As discussed in Section~\ref{sec:extending-sfs}, modeling dynamic of Tajima's 
-$D$ (and Fay\&Wu's $H$) requires knowledge of initial carrier frequency $\nu_0$ 
-and the value of $D$ (and $H$) statistic at the onset of selection, which are 
-often unknown.
-As these statistics are monotonously decreasing (or increasing for SFSelect) 
-under no demographic changes, we chose to greedily aggregate statistics 
-throughout time. For example, for Tajima's $D$, we have 
-\beq
-\Dc = \sum_{t \in \Tc} D_t
-\eeq
-where the same procedure applies to Fay\&Wu's $H$ and SFSelect.
+As discussed in Section~\ref{sec:extending-sfs}, modeling dynamic of
+Tajima's $D$ (and Fay\&Wu's $H$) requires knowledge of initial carrier
+frequency $\nu_0$ and the value of $D$ (and $H$) statistic at the
+onset of selection, which are often unknown.  As these statistics are
+monotonically decreasing (or increasing for SFSelect) under no
+demographic changes, we chose to greedily aggregate statistics
+throughout time. For example, for Tajima's $D$, we have \beq \Dc =
+\sum_{t \in \Tc} D_t \eeq where the same procedure applies to
+Fay\&Wu's $H$ and SFSelect.
 
 
 \subsection{Linkage Disequilibrium}
@@ -1313,13 +1297,14 @@ allele.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{figures/trajectoryReal.pdf}
-	\caption{{\bf Dynamic pool-sequenced data trajectory.} Trajectory of three 
-	different variants which evidently raise in frequency. Note that for read 
-	count data allele frequency is hidden. Here we draw the posterior  
-	distribution of the allele frequency at each time point using box plot. The 
-	median of each distribution is denoted by dots and the variance of each box 
-	is inversely related to the depth of the measurement.
-	sites.} 
+	\caption{{\bf Trajectory of pool-sequenced variants.}
+          Trajectory of three different variants that are increasing
+          in frequency over time. Note that for read count data, the
+          true allele frequency is not known. Here we draw the
+          posterior distribution of the allele frequency at each time
+          point using box plot. The median of each distribution is
+          denoted by dots. The variance of each box is seen to be
+          inversely related to the depth of the measurement. }
 	\label{fig:trajectoryReal}
 \end{figure}
 
@@ -1327,14 +1312,14 @@ allele.
 	\centering
 	\includegraphics[trim=.0in 0 .0in 0, 
 	clip,width=0.5\textwidth]{figures/{statePosterior}.pdf}
-	\caption{{\bf Posterior distribution of allele frequency.} Distribution of 
-	allele hidden frequency for 
-		different values of depth $d=\{5,50,500\}$. In all the cases, the 
-		number of 
-		read counts for the derived allele is one-fifth of total depth. Dealing 
-		with dynamic data (and possibly multi-replicate), each site has 
-		multiple 
-		measurements, that can have different depth, i.e. uncertainty.} 
+	\caption{{\bf Posterior distribution of allele frequency.}
+          Distribution of allele hidden frequency for different values
+          of depth $d=\{5,50,500\}$. In all the cases, the number of
+          read counts for the derived allele is one-fifth of total
+          depth. Dealing with dynamic data (and possibly
+          multi-replicate), each site has multiple measurements, that
+          can have different depth, i.e. uncertainty.\VB{Needs to be
+            changed. What is the source?}.}
 	\label{fig:stateConditional}
 \end{figure}
 \begin{figure}[H]
@@ -1343,10 +1328,11 @@ allele.
 		\includegraphics[trim=.2in 0 .0in 0, 
 		clip,width=\textwidth]{figures/{depthHetero}.pdf}
 	\end{tabular}
-	\caption{{\bf Heterogeneous depth throughout time series data.} Read depth 
-	at 
-	four different sites in real data showing that ascertainment bias is 
-	different for each measurement.} 
+	\caption{{\bf Heterogeneity in time series data.} Each panel
+          shows the read depth for a different variant using 3
+          replicates. Heterogeneity in depth of coverage is seen
+          between replicates, and also at different time points, in
+          all 4 variants.\VB{What is the source of the data?}}
 	\label{fig:depthHetero}
 \end{figure}
 
@@ -1354,15 +1340,18 @@ allele.
 	\centering
 	\includegraphics[trim=0.4in 0 .8in 0.02in , 
 	clip,width=\textwidth]{figures/powerROC.pdf}
-	\caption{{\bf Power of detecting selection.} 
-		Statdard ROC curve (left) for the task of detecting selection on 1000 
-		simulations (500 selection and 500 neutral). The diagonal black line 
-		represents performance of a random hypothesis which achieves AUC of 
-		0.5. To avoid computing AUC for the regions that FPR is high, we 
-		restrict ROC curve to the regions where FPR$\le 
-		0.05$ (right). In this case, we define power to be the (scaled) AUC of 
-		the 
-		restricted regions.} \label{fig:powerROC}
+	\caption{{\bf Schematic for computing power of detecting
+            selection.}  Standard Receiver operator curve (ROC) (left)
+          is shown for illustration of the procedure for computing
+          power of detection from 1,000 simulations (500 selection and
+          500 neutral). The Area Under the Curve (AUC) represents
+          overall performance. The diagonal black line represents
+          performance of a random hypothesis which achieves Area under
+          the curve (AUC) of 0.5. To avoid computing AUC for the
+          regions where FPR is unacceptably high, we restrict ROC
+          curve to the region where FPR$\le 0.05$ (right). In this
+          case, we define power to be the (scaled) AUC of the
+          restricted region.} \label{fig:powerROC}
 \end{figure}
 
 
@@ -1378,11 +1367,12 @@ allele.
           under neutral scenario ($s=h=0$). The statistics for
           Tajima's D (left), Fay Wu's H (middle) and SFSelect were
           computed for 1000 neutral simulations and the mean and 95\%
-          confidence interval plotted. Under neutral evolution all the 
-          statistics expected to be constant throughout time and when 
-          population is under selection $D$ and $H$ take negative values and 
-          SFSelect take positive values. In experimental evolution, bottleneck 
-          effect will suppress the signal of selection, especially in early 
+          confidence interval plotted. Under neutral evolution, all
+          the statistics are expected to vary around a fixed mean
+          through time. However, under selective constraint, $D$ and
+          $H$ take negative values, while SFSelect take positive
+          values. In experimental evolution, bottleneck effect will
+          suppress the signal of selection, especially in early
           generations. }
 	\label{fig:bottleneck}
 \end{figure}
@@ -1391,24 +1381,26 @@ allele.
 \begin{figure}[H]
 	\includegraphics[trim=1in 0.1in 1in 
 	0.1in,clip,width=\textwidth]{figures/AF.pdf}
-	\caption{{\bf Theoretical (Markov Chain) and Empirical trajectories of 
-	favored allele for hard and soft sweep scenarios}. 
-		Theoretical and empirical (1000 simulations) trajectories of the 
-		frequency of the favored 
-		allele for experimental evolution when census (diploid) population size 
-		is $1000$. In each panel $s=0$ denotes neutral (blue) evolution, 
-		$s=0.01$ represents weak selection (green), and $s=0.1$ illustrates 
-		strong selection, and 95\% confidence interval is shaded with the same 
-		color. In all cases, A) theoretical hard sweep, B) empirical hard 
-		sweep, C) theoretical soft sweep and D) empirical soft sweep the 
-		theoretical model is consistent with simulations.
-		Also, first 50 generation since the onset of selection, which is 
-		considered to be typical sampling span for experimental evolution, is 
-		shaded in gray. It is evident that sampling span is negligible to the 
-		time required for fixation, even for strong selection, winch makes it 
-		difficult to differentiate between neutral evolution and natural 
-		selection.
-}
+	\caption{{\bf Theoretical (Markov Chain) and Empirical
+            trajectories of favored allele for hard and soft sweep
+            scenarios}.  Theoretical and empirical trajectories of the
+          frequency of the favored allele are computed for $1,000$ EE
+          simulations after choosing the diploid population size as
+          $1000$. Each curve shows the mean and the 95\% confidence
+          interval.  Panels A and C represent theoretical markov chain
+          based calculations of the favored allele frequency under
+          hard ($\nu_0$ is small), and soft sweep die to standing
+          variation (higher $\nu_0$), for a range of values of
+          $s$. Note that $s=0$ corresponds to neutral
+          evolution. Similarly, panels B and D show the empirical
+          forward simulations of populations under the same selection
+          regimes, and hard/soft-sweep scenarios. The first $50$
+          generations are shaded in gray to represent the typical
+          sampling span of EE experiments. The plot illustrates the
+          difficulty of EE experiments in having to predict selection
+          at a very early stage of the sweep. The signal is slightly
+          stronger under standing variation scenario. The theoretical
+          and empirical simulations are in close correspondence. }
 	\label{fig:sweep}
 \end{figure}
 
@@ -1516,19 +1508,11 @@ allele.
 		\input{tables/powerHardMathods.tex}
 		&&\input{tables/powerSoftMethods.tex}
 	\end{tabular}
-	\caption{Average power, average true-positive-rate when FDR$\le$0.05, for 
-		detecting selection in a 50Kbp region for Frequency Increment Test 
-		(FIT), 
-		Gaussian Process (GP), Markov Chain ($\Mc$), Hidden Markov Model 
-		($\Hc$) on 
-		1000 
-		simulations for each of selection strength $s$ and initial 
-		carrier frequency $\nu_0$. To incorporate ascertainment bias, each 
-		setting is evaluated such that depth of each SNP is identically 
-		distributed from Poisson$(\lambda)$ for $\lambda \in 
-		\{30,100,\infty\}$.}\label{tab:power}
+        \caption{Power -- average true-positive-rate when FDR$\le$0.05 -- for detecting selection in a 50Kbp region for Frequency Increment Test (FIT), Gaussian Process (GP), Markov Chain ($\Mc$), Hidden Markov Model ($\Hc$) on $1,000$ simulations for each of selection strength $s$ and initial carrier frequency $\nu_0$. To incorporate ascertainment bias, each setting is evaluated such that depth of each SNP is identically distributed from Poisson$(\lambda)$ for $\lambda \in \{30,100,\infty\}$. \VB{Where are $s$ and $\nu_0$}. }
+\label{tab:power}
 \end{table}
-
+\clearpage
+\newpage
 \begin{table}[H]
 	\begin{tabular}{c||c}
 		Hard Sweep & Soft Sweep\\ \\  
@@ -1552,7 +1536,7 @@ allele.
 	\begin{tabular}{c}
 		\input{tables/intervals.tex}
 	\end{tabular}
-	\caption{Intervals.}\label{tab:intervals}
+	\caption{Intervals.\VB{More details needed}}\label{tab:intervals}
 \end{table}
 \begin{figure}[H]
 	\centering
