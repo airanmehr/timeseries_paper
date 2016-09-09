@@ -755,20 +755,20 @@ of initial carrier frequency $\nu_0$ and strength of selection $s$ (see section
 
 
 
-\subsection{Drosophila experimental evolution with temperature extremes}
+\subsection{\emph{Drosophila} experimental evolution with alternating temperature regimes}
 We applied \comale\ to a controlled experimental evolution
 experiment~\cite{orozco2012adaptation}, where $3$ replicate samples
-were chosen from a population of Drosophila melanogaster for 59
+were chosen from a population of \emph{Drosophila melanogaster} for 59
 generations under alternating 12-hour cycles of hot (28$^{\circ}$C)
 and cold (18$^{\circ}$C) temperatures and sequenced. The sampling read
 depths are highly heterogeneous
-(Suppl. Figs.~~\ref{fig:depth},~\ref{fig:depthHetero}). Filtering
-low coverage sites from data can dramatically reduce data available
-for analysis. For example, by setting minimum read depth at a site to
-be $30$, allowing the site to be retained only if the depth for all
-time points, and all replicates exceeded $30$, the number of sites
-analyzed would drop from from 1,544,374 to 10,387. Instead, \comale\
-computes $\Hc$ statistic for all sites where the sites with low coverage will 
+(Suppl. Figs.~~\ref{fig:depth},~\ref{fig:depthHetero}). Filtering low
+coverage sites from data can dramatically reduce data available for
+analysis. For example, by setting minimum read depth at a site to be
+$30$, allowing the site to be retained only if the depth for all time
+points, and all replicates exceeded $30$, the number of sites analyzed
+would drop from from 1,544,374 to 10,387. Instead, \comale\ computes
+$\Hc$ statistic for all sites where the sites with low coverage will
 take lower scores by \comale.
 
 We computed the \comale\ ${\cal H}$ statistic for sliding
@@ -1053,7 +1053,8 @@ involved in the research presented here.
           discrete uniform distribution. (B) The start of sampling is
           chosen near fixation of the favored allele, i.e. $\tau_1
           \sim
-          U\left[t_{\nu=0.9}(s,N_e),t_{\nu=1}(s,N_e)\right]$.} \label{fig:powerSFS}
+          U\left[t_{\nu=0.9}(s,N_e),t_{\nu=1}(s,N_e)\right]$.\VB{Add
+            panels A and B to figures.}} \label{fig:powerSFS}
 \end{figure}
 
 \clearpage
@@ -1224,9 +1225,9 @@ g(\nu_t)= \theta \nu_t \left(\frac{\nu_t+1}{2} - \frac{1}{(1-\nu_t)n+1}\right) +
 \theta (1-\nu_t)\left(\frac{n+1}{2n}-\frac{1}{(1-\nu_t)n+1}\right)
 \label{eq:hafscorepooled}
 \eeq
-It follows that \VB{$\theta_H(t)$ is not defined?}
+The dynamics of Fay \& Wu's estimate are given by
 \beq
-\theta_H(t)=\frac{n-1}{2} g(\nu_t)
+H_t=\frac{n-1}{2} g(\nu_t)
 \eeq
 \subsection{Greedy computation of time-series SFS-based  
 statistics}\label{app:agg}
@@ -1314,12 +1315,9 @@ allele.
 	clip,width=0.5\textwidth]{figures/{statePosterior}.pdf}
 	\caption{{\bf Posterior distribution of allele frequency.}
           Distribution of allele hidden frequency for different values
-          of depth $d=\{5,50,500\}$. In all the cases, the number of
-          read counts for the derived allele is one-fifth of total
-          depth. Dealing with dynamic data (and possibly
-          multi-replicate), each site has multiple measurements, that
-          can have different depth, i.e. uncertainty.\VB{Needs to be
-            changed. What is the source?}.}
+          of depth $d=\{5,50,500\}$. In all cases, the true frequency
+          is $0.5$, while the estimated frequency varies around it,
+          with variance higher for low read-depths.}
 	\label{fig:stateConditional}
 \end{figure}
 \begin{figure}[H]
@@ -1508,7 +1506,7 @@ allele.
 		\input{tables/powerHardMathods.tex}
 		&&\input{tables/powerSoftMethods.tex}
 	\end{tabular}
-        \caption{Power -- average true-positive-rate when FDR$\le$0.05 -- for detecting selection in a 50Kbp region for Frequency Increment Test (FIT), Gaussian Process (GP), Markov Chain ($\Mc$), Hidden Markov Model ($\Hc$) on $1,000$ simulations for each of selection strength $s$ and initial carrier frequency $\nu_0$. To incorporate ascertainment bias, each setting is evaluated such that depth of each SNP is identically distributed from Poisson$(\lambda)$ for $\lambda \in \{30,100,\infty\}$. \VB{Where are $s$ and $\nu_0$}. }
+        \caption{Average Power -- average true-positive-rate when FDR$\le$0.05 -- for detecting selection in a 50Kbp region for Frequency Increment Test (FIT), Gaussian Process (GP), Markov Chain ($\Mc$), Hidden Markov Model ($\Hc$) on $1,000$ simulations for each of selection strength $s$ and initial carrier frequency $\nu_0$. The power is averaged over all selection coefficients to provide a single value for comparison.}
 \label{tab:power}
 \end{table}
 \clearpage
