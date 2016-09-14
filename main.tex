@@ -12,7 +12,8 @@
 \date{}
 \def\comale{\text{{\sc Comale}}}
 \renewcommand{\figurename}{Fig.}
-
+\def\data{\emph{D. melanogaster} adaptation to alternating temperatures 
+experimental evolution}
 
 \begin{document}
 \maketitle
@@ -225,7 +226,11 @@ frequency data. More recently, Song \emph{et
   al.}~\cite{Terhorst2015Multi} proposed empirical Gaussian Process
 (GP) likelihood ratio test for single and multiple loci dynamic allele
 frequency data. The heavy computational requirements of these methods
-makes it difficult to apply them in a whole genome setting.  A key
+makes it difficult to apply them in a whole genome setting.  
+Topa \emph{et al.}~\cite{topa2015gaussian} extended GP to analyze 
+pooled-sequencing
+read count data
+A key
 contribution of our paper is the development of a direct, and
 significantly faster method, \comale, for detecting selection in
 short-term experimental evolution with pooled sequencing (read count)
@@ -755,7 +760,7 @@ of initial carrier frequency $\nu_0$ and strength of selection $s$ (see section
 
 
 
-\subsection{\emph{Drosophila} experimental evolution with alternating temperature regimes}
+\subsection{\data}\label{sec:dmel}
 We applied \comale\ to a controlled experimental evolution
 experiment~\cite{orozco2012adaptation}, where $3$ replicate samples
 were chosen from a population of \emph{Drosophila melanogaster} for 59
@@ -812,6 +817,18 @@ potato. The genes include Pxd (CG3477), the peroxidase component of the
 chorion~\cite{konstandi2005enzymatic}. Chorion peroxidases are conjectured
 to play a role in ROS defense during egg formation in 
 mosquitoes~\cite{li2006major}. 
+
+Although \comale\ statistic for genes does not favor longer genes, we here 
+perform SNP-based
+GO enrichment to compare enrichment of two different approaches. We tested 
+associations of top
+1\%-ile of the SNPs within the 25 candidate intervals 
+(Table~\ref{tab:intervals}) using Gowinda~\cite{kofler2012gowinda} and found 325
+GO terms (see supplemental table S4) with FDR≤0.001. Also, to show that both 
+analysis lead to
+the similar enrichment, we performed Fisher exact test on the 13 previously 
+enriched (Table~\ref{tab:Fisher}) and
+325 newly enriched GO terms
 
 \ignore{
 \paragraph{Dominance.}
@@ -1053,8 +1070,8 @@ involved in the research presented here.
           discrete uniform distribution. (B) The start of sampling is
           chosen near fixation of the favored allele, i.e. $\tau_1
           \sim
-          U\left[t_{\nu=0.9}(s,N_e),t_{\nu=1}(s,N_e)\right]$.\VB{Add
-            panels A and B to figures.}} \label{fig:powerSFS}
+          U\left[t_{\nu=0.9}(s,N_e),t_{\nu=1}(s,N_e)\right]$.} 
+          \label{fig:powerSFS}
 \end{figure}
 
 \clearpage
@@ -1063,7 +1080,8 @@ involved in the research presented here.
 	\centering
 	\includegraphics[trim=.2in 0 .2in 0, 
 	clip,width=\textwidth]{figures/{rank100.0}.pdf}
-	\caption{Cumulative Distribution Function (CDF) of the
+	\caption{{\bf Ranking performance for 100X coverage.} Cumulative 
+	Distribution Function (CDF) of the
           distribution of the rank of the adaptive allele in 500
           simulations for Markov Chain ($\Mc$), Gaussian Process (GP),
           CMH, and Frequency Increment Test (FIT), for different
@@ -1078,16 +1096,12 @@ involved in the research presented here.
 \newpage
 \begin{figure}[H]
 	\centering
-(A)	\\ \includegraphics[width=0.6\textwidth]{figures/{bias.30}.pdf} \\
-(B)\\	\includegraphics[width=0.6\textwidth]{figures/{bias.100}.pdf}\\
-(C)\\	\includegraphics[width=0.6\textwidth]{figures/{bias.inf}.pdf}
-\caption{{\bf Distribution of bias}. The distribution of bias
+\includegraphics[width=0.6\textwidth]{figures/{bias.100}.pdf}
+\caption{{\bf Distribution of bias for 100X coverage.} The distribution of bias
   ($s-\hat{s}$) in estimating selection coefficient over 500
   simulations is shown for a range of choices for the selection
-  coefficient $s$ and starting carrier frequency $\nu_0$. Panels A,B,C
-  show results for choice of mean coverage $\lambda=30,100,\infty$,
-  respectively.}
-	\label{fig:bias}
+  coefficient $s$ and starting carrier frequency $\nu_0$, when coverage is 100.}
+	\label{fig:bias100}
 \end{figure}
 
 \clearpage
@@ -1489,6 +1503,92 @@ allele.
 	\label{fig:sfsts}
 \end{figure}
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim=.2in 0 .2in 0, 
+	clip,width=\textwidth]{figures/{rank30.0}.pdf}
+	\caption{{\bf Ranking performance for 30X coverage.} Cumulative 
+	Distribution  Function (CDF) of the distribution of the 
+		rank of the adaptive allele in 500 simulations for Markov Chain 
+		($\Mc$), 
+		Gaussian Process (GP) and Frequency Increment Test (FIT), for different 
+		values of selection strength $s$ and initial carrier frequency, when 
+		coverage is 30. Area Under 
+		Curve (AUC) is computed as a quantitative measure ranking performance 
+		of 
+		methods for each configuration.}
+	\label{fig:rank30}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim=.2in 0 .2in 0, 
+	clip,width=\textwidth]{figures/{rank300.0}.pdf}
+	\caption{{\bf Ranking performance for 300X coverage.} Cumulative 
+	Distribution  Function (CDF) of the distribution of the 
+		rank of the adaptive allele in 500 simulations for Markov Chain 
+		($\Mc$), 
+		Gaussian Process (GP) and Frequency Increment Test (FIT), for different 
+		values of selection strength $s$ and initial carrier frequency, when 
+		coverage is 300. Area Under 
+		Curve (AUC) is computed as a quantitative measure ranking performance 
+		of 
+		methods for each configuration.}
+	\label{fig:rank300}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim=.2in 0 .2in 0, 
+	clip,width=\textwidth]{figures/rankinf.pdf}
+	\caption{{\bf Ranking performance for infinite coverage.} Cumulative 
+	Distribution  Function (CDF) of the distribution of the 
+		rank of the adaptive allele in 500 simulations for Markov Chain 
+		($\Mc$), 
+		Gaussian Process (GP) and Frequency Increment Test (FIT), for different 
+		values of selection strength $s$ and initial carrier frequency, when 
+		coverage is infinite. Area Under 
+		Curve (AUC) is computed as a quantitative measure ranking performance 
+		of 
+		methods for each configuration.}
+	\label{fig:rankinf}
+\end{figure}
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{figures/{bias.30}.pdf}
+	\caption{{\bf Distribution of bias for 30X coverage.} The distribution of 
+	bias
+		($s-\hat{s}$) in estimating selection coefficient over 500
+		simulations is shown for a range of choices for the selection
+		coefficient $s$ and starting carrier frequency $\nu_0$, when coverage 
+		is 30.}
+	\label{fig:bias30}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{figures/{bias.300}.pdf}
+	\caption{{\bf Distribution of bias for 300X coverage.} The distribution of 
+	bias
+		($s-\hat{s}$) in estimating selection coefficient over 500
+		simulations is shown for a range of choices for the selection
+		coefficient $s$ and starting carrier frequency $\nu_0$, when coverage 
+		is 300.}
+	\label{fig:bias300}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{figures/{bias.inf}.pdf}
+	\caption{{\bf Distribution of bias for infinite coverage.} The distribution 
+	of bias
+		($s-\hat{s}$) in estimating selection coefficient over 500
+		simulations is shown for a range of choices for the selection
+		coefficient $s$ and starting carrier frequency $\nu_0$, when coverage 
+		is infinity.}
+	\label{fig:biasinf}
+\end{figure}
 
 \ignore{
 \begin{figure}[H]
@@ -1534,30 +1634,9 @@ allele.
 	\begin{tabular}{c}
 		\input{tables/intervals.tex}
 	\end{tabular}
-	\caption{Intervals.\VB{More details needed}}\label{tab:intervals}
+	\caption{Coordinates of the enriched intervals of the \data\ data (see 
+	part~\ref{sec:dmel}), assembly 
+	5.7, found by \comale\ statistic.}\label{tab:intervals}
 \end{table}
-\begin{figure}[H]
-	\centering
-	\includegraphics[trim=.2in 0 .2in 0, 
-	clip,width=\textwidth]{figures/{rank30.0}.pdf}
-	\caption{Cumulative Distribution  Function (CDF) of the distribution of the 
-	rank of the adaptive allele in 500 simulations for Markov Chain ($\Mc$), 
-	Gaussian Process (GP) and Frequency Increment Test (FIT), for different 
-	values of selection strength $s$ and initial carrier frequency. Area Under 
-	Curve (AUC) is computed as a quantitative measure ranking performance of 
-	methods for each configuration.}
-	\label{fig:rank30}
-\end{figure}
-\begin{figure}[H]
-	\centering
-	\includegraphics[trim=.2in 0 .2in 0, 
-	clip,width=\textwidth]{figures/rankinf.pdf}
-	\caption{Cumulative Distribution  Function (CDF) of the distribution of the 
-	rank of the adaptive allele in 500 simulations for Markov Chain ($\Mc$), 
-	Gaussian Process (GP) and Frequency Increment Test (FIT), for different 
-	values of selection strength $s$ and initial carrier frequency. Area Under 
-	Curve (AUC) is computed as a quantitative measure ranking performance of 
-	methods for each configuration.}
-	\label{fig:rankinf}
-\end{figure}
+
 \end{document}

@@ -159,11 +159,6 @@ Yun-Xin Fu.
 \newblock {Statistical properties of segregating sites}.
 \newblock {\em Theoretical population biology}, 48(2):172--197, 1995.
 
-\bibitem{gillespie2010population}
-John~H Gillespie.
-\newblock {\em {Population genetics: a concise guide}}.
-\newblock JHU Press, 2010.
-
 \bibitem{gottesman2002mechanisms}
 Michael~M Gottesman.
 \newblock {Mechanisms of cancer drug resistance}.
@@ -217,6 +212,12 @@ Tadeusz~J Kawecki, Richard~E Lenski, Dieter Ebert, Brian Hollis, Isabelle
   Olivieri, and Michael~C Whitlock.
 \newblock {Experimental evolution}.
 \newblock {\em Trends in ecology {\&} evolution}, 27(10):547--560, 2012.
+
+\bibitem{kofler2012gowinda}
+Robert Kofler and Christian Schl{\"{o}}tterer.
+\newblock {Gowinda: unbiased analysis of gene set enrichment for genome-wide
+  association studies}.
+\newblock {\em Bioinformatics}, 28(15):2084--2085, 2012.
 
 \bibitem{konstandi2005enzymatic}
 Ourania~A Konstandi, Issidora~S Papassideri, Dimitrios~J Stravopodis,
@@ -430,6 +431,13 @@ Ray Tobler, Susanne~U Franssen, Robert Kofler, Pablo Orozco-terWengel, Viola
 \newblock {Massive habitat-specific genomic response in D. melanogaster
   populations during experimental evolution in hot and cold environments}.
 \newblock {\em Molecular biology and evolution}, 31(2):364--375, 2014.
+
+\bibitem{topa2015gaussian}
+Hande Topa, {\'{A}}gnes J{\'{o}}n{\'{a}}s, Robert Kofler, Carolin Kosiol, and
+  Antti Honkela.
+\newblock {Gaussian process test for high-throughput sequencing time series:
+  application to experimental evolution}.
+\newblock {\em Bioinformatics}, page btv014, 2015.
 
 \bibitem{turner2011population}
 Thomas~L Turner, Andrew~D Stewart, Andrew~T Fields, William~R Rice, and Aaron~M
