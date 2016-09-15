@@ -1,0 +1,293 @@
+\section{Supplemental Figs. and Tables}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{figures/trajectoryReal.pdf}
+	\caption{{\bf Trajectory of pool-sequenced variants.}
+          Trajectory of three different variants that are increasing
+          in frequency over time. Note that for read count data, the
+          true allele frequency is not known. Here we draw the
+          posterior distribution of the allele frequency at each time
+          point using box plot. The median of each distribution is
+          denoted by dots. The variance of each box is seen to be
+          inversely related to the depth of the measurement. }
+	\label{fig:trajectoryReal}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim=.0in 0 .0in 0, 
+	clip,width=0.5\textwidth]{figures/{statePosterior}.pdf}
+	\caption{{\bf Posterior distribution of allele frequency.}
+          Distribution of allele hidden frequency for different values
+          of depth $d=\{5,50,500\}$. In all cases, the true frequency
+          is $0.5$, while the estimated frequency varies around it,
+          with variance higher for low read-depths.}
+	\label{fig:stateConditional}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\begin{tabular}{c}
+		\includegraphics[trim=.2in 0 .0in 0, 
+		clip,width=\textwidth]{figures/{depthHetero}.pdf}
+	\end{tabular}
+	\caption{{\bf Heterogeneity in time series data.} Each panel
+          shows the read depth for a different variant using 3
+          replicates of the \data\ data (see section~\ref{sec:dmel}). 
+          Heterogeneity in depth of coverage is 
+          seen
+          between replicates, and also at different time points, in
+          all 4 variants.}
+	\label{fig:depthHetero}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim=0.4in 0 .8in 0.02in , 
+	clip,width=\textwidth]{figures/powerROC.pdf}
+	\caption{{\bf Schematic for computing power of detecting
+            selection.}  Standard Receiver operator curve (ROC) (left)
+          is shown for illustration of the procedure for computing
+          power of detection from 1,000 simulations (500 selection and
+          500 neutral). The Area Under the Curve (AUC) represents
+          overall performance. The diagonal black line represents
+          performance of a random hypothesis which achieves Area under
+          the curve (AUC) of 0.5. To avoid computing AUC for the
+          regions where FPR is unacceptably high, we restrict ROC
+          curve to the region where FPR$\le 0.05$ (right). In this
+          case, we define power to be the (scaled) AUC of the
+          restricted region.} \label{fig:powerROC}
+\end{figure}
+
+
+
+\begin{figure}[H]
+	\centering 
+	\includegraphics[trim=3.2in 0.1in 3.2in 0.2in , 
+	clip,width=\textwidth]{figures/bottleneck}
+	\caption{{\bf Effect of bottleneck in a typical experimental
+            evolution experiment with restricted number of founder
+            lines.} For the experiment, $F=200$ founders were selected
+          from a larger population size ($N_e=10^{-6}$), and evolved
+          under neutral scenario ($s=h=0$). The statistics for
+          Tajima's D (left), Fay Wu's H (middle) and SFSelect were
+          computed for 1000 neutral simulations and the mean and 95\%
+          confidence interval plotted. Under neutral evolution, all
+          the statistics are expected to vary around a fixed mean
+          through time. However, under selective constraint, $D$ and
+          $H$ take negative values, while SFSelect take positive
+          values. In experimental evolution, bottleneck effect will
+          suppress the signal of selection, especially in early
+          generations. }
+	\label{fig:bottleneck}
+\end{figure}
+
+
+\begin{figure}[H]
+	\includegraphics[trim=1in 0.1in 1in 
+	0.1in,clip,width=\textwidth]{figures/AF.pdf}
+	\caption{{\bf Theoretical (Markov Chain) and Empirical
+            trajectories of favored allele for hard and soft sweep
+            scenarios}.  Theoretical and empirical trajectories of the
+          frequency of the favored allele are computed for $1,000$ EE
+          simulations after choosing the diploid population size as
+          $1000$. Each curve shows the mean and the 95\% confidence
+          interval.  Panels A and C represent theoretical markov chain
+          based calculations of the favored allele frequency under
+          hard ($\nu_0$ is small), and soft sweep die to standing
+          variation (higher $\nu_0$), for a range of values of
+          $s$. Note that $s=0$ corresponds to neutral
+          evolution. Similarly, panels B and D show the empirical
+          forward simulations of populations under the same selection
+          regimes, and hard/soft-sweep scenarios. The first $50$
+          generations are shaded in gray to represent the typical
+          sampling span of EE experiments. The plot illustrates the
+          difficulty of EE experiments in having to predict selection
+          at a very early stage of the sweep. The signal is slightly
+          stronger under standing variation scenario. The theoretical
+          and empirical simulations are in close correspondence. }
+	\label{fig:sweep}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{tabular}{c}
+		\includegraphics[trim=.2in 0 .0in 0, 
+		clip,width=\textwidth]{figures/{depth}.pdf}
+	\end{tabular}
+	\caption{ {\bf Distribution of depth in the real data.}
+		 Scaled PDF (A) and CDF (B) of the read depths of all ($\approx$20.1M) 
+		 measurements, i.e., all replicates and time points of the all 
+		 ($\approx$1.5M) variants.
+		 Scaled PDF (C) and CDF (D) of the minimum depth of sites. Although 
+		 most ($\approx$11.5M) of the measurements have depth of 50 or greater 
+		 (dashed line in (A),(B)), only a small fraction ($\approx$10K) of 
+		 variants (dashed line in (C),(D)) pass the filter of having minimum 
+		 depth of 50.}  
+	\label{fig:depth}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{figures/manhattan.pdf}
+	\caption{{\bf Manhattan plot.} Distribution of the composite $\Hc$ 
+	statistic (top) 
+		and the number of SNPs (bottom) for 50Kbp sliding window with steps of 
+		10Kbp across genome. Regions in which their $\Hc$ statistic falls in 
+		top one 
+		percentile 
+		distribution is denoted with red color. Pearson correlation between the 
+		number of SNPs and 
+		$\Hc$ of all windows is -0.03 and is -0.27 when restricting to the 
+		candidate regions is -0.27. This 
+		nine-fold increase in correlation implies that the $\Hc$ statistic 
+		takes 
+		more extreme values as the number of SNPs in the window is less than 
+		expected ($\approx$1100). } 
+	\label{fig:manhattan}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{figures/LDDecay3d}
+	\caption{ {Dynamic of LD.}
+		Decay of LD ($|D'|$ measure) of the minimum AF site at 
+		position 500K with the rest of genome in genetic drift with 
+		$r=2\times10^{-8}$ (top) and hard sweep with $s=0.01$ (bottom).}	
+		\label{fig:ld3d}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{tabular}{l|l}
+		(A)&(B)\\
+		\includegraphics[width=0.5\textwidth]{figures/decayFactors0}
+		&\includegraphics[width=0.5\textwidth]{figures/decayFactors1}\\
+		\hline(C)&(D)\\
+		\includegraphics[width=0.5\textwidth]{figures/decayFactors2}
+		&\includegraphics[width=0.5\textwidth]{figures/decayFactors3}		
+	\end{tabular}
+	
+	\caption{{\bf Interaction between growth and decay factors of LD.}
+		Expected evolution of LD under natural 
+		selection for weak selection (s=$0.01$) and a distance of 100Kb between 
+		sites. In this setting, after about 1000 generations LD start to decay 
+		(red 
+		curve).} \label{fig:ldf}
+\end{figure}
+
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim=1in 0.1in 1in 
+	0.1in,clip,width=\textwidth]{figures/sfs.pdf}
+	\caption{{\bf Site Frequency Spectrum.} Theoretical and Empirical SFS for a 
+	neutral population of 200 
+		individuals.}	\label{fig:sfs}
+\end{figure}
+
+\begin{figure}[H]
+	\centering 
+	\includegraphics[width=\textwidth]{figures/{msmsts}.pdf}
+	\caption{{\bf Dynamic SFS-base statistics.} Mean and 95\% CI of 100 
+	simulations for neutral (blue trajectories) selection with $s=0.1$ (red 
+	trajectories).}
+	\label{fig:sfsts}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim=.2in 0 .2in 0, 
+	clip,width=\textwidth]{figures/{rank30.0}.pdf}
+	\caption{{\bf Ranking performance for 30X coverage.} Cumulative 
+	Distribution  Function (CDF) of the distribution of the 
+		rank of the adaptive allele in 500 simulations for Markov Chain 
+		($\Mc$), 
+		Gaussian Process (GP) and Frequency Increment Test (FIT), for different 
+		values of selection strength $s$ and initial carrier frequency, when 
+		coverage is 30. Area Under 
+		Curve (AUC) is computed as a quantitative measure ranking performance 
+		of 
+		methods for each configuration.}
+	\label{fig:rank30}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim=.2in 0 .2in 0, 
+	clip,width=\textwidth]{figures/{rank300.0}.pdf}
+	\caption{{\bf Ranking performance for 300X coverage.} Cumulative 
+	Distribution  Function (CDF) of the distribution of the 
+		rank of the adaptive allele in 500 simulations for Markov Chain 
+		($\Mc$), 
+		Gaussian Process (GP) and Frequency Increment Test (FIT), for different 
+		values of selection strength $s$ and initial carrier frequency, when 
+		coverage is 300. Area Under 
+		Curve (AUC) is computed as a quantitative measure ranking performance 
+		of 
+		methods for each configuration.}
+	\label{fig:rank300}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim=.2in 0 .2in 0, 
+	clip,width=\textwidth]{figures/rankinf.pdf}
+	\caption{{\bf Ranking performance for infinite coverage.} Cumulative 
+	Distribution  Function (CDF) of the distribution of the 
+		rank of the adaptive allele in 500 simulations for Markov Chain 
+		($\Mc$), 
+		Gaussian Process (GP) and Frequency Increment Test (FIT), for different 
+		values of selection strength $s$ and initial carrier frequency, when 
+		coverage is infinite. Area Under 
+		Curve (AUC) is computed as a quantitative measure ranking performance 
+		of 
+		methods for each configuration.}
+	\label{fig:rankinf}
+\end{figure}
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{figures/{bias.30}.pdf}
+	\caption{{\bf Distribution of bias for 30X coverage.} The distribution of 
+	bias
+		($s-\hat{s}$) in estimating selection coefficient over 500
+		simulations is shown for a range of choices for the selection
+		coefficient $s$ and starting carrier frequency $\nu_0$, when coverage 
+		is 30.}
+	\label{fig:bias30}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{figures/{bias.300}.pdf}
+	\caption{{\bf Distribution of bias for 300X coverage.} The distribution of 
+	bias
+		($s-\hat{s}$) in estimating selection coefficient over 500
+		simulations is shown for a range of choices for the selection
+		coefficient $s$ and starting carrier frequency $\nu_0$, when coverage 
+		is 300.}
+	\label{fig:bias300}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{figures/{bias.inf}.pdf}
+	\caption{{\bf Distribution of bias for infinite coverage.} The distribution 
+	of bias
+		($s-\hat{s}$) in estimating selection coefficient over 500
+		simulations is shown for a range of choices for the selection
+		coefficient $s$ and starting carrier frequency $\nu_0$, when coverage 
+		is infinity.}
+	\label{fig:biasinf}
+\end{figure}
+
+\ignore{
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim=1.2in 0 .0in 0, 
+	clip,width=\textwidth]{figures/{dominance}.png}
+	\caption{Dominance for $s=0.1$.} 
+	\label{fig:dominance}
+\end{figure}}
+

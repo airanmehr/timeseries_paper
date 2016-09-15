@@ -1,0 +1,44 @@
+\begin{table}[h]
+	\centering
+	\begin{tabular}{ccc}
+		Hard Sweep & &Soft Sweep\\ \\  
+		\input{tables/powerHardMathods.tex}
+		&&\input{tables/powerSoftMethods.tex}
+	\end{tabular}
+        \caption{Average Power -- average true-positive-rate when FDR$\le$0.05 
+        -- for detecting selection in a 50Kbp region for Frequency Increment 
+        Test (FIT), Gaussian Process (GP), Markov Chain ($\Mc$), Hidden Markov 
+        Model ($\Hc$) on $1,000$ simulations for each of selection strength $s$ 
+        and initial carrier frequency $\nu_0$. The power is averaged over all 
+        selection coefficients to provide a single value for comparison.}
+\label{tab:power}
+\end{table}
+\clearpage
+\newpage
+\begin{table}[H]
+	\begin{tabular}{c||c}
+		Hard Sweep & Soft Sweep\\ \\  
+		\input{tables/powerHard.tex}
+				&\input{tables/powerSoft.tex}
+	\end{tabular}
+	\caption{Average power, average true-positive-rate when FDR$\le$0.05, for 
+	detecting selection in a 50Kbp region for Frequency Increment Test (FIT), 
+	Gaussian Process (GP), Markov Chain ($\Mc$), Hidden Markov Model ($\Hc$) on 
+	1000 
+		simulations for each of selection strength $s$ and initial 
+		carrier frequency $\nu_0$. To incorporate ascertainment bias, each 
+		setting is evaluated such that depth of each SNP is identically 
+		distributed from Poisson$(\lambda)$ for $\lambda \in 
+		\{30,100,\infty\}$.}\label{tab:powerCLR}
+\end{table}
+
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{c}
+		\input{tables/intervals.tex}
+	\end{tabular}
+	\caption{Coordinates of the enriched intervals of the \data\ data (see 
+	part~\ref{sec:dmel}), assembly 
+	5.7, found by \comale\ statistic.}\label{tab:intervals}
+\end{table}
