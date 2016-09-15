@@ -62,8 +62,6 @@ experimental evolution}
   \end{abstract}
 
 
-
-
 \section{Introduction}
 Natural selection is the key force in evolution, and a mechanism by
 which populations can adapt to external `selection'
@@ -715,13 +713,19 @@ As the \comale\ likelihood calculation is model based, we can also
 compute the model parameters $\hat{s}$ that maximized
 likelihood~\eqref{eq:hmmlik}. We computed bias, $s-\hat{s}$ for each
 experiment of \comale, and compared it against GP. The distribution of
-the bias is presented in Fig.~\ref{fig:bias} for different
-configurations. In general, both GP and \comale\ have biased results
+the error (bias) for 100X coverage is presented in Fig.~\ref{fig:bias100} for 
+different
+configurations. Also 
+Fig.~\ref{fig:bias30},~\ref{fig:bias300},~\ref{fig:bias3inf} depict 
+distribution of estimation error for 30X, 300X and infinity coverage, 
+respectively.
+In general, both GP and \comale\ have biased results
 for weak selection, where genetic drift dominates. However, for
 stronger sweeps, e.g.$s=0.1$, \comale\ provides estimates with smaller
-bias and variance. Standard deviation of the bias of $\Hc$ is 0.025 and 0.011 
-in hard and soft sweep scenarios, while it is 0.043 and 0.013 for GP, 
+bias and variance. Standard deviation of the bias of $\Hc$ is 0.028 and 0.011 
+in hard and soft sweep scenarios, while it is 0.036 and 0.013 for GP, 
 respectively.
+
 
 
 \ignore{
@@ -818,17 +822,23 @@ chorion~\cite{konstandi2005enzymatic}. Chorion peroxidases are conjectured
 to play a role in ROS defense during egg formation in 
 mosquitoes~\cite{li2006major}. 
 
+
+One of the difficulties in genome-wide association studies is that the number 
+of polymorphisms are different between genes, i.e., longer genes contain more 
+SNPs and larger number of polymorphisms increase the chance of showing 
+association for larger genes. 
 Although \comale\ statistic for genes does not favor longer genes, we here 
 perform SNP-based
 GO enrichment to compare enrichment of two different approaches. We tested 
 associations of top
-1\%-ile of the SNPs within the 25 candidate intervals 
+1\%-ile of the SNPs within the 21 candidate intervals 
 (Table~\ref{tab:intervals}) using Gowinda~\cite{kofler2012gowinda} and found 325
-GO terms (see supplemental table S4) with FDR≤0.001. Also, to show that both 
-analysis lead to
-the similar enrichment, we performed Fisher exact test on the 13 previously 
+GO terms (see supplemental table S4) with FDR≤0.001. 
+Also, to show that both analysis lead to
+the similar results, we performed Fisher exact test on the 13 previously 
 enriched (Table~\ref{tab:Fisher}) and
-325 newly enriched GO terms
+325 newly enriched GO terms. Given total GO terms and intersection of 9, Fisher 
+exact test provides $p$-value of 10$^{-11}$.
 
 \ignore{
 \paragraph{Dominance.}
@@ -947,6 +957,7 @@ $\pi=0$. Contextually modifying these parameters helps \comale\
 achieve better performance in locating the favored allele, and future
 work will be devoted to identifying the favored allele with higher
 power.
+
 
 Here, we applied \comale\ to a single example of experimental
 evolution--analysis of temperature sensitive adaptation in
@@ -1083,7 +1094,7 @@ involved in the research presented here.
 	\caption{{\bf Ranking performance for 100X coverage.} Cumulative 
 	Distribution Function (CDF) of the
           distribution of the rank of the adaptive allele in 500
-          simulations for Markov Chain ($\Mc$), Gaussian Process (GP),
+          simulations for Hidden Markov Model (HMM), Gaussian Process (GP),
           CMH, and Frequency Increment Test (FIT), for different
           values of selection coefficient $s$ and initial carrier
           frequency. Area Under Curve (AUC) is computed as a
@@ -1099,8 +1110,13 @@ involved in the research presented here.
 \includegraphics[width=0.6\textwidth]{figures/{bias.100}.pdf}
 \caption{{\bf Distribution of bias for 100X coverage.} The distribution of bias
   ($s-\hat{s}$) in estimating selection coefficient over 500
-  simulations is shown for a range of choices for the selection
-  coefficient $s$ and starting carrier frequency $\nu_0$, when coverage is 100.}
+  simulations using Gaussian Process (GP) and Hidden Markov Model (HMM) is 
+  shown for a range of choices for the selection
+  coefficient $s$ and starting carrier frequency $\nu_0$, when coverage is 100. 
+  The estimation performance of GP and HMM are very similar in soft sweep, 
+  while HMM provides lower variance in hard sweep(overall standard 
+  deviation is 0.036 for GO and is 0.028 for HMM).
+  }
 	\label{fig:bias100}
 \end{figure}
 
@@ -1342,9 +1358,11 @@ allele.
 	\end{tabular}
 	\caption{{\bf Heterogeneity in time series data.} Each panel
           shows the read depth for a different variant using 3
-          replicates. Heterogeneity in depth of coverage is seen
+          replicates of the \data\ data (see section~\ref{sec:dmel}). 
+          Heterogeneity in depth of coverage is 
+          seen
           between replicates, and also at different time points, in
-          all 4 variants.\VB{What is the source of the data?}}
+          all 4 variants.}
 	\label{fig:depthHetero}
 \end{figure}
 
