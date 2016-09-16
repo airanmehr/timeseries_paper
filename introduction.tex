@@ -97,10 +97,8 @@ in allele-frequency data, prevalence of long
 haplotypes~\cite{sabeti2006positive,vitti2013detecting} in haplotype
 (phased) data, population
 differentiation~\cite{holsinger2009genetics,burke2010genome} in
-multiple-population data and others. An important component of many
-methods is the analysis of the Site Frequency Spectrum (SFS) for an example, 
-see 
-Fig.~\ref{fig:sfs}, to
+multiple-population data and others. Many existing methods use the
+Site Frequency Spectrum (SFS, see Suppl.~Fig.~\ref{fig:sfs}) to
 identify departure from neutrality. Classical examples including
 Tajima's \emph{D}~\cite{tajima1989statistical}, Fay and Wu's
 \emph{H}~\cite{fay2000hitchhiking}, Composite Likelihood
@@ -123,9 +121,10 @@ population expansions, and ascertainment bias ~\cite{ptak2002evidence,
   nielsen2003correcting,messer2013population}. Nevertheless, SFS based
 tests are simple and inexpensive and continue to be used, often in
 combination with other
-tests~\cite{akey2009constructing,vitti2013detecting}. It remains an
-open question if the analysis of dynamic time-series data can improve
-the power of SFS based methods.
+tests~\cite{akey2009constructing,vitti2013detecting}. One of the
+contributions of this paper is the extension of SFS based methods to
+analyze time-series data, and the identification of selection regimes
+where these methods perform well.
 
 Relative to the analysis of static samples, fewer tests-of-selection
 for dynamic time-series data have been proposed. Often, existing tests
@@ -161,17 +160,15 @@ frequency data. More recently, Song \emph{et
   al.}~\cite{Terhorst2015Multi} proposed empirical Gaussian Process
 (GP) likelihood ratio test for single and multiple loci dynamic allele
 frequency data. The heavy computational requirements of these methods
-makes it difficult to apply them in a whole genome setting.  
-Topa \emph{et al.}~\cite{topa2015gaussian} extended GP to analyze 
-pooled-sequencing
-read count data
-A key
-contribution of our paper is the development of a direct, and
-significantly faster method, \comale, for detecting selection in
-short-term experimental evolution with pooled sequencing (read count)
-data (see Fig.~\ref{fig:trajectoryReal} for an example).  We show for a wide 
-range of parameters that \comale\ provides
-higher power for detecting selection, is robust to ascertainment bias,
-estimates model parameters consistently, and localizes beneficial
-allele more accurately compared to the state-of the art methods, while
-being orders of magnitude faster.
+makes it difficult to apply them in a whole genome setting.  Topa
+\emph{et al.}~\cite{topa2015gaussian} extended GP to analyze
+pooled-sequencing read count data A key contribution of our paper is
+the development of a direct, and significantly faster method, \comale,
+for detecting selection in short-term experimental evolution with
+pooled sequencing (read count) data (see
+Suppl.~Fig.~\ref{fig:trajectoryReal} for an example).  We show for a
+wide range of parameters that \comale\ provides higher power for
+detecting selection, is robust to ascertainment bias, estimates model
+parameters consistently, and localizes beneficial allele more
+accurately compared to the state-of the art methods, while being
+orders of magnitude faster.

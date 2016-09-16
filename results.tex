@@ -26,33 +26,34 @@ closely (Fig.~\ref{fig:markov}G-I).
 \paragraph{Detection Power.} 
 To evaluate performance of each method, define power as the fraction
 of true positives identified with false-positive rate $\le 0.05$
-(Fig.~\ref{fig:powerROC}). Before comparing against other methods, we
-first evaluated the use of HMM and Markov chain composite likelihoods
-($\Hc$ and $\Mc$) in \comale\ with different percentile-cutoffs $\pi$
-(Eq.~\ref{eq:pihmm}) under different sequence coverage settings. We
-chose the sequence depth of each marker by identically and
-independently sampling from a Poisson distribution with parameter
-$\lambda\in \{30,100,\infty\}$. We computed power for ${\cal H}_\pi$
-and ${\cal M}_{\pi}$, with $\pi \in \{0,0.99,100\}$. See
-Fig.~\ref{fig:powerCLR}. The performance of HMM is robust with
-coverage, while the Markov chain's power decays for low coverage
-values. Also, the composite likelihood for all variants ($\pi=0$)
-shows the highest power (Fig.~\ref{fig:powerCLR}, and
-Table~\ref{tab:power}).  Therefore, we used ${\cal H} = {\cal H}_0$ as
-the default statistic for all subsequent calculations.
+(Suppl.~Fig.~\ref{fig:powerROC}). Before comparing against other
+methods, we first evaluated the use of \comale-H ($\Hc$) and \comale-M
+($\Mc$) with different percentile-cutoffs $\pi$ (Eq.~\ref{eq:pihmm})
+under different sequence coverage settings. We chose the sequence
+depth of each marker by identically and independently sampling from a
+Poisson distribution with parameter $\lambda\in \{30,100,\infty\}$. We
+computed power for ${\cal H}_\pi$ and ${\cal M}_{\pi}$, with $\pi \in
+\{0,0.99,100\}$. See Fig.~\ref{fig:powerCLR}. The performance of
+\comale-H is robust to change in coverage, while the power of
+\comale-M decays for low coverage values. Also, the composite
+likelihood for all variants ($\pi=0$) shows the highest power
+(Fig.~\ref{fig:powerCLR}, and Table~\ref{tab:power}).  Therefore, we
+used ${\cal H} = {\cal H}_0$ as the default statistic for all
+subsequent calculations.
 
 We compared the power of $\Hc$, $\Mc$ Gaussian process
-(GP)~\cite{Terhorst2015Multi}, FIT~\cite{feder2014Identifying}
-statistics.  All methods other than \comale\ convert read counts to
-allele frequencies and compute their test statistic. For each
-experiment, (specified with values for selection coefficient $s$,
-starting allele frequency $\nu_0$, coverage $\lambda$, sampling time
-schedule ${\cal T}$, and number of replicates $R$), we conducted
-$1000$ simulations. Half of these modeled neutral evolution and the
-rest were under selection. \comale\ shows the highest power across
-these range of parameters (Fig.~\ref{fig:power}). However, for perfect
-coverage ($\lambda=\infty$), and high selection coefficient $s=0.1$,
-GP has comparable power.
+(GP)~\cite{Terhorst2015Multi}, FIT~\cite{feder2014Identifying}, and
+CMH~\cite{agresti2011categorical} statistics.  All methods other than
+\comale\, and CMH convert read counts to allele frequencies prior to
+computing the test statistic. For each experiment, (specified with
+values for selection coefficient $s$, starting allele frequency
+$\nu_0$, coverage $\lambda$, sampling time schedule ${\cal T}$, and
+number of replicates $R$), we conducted $1000$ simulations. Half of
+these modeled neutral evolution and the rest were under
+selection. \comale\ shows the highest power across these range of
+parameters (Fig.~\ref{fig:power}). However, for perfect coverage
+($\lambda=\infty$), and high selection coefficient $s=0.1$, GP has
+comparable power.
 
 
 
@@ -61,19 +62,21 @@ GP has comparable power.
 As \comale\ does not compute full likelihoods, or explicitly model
 linkage between sites, the complexity of computing likelihoods is
 $\Oc(TR)$, and can be efficiently vectorized for multiple replicates
-and loci. Therefore, it is expected to be faster than other approaches
-like Gaussian Process (GP)~\cite{Terhorst2015Multi}. We conducted
-$1000$ simulations and measured running time for \comale\ and
-GP. \comale\ is $\sim 10^3\times$ faster than single locus GP (Fig.
-\ref{fig:runTime}), while maintaining high power. These times have a
-practical consequence. To run GP in the single locus mode on the
-entire Drosophila genome of a small sample (2M variant sites), would
-take 1444 CPU-hours ($\approx$ 1 CPU-month). In contrast, \comale\ ran
-in 22 CPU-hours in addition to 30 mins. for precomputation of
-transition matrices.  In addition, core computations of \comale\ are
-matrix products, which can be efficiently vectorized. We vectorized
-operations using \texttt{numba} package, which reduced run time of
-over 1.5M variant sites to less an hour.
+and loci. Therefore, it is expected to be faster than full-likelihood
+approaches like Gaussian Process (GP)~\cite{Terhorst2015Multi}. We
+conducted $1000$ simulations and measured running times for \comale\
+and GP, which is the only method that estimates the parameters of
+selection. \comale\ is $\sim 10^3\times$ faster than single locus GP
+(Fig.~\ref{fig:runTime}), while maintaining high power. These times
+have a practical consequence. To run GP in the single locus mode on
+the entire \emph{Drosophila} genome of a small sample (1.5M variant
+sites), would take 1444 CPU-hours ($\approx$ 1 CPU-month). In
+contrast, even the unoptimized version of \comale\ ran in 22 CPU-hours
+in addition to $15$ CPU-mins. for pre-computation of transition
+matrices.  Moreover, the core computations of \comale\ are matrix
+products, and they can be efficiently vectorized. We vectorized
+operations using \texttt{numba} package, which reduced the run time to
+$20+$ CPU-mins., not counting pre-computation.
 
 
 \paragraph{SFS for Detection in Natural Samples.} We did not show the
@@ -81,7 +84,7 @@ SFS based statistics in Fig.~\ref{fig:power} as they did not perform
 better than random. In many experimental evolution settings, we sample
 a restricted set of $F$ founder lines, where $F<<N_e$
 (Fig.~\ref{fig:ee}B). This creates a severe bottleneck, confounding
-SFS. The Supp. Fig.~\ref{fig:bottleneck} demonstrates the effect of
+SFS. Suppl.~Fig.~\ref{fig:bottleneck} demonstrates the effect of
 experimental evolution on different SFS statistics under neutral
 evolution for 1000 simulations. A second problem with using SFS for
 experimental evolution is that the sampling starts right after the
@@ -101,53 +104,56 @@ the expected time (in generations) required to reach carrier frequency
 $x$ in a hard sweep and $U[a,b]$ denote discrete uniform distribution
 in the interval $[a,b]$. First we considered the case when start of
 sampling is chosen throughout the whole sweep. i.e., $\tau_1 \sim
-U\left[1,t_{\nu=1}(s,N_e)\right]$
-(Fig.~\ref{fig:powerSFS}A). Next, we considered sampling start time
-  chosen nearer to fixation of the favored allele, i.e., $\tau_1 \sim
-  U\left[t_{\nu=0.9}(s,N_e),t_{\nu=1}(s,N_e)\right]$
-  (Fig.~\ref{fig:powerSFS}B). In both scenarios, sampling was done
-  over $5$ time points within $50$ generations of $\tau_1$. We
-  compared $\Hc$, GP, FIT with both static and dynamic SFS based
-  statistics of SFSelect and Tajima's D. Fig.~\ref{fig:powerSFS}A
-  shows that SFS based statistics are outperformed by single locus and
-  CLR methods. However, when sampling is performed close to fixation,
-  i.e., when the favored allele has frequency of 0.9 or higher, SFS
-  based statistics perform significantly better than GP, FIT and $\Hc$
-  (Fig.~\ref{fig:powerSFS}b). Moreover, dynamic SFS statistics
-  outperform static SFS statistics, demonstrating that in these
-  scenarios SFS based statistics should be used to detect selection.
+U\left[1,t_{\nu=1}(s,N_e)\right]$ (Fig.~\ref{fig:powerSFS}A). Next, we
+considered sampling start time chosen nearer to fixation of the
+favored allele, i.e., $\tau_1 \sim
+U\left[t_{\nu=0.9}(s,N_e),t_{\nu=1}(s,N_e)\right]$
+(Fig.~\ref{fig:powerSFS}B). In both scenarios, sampling was done over
+$5$ time points within $50$ generations of $\tau_1$. We compared
+$\Hc$, GP, FIT with both static and dynamic SFS based statistics of
+SFSelect and Tajima's D. Fig.~\ref{fig:powerSFS}A shows that SFS based
+statistics are outperformed by single locus and CLR methods. However,
+when sampling is performed close to fixation, i.e., when the favored
+allele has frequency of 0.9 or higher, SFS based statistics perform
+significantly better than GP, FIT and $\Hc$
+(Fig.~\ref{fig:powerSFS}b). Moreover, dynamic SFS statistics
+outperform static SFS statistics, demonstrating that in these regimes,
+SFS based statistics could be used to detect selection.
 
 
-\paragraph{Locating the Adaptive Mutation.}
-The secondary task in identifying selection is to locate the position
-of the adaptive allele. We simply consider the site with highest score
-in the window as the locus of the favored allele. For each setting
-of $\nu_0$ and $s$, we conducted 500 simulations
-and computed the rank of the favored mutation in each
+\paragraph{Site-localization.}
+To identify the favored site, we simply ranked each site in the
+detected window according to the likelihood ratio scores
+(Eqns.~\ref{XX}). For each setting of $\nu_0$ and $s$, we conducted
+500 simulations and computed the rank of the favored mutation in each
 simulation. We plotted the cumulative distribution of the rank in
-Fig.~\ref{fig:rank}. In all configuration \comale\ ranks favored allele higher 
-than GP. In particular when selection is strong ($s=0.1$), \comale\ confidently 
-picks the beneficial allele, i.e., when $s=0.1$, the beneficial allele is 
-ranked first in 99\% of the soft sweep simulations and ranked first in 95\% of 
-the simulations.
+Fig.~\ref{fig:rank}. In all configurations, \comale\ ranked favored
+allele higher than GP, In particular, for strong ($s=0.1$), the
+favored allele was among the top \VB{XXX} ranked variants in
+\VB{XXX99}\% of the soft sweep simulations and in \VB{95\%} of
+hard-sweep simulations.
+
+When we look at the top-ranked variant, we see a trade-off between
+detection and site-localization. In hard-sweep with strong selection, the high
+linkage allows for strong detection (Fig.~\ref{XXX}), but weaker
+site-localization. The situation is reversed for soft sweeps due to
+standing variation (Fig,~\ref{XXX}).
  
 \paragraph{Strength of Selection.}
 As the \comale\ likelihood calculation is model based, we can also
 compute the model parameters $\hat{s}$ that maximized
 likelihood~\eqref{eq:hmmlik}. We computed bias, $s-\hat{s}$ for each
 experiment of \comale, and compared it against GP. The distribution of
-the error (bias) for 100X coverage is presented in Fig.~\ref{fig:bias100} for 
-different
-configurations. Also 
-Fig.~\ref{fig:bias30},~\ref{fig:bias300},~\ref{fig:bias3inf} depict 
-distribution of estimation error for 30X, 300X and infinity coverage, 
-respectively.
-In general, both GP and \comale\ have biased results
-for weak selection, where genetic drift dominates. However, for
-stronger sweeps, e.g.$s=0.1$, \comale\ provides estimates with smaller
-bias and variance. Standard deviation of the bias of $\Hc$ is 0.028 and 0.011 
-in hard and soft sweep scenarios, while it is 0.036 and 0.013 for GP, 
-respectively.
+the error (bias) for 100$\times$ coverage is presented in
+Fig.~\ref{fig:bias100} for different configurations.
+Suppl.~Fig.~\ref{fig:bias30},~\ref{fig:bias300},~\ref{fig:biasinf}
+provide the distribution of estimation errors for 30$\times$,
+300$\times$ and infinite coverage, respectively.  In general, both GP
+and \comale\ have biased results for weak selection, where genetic
+drift dominates. However, for stronger sweeps, ($s=0.1$), \comale\
+provides estimates with smaller bias and variance. Standard deviation
+of the bias of $\Hc$ is 0.028 and 0.011 in hard and soft sweep
+scenarios, while it is 0.036 and 0.013 for GP, respectively.
 
 
 
@@ -200,69 +206,53 @@ coverage sites from data can dramatically reduce data available for
 analysis. For example, by setting minimum read depth at a site to be
 $30$, allowing the site to be retained only if the depth for all time
 points, and all replicates exceeded $30$, the number of sites analyzed
-would drop from from 1,544,374 to 10,387. Instead, \comale\ computes
-$\Hc$ statistic for all sites where the sites with low coverage will
-take lower scores by \comale.
-
-We computed the \comale\ ${\cal H}$ statistic for sliding
-window of 50Kbp with steps of 10Kbp over the whole genome. We observed
-a spurious negative correlation between $\Hc$ and the number of SNPs
-in each window (Suppl. Fig.~\ref{fig:manhattan}). To make this
-precise, we computed the Pearson correlation between the number of
-variants $w$ in a window, and $\Hc$ as $\rho(w,\Hc)=-0.03$
-overall. However, when restricted to the candidate regions with a high
-$\Hc$ value, we found $\rho(w,\Hc)=-0.27$ . This nine-fold increase in
-correlation indicates that $\Hc$ statistic takes more extreme values
-when SNPs are depleted. Note that the expected number of variants in a
-$50$Kbp window equals $1175$ by Watterson's estimate. Therefore, we
-filtered out genomic regions containing fewer than $500$ SNPs. In
-repeating the test, the average PCC for all windows was computed to be
-$\rho(w,\Hc)=-0.08$, and for windows with a high value of $\Hc$, it
-remained close at
-$\rho(w,\Hc)=-0.09$. Fig.~\ref{fig:manhattancutoffed} shows a
+would drop from from 1,544,374 to 10,387. The \comale\ statistic
+automatically adjusts for all coverage values. We computed the
+\comale\ ${\cal H}$ statistic for sliding window of 50Kbp with steps
+of 10Kbp over the whole genome. We filtered out genomic regions
+containing fewer than $500$ SNPs, as those regions were close to the
+centromere or telomere. Fig.~\ref{fig:manhattancutoffed} shows a
 Manhattan plot of scores. Our results are consistent with previous
 studies~\cite{orozco2012adaptation} in showing an over-representation
 of significant variants on Chromosome 3R.
 
-The 1\%-ile cut-off reveals $25$ distinct intervals 
-(Table~\ref{tab:intervals})  spanning $243$ of 
-the $13,965$ genes that encoded
-variants. We found $36$ GO terms associated with ``Biological Process" to be 
-over-represented in the $243$ genes using a Fisher exact
-test for significance. Table~\ref{tab:Fisher} describes all terms that
-were significant, and contained at least $3$ genes. The
-effect of high temperature on metabolism is profound, and it is not
-surprising that the enriched GO terms include many generic stress and
-stress response genes. They also include $5$ of $7$ genes with
-aminoacylase activity, and $4$ of $17$ genes involved in peroxidase
-activity. Stress induced formation of reactive oxygen species (ROS)
-can have deleterious effects. In many plants, including strawberry,
-high temperature adaptation led to an increase in expression of ROS
-scavenging genes, including peroxidase, and a reduction in total
-protein content due to protein denaturation, and inhibited
-synthesis~\cite{gulen2004effect}, and these effects are also observed in
-potato. The genes include Pxd (CG3477), the peroxidase component of the
-chorion~\cite{konstandi2005enzymatic}. Chorion peroxidases are conjectured
-to play a role in ROS defense during egg formation in 
-mosquitoes~\cite{li2006major}. 
+The 1\%-ile cut-off (dashed line in Fig.~\ref{fig:manhattancutoffed})
+reveals $21$ distinct intervals (Table~\ref{tab:intervals}) spanning
+$243$ of the $13,965$ genes that encoded variants. We found $36$ GO
+terms associated with ``Biological Process'' to be over-represented in
+the $243$ genes using the Fisher exact test for
+significance. Table~\ref{tab:Fisher} describes all $13$ terms that
+were significant and contained at least $3$ genes. The effect of high
+temperature on metabolism is profound, and it is not surprising that
+the enriched GO terms include many generic stress and stress response
+genes. They also include $5$ of $7$ genes with aminoacylase activity,
+and $4$ of $17$ genes involved in peroxidase activity. Stress induced
+formation of reactive oxygen species (ROS) can have deleterious
+effects, and peroxidase activity has been seen in other organisms. In
+many plants, including strawberry, high temperature adaptation led to
+an increase in expression of ROS scavenging genes, including
+peroxidase, and a reduction in total protein content due to protein
+denaturation, and inhibited synthesis~\cite{gulen2004effect}, and
+these effects are also observed in potato. The genes include Pxd
+(CG3477), the peroxidase component of the
+chorion~\cite{konstandi2005enzymatic}. Chorion peroxidases are
+conjectured to play a role in ROS defense during egg formation in
+mosquitoes~\cite{li2006major}.
 
 
-One of the difficulties in genome-wide association studies is that the number 
-of polymorphisms are different between genes, i.e., longer genes contain more 
-SNPs and larger number of polymorphisms increase the chance of showing 
-association for larger genes. 
-Although \comale\ statistic for genes does not favor longer genes, we here 
-perform SNP-based
-GO enrichment to compare enrichment of two different approaches. We tested 
-associations of top
-1\%-ile of the SNPs within the 21 candidate intervals 
-(Table~\ref{tab:intervals}) using Gowinda~\cite{kofler2012gowinda} and found 325
-GO terms (see supplemental table S4) with FDR≤0.001. 
-Also, to show that both analysis lead to
-the similar results, we performed Fisher exact test on the 13 previously 
-enriched (Table~\ref{tab:Fisher}) and
-325 newly enriched GO terms. Given total GO terms and intersection of 9, Fisher 
-exact test provides $p$-value of 10$^{-11}$.
+One of the difficulties in genome-wide association studies is that the
+number of polymorphisms are different between genes, i.e., longer
+genes contain more SNPs and larger number of polymorphisms increase
+the chance of showing association for larger genes.  Although the
+\comale\ statistic for genes does not favor longer genes, we performed
+SNP-based GO enrichment and compared enrichment versus the window
+based approach. We tested associations of top 1\%-ile of the SNPs
+within the $21$ candidate intervals (Table~\ref{tab:intervals}) using
+\texttt{Gowinda}~\cite{kofler2012gowinda} and found 325 GO terms (see
+supplemental table S4) with FDR $\le 0.001$. $9$ of the $13$
+previously enriched terms (Table~\ref{tab:Fisher}), overlapped with
+the $325$ \texttt{Gowinda} terms (Fisher exact $p$-val: $10^{-11}$)
+suggesting consistency of SNP based and window-based analysis.
 
 \ignore{
 \paragraph{Dominance.}
@@ -281,6 +271,3 @@ of adaptation \emph{using population frequency data}. In fact, for $s>0$ we
 		$h>1$ &overdominance
 	\end{tabular}
 \end{center}}
-\paragraph{Software.}
-The source code and running scripts for \comale\ are available at \\
-\href{https://github.com/bafnalab/comale}{https://github.com/bafnalab/comale}.

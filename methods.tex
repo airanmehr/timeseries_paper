@@ -30,7 +30,7 @@ Gaussian process for allele frequencies, are also susceptible to this
 issue.
 
 Instead, by computing likelihood of data using a discrete-time
-discrete-state-space Wright-Fisher Markov Chain, we turn the problem
+discrete-state-space Wright-Fisher Markov chain, we turn the problem
 of small-population size into an advantage. Consider a neutrally
 evolving diploid population with $N$ individuals. Define a
 $2N\times2N$ transition matrix $P$, where $P^{(\tau)}[i,j]$ denotes
@@ -89,8 +89,9 @@ get:
   \Lc_M(s,h|\{\bm{\nu}^{(r)}\}) = \prod_r   \Lc_M(s,h|\bm{\nu}^{(r)}).
   \label{eq:mkvlik}
 \end{equation}
-Let $\hat{s},\hat{h}$ denote the parameters that maximize the likelihood. The
-simplest form of the test statistic for each variant is given by
+Let $\hat{s},\hat{h}$ denote the parameters that maximize the
+likelihood. The simplest form of the test statistic (\comale-M) for
+each variant is given by
 \begin{eqnarray}
 M= \log 
 \left(\frac{\Lc_M(\hat{s},\hat{h}|\{\bm{\nu}^{(r)}\})}{\Lc_M(0,0|\{\bm{\nu}^{(r)}\})}\right).
@@ -106,11 +107,11 @@ M= \log
 In the discussion so far, we assumed that the exact allele frequencies
 are supplied. However, in most cases, allele frequencies are estimated
 from genotype data with finite samples or pooled-sequencing data with
-finite depth of coverage (See Fig.~\ref{fig:stateConditional}).
+finite depth of coverage (Suppl.~Fig.~\ref{fig:stateConditional}).
 Moreover, the depth at a site varies for different replicates, and
-different time samples (Fig.~\ref{fig:depthHetero}). To account for
-this heterogeneity, we extend the Markov chain in Eq.~\ref{eq:mkvlik}
-to a Hidden Markov Model for pooled-seq data.
+different time samples (Suppl.~Fig.~\ref{fig:depthHetero}). To account
+for this heterogeneity, we extend the Markov chain in
+Eq.~\ref{eq:mkvlik} to a Hidden Markov Model for pooled-seq data.
 
 Consider a variant position being sampled at time point $\tau_t\in
 {\cal T}$. We denote the pooled-seq data for that variant as $x_t =
@@ -143,8 +144,8 @@ observed data from $R$ independent observations is given by
   \label{eq:hmmlik}
 \end{equation}
 Similar to Eq.~\ref{eq:mcts}, let $s^*,h^*$ denote the parameters that
-maximize likelihood. The modified likelihood statistic for pool-seq
-data is given by
+maximize likelihood. The modified likelihood statistic (\comale-H) for
+pool-seq data is given by
 \begin{eqnarray}
 H &=& \log 
 \left(\frac{\Lc_H(s^*,h^*|\{\bm{x}^{(r)}\})}{\Lc_H(0,0|\{\bm{x}^{(r)}\})}\right).
@@ -167,27 +168,35 @@ likelihoods, to get a Composite Likelihood Ratio score
 popular and effective method for detecting regions under
 selection~\cite{vitti2013detecting}.
 
-Let $\Lambda_{\cal M}(\ell)$ (or, $\Lambda_{\cal H}(\ell)$) denote the
-likelihood ratio score for each site $\ell$ in $L$. Under positive
-selection, a site $\ell$ increases in frequency, and sites on the same
-lineage correspondingly increase in frequency too, at the expense of
-sites on other branches, which decrease or drift in frequency. In
-computing composite likelihood for a region, we can choose to only
-include sites whose likelihood ratio score is above a certain
-threshold. For percentile cut-off $\pi$, let $L_{\pi}\subseteq L$
-denote the set of sites whose likelihood ratio scores had percentile
-$\pi$ or better. For all $\pi$, the modified CLR statistic for Markov
-chain and HMM is computed using:
+Let $M_\ell$ (respectively, $H_\ell$) denote the likelihood ratio
+score based on Markov chain (respectively, HMM) for each site $\ell$
+in $L$. Under positive selection, a site $\ell$ increases in
+frequency, and sites on the same lineage correspondingly increase in
+frequency too, at the expense of sites on other branches, which
+decrease or drift in frequency. In computing composite likelihood for
+a region, we can choose to only include sites whose likelihood ratio
+score is above a certain threshold. For percentile cut-off $\pi$, let
+$L_{\pi}\subseteq L$ denote the set of sites whose likelihood ratio
+scores had percentile $\pi$ or better. For all $\pi$, the modified CLR
+statistic for Markov chain and HMM is computed using:
 \begin{eqnarray}
   {\cal M}_{\pi} &=& \frac{1}{|L_{\pi}|}\sum_{\ell \in L_{\pi}}M_\ell\;,\\
 {\cal H}_{\pi} &=& \frac{1}{|L_{\pi}|}\sum_{\ell \in L_{\pi}} H_\ell\; .
   \label{eq:pihmm}
 \end{eqnarray}
-Note that ${\cal M}_{100},{\cal H}_{100}$ (respectively, ${\cal M}_0,{\cal 
-H}_0$) correspond to the CLR after choosing the best
-(respectively, all) site(s) in the region.
+In summary, we use \comale-M to denote Markov Chain based likelihood
+scores, and \comale-H to denote HMM based likelihood scores. We use
+$M$, Eq.~\ref{eq:mcts} (respectively, $H$, Eq.~\ref{eq:hmmml}) to
+denote the \comale\ scores for single sites, and $\Mc_{\pi}$
+(respectively, $\Hc_{\pi}$) to denote the \comale\ scores for a
+window. Note that ${\cal M}_{100},{\cal H}_{100}$ (respectively,
+${\cal M}_0,{\cal H}_0$) correspond to the CLR after choosing the best
+(respectively, all) site(s) in the region. In the following, we
+sometimes use $\Mc$ (respectively, $\Hc$) to denote $\Mc_0$
+(respectively, $\Hc_0$) for brevity of notation.
 
-
+\paragraph{Site-localization.} To identify the favored site itself, we rank
+all sites in the window according to $M$ or $H$.
 
 \paragraph{Estimating parameters.}
 \label{sec:regression}
@@ -200,11 +209,11 @@ of the parameters can be found by
 \left(\Lc_{\cal H}(s,h|\bm{x}^{(r)}\right).\label{eq:hmmmle}
 \eeqn
 where likelihoods are defined in Eq.~\ref{eq:mkvlik} and
-Eq.~\ref{eq:hmmlik}, respectively. 
-Objective functions Eqs.~\ref{eq:mcmle}, ~\ref{eq:hmmmle} are optimized using a 
-a simple grid search and the operations are vectorized
-for all variants. Using this simple optimization, solution is obtained in a 
-reasonable time (see Fig.~\ref{fig:runTime}).
+Eq.~\ref{eq:hmmlik}, respectively.  The parameters in
+Eqs.~\ref{eq:mcmle},~\ref{eq:hmmmle} are optimized using grid search,
+and the operations are vectorized for all variants. Using this simple
+optimization, solution is obtained in a reasonable time (see
+Fig.~\ref{fig:runTime}).
 
 \paragraph{Precomputing Transition Matrices.}
 \comale\ requires pre-computation of matrices $P$ and $Q_{s,h}$ for
@@ -232,22 +241,23 @@ We asked if SFS-based tests could be adapted for time-series data. A
 simple approach is to use cross-population SFS tests on the
 populations at time $0$ (before onset of selection), and at time
 sample $\tau_t$, for each $t$. However, these tests are not
-independent. Evans \emph{et al.}~\cite{evans2007non} developed diffusion
-equations for evolution of SFS in time series, but they are difficult
-to solve. Instead, we derive a formula for computing $D_t$, the
-dynamic of Tajima's D at generation $t$ (see Fig.~\ref{fig:sfs}), in terms of 
-initial statistic
-$D_0$, initial carrier frequency $\nu_0$ and $s$, as
+independent. Evans \emph{et al.}~\cite{evans2007non} developed
+diffusion equations for evolution of SFS in time series, but they are
+difficult to solve. Instead, we derive a formula for computing $D_t$,
+the dynamic of Tajima's $D$ at generation $t$. Specifically, for
+initial value $D_0$, initial carrier frequency $\nu_0$ and selection-coefficent $s$:
 \begin{equation}
   D_t=D_0-\log(1-\nu_t) \frac{W_0}{\log(2N)} -\nu_t^2 \Pi_0\;,
   \label{eq:tdt}    
 \end{equation}
-where $W_0$ and $\Pi_0$ are Watterson and Tajima estimates of $\theta$
-in the initial generation (Appendix~\ref{app:td}). Similarly, we show
-(Appendix~\ref{app:h}), that the dynamics of the $H$ statistic are
-directly related to average of Haplotype Allele Frequency (HAF)
-score~\cite{ronen2015predicting}, and can be written as a function of
-$\nu_t$ as follows:
+where $W_0$ and $\Pi_0$ are Watterson's and Tajima's estimates of
+$\theta$ in the initial generation (Appendix~\ref{app:td}).  See
+Suppl.~Fig.~\ref{fig:sfsts} for comparison to empirical values from
+simulations. Similarly, we show (Appendix~\ref{app:h}), that the
+dynamics of Fay and Wu's $H$ statistic~\cite{fay2000hitchhiking} are
+directly related to expected value of the of Haplotype Allele
+Frequency (HAF) score~\cite{ronen2015predicting}, and can be written
+as a function of $\nu_t$ as follows:
 \begin{equation}
   nH_t= \theta \nu_t \left(\frac{\nu_t+1}{2} -
     \frac{1}{(1-\nu_t)n+1}\right) + \theta
@@ -255,10 +265,10 @@ $\nu_t$ as follows:
   \label{eq:ht}
 \end{equation}	
 In both cases, $\nu_t$ itself can be written as a function of $s,t$
-(Eq.~\ref{eq:inf-pop}). This allows us to compute likelihood functions
-$\Lc_S(s,h; \{D_t\})$ or $\Lc_S(s,h; \{H_t\})$. Then, a likelihood
-ratio, similar to Eqns.~\ref{eq:mcts},~\ref{eq:hmmml} provides a
-statistic for detecting selection in each window.
+(Suppl.~Eq.~\ref{eq:inf-pop}). This allows us to compute likelihood
+functions $\Lc_S(s,h; \{D_t\})$ or $\Lc_S(s,h; \{H_t\})$. Then, a
+likelihood ratio, similar to Eqns.~\ref{eq:mcts},~\ref{eq:hmmml}
+provides a statistic for detecting selection in each window.
 
 However, as $\nu_0$ and $D_0$ are often unknown in the sampling from
 natural population experiments, we cannot directly use
@@ -281,18 +291,19 @@ the negative controls.}
 
 
 \subsection{Simulations}
-To implement real world scenario for experimental evolution we
-simulated populations as follows (see also, Fig.~\ref{fig:ee} B for
-illustration):
+We performed extensive simulations using parameters that have been
+used for \emph{Drosophila} experimental
+evolution~\cite{kofler2013guide}. See also Fig.~\ref{fig:ee} for
+illustration.
 \begin{enumerate}[I.]
-\item {\bf Creating initial founder line haplotypes.} Using msms
-  program~\cite{ewing2010msms}, we created neutral populations for $F$ founding
-  haplotypes with \emph{default} parameters \texttt{\$./msms <F> 1 -t
-    <2$\mu$LNe> -r <2rNeL> <L>}, where $F=200$ is number of founder
-  lines, $N_e=10^6$ is effective population size, $r=2*10^{-8}$ is
-  recombination rate, $\mu=2\times 10^{-9}$ is mutation rate and
-  $L=50K$ is the window size in base pairs which gives $\theta=2\mu
-  N_eL=200$ and $\rho=2N_erL=2000$. 
+\item {\bf Creating initial founder line haplotypes.} Using
+  \texttt{msms}~\cite{ewing2010msms}, we created neutral populations for $F$
+  founding haplotypes with \emph{default} parameters \texttt{\$./msms
+    <F> 1 -t <2$\mu$LNe> -r <2rNeL> <L>}, where $F=200$ is number of
+  founder lines, $N_e=10^6$ is effective population size,
+  $r=2*10^{-8}$ is recombination rate, $\mu=2\times 10^{-9}$ is
+  mutation rate and $L=50K$ is the window size in base pairs which
+  gives $\theta=2\mu N_eL=200$ and $\rho=2N_erL=2000$.
   
 \item{\bf Creating initial diploid population.} To simulate
   experimental evolution of diploid organisms, initial haplotypes were
@@ -302,19 +313,18 @@ illustration):
 
 \item{\bf Forward Simulation.} We used forward simulations for
   evolving populations under selection. We note that all experiments
-  denoted as `soft-sweep' in the results are soft-sweep when selection
-  acts upon standing variation. Given initial diploid population,
-  position of the site under selection, selection strength $s$, number
-  of replicates $R=3$, recombination rate $r=2\times10^{-8}$ and
-  sampling times $\Tc=\{10,20,30,40,50\}$, \texttt{simuPop} was used
-  to perform forward simulation and compute allele frequencies for all
-  of the $R$ replicates. Also, to avoid spurious simulation samples,
-  simulation results were constrained to those samples where the
-  favored allele escaped stochastic loss due genetic drift, and
-  established in all replicates. For hard sweep (and soft sweep)
-  simulations we randomly chosen a site with initial frequency of
-  $\nu_0=0.005$ (and $\nu_0=0.1$ for soft sweep) to be the favored
-  allele.
+  denoted as \emph{soft-sweep} below, refer to selection acting upon
+  standing variation. Given initial diploid population, position of
+  the site under selection, selection strength $s$, number of
+  replicates $R=3$, recombination rate $r=2\times10^{-8}$ and sampling
+  times $\Tc=\{10,20,30,40,50\}$, \texttt{simuPop} was used to perform
+  forward simulation and compute allele frequencies for all of the $R$
+  replicates. To avoid spurious simulation samples, simulation results
+  were constrained to those samples where the favored allele escaped
+  stochastic loss due genetic drift, and established in all
+  replicates. For hard sweep (respectively, soft sweep) simulations we
+  randomly chosen a site with initial frequency of $\nu_0=0.005$
+  (respectively, $\nu_0=0.1$) to be the favored allele.
   \item{\bf Sequencing Simulation.} Give allele frequency trajectories we 
   sampled depth of each site  identically and independently from 
   Poisson($\lambda$), where $\lambda \in \{30,100,\infty\}$ is the coverage for 
@@ -322,15 +332,18 @@ illustration):
   the number of derived allele read counts $c$ are sampled according to 
   Binomial$(d,\nu)$. For the experiments with finite depth the tuple $(c,d)$ is 
   the input data for each site, and for infinite depth experiments simply 
-  allele frequency is given and Markov Chain is evaluated for the HMM method, 
+  allele frequency is given and Markov chain is evaluated for the HMM method, 
   i.e. $\Hc=\Mc$.
 \end{enumerate}
-
 We also conducted simulations to test methods in the
-sampling-from-natural-populations setting. Unlike the experimental
-evolution simulation, here mutations after onset of selection are
-taken into account.  \texttt{msms} simulator is used to forward
-simulate a population with $N_e=10^4$, $\nu_0=10^{-4}$ and record SFS
-of a 50Kbp region as well as the frequency. The reset of parameters
-are chosen the same as experimental evolution (see
-Fig.~\ref{fig:ee}A).
+sampling-from-natural-populations setting. The natural populations
+setting differs from experimental evolution in some important
+ways. First, the time of onset of selection may not be known. Second,
+we also consider mutations that arose after the onset of selection,
+and sampling. While it is generally believed that the favored
+mutations arise from standing variation, the incorporation of new
+mutations helps strengthen statistics that evaluate the site frequency
+spectrum of an entire region. \texttt{msms} was used to
+forward-simulate a population with $N_e=10^4$, $\nu_0=10^{-4}$, and to
+record SFS of a 50Kbp region (Fig.~\ref{fig:ee}A). The remaining
+parameters were identical to experimental evolution.

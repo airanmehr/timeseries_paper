@@ -1,6 +1,5 @@
 \section{Discussion}
-
-We developed a computational tool \comale, that can detect regions
+We developed a computational tool, \comale, that can detect regions
 under selection experimental evolution experiments of sexual
 populations. Using extensive simulations, we show that \comale\
 outperforms existing methods in detecting selection, locating the
@@ -43,18 +42,17 @@ the large number of wild type (e.g., for \emph{Drosophila},
 10^2$) for Experimental Evolution, and the evolution includes a severe
 population bottleneck. This bottleneck confounds SFS-based statistics
 and makes it difficult to fit a model or test a hypothesis
-(Fig.~\ref{fig:bottleneck}).  Hence we exclude SFS-based statistics
-for experimental evolution of controlled populations when the initial
-sampling time is close to the onset of selection. However, in
-time-series sampling of Natural populations, the time of onset of
-selection, may not be known. Even in this setting \comale\ outperforms
+(Suppl.~Fig.~\ref{fig:bottleneck}).  Hence we exclude SFS-based
+statistics for experimental evolution of controlled populations when
+the initial sampling time is close to the onset of selection. However,
+in time-series sampling of Natural populations, the time of onset of
+selection may not be known. Even in this setting \comale\ outperforms
 other tools including SFS based statistics, except in the case where
-beneficial allele is close to fixation. For this specific scenario, we
+the favored allele is close to fixation. For this specific scenario, we
 developed time-dependent SFS based tests, and show excellent
 performance compared to all other tests. Both \comale\ and SFS based
 tests are implemented in the \comale\ software. In the default mode,
-\comale\ computes scores for all tests, to identify regions under
-selection.
+\comale\ computes scores for all tests.
 	
 
 In our simulations, we found that the power of detection can be
@@ -67,7 +65,7 @@ for the entire duration of the sweep. However, even if it were
 possible to sample over a larger time-span, many methods, especially
 the ones that compute full likelihoods, would simply not scale to
 allow computation of evolutionary trajectories over a large
-time-span. In contrast \comale\ precomputes the transition matrices,
+time-span. In contrast, \comale\ precomputes the transition matrices,
 and scales linearly with number of samples, irrespective of the
 time-span in which they were acquired.
 
@@ -80,15 +78,15 @@ The performance of tools in hard versus soft (standing variation)
 scenarios is a bit counter-intuitive. On the one hand, linkage is
 strongest in hard-sweep scenarios and a composite likelihood ratio
 would achieve better power. On the other hand, the growth of the
-favored allele (and other hitchiking alleles) is sigmoidal, and we are
-closer to the exponential growth while sampling if $\nu_0$ is
+favored allele (and other hitchiking alleles) is sigmoidal. Therefore,
+we are closer to the exponential growth while sampling if $\nu_0$ is
 higher. We model these contrasting issues by introducing the parameter
 $\pi$, the percentile cut-off for including an allele in the composite
 statistic. While $\pi=0$ (including all variants) is reasonably robust
 in all scenarios, it works best in a hard-sweep case. However in
-soft-sweep scenarios, where $\nu_0>>0$ (close to one), the beneficial
-allele is at low LD with its vicinity, and larger $\pi$ works better
-by filtering out sites that are not linked with the favored
+soft-sweep scenarios, where $\nu_0>>0$ (close to one), the favored
+allele is in low LD with neighboring variants, and larger $\pi$ works
+better by filtering out sites that are not linked with the favored
 allele. The automated choice for the best value of $\pi$ will be a
 subject of future research. Here we show results fixing
 $\pi=0$. Contextually modifying these parameters helps \comale\

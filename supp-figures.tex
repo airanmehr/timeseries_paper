@@ -1,4 +1,19 @@
-\section{Supplemental Figs. and Tables}
+\section{Supplemental Figures and Tables}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim=1in 0.1in 1in 
+	0.1in,clip,width=\textwidth]{figures/sfs.pdf}
+	\caption{{\bf Site Frequency Spectrum.} Theoretical and
+          Empirical SFS for a neutral population of 200
+          individuals. The $x$-axis corresponds to site frequency, and
+          the $y$-axis to the number of variants with a specific
+          frequency. The SFS changes shape for region under
+          selection. } \label{fig:sfs}
+\end{figure}
+
+
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{figures/trajectoryReal.pdf}
@@ -20,8 +35,10 @@
 	\caption{{\bf Posterior distribution of allele frequency.}
           Distribution of allele hidden frequency for different values
           of depth $d=\{5,50,500\}$. In all cases, the true frequency
-          is $0.5$, while the estimated frequency varies around it,
-          with variance higher for low read-depths.}
+          is $0.5$. The estimated frequency values are distributed
+          around the true value in all cases. However, the variance is
+          much higher for low read-depths. Therefore, tests with low
+          sequence coverage show low power.}
 	\label{fig:stateConditional}
 \end{figure}
 \begin{figure}[H]
@@ -85,7 +102,7 @@
 \begin{figure}[H]
 	\includegraphics[trim=1in 0.1in 1in 
 	0.1in,clip,width=\textwidth]{figures/AF.pdf}
-	\caption{{\bf Theoretical (Markov Chain) and Empirical
+	\caption{{\bf Theoretical (Markov chain) and Empirical
             trajectories of favored allele for hard and soft sweep
             scenarios}.  Theoretical and empirical trajectories of the
           frequency of the favored allele are computed for $1,000$ EE
@@ -126,6 +143,7 @@
 	\label{fig:depth}
 \end{figure}
 
+\ignore{
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{figures/manhattan.pdf}
@@ -145,6 +163,7 @@
 		expected ($\approx$1100). } 
 	\label{fig:manhattan}
 \end{figure}
+}
 
 \begin{figure}[H]
 	\centering
@@ -178,20 +197,11 @@
 
 
 \begin{figure}[H]
-	\centering
-	\includegraphics[trim=1in 0.1in 1in 
-	0.1in,clip,width=\textwidth]{figures/sfs.pdf}
-	\caption{{\bf Site Frequency Spectrum.} Theoretical and Empirical SFS for a 
-	neutral population of 200 
-		individuals.}	\label{fig:sfs}
-\end{figure}
-
-\begin{figure}[H]
 	\centering 
 	\includegraphics[width=\textwidth]{figures/{msmsts}.pdf}
-	\caption{{\bf Dynamic SFS-base statistics.} Mean and 95\% CI of 100 
-	simulations for neutral (blue trajectories) selection with $s=0.1$ (red 
-	trajectories).}
+	\caption{{\bf Dynamic SFS-based statistics.} Mean and 95\% CI
+          of 100 simulations for neutral (blue trajectories) selection
+          with $s=0.1$ (red trajectories).}
 	\label{fig:sfsts}
 \end{figure}
 
@@ -199,16 +209,15 @@
 	\centering
 	\includegraphics[trim=.2in 0 .2in 0, 
 	clip,width=\textwidth]{figures/{rank30.0}.pdf}
-	\caption{{\bf Ranking performance for 30X coverage.} Cumulative 
-	Distribution  Function (CDF) of the distribution of the 
-		rank of the adaptive allele in 500 simulations for Markov Chain 
-		($\Mc$), 
-		Gaussian Process (GP) and Frequency Increment Test (FIT), for different 
-		values of selection strength $s$ and initial carrier frequency, when 
-		coverage is 30. Area Under 
-		Curve (AUC) is computed as a quantitative measure ranking performance 
-		of 
-		methods for each configuration.}
+	\caption{{\bf Ranking performance for 30X coverage.}
+          Cumulative Distribution Function (CDF) of the distribution
+          of the rank of the adaptive allele in 500 simulations for
+          \comale-H ($H$), Gaussian Process (GP) and Frequency
+          Increment Test (FIT), for different values of selection
+          strength $s$ and initial carrier frequency, when coverage is
+          30. Area Under Curve (AUC) is computed as a quantitative
+          measure ranking performance of methods for each
+          configuration.}
 	\label{fig:rank30}
 \end{figure}
 
@@ -216,32 +225,30 @@
 	\centering
 	\includegraphics[trim=.2in 0 .2in 0, 
 	clip,width=\textwidth]{figures/{rank300.0}.pdf}
-	\caption{{\bf Ranking performance for 300X coverage.} Cumulative 
-	Distribution  Function (CDF) of the distribution of the 
-		rank of the adaptive allele in 500 simulations for Markov Chain 
-		($\Mc$), 
-		Gaussian Process (GP) and Frequency Increment Test (FIT), for different 
-		values of selection strength $s$ and initial carrier frequency, when 
-		coverage is 300. Area Under 
-		Curve (AUC) is computed as a quantitative measure ranking performance 
-		of 
-		methods for each configuration.}
+	\caption{{\bf Ranking performance for 300X coverage.}
+          Cumulative Distribution Function (CDF) of the distribution
+          of the rank of the adaptive allele in 500 simulations for
+          \comale-H ($H$), Gaussian Process (GP) and Frequency
+          Increment Test (FIT), for different values of selection
+          strength $s$ and initial carrier frequency, when coverage is
+          300. Area Under Curve (AUC) is computed as a quantitative
+          measure ranking performance of methods for each
+          configuration.}
 	\label{fig:rank300}
 \end{figure}
 \begin{figure}[H]
 	\centering
 	\includegraphics[trim=.2in 0 .2in 0, 
 	clip,width=\textwidth]{figures/rankinf.pdf}
-	\caption{{\bf Ranking performance for infinite coverage.} Cumulative 
-	Distribution  Function (CDF) of the distribution of the 
-		rank of the adaptive allele in 500 simulations for Markov Chain 
-		($\Mc$), 
-		Gaussian Process (GP) and Frequency Increment Test (FIT), for different 
-		values of selection strength $s$ and initial carrier frequency, when 
-		coverage is infinite. Area Under 
-		Curve (AUC) is computed as a quantitative measure ranking performance 
-		of 
-		methods for each configuration.}
+	\caption{{\bf Ranking performance for infinite coverage.}
+          Cumulative Distribution Function (CDF) of the distribution
+          of the rank of the adaptive allele in 500 simulations for
+          \comale-H ($H$), Gaussian Process (GP) and Frequency
+          Increment Test (FIT), for different values of selection
+          strength $s$ and initial carrier frequency, when coverage is
+          infinite. Area Under Curve (AUC) is computed as a
+          quantitative measure ranking performance of methods for each
+          configuration.}
 	\label{fig:rankinf}
 \end{figure}
 

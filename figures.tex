@@ -25,7 +25,7 @@
 	\includegraphics[width=\textwidth]{figures/{markovDists}.pdf}
         \caption{{\bf Comparison of empirical distributions of allele
             frequencies (green) versus predictions from Brownian
-            Motion (red), and Markov Chain (blue).} Panels A-F:
+            Motion (red), and Markov chain (blue).} Panels A-F:
           Experiments were conducted under neutral evolution with
           different starting frequencies $\nu_0\in\{0.005,0.1\}$ and
           sampling times $\tau \in \{1,10,100\}$ generations. The
@@ -42,9 +42,9 @@
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{figures/powerCLR.pdf}
-	\caption{{\bf Detection power for Markov chain and HMM with
+	\caption{{\bf Detection power of \comale-M and \comale-H with
             different composite statistics.}  Detection power for
-          Markov chain ($\Mc$) and HMM ($\Hc$) under hard (top) and
+          \comale-M ($\Mc$) and \comale-H ($\Hc$) under hard (top) and
           soft sweep (bottom) scenarios, for different settings of
           mean coverage $\lambda$ and selection strength $s$.  The
           $y$-axis measures power -- sensitivity with false positive
@@ -85,7 +85,7 @@
 	\includegraphics[width=0.7\textwidth]{figures/naturalee.pdf}
 	\caption{{\bf Power of SFS based statistics.} Power of
           detecting selection for Frequency Increment Test (FIT),
-          Gaussian Process (GP), \comale\ ($\Hc$) on hard-sweep
+          Gaussian Process (GP), \comale-H ($\Hc$) on hard-sweep
           natural experimental evolution with $N_e=10^4$ and depth
           $\lambda=\infty$. The measurements are conducted for a range
           of selection coefficients, $s$. Each point represents the
@@ -112,7 +112,7 @@
 	\caption{{\bf Ranking performance for 100X coverage.} Cumulative 
 	Distribution Function (CDF) of the
           distribution of the rank of the adaptive allele in 500
-          simulations for Hidden Markov Model (HMM), Gaussian Process (GP),
+          simulations for \comale-H, Gaussian Process (GP),
           CMH, and Frequency Increment Test (FIT), for different
           values of selection coefficient $s$ and initial carrier
           frequency. Area Under Curve (AUC) is computed as a
@@ -126,15 +126,15 @@
 \begin{figure}[H]
 	\centering
 \includegraphics[width=0.6\textwidth]{figures/{bias.100}.pdf}
-\caption{{\bf Distribution of bias for 100X coverage.} The distribution of bias
-  ($s-\hat{s}$) in estimating selection coefficient over 500
-  simulations using Gaussian Process (GP) and Hidden Markov Model (HMM) is 
-  shown for a range of choices for the selection
-  coefficient $s$ and starting carrier frequency $\nu_0$, when coverage is 100. 
-  The estimation performance of GP and HMM are very similar in soft sweep, 
-  while HMM provides lower variance in hard sweep(overall standard 
-  deviation is 0.036 for GO and is 0.028 for HMM).
-  }
+\caption{{\bf Distribution of bias for 100X coverage.} The
+  distribution of bias ($s-\hat{s}$) in estimating selection
+  coefficient over 500 simulations using Gaussian Process (GP) and
+  \comale-H is shown for a range of choices for the selection
+  coefficient $s$ and starting carrier frequency $\nu_0$, when
+  coverage is 100.  The estimation performance of GP and HMM are very
+  similar in soft sweep, while HMM provides lower variance in hard
+  sweep(overall standard deviation is 0.036 for GO and is 0.028 for
+  HMM).  }
 	\label{fig:bias100}
 \end{figure}
 
@@ -146,8 +146,10 @@
 	\caption{{\bf \comale\ analysis of a \emph{Drosophila} EE
             experiment}. Manhattan plot of the composite $\Hc$
           statistic (top) and the number of SNPs (bottom) in 50Kbp
-          sliding window with steps of 10Kbp, excluding windows with
-          less that 500 SNPs.}
+          sliding window with steps of 10Kbp, excluding windows close
+          to centromere and telomere. The dashed line corresponds to
+          the top $1$\%-ile cut-off. For comparison to past results,
+          only Chromosomes 2, 3, and X are shown.}
 	\label{fig:manhattancutoffed}
 \end{figure}
 

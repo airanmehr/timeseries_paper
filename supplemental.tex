@@ -19,14 +19,14 @@
 \label{app:af}
 Assume that a site is evolving under selection constraints $s,h\in
 \Rbb$, where $s$ and $h$ denote selection strength and dominance,
-respectively. Let $\nu_t$ denotes the frequency of the site at
-time $\tau_t\in {\cal T}$. Then, $\nusp$, the frequency at time
-$\tau_t+1$ can be estimated (See Eq.~\ref{eq:transition}) using: 
+respectively. Let $\nu_t$ denote the frequency of the site at time
+$\tau_t\in {\cal T}$. Then, $\nusp$, the frequency at time $\tau_t+1$
+can be estimated (See Eq.~\ref{eq:transition}) using:
 \[\hat{\nu}_{t^+}
 =\nu_t+\frac{s(h+(1-2h)\nu_t)\nu_t(1-\nu_t)}{1+s\nu_t(2h+(1-2h)\nu_t))}.
   \label{eq:transition}
 \]
-We can show that the dynamic of the beneficial allele can be modeled
+We can show that the dynamic of the favored allele can be modeled
 via a logistic function, in the case of directional selection
 ($h=0.5$). Taking derivatives of Eq.~\ref{eq:transition}, we have
 \beq \frac{\bfd \nu_t}{\bfd t} = \frac{s\nu_t(1-\nu_t)}{2+2s\nu_t}
@@ -42,7 +42,7 @@ where $\sigma(.)$ is the logistic function and $\eta(.)$ is logit function
 \subsection{Dynamic of Tajima's D}\label{app:td}
 In this part we derive dynamic of Tajima's $D$ statistic in \emph{hard
   sweep} as function of its value at the onset of selection, $D_0$,
-selection strength and the frequency of the beneficial allele at the
+selection strength and the frequency of the favored allele at the
 onset of selection.  Let $D_0, \Pi_0, W_0$, be Tajima's D, Tajima's
 estimate of $\theta$, and Watterson's estimate of $\theta$ at time
 zero and $D_0=\Pi_0 - W_0$.  In order to compute, $D_t=\Pi_t - W_t$ we
@@ -130,7 +130,7 @@ to examine the behavior of LD as a result of the interaction between
 recombination and natural selection. In this part we theoretically overview 
 expected LD in short EEs.
 
-Let $\rho_0$ be the LD at time zero between the beneficial allele and a 
+Let $\rho_0$ be the LD at time zero between the favored allele and a 
 segregating site $l$ base-pairs away, then under natural selection we have
 \beq
 \rho_t= \alpha_t\beta_t \rho_0=e^{-rtl} \left(\frac{H_t}{H_0}\right)  
@@ -142,12 +142,12 @@ the recombination rate/bp/gen. The
 and \emph{growth factor}, $\beta_t$ (see Eq. 30-31 in 
 \cite{Stephan2006The}), are result of recombination and 
 selection, respectively. Fig.~\ref{fig:ld3d} presents the expected theoretical 
-value of LD when $\rho_0=0.5$ between beneficial allele (site at position 500K) 
+value of LD when $\rho_0=0.5$ between favored allele (site at position 500K) 
 and the rest of 
 genome, and $\nu_0=0.1$. For neutral evolution (top), LD decays exponentially 
 through space and time, while in natural selection (bottom), LD increases and 
 then decreases. Interestingly, LD increases to its maximum value, 1, for the 
-nearby region (the plateau in the Fig.~\ref{fig:ld3d} bottom) of the beneficial 
+nearby region (the plateau in the Fig.~\ref{fig:ld3d} bottom) of the favored 
 allele.
 
 In principle, LD increases after the onset of selection, until $\log(\alpha_t) 
@@ -158,7 +158,7 @@ Eq.~\ref{eq:inf-pop}, we write growth
 factor in term of initial frequency $\nu_0$ and selection strength $s$. 
 Fig.~\ref{fig:ldf} depicts interaction of decay and growth factors for weak and 
 strong selection and soft and hard sweeps. In all the case, LD of the 
-beneficial allele with a segregating site 50Kbp away, increases in the first 50 
+favored allele with a segregating site 50Kbp away, increases in the first 50 
 generations, which give rise to increasing number of \emph{hitchhikers}. 
 
 Increase of LD in a large (100Kbp) region is particularly advantageous to the 
@@ -167,5 +167,8 @@ used. As a result, $\Hc$ statistic outperforms existing (single-loci) tools in
 identifying selection. In contrast, augmentation of LD, increases the 
 number 
 of candidates for 
-the beneficial allele, which makes is difficult to localize the beneficial 
+the favored allele, which makes is difficult to localize the favored 
 allele.
+
+\clearpage
+\newpage
