@@ -4,64 +4,47 @@ under selection experimental evolution experiments of sexual
 populations. Using extensive simulations, we show that \comale\
 outperforms existing methods in detecting selection, locating the
 favored allele, and estimating selection parameters. Importantly, we
-make design choices that make \comale\ very fast in practice, allowing
-us to scan all variants in genome-wide studies.
+make design choices that make \comale\ very fast in practice, facilitates 
+``genomic scan" step in genome-wide association studies.
 
 
 Many factors play a role in adaptation during experimental evolution
 studies. The statistics used by \comale\ perform well because they
-account for many of these aspects, including complete and exact
-modeling of time-series data, not restricted to two-time point
-time-series, correction of ascertainment bias for finite-depth
-pooled-seq or finite sample variant data, and linkage within a region
-using composite likelihood statistics. \comale\ uses $s,h$ as model
+account for many of these aspects. First by including complete and exact 
+(discrete) modeling of time-series data, \comale\ is not restricted to two-time 
+point time-series and provides robust predictions for all values of initial 
+frequency. Second, \comale\ adjusts for heterogeneous ascertainment bias in 
+finite-depth pooled-seq data to avoid hard filtering variants.
+Third, \comale\ exploits presence of high linkage within a region to compute 
+composite likelihood ratio statistic. 
+Fourth, \comale\ uses $s,h$ as model
 parameters in its likelihood calculation, and provides optimized
-estimates of these parameters.
+estimates of these parameters, which can provide extra information such as 
+fixation time, and kind of selection (e.g. balancing selection).
 
+In our simulations, we found that the power of detection can be
+severely affected by sampling schedule as well as initial frequency of
+the favored allele.
 In general, while EE studies are powerful, they also pose some
 challenges that are not adequately considered by other tools. One
 serious constraint is the \emph{sampling-time-span}, the gap between
 the first and last sampled generations, which depends upon the
 generation time of the organism. It can be very small relative to the
-time of fixation of the favored allele. In \emph{Drosophila} for
-example, $30$-$50$ generations are typical, although there are some
-notable exceptions~\cite{zhou2011experimental}.  Therefore, unless the
-selection coefficient is very strong the time series data will only
-capture a `partial sweep'.  This limitation is more critical in the
+time of fixation of the favored allele. In \dmel for
+example, $30$-$50$ generations are typical~\cite{kofler2013guide}, although 
+there are some notable exceptions~\cite{zhou2011experimental}. 
+Therefore, unless the selection coefficient is very strong the time series data 
+will only capture a `partial sweep'. This limitation is more critical in the
 controlled experimental evolution, where the sampling often starts at
 the onset of selection, and favored allele grows in frequency even
 more slowly if the initial frequency of the favored allele is close to
-zero (hard sweep). Through careful modeling, \comale\ performs better
-than competing tools in these constrained scenarios.
+zero (hard sweep). Through exact (discrete-time discrete-frequency) modeling, 
+\comale\ performs better
+than competing tools when initial frequency is low and sampling-time-span is 
+limited.
 
-In controlled experimental evolution experiments, populations are
-evolved and inbred. As this scenario involves picking a small number
-of founders, the effective population size significantly drops from
-the large number of wild type (e.g., for \emph{Drosophila},
-($N_e\approx10^6$) to a small number of founder lines $F$ ($\approx
-10^2$) for Experimental Evolution, and the evolution includes a severe
-population bottleneck. This bottleneck confounds SFS-based statistics
-and makes it difficult to fit a model or test a hypothesis
-(Suppl.~Fig.~\ref{fig:bottleneck}).  Hence we exclude SFS-based
-statistics for experimental evolution of controlled populations when
-the initial sampling time is close to the onset of selection. However,
-in time-series sampling of Natural populations, the time of onset of
-selection may not be known. Even in this setting \comale\ outperforms
-other tools including SFS based statistics, except in the case where
-the favored allele is close to fixation. For this specific scenario, we
-developed time-dependent SFS based tests, and show excellent
-performance compared to all other tests. Both \comale\ and SFS based
-tests are implemented in the \comale\ software. In the default mode,
-\comale\ computes scores for all tests.
-	
 
-In our simulations, we found that the power of detection can be
-severely affected by sampling schedule as well as initial frequency of
-the favored allele. Many experimental evolution methods start sampling
-at the onset of selection, and continue up to $50$ or so
-generations. For small values of the selection coefficient, this may
-not be sufficient, and other experiments might be possible that span
-for the entire duration of the sweep. However, even if it were
+However, even if it were
 possible to sample over a larger time-span, many methods, especially
 the ones that compute full likelihoods, would simply not scale to
 allow computation of evolutionary trajectories over a large
@@ -69,35 +52,78 @@ time-span. In contrast, \comale\ precomputes the transition matrices,
 and scales linearly with number of samples, irrespective of the
 time-span in which they were acquired.
 
+
+
 Sequence coverage is a practical consideration that is often ignored
-by other tools.  In \comale\ we use HMMs to explicitly model variation
+by other tools.
+In \comale\ we use HMMs to explicitly model variation
 in coverage. Consequently, its performance is robust with decrease in
-coverage relative to other tools.
-
-The performance of tools in hard versus soft (standing variation)
-scenarios is a bit counter-intuitive. On the one hand, linkage is
-strongest in hard-sweep scenarios and a composite likelihood ratio
-would achieve better power. On the other hand, the growth of the
-favored allele (and other hitchiking alleles) is sigmoidal. Therefore,
-we are closer to the exponential growth while sampling if $\nu_0$ is
-higher. We model these contrasting issues by introducing the parameter
-$\pi$, the percentile cut-off for including an allele in the composite
-statistic. While $\pi=0$ (including all variants) is reasonably robust
-in all scenarios, it works best in a hard-sweep case. However in
-soft-sweep scenarios, where $\nu_0>>0$ (close to one), the favored
-allele is in low LD with neighboring variants, and larger $\pi$ works
-better by filtering out sites that are not linked with the favored
-allele. The automated choice for the best value of $\pi$ will be a
-subject of future research. Here we show results fixing
-$\pi=0$. Contextually modifying these parameters helps \comale\
-achieve better performance in locating the favored allele, and future
-work will be devoted to identifying the favored allele with higher
-power.
+  coverage relative to other tools.
+In addition, using pool-seq data with low sequencing coverages can lead to 
+missing favored allele in sequencing, especially when the initial frequency is 
+low. We showed that when composite statistic computed using HMM model, \comale\ 
+exhibits a competitive and  stable performance. This mainly is because of 1) 
+HMM consistently models for uncertainty of sequencing and 2) composite 
+likelihood 
+combines scores of candidate polymorphisms in a region, and even if the 
+beneficial allele is being discarded due to sequencing error, its sequenced 
+hitchhikers maintain the signal of selection and used in computing the 
+composite likelihood.
 
 
-Here, we applied \comale\ to a single example of experimental
-evolution--analysis of temperature sensitive adaptation in
-\emph{Drosophila}. However, as EE experiments with sampling of genomic
-sequence increase in popularity, computational tools for identifying
-the genetic basis of adaption will play a key role in observing
-evolution in action.
+In controlled experimental evolution experiments, populations are
+evolved and inbred. As this scenario involves picking a small number
+of founders, the effective population size significantly drops from
+the large number of wild type (e.g., for \dmel,
+($N_e\approx10^6$) to a small number of founder lines $F$ ($\approx
+10^2$) for Experimental Evolution, and the evolution includes a severe
+population bottleneck. This bottleneck confounds SFS-based statistics
+and makes it difficult to fit a model or test a hypothesis
+(Suppl.~Fig.~\ref{fig:bottleneck}).  
+Hence, statistical testing based on SFS statistic provides poor performance in  
+controlled experiments where the initial sampling time is close to the onset of 
+selection. 
+However, when sampling is started when the frequency of the favored allele is 
+high (e.g., sampling from natural populations),
+SFS-based methods perform  very well. In this case, larger time since the onset 
+of selection provides opportunity for new mutations to deviate SFS from 
+neutrality.	
+
+
+\comale\ also take into account of LD in computation of the composite 
+statistic, which not only provides \comale\ with better performance but also it 
+reveals interesting observation in hard and soft sweeps simulations.
+First, with the same selection coefficient, frequency of the favored allele 
+grows faster in soft sweep (higher initial frequency) than hard sweep, which 
+makes identification of selection in soft sweeps a substantially easier task.
+Second, favored allele is in lower LD with its surrounding variation in soft 
+sweep than hard sweep. In the most extreme case where favored allele is not in 
+LD with any variant in the region, frequency of the favored allele changes 
+independently of other variants. Therefore, composition of scores does not 
+improve power of detection. We found that for higher initial frequency taking 
+the maximum of the scores of SNPs provides better performance, while in hard 
+sweep where LD with favored allele is higher, composition of scores 
+significantly improve power of detecting a region as of being under selection 
+or not. Interestingly, in soft sweep case where LD to beneficial allele is 
+lower, significantly better results achieved for localizing favored allele than 
+hard sweeps.
+ 
+
+
+
+Here, we applied \comale\ to the \data~\cite{orozco2012adaptation}. \AI{real 
+data discussion?} 
+
+Finally, we note a possible future direction to adopt \comale\ can used to 
+identify adaptation in other sexual and \emph{asexual} populations. 
+Given preceding observations, \comale\ can potentially provide 
+even better performance of detecting selection in asexual populations, since 
+the performance of \comale\ is being boosted as linkage become higher and the 
+favored allele is in higher LD with its surrounding variation than sexual 
+population due to lack of recombination.
+In site-localization and estimating 
+parameters, \comale\ expected to provide similar performance as it was applied 
+to sexual population.
+
+
+

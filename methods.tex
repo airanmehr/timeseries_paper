@@ -1,20 +1,30 @@
 \section{Materials and Methods}
-
+\label{sec:method}
 \paragraph{Notation.} 
 Consider a locus with starting derived allele frequency
-$\nu_0$. Frequencies are sampled at $T$ distinct generations specified
-by ${\cal T}= \{\tau_i: 1\le \tau_1<\tau_2,\ldots\le \tau_T\}$, and
-denoted by $\bm{\nu}=\{\nu_1,\ldots,\nu_T\}$. Moreover, $R$ replicate
+$\nu_0$. Frequencies are sampled at $T+1$ distinct generations specified
+by ${\cal T}= \{\tau_i: 0\le \tau_0<\tau_1,\ldots\le \tau_T\}$, and
+denoted by $\bm{\nu}=\{\nu_0,\ldots,\nu_T\}$. Moreover, $R$ replicate
 measurements are made, and we denote the $r$-th replicate frequency
 data as $\bm{\nu}^{(r)}$.
 
 \subsection{The \comale\  statistic}
-To identify if the locus is evolving under positive selection, we
-follow previous approaches to focus on a parametrized likelihood based
-model that (a) maximizes the likelihood of the time series data
-w.r.t. selection and overdominance parameters $s,h$; and, (b) computes
+To test if a genomic region is evolving under natural selection, we
+consider a likelihood-based 
+approach~\cite{vitti2013detecting,nielsen2005genomic,Terhorst2015Multi} to 
+ (a) maximizes the likelihood of the time series data
+w.r.t. selection and overdominance parameters $s,h$, for each polymorphism in 
+the region; and, 
+(b) computes
 the log-odds ratio of the likelihood of selection model to the
-likelihood of neutral evolution/drift model.
+likelihood of neutral evolution/drift model, for every polymorphism in 
+the region. 
+Then, (c) site likelihood ratios are combined to compute composite likelihood 
+for a region, \comale\ statistic. 
+Thus, in addition to classifying a window as being under selection or not, 
+computing \comale\ statistic for a region also provides estimate of 
+selection parameters as well as a ranking of variants within the testing 
+region. 
 
 \paragraph{Likelihood for Neutral Model.}
 To model neutral evolution, it is natural to model the change in
@@ -23,10 +33,11 @@ motion~\cite{feder2014Identifying} or Gaussian
 process~\cite{Terhorst2015Multi}. Significant deviations from this
 Null could be indicative of non-neutrality. However, in our
 experiments, we found that the Brownian motion approximation is
-inadequate for small population sizes and low starting frequencies
+inadequate for small populations, low starting frequencies and sparse sampling 
+(in time)
 that are typical in experimental evolution (see Results, and
-Fig.~\ref{fig:markov}). In fact, other continuous models such as
-Gaussian process for allele frequencies, are also susceptible to this
+Fig.~\ref{fig:markov}). In fact, other ``continuous" models such as
+Gaussian process for dynamic allele frequencies, are also susceptible to this
 issue.
 
 Instead, by computing likelihood of data using a discrete-time
@@ -43,18 +54,22 @@ is defined as follows~\cite{Ewens2012Mathematical}:
   (1-\nu_{t})^{2N-j}, \;\;\label{eq:P1}\\
   P^{(\tau)} &=&   P^{(\tau-1)}P^{(1)} \label{eq:Pt}
 \end{eqnarray}
-Note that pre-computing and storing $P^{(\tau)}$ is tractable and
+Note that $P^{(\tau)}$ needs to be computed only once and can be reused for all 
+the variants in the genome. Also, precomputing and storing $P^{(\tau)}$ is 
+tractable and
 numerically stable for controlled experimental evolution experiments
-where $N\le2000$. For larger $N$, we bin the frequencies values.
+with $N\le5000$. 
 
 \paragraph{Likelihood for Selection Model.}
-Assume that the site is evolving under selection constraints $s,h\in
-\Rbb$, where $s$ and $h$ denote selection strength and dominance,
+Assume that the site is evolving under selection constraints $s\in
+\Rbb$, $h\in \Rbb_+$, where $s$ and $h$ denote selection strength and 
+overdominance parameters ,
 respectively. By definition, the relative fitness values of genotypes
 0$|$0, 0$|$1 and 1$|$1 are given by $w_{00}=1$, $w_{01}=1+hs$ and
 $w_{11}=1+s$. Recall that $\nu_t$ denotes the frequency of the site at
 time $\tau_t\in {\cal T}$. Then, $\nusp$, the frequency at time
-$\tau_t+1$ can be estimated using: \beq \hat{\nu}_{t^+} =
+$\tau_{t}+1$ (one generation ahead) can be estimated using: \beq 
+\hat{\nu}_{t^+} =
 \mathbb{E}[\nusp|s,h,\nu_t]&=\frac{w_{11}\nu_t^2 +
   w_{01}\nu_t(1-\nu_t)}{w_{11}\nu^2_t + 2w_{01}\nu_t(1-\nu_t) +
   w_{00}(1-\nu_t)^2}\\
@@ -76,13 +91,16 @@ For $s=0$, Eq.~\ref{eq:Q1} and~\ref{eq:Qt} are identical to
 Eq.~\ref{eq:P1} and~\ref{eq:Pt}, respectively.  The likelihood of
 observing the trajectory $\bm{\nu}$ is computed using:
 \begin{equation}
-  \Lc_M(s,h|\bm{\nu}) = \pr(\bm{\nu};\nu_0,s,h)=
-  \prod_{t=1}^{T} \pr(\nu_{t}|\nu_{t-1};\nu_0,s,h) = \prod_{t=1}^{T} 
+  \Lc_M(s,h|\bm{\nu}) = \pr(\bm{\nu};s,h)=
+  \prod_{t=1}^{T} \pr(\nu_{t}|\nu_{t-1};s,h) = \prod_{t=1}^{T} 
   Q^{(\delta_t)}_{s,h}[\hat{i},\hat{j}],
 %  \label{eq:mkvlik}  
 \end{equation}
-where, $(\hat{i},\hat{j})=(\lfloor 2N\nu_{t-1}\rfloor, \lfloor
-2N\nu_{t}\rfloor)$, and $\delta_t=\tau_{t}-\tau_{t-1}$. Combining the
+where, $(\hat{i},\hat{j})=( 2N\nu_{t-1},
+2N\nu_{t})$\AI{if population size remain 
+constant, $2N\nu$ is always an integer. right?}, and 
+$\delta_t=\tau_{t}-\tau_{t-1}$. 
+Combining the
 likelihood over independent replicate samples $\bm{\nu}^{(r)}$, we
 get:
 \begin{equation}
@@ -90,10 +108,10 @@ get:
   \label{eq:mkvlik}
 \end{equation}
 Let $\hat{s},\hat{h}$ denote the parameters that maximize the
-likelihood. The simplest form of the test statistic (\comale-M) for
-each variant is given by
+likelihood. The simplest form of the Markov likelihood ratio test statistic  
+for each variant (\comale-M) is given by
 \begin{eqnarray}
-M= \log 
+M=\sgn (\hat{s}). \log 
 \left(\frac{\Lc_M(\hat{s},\hat{h}|\{\bm{\nu}^{(r)}\})}{\Lc_M(0,0|\{\bm{\nu}^{(r)}\})}\right).
 \label{eq:mcts}
 \end{eqnarray}
@@ -103,26 +121,29 @@ M= \log
 
 
 
-\paragraph{Accounting for ascertainment bias using an HMM.}
+\paragraph{Accounting for Heterogeneous Ascertainment Bias.}
 In the discussion so far, we assumed that the exact allele frequencies
 are supplied. However, in most cases, allele frequencies are estimated
 from genotype data with finite samples or pooled-sequencing data with
 finite depth of coverage (Suppl.~Fig.~\ref{fig:stateConditional}).
 Moreover, the depth at a site varies for different replicates, and
 different time samples (Suppl.~Fig.~\ref{fig:depthHetero}). To account
-for this heterogeneity, we extend the Markov chain in
-Eq.~\ref{eq:mkvlik} to a Hidden Markov Model for pooled-seq data.
+for this heterogeneity, we extend the Markov chain likelihood in
+Eq.~\ref{eq:mkvlik} to a Hidden Markov Model (HMM) for pool-seq data.
 
 Consider a variant position being sampled at time point $\tau_t\in
 {\cal T}$. We denote the pooled-seq data for that variant as $x_t =
 \langle c_t,d_t \rangle$ where $d_t, c_t$ represent the read depth,
 and the count of the derived allele, respectively, at time
-$\tau_t$. The dynamic data is represented by the sequence
-$\mathbf{x}=x_1,x_2,\ldots,x_T$. Define an HMM with $2N+1$
-states. State $i$ $(0\le i\le 2N)$ corresponds to allele frequency
-$\frac{i}{2N}$. The HMM is stationary in that transition and emission
-distributions do not change over time. Therefore, at any time step,
-the probability that state $i$ emits $x=\langle d, c\rangle $ is given by
+$\tau_t$. The time-series data is represented by the sequence
+$\bm{x}=\{x_0,x_1,x_2,\ldots,x_T\}$. We model the dynamic pool-seq data using a 
+an HMM with $2N+1$ states which state $i$ $(0\le i\le 2N)$ corresponds to 
+allele frequency $i/2N$. 
+Also, we note that HMM is stationary model in that transition and emission
+distributions do not change over time and defining these distributions 
+completely specifies the HMM model. Eqs.~\ref{eq:P1},~\ref{eq:Pt} define 
+transition probabilities and the probability that state $i$ emits $
+x=\langle d, c\rangle $ is given by
 \begin{equation*}
 {\bf e}_{i}(x) = {d \choose c} \left(\frac{i}{2N} \right)^c\left (1- 
 \frac{i}{2N} \right)^{d-c}.
@@ -143,60 +164,70 @@ observed data from $R$ independent observations is given by
   \prod_{r=1}^R \sum_i\alpha_{T,i}^{(r)}\;\;.
   \label{eq:hmmlik}
 \end{equation}
-Similar to Eq.~\ref{eq:mcts}, let $s^*,h^*$ denote the parameters that
-maximize likelihood. The modified likelihood statistic (\comale-H) for
-pool-seq data is given by
+Similar to Eq.~\ref{eq:mcts}, let $\hat{s},\hat{h}$ denote the parameters that
+maximize likelihood. The likelihood ratio statistic for
+each variant of pool-seq data(\comale-H) is given by
 \begin{eqnarray}
-H &=& \log 
-\left(\frac{\Lc_H(s^*,h^*|\{\bm{x}^{(r)}\})}{\Lc_H(0,0|\{\bm{x}^{(r)}\})}\right).
+H &=& \sgn (\hat{s}). \log 
+\left(\frac{\Lc_H(\hat{s},\hat{h}|\{\bm{x}^{(r)}\})}{\Lc_H(0,0|\{\bm{x}^{(r)}\})}\right).
 \label{eq:hmmml}
 \end{eqnarray}
 
-\paragraph{Composite Likelihood.}
-Consider a genomic region defined by a collection of segregating sites
-$L$, with little or no recombination between sites. To test if some
-site in the region is under selection, we would like to compute
-composite likelihood functions under selection and drift regimes.  The
-dynamic frequency of a site $\ell \in L$ is governed by selection,
-drift, \emph{and also} linkage with other sites. Computing exact
-likelihood requires estimating the linkage throughout time which is
-computationally expensive.
+\paragraph{Composite Likelihood Ratio.}
+In general, the favored allele can be in linkage disequilibrium with some of
+its surrounding variation. The linked-loci ``hitchhike" and share similar 
+dynamics with the favored allele.
+Some models such as Gaussian process~\cite{Terhorst2015Multi} take into account 
+of these non-random associations to compute likelihood of linked-loci by 
+modeling linkage and recombination explicitly. However, these approaches are 
+computationally 
+expensive and infeasible for pool-seq data as computing linkage 
+requires phased haplotype data of the population.
+Instead, a Composite Likelihood Ratio 
+(CLR)~\cite{nielsen2005genomic,williamson2007localizing} score is computed from 
+the individual scores of all variants in the region selection.
 
-Instead, we simplify the computation by multiplying individual SNP
-likelihoods, to get a Composite Likelihood Ratio score
-(CLR)~\cite{nielsen2005genomic,williamson2007localizing}. CLR is a
-popular and effective method for detecting regions under
-selection~\cite{vitti2013detecting}.
 
+Consider a genomic region $L$ to be a collection of segregating sites with 
+little or no recombination between sites and the favored allele, i.e., starting 
+frequency of the favored allele is not high and the window around it is small 
+enough. 
 Let $M_\ell$ (respectively, $H_\ell$) denote the likelihood ratio
 score based on Markov chain (respectively, HMM) for each site $\ell$
-in $L$. Under positive selection, a site $\ell$ increases in
-frequency, and sites on the same lineage correspondingly increase in
-frequency too, at the expense of sites on other branches, which
-decrease or drift in frequency. In computing composite likelihood for
-a region, we can choose to only include sites whose likelihood ratio
+in $L$, the the classical CLR is computed by averaging scores of all the 
+variants withing the testing region.
+However, the levels of LD between favored allele and its surrounding variation 
+depend on initial frequency $\nu_0$, strength of selection $s$ and time since 
+the onset of selection (see Appendix~\ref{sec:ld} for more details).
+Hence, we parameterize CLR to discard those polymorphisms that are in low LD 
+with the favored allele, from computation of CLR.
+In particular, we can choose to only include sites whose likelihood ratio
 score is above a certain threshold. For percentile cut-off $\pi$, let
 $L_{\pi}\subseteq L$ denote the set of sites whose likelihood ratio
 scores had percentile $\pi$ or better. For all $\pi$, the modified CLR
 statistic for Markov chain and HMM is computed using:
-\begin{eqnarray}
-  {\cal M}_{\pi} &=& \frac{1}{|L_{\pi}|}\sum_{\ell \in L_{\pi}}M_\ell\;,\\
-{\cal H}_{\pi} &=& \frac{1}{|L_{\pi}|}\sum_{\ell \in L_{\pi}} H_\ell\; .
+\beq
+  {\cal M}_{\pi} = \frac{1}{|L_{\pi}|}\sum_{\ell \in L_{\pi}}M_\ell,
+  &\hspace{0.5in}{\cal H}_{\pi} &=& \frac{1}{|L_{\pi}|}\sum_{\ell \in L_{\pi}} 
+  H_\ell.
   \label{eq:pihmm}
-\end{eqnarray}
+\eeq
 In summary, we use \comale-M to denote Markov Chain based likelihood
 scores, and \comale-H to denote HMM based likelihood scores. We use
 $M$, Eq.~\ref{eq:mcts} (respectively, $H$, Eq.~\ref{eq:hmmml}) to
-denote the \comale\ scores for single sites, and $\Mc_{\pi}$
+denote the \comale\ scores for \emph{each variant}, and $\Mc_{\pi}$
 (respectively, $\Hc_{\pi}$) to denote the \comale\ scores for a
-window. Note that ${\cal M}_{100},{\cal H}_{100}$ (respectively,
+\emph{window}. Note that ${\cal M}_{100},{\cal H}_{100}$ (respectively,
 ${\cal M}_0,{\cal H}_0$) correspond to the CLR after choosing the best
-(respectively, all) site(s) in the region. In the following, we
-sometimes use $\Mc$ (respectively, $\Hc$) to denote $\Mc_0$
-(respectively, $\Hc_0$) for brevity of notation.
+(respectively, all) site(s) in the region. 
 
-\paragraph{Site-localization.} To identify the favored site itself, we rank
-all sites in the window according to $M$ or $H$.
+\paragraph{Site-localization.} 
+In general, localizing the adaptive allele in pool-seq data is 
+difficult~\cite{tobler2014massive}, due to extensive span of hitchhikers in an 
+ongoing sweep (see Appendix~\ref{sec:ld} for more detail). As a result, it 
+is more reasonable to compute a set of 
+``candidate" SNPs using a FDR cutoff found on the distribution of negative 
+controls.  
 
 \paragraph{Estimating parameters.}
 \label{sec:regression}
@@ -210,16 +241,17 @@ of the parameters can be found by
 \eeqn
 where likelihoods are defined in Eq.~\ref{eq:mkvlik} and
 Eq.~\ref{eq:hmmlik}, respectively.  The parameters in
-Eqs.~\ref{eq:mcmle},~\ref{eq:hmmmle} are optimized using grid search,
-and the operations are vectorized for all variants. Using this simple
-optimization, solution is obtained in a reasonable time (see
-Fig.~\ref{fig:runTime}).
+Eqs.~\ref{eq:mcmle},~\ref{eq:hmmmle} are optimized using grid search. By 
+broadcasting and vectorizing the grid search operations across all variants, 
+the genome scan on millions of polymorphisms can be done in 
+significantly smaller time than iterating a numerical optimization routine for 
+each variant(see Results and Fig.~\ref{fig:runTime}).
 
 \paragraph{Precomputing Transition Matrices.}
-\comale\ requires pre-computation of matrices $P$ and $Q_{s,h}$ for
-the entire range of $s,h$ values. Pre-computation of $1313$ transition
+\comale\ requires precomputation of matrices $Q^{(\tau)}_{s,h}$ for
+the entire range of $s,h$ values. Precomputation of $909$ transition
 matrices for $s\in\{-0.5,-0.49,\ldots,0.5 \}$ and $h\in
-\{-1,-0.75,\ldots,2\}$ took less that 20 minutes ($\approx$ 1 second
+\{0,0.25,\ldots,2\}$ took less that 15 minutes ($\approx$ 1 second
 per matrix) on a desktop computer with a Core i7 CPU and 16GB of RAM.
 
 
@@ -227,7 +259,7 @@ per matrix) on a desktop computer with a Core i7 CPU and 16GB of RAM.
 data}\label{sec:extending-sfs}
 \label{sec:sfs-ts}
 The site frequency spectrum (SFS) is a mainstay of tests of neutrality
-and selection, and can be computed using allele frequencies (does not
+and selection, and can be computed using pool-seq data (does not
 need haplotypes). Following Fu, 1995~\cite{fu1995statistical}, any
 linear combination of the site frequencies is an estimate of
 $\theta$. However, under non-neutral conditions, different linear
@@ -245,7 +277,8 @@ independent. Evans \emph{et al.}~\cite{evans2007non} developed
 diffusion equations for evolution of SFS in time series, but they are
 difficult to solve. Instead, we derive a formula for computing $D_t$,
 the dynamic of Tajima's $D$ at generation $t$. Specifically, for
-initial value $D_0$, initial carrier frequency $\nu_0$ and selection-coefficent $s$:
+initial value $D_0$, initial carrier frequency $\nu_0$ and 
+selection coefficient $s$:
 \begin{equation}
   D_t=D_0-\log(1-\nu_t) \frac{W_0}{\log(2N)} -\nu_t^2 \Pi_0\;,
   \label{eq:tdt}    
@@ -266,12 +299,13 @@ as a function of $\nu_t$ as follows:
 \end{equation}	
 In both cases, $\nu_t$ itself can be written as a function of $s,t$
 (Suppl.~Eq.~\ref{eq:inf-pop}). This allows us to compute likelihood
-functions $\Lc_S(s,h; \{D_t\})$ or $\Lc_S(s,h; \{H_t\})$. Then, a
+functions $\Lc_S(s; \{D_t\})$ or $\Lc_S(s; \{H_t\})$. Then, a
 likelihood ratio, similar to Eqns.~\ref{eq:mcts},~\ref{eq:hmmml}
 provides a statistic for detecting selection in each window.
 
 However, as $\nu_0$ and $D_0$ are often unknown in the sampling from
-natural population experiments, we cannot directly use
+natural population experiments, and likelihoods $\Lc_S(.)$ are difficult to 
+compute, we cannot directly use
 Eqns.~\ref{eq:tdt},~\ref{eq:ht}. Instead, we heuristically aggregate statistics
 throughout time to compute time-series score. See details in
 Appendix~\ref{app:agg}.
@@ -292,9 +326,10 @@ the negative controls.}
 
 \subsection{Simulations}
 We performed extensive simulations using parameters that have been
-used for \emph{Drosophila} experimental
+used for \dmel experimental
 evolution~\cite{kofler2013guide}. See also Fig.~\ref{fig:ee} for
-illustration.
+illustration. To implement real wold pool-seq experimental evolution, we 
+conducted simulations as follows:
 \begin{enumerate}[I.]
 \item {\bf Creating initial founder line haplotypes.} Using
   \texttt{msms}~\cite{ewing2010msms}, we created neutral populations for $F$
@@ -317,12 +352,11 @@ illustration.
   standing variation. Given initial diploid population, position of
   the site under selection, selection strength $s$, number of
   replicates $R=3$, recombination rate $r=2\times10^{-8}$ and sampling
-  times $\Tc=\{10,20,30,40,50\}$, \texttt{simuPop} was used to perform
+  times $\Tc=\{0,10,20,30,40,50\}$, \texttt{simuPop} was used to perform
   forward simulation and compute allele frequencies for all of the $R$
-  replicates. To avoid spurious simulation samples, simulation results
-  were constrained to those samples where the favored allele escaped
-  stochastic loss due genetic drift, and established in all
-  replicates. For hard sweep (respectively, soft sweep) simulations we
+  replicates. To avoid spurious ``selection" simulation samples, simulation 
+  results in which the frequency of favored allele is decreased are discarded.
+  For hard sweep (respectively, soft sweep) simulations we
   randomly chosen a site with initial frequency of $\nu_0=0.005$
   (respectively, $\nu_0=0.1$) to be the favored allele.
   \item{\bf Sequencing Simulation.} Give allele frequency trajectories we 
@@ -335,15 +369,19 @@ illustration.
   allele frequency is given and Markov chain is evaluated for the HMM method, 
   i.e. $\Hc=\Mc$.
 \end{enumerate}
-We also conducted simulations to test methods in the
-sampling-from-natural-populations setting. The natural populations
-setting differs from experimental evolution in some important
-ways. First, the time of onset of selection may not be known. Second,
-we also consider mutations that arose after the onset of selection,
-and sampling. While it is generally believed that the favored
-mutations arise from standing variation, the incorporation of new
-mutations helps strengthen statistics that evaluate the site frequency
-spectrum of an entire region. \texttt{msms} was used to
+We also conducted simulations to evaluate performance of the methods in the
+cases which sample is taken from natural population. Sampling from natural 
+populations differs from (controlled) experimental evolution in some important
+ways. First, the time of onset of selection may not be known. Second, as the 
+start of 
+sampling can be any generation during selective sweep, mutations that arose 
+after the onset of selection appear in data, and can have a nontrivial effect 
+on SFS if sampling is started far after start of selection. In addition, larger 
+time since the onset of selection can potentially improve accuracy of the 
+site-localization task, due to recombination. Third, larger 
+population sizes, which diminishes effect of genetic 
+drift on one hand, and reduces the rate of evolution (i.e., larger fixation 
+time) on the other hand\AI{is it true?}. \texttt{msms} was used to
 forward-simulate a population with $N_e=10^4$, $\nu_0=10^{-4}$, and to
 record SFS of a 50Kbp region (Fig.~\ref{fig:ee}A). The remaining
-parameters were identical to experimental evolution.
+parameters were identical to controlled experimental evolution simulations.

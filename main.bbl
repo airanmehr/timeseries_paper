@@ -219,6 +219,11 @@ Robert Kofler and Christian Schl{\"{o}}tterer.
   association studies}.
 \newblock {\em Bioinformatics}, 28(15):2084--2085, 2012.
 
+\bibitem{kofler2013guide}
+Robert Kofler and Christian Schl{\"{o}}tterer.
+\newblock {A guide for the design of evolve and resequencing studies}.
+\newblock {\em Molecular biology and evolution}, page mst221, 2013.
+
 \bibitem{konstandi2005enzymatic}
 Ourania~A Konstandi, Issidora~S Papassideri, Dimitrios~J Stravopodis,
   Christos~A Kenoutis, Zulfiqar Hasan, Theodoros Katsorchis, Ron Wever, and
@@ -247,6 +252,14 @@ Junsuo~S Li and Jianyong Li.
   hardening in Aedes aegypti mosquitoes}.
 \newblock {\em Insect biochemistry and molecular biology}, 36(12):954--964,
   2006.
+
+\bibitem{long2013massive}
+Quan Long, Fernando~A Rabanal, Dazhe Meng, Christian~D Huber, Ashley Farlow,
+  Alexander Platzer, Qingrun Zhang, Bjarni~J Vilhj{\'{a}}lmsson, Arthur Korte,
+  Viktoria Nizhynska, and Others.
+\newblock {Massive genomic variation and strong selection in Arabidopsis
+  thaliana lines from Sweden}.
+\newblock {\em Nature genetics}, 45(8):884--890, 2013.
 
 \bibitem{malaspinas2012estimating}
 Anna-Sapfo Malaspinas, Orestis Malaspinas, Steven~N Evans, and Montgomery

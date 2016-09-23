@@ -41,6 +41,23 @@
 
 \begin{figure}[H]
 	\centering
+	\includegraphics[trim=.2in 0 .2in 0, 
+	clip,width=\textwidth]{figures/{CLRQ}.pdf}
+	\caption{{\bf Average power of composite statistics as function of 
+	percentile cutoffs.} Detection power is averaged for 
+	$s\in\{0.025,0.05,0.075,0.1\}$ using \comale statistic computed using 
+	modified likelihood ration $\Hc(H)$ and standard likelihood ratio 
+	$\Hc(|H|)$. For each setting the best performance is gained at  $\pi^*$ 
+	which is different for different settings. As expected, $\pi^*$ takes 
+	larger value (due to lower LD of the variation with favored allele). In 
+	addition, for low coverage experiment better performance is achieved when 
+	more candidate SNPs are take into computation of the composite statistic, 
+	i.e., $\pi^*$ is lower. }
+	\label{fig:clrq}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
 	\includegraphics[width=\textwidth]{figures/powerCLR.pdf}
 	\caption{{\bf Detection power of \comale-M and \comale-H with
             different composite statistics.}  Detection power for
@@ -71,7 +88,7 @@
 	\centering
 	\includegraphics[width=0.75\textwidth]{figures/{runTime.pdf}}
 	\caption{{\bf Running time}. Box plot of running times
-          (cpu-secs.) of \comale, HMM, GP with single, 3, 5, 7, and 10
+          (CPU-secs.) of \comale, HMM, GP with single, 3, 5, 7, and 10
           loci over 1000 simulations conducted on a workstation with
           4th Generation Intel Core i7 processor. The average running
           time for each method is shown on the x-axis.}
@@ -121,11 +138,13 @@
 	\label{fig:rank}
 \end{figure}
 
+
+
 \clearpage
 \newpage
 \begin{figure}[H]
 	\centering
-\includegraphics[width=0.6\textwidth]{figures/{bias.100}.pdf}
+\includegraphics[width=0.7\textwidth]{figures/{bias.100}.pdf}
 \caption{{\bf Distribution of bias for 100X coverage.} The
   distribution of bias ($s-\hat{s}$) in estimating selection
   coefficient over 500 simulations using Gaussian Process (GP) and
@@ -143,12 +162,14 @@
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{figures/{manhattan.min500snp}.pdf}
-	\caption{{\bf \comale\ analysis of a \emph{Drosophila} EE
-            experiment}. Manhattan plot of the composite $\Hc$
-          statistic (top) and the number of SNPs (bottom) in 50Kbp
+	\caption{{\bf \comale\ scan of the \data.}. Manhattan plot of the composite 
+	$\Hc$
+          statistic (A) and the number of SNPs (B) in 50Kbp
           sliding window with steps of 10Kbp, excluding windows close
           to centromere and telomere. The dashed line corresponds to
-          the top $1$\%-ile cut-off. For comparison to past results,
+          the top $1$\%-ile cut-off and the candidate regions above the 
+          threshold are show 
+          in red dots. For comparison to past results,
           only Chromosomes 2, 3, and X are shown.}
 	\label{fig:manhattancutoffed}
 \end{figure}
