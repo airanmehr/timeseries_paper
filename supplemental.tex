@@ -18,7 +18,7 @@
 \subsection{An approximate logistic function  for allele frequency dynamics} 
 \label{app:af}
 Assume that a site is evolving under selection constraints $s,h\in
-\Rbb$, where $s$ and $h$ denote selection strength and dominance,
+\Rbb$, where $s$ and $h$ denote selection strength and overdominance,
 respectively. Let $\nu_t$ denote the frequency of the site at time
 $\tau_t\in {\cal T}$. Then, $\nusp$, the frequency at time $\tau_t+1$
 can be estimated (See Eq.~\ref{eq:transition}) using:
@@ -39,16 +39,16 @@ $2+2s\nu_t \approx 2$. Substituting,
 where $\sigma(.)$ is the logistic function and $\eta(.)$ is logit function 
 (inverse of the logistic function). 
 
-\subsection{Dynamic of Tajima's D}\label{app:td}
+\subsection{Dynamic of Tajima's $D$}\label{app:td}
 In this part we derive dynamic of Tajima's $D$ statistic in \emph{hard
   sweep} as function of its value at the onset of selection, $D_0$,
 selection strength and the frequency of the favored allele at the
-onset of selection.  Let $D_0, \Pi_0, W_0$, be Tajima's D, Tajima's
+onset of selection.  Let $D_0, \Pi_0, W_0$, be Tajima's $D$, Tajima's
 estimate of $\theta$, and Watterson's estimate of $\theta$ at time
 zero and $D_0=\Pi_0 - W_0$.  In order to compute, $D_t=\Pi_t - W_t$ we
 compute $\Pi_t$ and $W_t$ separately as follows. Let $P$ be the $n
-\times n$ matrix of pairwise heterozygosity if individuals, then
-$\Pi=\frac{1}{n^2}\sum P_{ij}$. So, if the population consist of $\nu
+\times n$ matrix of pairwise heterozygosity of individuals, then
+$\Pi={1}/{n^2}\sum P_{ij}$. So, if the population consist of $\nu
 n$ identical carrier haplotype (due to lack of recombination), their
 pairwise hamming distance is zero and should be subtracted from the
 total $\Pi_t$: \beq \Pi_t&= (1-\nu_t^2)\Pi_0 \label{eq:tdt0} \eeq
@@ -133,10 +133,10 @@ expected LD in short EEs.
 Let $\rho_0$ be the LD at time zero between the favored allele and a 
 segregating site $l$ base-pairs away, then under natural selection we have
 \beq
-\rho_t= \alpha_t\beta_t \rho_0=e^{-rtl} \left(\frac{H_t}{H_0}\right)  
+\rho_t= \alpha_t\beta_t \rho_0=e^{-rtl} \left(\frac{K_t}{K_0}\right)  
 \rho_0\label{eq:ldt}
 \eeq
-where $H_t=2\nu_t(1-\nu_t)$ is the heterozygousity at the selected site, $r$ is 
+where $K_t=2\nu_t(1-\nu_t)$ is the heterozygousity at the selected site, $r$ is 
 the recombination rate/bp/gen. The 
 \emph{decay factor}, $\alpha_t=e^{-rtl}$,
 and \emph{growth factor}, $\beta_t$ (see Eq. 30-31 in 

@@ -92,7 +92,8 @@ sequencing coverage decreased(Fig.~\ref{fig:power}). In particular, the
 difference in performance of \comale\ with other methods is pronounced when 
 starting frequency is low (hard sweep). This stems from the fact low 
 frequencies can note eve represented in low coverage. For example, when 
-coverage is 30X, the minimum allele frequency can be represented is 0.033, and 
+coverage is 30$\times$, the minimum allele frequency can be represented is 
+0.033, and 
 in many cases the favored allele does not even reach to this threshold. 
 Nevertheless, unlike other method, \comale\ performs well when selection is 
 strong enough (Fig.~\ref{fig:power}A-B). Moreover, the observation of 
@@ -176,7 +177,7 @@ studies~\cite{long2013massive,tobler2014massive}.
 As the \comale\ likelihood calculation is model based, \comale\
 computes the selection parameters $\hat{s}$ and $\hat{h}$ as a byproduct of the 
 hypothesis testing. We computed bias of selection fitness ($s-\hat{s}$) and 
-over dominance ($s-\hat{s}$) for of \comale\ and GP in each setting. The 
+over dominance ($h-\hat{h}$) for of \comale\ and GP in each setting. The 
 distribution of
 the error (bias) for 100$\times$ coverage is presented in
 Fig.~\ref{fig:bias100} for different configurations.
@@ -277,21 +278,3 @@ supplemental table S4) with FDR $\le 0.001$. $9$ of the $13$
 previously enriched terms (Table~\ref{tab:Fisher}), overlapped with
 the $325$ \texttt{Gowinda} terms (Fisher exact $p$-val: $10^{-11}$)
 suggesting consistency of SNP based and window-based analysis.
-
-\ignore{
-\paragraph{Dominance.}
-The value of the overdominance parameter can provide an insight into the kind 
-of adaptation \emph{using population frequency data}. In fact, for $s>0$ we 
-	have~\cite{gillespie2010population}  
-	\AI{results to be added }
-\begin{center}
-	\begin{tabular}{l|c}
-		condition & comment\\
-		\hline
-		$h<0$ &  underdominance\\
-		$h=0$ & recessive adaptive allele\\
-		$h=0.5$ & directional selection\\
-		$h=1$&	dominant adaptive allele	\\
-		$h>1$ &overdominance
-	\end{tabular}
-\end{center}}

@@ -5,11 +5,15 @@
 		\input{tables/powerHardMathods.tex}
 		&&\input{tables/powerSoftMethods.tex}
 	\end{tabular}
-        \caption{Average Power (true-positive-rate when FPR$\le$0.05) for detecting selection in a 50Kbp region for Frequency Increment 
-        Test (FIT), Gaussian Process (GP), Markov Chain ($\Mc$), Hidden Markov 
-        Model ($\Hc$) on $1,000$ simulations for each of selection strength $s$ 
-        and initial carrier frequency $\nu_0$. The power is averaged over all 
-        selection coefficients to provide a single value for comparison.}
+        \caption{Average of power for detecting selection in a 50Kbp region, 
+        when power is computer for 1000 simulations with 
+        $s\in\{0.025,0.05,0.075,0.1\}$. Frequency Increment 
+        Test (FIT), Gaussian Process (GP), \comale\ ($\Hc$) and 
+        Cochran–Mantel–Haenszel (CMH) are compared for different initial 
+        carrier frequency $\nu_0$. For all sequencing coverages, \comale\ 
+        outperform other methods. When coverage is not high 
+        ($\lambda\in\{30,100\}$) and initial frequency is low (hard sweep), 
+        \comale\ significantly perform better than others.}
 \label{tab:power}
 \end{table}
 
@@ -19,7 +23,9 @@
 	\begin{tabular}{c}
 		\input{tables/intervals.tex}
 	\end{tabular}
-	\caption{Genomic coordinates (FlyBase assembly release 5.7) of the regions identified by \comale\ as being under selection in \data\ data.}\label{tab:intervals}
+	\caption{Genomic coordinates (FlyBase assembly release 5.7) of the regions 
+		identified by \comale\ as being under selection in the 
+		\datadm.}\label{tab:intervals}
 \end{table}
 
 \begin{table}[h]
@@ -27,7 +33,6 @@
 	\begin{tabular}{c}
 		\input{tables/times.tex}
 	\end{tabular}
-	\caption{Genomic coordinates (FlyBase assembly release 5.7) of the regions 
-	identified by \comale\ as being under selection in \data\ 
-	data.}\label{tab:times}
+	\caption{Average running time per locus in seconds for different 
+	methods.}\label{tab:times}
 \end{table}

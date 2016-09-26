@@ -198,7 +198,7 @@ in $L$, the the classical CLR is computed by averaging scores of all the
 variants withing the testing region.
 However, the levels of LD between favored allele and its surrounding variation 
 depend on initial frequency $\nu_0$, strength of selection $s$ and time since 
-the onset of selection (see Appendix~\ref{sec:ld} for more details).
+the onset of selection (see Appendix~\ref{app:ld} for more details).
 Hence, we parameterize CLR to discard those polymorphisms that are in low LD 
 with the favored allele, from computation of CLR.
 In particular, we can choose to only include sites whose likelihood ratio
@@ -224,7 +224,7 @@ ${\cal M}_0,{\cal H}_0$) correspond to the CLR after choosing the best
 \paragraph{Site-localization.} 
 In general, localizing the adaptive allele in pool-seq data is 
 difficult~\cite{tobler2014massive}, due to extensive span of hitchhikers in an 
-ongoing sweep (see Appendix~\ref{sec:ld} for more detail). As a result, it 
+ongoing sweep (see Appendix~\ref{app:ld} for more detail). As a result, it 
 is more reasonable to compute a set of 
 ``candidate" SNPs using a FDR cutoff found on the distribution of negative 
 controls.  
@@ -246,6 +246,21 @@ broadcasting and vectorizing the grid search operations across all variants,
 the genome scan on millions of polymorphisms can be done in 
 significantly smaller time than iterating a numerical optimization routine for 
 each variant(see Results and Fig.~\ref{fig:runTime}).
+
+The value of the overdominance parameter can provide extra information 
+regarding dominance of the favored allele and the kind of 
+selection~\cite{gillespie2010population}  :
+\begin{center}
+	\begin{tabular}{l|c}
+		condition & comment\\
+		\hline
+		$h=0$ & recessive adaptive allele\\
+		$h=0.5$ & directional selection\\
+		$h=1$&	dominant adaptive allele	\\
+		$h>1$ &overdominance
+	\end{tabular}
+\end{center}
+
 
 \paragraph{Precomputing Transition Matrices.}
 \comale\ requires precomputation of matrices $Q^{(\tau)}_{s,h}$ for
