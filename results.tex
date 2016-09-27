@@ -1,52 +1,45 @@
 \section{Results}
 \paragraph{Modeling allele frequency trajectories in finite populations.} 
-We first tested the goodness of fit the (discrete) Markov chain versus 
-(continues) Brownian motion in modeling allele frequency trajectories in finite 
-populations, under different sampling schemes and starting frequencies.
-For this purpose, we conducted $150$K simulations with two time samples 
-$\Tc=\{0,\tau\}$ where $\tau\in
-\{1,10,100\}$ is the parameter controlling density of sampling in time.
-In addition, we repeated simulations for different values of starting 
-frequency  $\nu_0\in\{0.005,0.1\}$ (i.e., hard and soft sweep) and selection 
-strength $s\in\{0,0.1\}$ 
-(i.e., neutral and selection). Then, given initial frequency $\nu_0$, we 
-computed expected distribution of the frequency of the next sample $\nu_\tau$ 
-under two models and compared them with empirical distributions calculated from 
-simulated data.
-Fig.~\ref{fig:markov}A-F shows that Brownian motion (Gaussian approximation) is
-inadequate when $\nu_0$ is far from $0.5$, and when sampling is done
-after many generations $\tau>1$ (sampling times are sparse). If the favored 
-allele raises from standing variation in a neutral population, it is unlikely 
-to have frequency
-close to $0.5$, and the starting frequencies are usually much
-smaller (see Suppl. Fig.~\ref{fig:sfs}). Moreover, in typical
-\dmel experiments for example, samples are taken sparsely, usually experiment 
-is designed so that  
-$10\le\tau\le100$~\cite{kofler2013guide, orozco2012adaptation, 
-zhou2011experimental}.
+We first tested the goodness of fit of the discrete-time Markov chain
+versus continuous-time Brownian motion in modeling allele frequency
+trajectories in finite populations, under different sampling schemes
+and starting frequencies.  For this purpose, we conducted $150$K
+simulations with two time samples $\Tc=\{0,\tau\}$ where $\tau\in
+\{1,10,100\}$ is the parameter controlling the frequency of sampling
+in time.  In addition, we repeated simulations for different values of
+starting frequency $\nu_0\in\{0.005,0.1\}$ (i.e., hard and soft sweep)
+and selection strength $s\in\{0,0.1\}$ (i.e., neutral and
+selection). Then, given initial frequency $\nu_0$, we computed
+expected distribution of the frequency of the next sample $\nu_\tau$
+under two models and compared them with empirical distributions
+calculated from simulated data.  Fig.~\ref{fig:markov}A-F shows that
+Brownian motion (Gaussian approximation) is inadequate when $\nu_0$ is
+far from $0.5$, and when sampling times are sparse ($\tau>1$). If the
+favored allele arises from standing variation in a neutral population,
+it is unlikely to have frequency close to $0.5$, and the starting
+frequencies are usually much smaller (see
+Suppl. Fig.~\ref{fig:sfs}). Moreover, in typical \dmel experiments for
+example, sampling is sparse. Often, the experiment is designed so that
+$10\le\tau\le100$~\cite{kofler2013guide, orozco2012adaptation,
+  zhou2011experimental}.
 
-In contrast, Fig.~\ref{fig:markov}A-I also shows that Markov
-chain predictions (Eq.~\ref{eq:mkvs}) are highly consistent with
-empirical data for a wide range of simulation parameters for both selection and 
-neutral evolution.
+In contrast to the Brownian motion results, Fig.~\ref{fig:markov}A-I
+also shows that Markov chain predictions (Eq.~\ref{eq:mkvs}) are
+highly consistent with empirical data for a wide range of simulation
+parameters for both selection and neutral evolution.
 
 \paragraph{Detection Power.} 
-In this part we compare performance of methods in classifying a region as being 
-under selection or not.
-To evaluate performance of each method, define power as the 
-(scaled) area under Receiver Operating Characteristic (ROC) curve restricted to 
-the areas where false-positive rate $\le 0.05$ 
-(Suppl.~Fig.~\ref{fig:powerROC}). Power take values between 0 and 100 and power 
-of 5 represent prediction of a random hypothesis (diagonal line in ROC curves 
-\AI{does it help?}). 
-We also took into account of ascertainment bias in our comparisons, by 
-evaluating each simulation for different coverages $\lambda\in 
-\{30,100,\infty\}$. Depth of each variant identically and  independently from 
-Poisson$(\lambda)$. 
-To evaluate power for each configuration (specified with 
-values for selection coefficient $s$, starting allele frequency
-$\nu_0$ and coverage $\lambda$), we conducted $1000$ simulations, half of which
-modeled neutral evolution and the rest modeled natural selection.
+We compared the performance of \comale\ against other methods for
+detecting selection. Define power as the fraction of true-positives
+identified with false-positive rate $\le 0.05$
+(Suppl.~Fig.~\ref{fig:powerROC}). We also took into account of
+ascertainment bias in our comparisons, by evaluating each simulation
+for different coverage values sampled from a Poisson distribution with
+mean $\lambda\in \{30,100,\infty\}$.  To evaluate power for each
+configuration (specified with values for selection coefficient $s$,
+starting allele frequency $\nu_0$ and coverage $\lambda$), we
+conducted $1000$ simulations, half of which modeled neutral evolution
+and the rest modeled positive selection.
 
 Before comparing against other methods, we first evaluated the use of \comale\ 
 with different percentile-cutoffs $\pi$ (Eq.~\ref{eq:pihmm})

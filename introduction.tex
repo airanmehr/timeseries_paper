@@ -22,21 +22,19 @@ or natural
 \cite{maldarelli2013hiv,reid2011new,denef2012situ,winters2012development,
   daniels2013genetic,barrett2008natural,bergland2014genomic}
 environment. Recent advances in whole genome sequencing have enabled
-us to sequence populations at a reasonable cost even when the genomes
-are large. Perhaps more important for experimental evolution studies,
-we can now evolve-and-resequence multiple replicates of a population to 
-obtain \emph{longitudinal time-series data},
-in order to investigate the dynamics of evolution at molecular level.
-Although constraints such
-as small population sizes, limited timescales, and oversimplified
-laboratory environments may limit the interpretation of EE results, these
-studies are increasingly being used to test a wide range of 
-hypotheses~\cite{kawecki2012experimental} while being more predictive than 
-static data analysis
-\cite{boyko2008assessing,desai2008polymorphism,sawyer1992population}. 
-In particular, longitudinal EE data is being used to estimate model parameters 
-including
-population
+us to sequence populations at a reasonable cost even for large
+genomes. Perhaps more important for experimental evolution studies, we
+can now evolve and re-sequence multiple replicates of a population to
+obtain \emph{longitudinal time-series data}, in order to investigate
+the dynamics of evolution at molecular level.  Although constraints
+such as small population sizes, limited timescales, and oversimplified
+laboratory environments may limit the interpretation of EE results,
+these studies are increasingly being used to test a wide range of
+hypotheses~\cite{kawecki2012experimental} and have been shown to be
+more predictive than static data analysis
+\cite{boyko2008assessing,desai2008polymorphism,sawyer1992population}.
+In particular, longitudinal EE data is being used to estimate model
+parameters including population
 size~\cite{williamson1999using,wang2001pseudo,pollak1983new,waples1989generalized,
   Terhorst2015Multi}, strength of
 selection~\cite{mathieson2013estimating,illingworth2011distinguishing,Terhorst2015Multi,
@@ -47,47 +45,42 @@ rate~\cite{Barrick2013Genome, Terhorst2015Multi}, quantitative trait
 loci~\cite{baldwin2014power} and for tests of neutrality
 hypotheses~\cite{feder2014Identifying,Terhorst2015Multi,burke2010genome,bergland2014genomic}.
 
-While objectives, designs and organisms of EE studies can be entirely 
-different~\cite{Barrick2013Genome,schlotterer2015combining}, here we 
-restrict our attention to the adaptive evolution of multi-cellular sexual 
-organisms. 
-For simplicity, we assume fixed population size (continuous culture), and
-for the most part, positive single locus selection (only one favored
-mutation). This regime has been extensively applied, together with
-\dmel as the model organism of choice, to identify adaptive 
-genes in longevity and aging
-~\cite{burke2010genome,remolina2012genomic} (600 generations),
-courtship song~\cite{turner2011population} (100 generations), 
-hypoxia tolerance~\cite{zhou2011experimental} (200 generations), 
-adaptation to new laboratory 
+While objectives, designs and organisms of EE studies can be entirely
+different~\cite{Barrick2013Genome,schlotterer2015combining}, here we
+restrict our attention to the adaptive evolution of multi-cellular
+sexual organisms.  For simplicity, we assume fixed population size,
+and for the most part, positive single locus selection (only one
+favored mutation). This regime has been considered earlier, typically
+with \dmel as the model organism of choice, to identify adaptive genes
+in longevity and aging ~\cite{burke2010genome,remolina2012genomic}
+(600 generations), courtship song~\cite{turner2011population} (100
+generations), hypoxia tolerance~\cite{zhou2011experimental} (200
+generations), adaptation to new laboratory
 environments~\cite{orozco2012adaptation,tobler2014massive} (59
-generations), 
-egg size~\cite{jha2015whole} (40 generations), 
-C virus resistance~\cite{martins2014host} (20 generations), and
-dark-fly~\cite{izutsu2015dynamics} (49 generations). 
+generations), egg size~\cite{jha2015whole} (40 generations), C virus
+resistance~\cite{martins2014host} (20 generations), and
+dark-fly~\cite{izutsu2015dynamics} (49 generations).
 
 
-The task of identifying genetic adaptation can be addressed at different levels 
-of specificity. At the coarsest level, identification could simply refer
-to deciding whether some genomic region (or a gene) is under selection or 
-not. In
-the following, we refer to this task as \emph{detection}. In contrast,
-the task of \emph{site-identification} corresponds to the process of
-finding the favored mutation/allele at nucleotide level. Finally, \emph{estimation
- of model parameters} such as strength of selection and overdominance
-at the site can provide a comprehensive description of the selection
-process.
+The task of identifying genetic adaptation can be addressed at
+different levels of specificity. At the coarsest level, identification
+could simply refer to deciding whether some genomic region (or a gene)
+is under selection or not. In the following, we refer to this task as
+\emph{detection}. In contrast, the task of \emph{site-identification}
+corresponds to the process of finding the favored mutation/allele at
+nucleotide level. Finally, \emph{estimation of model parameters}, such
+as strength of selection and overdominance at the site, can provide a
+comprehensive description of the selection process.
 
 A wide range of computational methods~\cite{vitti2013detecting} have
 been developed to detect regions under positive selection. A majority
-of the existing methods focus on static data analysis--analyzing a
+of the existing methods focus on static data analysis; analysis of a
 single sample of the population at a specific time, either during the
-sweep, or subsequent to fixation of the favored allele. For instance,
-reduction in genetic
+sweep, or subsequent to fixation of the favored allele. Static
+analysis is focused on reduction in genetic
 diversity~\cite{tajima1989statistical,fay2000hitchhiking,ronen2013learning}
-in allele-frequency data, prevalence of long
-haplotypes~\cite{sabeti2006positive,vitti2013detecting} in haplotype
-(phased) data, population
+shift in allele-frequencies, prevalence of long
+haplotypes~\cite{sabeti2006positive,vitti2013detecting}, population
 differentiation~\cite{holsinger2009genetics,burke2010genome} in
 multiple-population data and others. Many existing methods use the
 Site Frequency Spectrum (SFS, see Suppl.~Fig.~\ref{fig:sfs}) to
@@ -95,19 +88,18 @@ identify departure from neutrality. Classical examples including
 Tajima's \emph{D}~\cite{tajima1989statistical}, Fay and Wu's
 \emph{H}~\cite{fay2000hitchhiking}, Composite Likelihood
 Ratio~\cite{nielsen2005genomic}, were all shown to be weighted linear
-combination of the SFS values~\cite{achaz2009frequency}. 
-While successful, these methods are prone to both, false
+combination of the SFS values~\cite{achaz2009frequency}.  While
+successful, these methods are prone to both, false
 negatives~\cite{messer2013population}, as also false-discoveries due
 to confounding factors such as demography, including bottleneck and
 population expansions, and ascertainment bias ~\cite{ptak2002evidence,
-	ramos2002statistical,akey2009constructing,
-	nielsen2003correcting,messer2013population}. Nevertheless, SFS based
-tests are simple and inexpensive and continue to be used, often in
-combination with other
-tests~\cite{akey2009constructing,vitti2013detecting}. One of the
+  ramos2002statistical,akey2009constructing,
+  nielsen2003correcting,messer2013population}. Nevertheless, SFS based
+tests continue to be used successfully, often in combination with
+other tests~\cite{akey2009constructing,vitti2013detecting}. One of the
 contributions of this paper is the extension of SFS based methods to
-analyze time-series data, and the analyzing of circumstances under which
-these methods can perform well.
+analyze time-series data, and the identification of selection regimes
+where these methods perform well.
 
 Relative to the analysis of static samples, fewer tests-of-selection
 for dynamic time-series data have been proposed. Often, existing tests
@@ -136,20 +128,20 @@ numerically and performed standard likelihood ratio test under $\Xc^2$
 distribution.
 
 It is only recently that direct tests for analyzing time-series data
-have been developed. Using (continuous-time continuous-state) Brownian
-motion process, Feder \emph{et al.}~\cite{feder2014Identifying}
-proposed the Frequency Increment Test (FIT). More recently, Song \emph{et
- al.}~\cite{Terhorst2015Multi} proposed empirical Gaussian Process
+have been developed, and much of it is based on pooled sequencing
+(pool-seq) of a population sub-sample at specific times. Using
+continuous-time continuous-state Brownian motion process, Feder
+\emph{et al.}~\cite{feder2014Identifying} proposed the Frequency
+Increment Test (FIT). More recently, Song \emph{et
+  al.}~\cite{Terhorst2015Multi} proposed empirical Gaussian Process
 (GP) likelihood ratio test for single and multiple loci dynamic allele
-frequency data. Topa \emph{et al.}~\cite{topa2015gaussian} extended GP to 
-analyze pool-seq read count data. A key contribution of our paper is
-the development of a direct, and significantly faster method, \comale,
-for identifying selection in short-term experimental evolution with
-pool-seq (read count) data (see
-Suppl.~Fig.~\ref{fig:trajectoryReal} for an example). We show for a
-wide range of parameters that \comale\ provides higher power for
-detecting selection, is robust to ascertainment bias (coverage heterogeneity), 
-estimates model
-parameters consistently, and localizes favored allele more
-accurately compared to the state-of-the-art methods, while being
-orders of magnitude faster.
+frequency data. Topa \emph{et al.}~\cite{topa2015gaussian} extended GP
+to analyze pool-seq read count data. A key contribution of our paper
+is the development of a direct, and significantly faster method,
+\comale, for identifying selection in short-term experimental
+evolution with pool-seq data. We show for a wide range of parameters
+that \comale\ provides higher power for detecting selection, is robust
+to ascertainment bias due to coverage heterogeneity, estimates model
+parameters consistently, and localizes favored allele more accurately
+compared to the state-of-the-art methods, while being orders of
+magnitude faster.
