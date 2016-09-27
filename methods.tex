@@ -205,15 +205,29 @@ statistic for Markov chain and HMM is computed using:
  {\cal H}_{\pi} = \frac{1}{|L_{\pi}|}\sum_{\ell \in L_{\pi}} H_\ell.
 \label{eq:pihmm}
 \end{equation}
-To clarify the notation, we use \comale-M to denote Markov Chain based
-likelihood scores, and \comale-H to denote HMM based likelihood
-scores. As short-hand notation, we use $M$, Eq.~\ref{eq:mcts}
-(respectively, $H$, Eq.~\ref{eq:hmmml}) to denote the \comale\ scores
-for individual variants. Similarly, we use $\Mc_{\pi}$ (respectively,
-$\Hc_{\pi}$) to denote the composite \comale\ scores for a genomic
-region. Note that ${\cal M}_{100},{\cal H}_{100}$ (respectively,
-${\cal M}_0,{\cal H}_0$) correspond to the CLR after choosing the best
-(respectively, all) site(s) in the region.
+In combining the sites, recall that sites that are not on the same
+lineage as the favored site, will reduce in frequency and have
+negative likelihood values, but are still informative about
+selection. Therefore, we also define:
+\begin{equation}
+ {\cal M}^{+}_{\pi} = \frac{1}{|L_{\pi}|}\sum_{\ell \in L_{\pi}}\vert M_\ell\vert ,
+\hspace{0.5in}
+ {\cal H}^{+}_{\pi} = \frac{1}{|L_{\pi}|}\sum_{\ell \in L_{\pi}}\vert H_\ell\vert.
+\label{eq:pihmmplus}
+\end{equation}
+We also note here that unlike $\Hc$, $\Hc^{+}_{\pi}$ can be computed
+without knowledge of the ancestral allele.
+\paragraph{Final word on notation.}
+In the following, we use $M$, Eq.~\ref{eq:mcts} (respectively, $H$,
+Eq.~\ref{eq:hmmml}) to denote the \comale\ scores for individual
+variants. Similarly, we use $\Mc_{\pi},\Mc^{+}_{\pi}$ (respectively,
+$\Hc_{\pi},\Hc^{+}_{\pi}$) to denote the composite \comale\ scores for
+a genomic region. In this notation, ${\cal H}_{100}={\cal
+  H}^{+}_{100}$ corresponds to the CLR based on choosing the best site
+in a region, while $\Hc_0,\Hc^{+}_0$ both correspond to the CLR based
+on all sites in the region. For ease of notation, we sometimes use
+$\Hc$, or $\Hc^{+}$ to denote \comale\ scores in results, when the
+choice of $\pi$ is apparent.
 
 \paragraph{Site-identification.} 
 We rank the individual variant scores in a region to predict the

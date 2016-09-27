@@ -43,30 +43,28 @@
 	\centering
 	\includegraphics[trim=.2in 0 .2in 0, 
 	clip,width=\textwidth]{figures/{CLRQ}.pdf}
-	\caption{{\bf Average power of composite statistics as function of 
-	percentile cutoffs.} Detection power is averaged for 
-	$s\in\{0.025,0.05,0.075,0.1\}$ using \comale statistic computed using 
-	modified likelihood ration $\Hc(H)$ and standard likelihood ratio 
-	$\Hc(|H|)$. For each setting the best performance is gained at  $\pi^*$ 
-	which is different for different settings. As expected, $\pi^*$ takes 
-	larger value (due to lower LD of the variation with favored allele). In 
-	addition, for low coverage experiment better performance is achieved when 
-	more candidate SNPs are take into computation of the composite statistic, 
-	i.e., $\pi^*$ is lower. }
+	\caption{{\bf Average power of \comale\ statistics as function
+            of percentile cutoffs.} Detection power is averaged for
+          $s\in\{0.025,0.05,0.075,0.1\}$ for $\Hc_{\pi}$ and
+          $\Hc^{+}_{\pi}$. We denote
+          $\pi^{*}=\arg\max_{\pi}\{\mbox{Power}(\Hc),\mbox{Power}(\Hc^{+})\}$. Average
+          power was computed using $1,000$ simulations for each choice
+          of $s$. The appropriate choice of $\pi$ can be used to
+          improve performance for different coverage values. }
 	\label{fig:clrq}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{figures/powerCLR.pdf}
-	\caption{{\bf Detection power of \comale-M and \comale-H with
-            different composite statistics.}  Detection power for
-          \comale-M ($\Mc$) and \comale-H ($\Hc$) under hard (top) and
+	\caption{{\bf Comparison of power of $\Mc$ and $\Hc$.}
+          Detection power for $\Mc$ and $\Hc$ under hard (top) and
           soft sweep (bottom) scenarios, for different settings of
           mean coverage $\lambda$ and selection strength $s$.  The
           $y$-axis measures power -- sensitivity with false positive
           rate FPR $\le 0.05$ -- for $1,000$ simulations of $50$Kbp
-          regions.  } \label{fig:powerCLR}
+          regions. The horizontal line reflects the power of a random
+          classifier. } \label{fig:powerCLR}
 \end{figure}
 
 \begin{figure}[H]
@@ -74,12 +72,13 @@
 	\includegraphics[width=\textwidth]{figures/power.pdf}
 	\caption{ {\bf Power calculations for detection of selection.}
           Detection power for \comale ($\Hc$), Frequency Increment
-          Test (FIT), Gaussian Process, and CMH under hard (top) and
-          soft sweep (bottom) scenarios. $\lambda$, $s$ denote the
+          Test (FIT), Gaussian Process (GP), and CMH under hard (top)
+          and soft sweep (bottom) scenarios. $\lambda$, $s$ denote the
           mean coverage and selection coefficient, respectively. The
           $y$-axis measures power -- sensitivity with false positive
           rate FPR $\le 0.05$ -- for $1,000$ simulations of $50$Kbp
-          regions. } \label{fig:power}
+          regions. The horizontal line reflects the power of a random
+          classifier.} \label{fig:power}
 \end{figure}
 
 \clearpage
@@ -87,11 +86,12 @@
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.75\textwidth]{figures/{runTime.pdf}}
-	\caption{{\bf Running time}. Box plot of running times
-          (CPU-secs.) of \comale, HMM, GP with single, 3, 5, 7, and 10
-          loci over 1000 simulations conducted on a workstation with
-          4th Generation Intel Core i7 processor. The average running
-          time for each method is shown on the x-axis.}
+	\caption{{\bf Running time}. Box plots of running time per
+          variant (CPU-secs.) of \comale ($\Mc$, $\Hc$), CMH, FIT, and
+          GP with single, 3, 5, 7, and 10 loci over 1000 simulations
+          conducted on a workstation with 4th Generation Intel Core i7
+          processor. The average running time for each method is shown
+          on the x-axis.}
 	\label{fig:runTime}
 \end{figure}
 \clearpage
@@ -126,15 +126,16 @@
 	\centering
 	\includegraphics[trim=.2in 0 .2in 0, 
 	clip,width=\textwidth]{figures/{rank100.0}.pdf}
-	\caption{{\bf Ranking performance for 100$\times$ coverage.} Cumulative 
-	Distribution Function (CDF) of the
-          distribution of the rank of the adaptive allele in 500
-          simulations for \comale-H, Gaussian Process (GP),
-          CMH, and Frequency Increment Test (FIT), for different
-          values of selection coefficient $s$ and initial carrier
-          frequency. Area Under Curve (AUC) is computed as a
-          quantitative measure ranking performance of methods for each
-          configuration.}
+	\caption{{\bf Ranking performance for 100$\times$ coverage.}
+          Cumulative Distribution Function (CDF) of the distribution
+          of the rank of the favored allele in 500 simulations for
+          \comale\ (H), Gaussian Process (GP), CMH, and Frequency
+          Increment Test (FIT), for different values of selection
+          coefficient $s$ and initial carrier frequency. Note that the
+          individual variant \comale\ score ($H$) is used to rank
+          variants.  The Area Under Curve (AUC) is computed as a
+          quantitative measure to compare the performance of methods
+          for each configuration.}
 	\label{fig:rank}
 \end{figure}
 
@@ -148,12 +149,12 @@
 \caption{{\bf Distribution of bias for 100$\times$ coverage.} The
   distribution of bias ($s-\hat{s}$) in estimating selection
   coefficient over 500 simulations using Gaussian Process (GP) and
-  \comale-H is shown for a range of choices for the selection
+  \comale\ ($H$) is shown for a range of choices for the selection
   coefficient $s$ and starting carrier frequency $\nu_0$, when
-  coverage is 100.  The estimation performance of GP and HMM are very
-  similar in soft sweep, while HMM provides lower variance in hard
-  sweep(overall standard deviation is 0.036 for GO and is 0.028 for
-  HMM).  }
+  coverage $\lambda=100$ (Panels A,B). GP and \comale\ have similar
+  variance in estimates of $s$ for soft sweep, while \comale\ provides
+  lower variance in hard sweep. Also see Table~\ref{XXX}. Panels C,D
+  show the variance in the estimation of $h$. }
 	\label{fig:bias100}
 \end{figure}
 
@@ -162,15 +163,14 @@
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{figures/{manhattan.min500snp}.pdf}
-	\caption{{\bf \comale\ scan of the \data.}. Manhattan plot of the composite 
-	$\Hc$
-          statistic (A) and the number of SNPs (B) in 50Kbp
-          sliding window with steps of 10Kbp, excluding windows close
-          to centromere and telomere. The dashed line corresponds to
-          the top $1$\%-ile cut-off and the candidate regions above the 
-          threshold are show 
-          in red dots. For comparison to past results,
-          only Chromosomes 2, 3, and X are shown.}
+	\caption{{\bf \comale\ scan of the \datadm.}. Manhattan plot
+          of the \comale\ ($\Hc^{+})$ statistic (A) and the number of
+          SNPs (B) in 50Kbp sliding windows with steps of 10Kbp,
+          excluding windows close to centromere and telomere. The
+          dashed line corresponds to the top $1$\%-ile
+          threshold. Regions that exceed the threshold are shown in
+          red dots. For comparison to past results, only Chromosomes
+          2, 3, and X are shown.}
 	\label{fig:manhattancutoffed}
 \end{figure}
 
