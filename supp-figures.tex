@@ -233,15 +233,15 @@
 	\includegraphics[trim=.2in 0 .2in 0, 
 	clip,width=\textwidth]{figures/{rank30.0}.pdf}
 	\caption{{\bf Ranking performance for 30$\times$ coverage.}
-          Cumulative Distribution Function (CDF) of the distribution
-          of the rank of the adaptive allele in 500 simulations for
-          \comale-H ($H$), Gaussian Process (GP) and Frequency
-          Increment Test (FIT), for different values of selection
-          strength $s$ and initial carrier frequency, when coverage is
-          30. Area Under Curve (AUC) is computed as a quantitative
-          measure ranking performance of methods for each
-          configuration. In all case \comale\ provides the best performance. 
-          Localization in soft sweep is an easier task.}
+           Cumulative Distribution Function (CDF) of the distribution
+           of the rank of the favored allele in 500 simulations for
+           \comale\ ($H$), Gaussian Process (GP), CMH, and Frequency
+           Increment Test (FIT), for different values of selection
+           coefficient $s$ and initial carrier frequency. Note that the
+           individual variant \comale\ score ($H$) is used to rank
+           variants.  The Area Under Curve (AUC) is computed as a
+           quantitative measure to compare the performance of methods
+           for each configuration.}
 	\label{fig:rank30}
 \end{figure}
 \ignore{
@@ -250,15 +250,15 @@
 	\includegraphics[trim=.2in 0 .2in 0, 
 	clip,width=\textwidth]{figures/{rank300.0}.pdf}
 	\caption{{\bf Ranking performance for 300$\times$ coverage.}
-          Cumulative Distribution Function (CDF) of the distribution
-          of the rank of the adaptive allele in 500 simulations for
-          \comale-H ($H$), Gaussian Process (GP) and Frequency
-          Increment Test (FIT), for different values of selection
-          strength $s$ and initial carrier frequency, when coverage is
-          300. Area Under Curve (AUC) is computed as a quantitative
-          measure ranking performance of methods for each
-          configuration. In all case \comale\ provides the best performance. 
-          Localization in soft sweep is an easier task.}
+           Cumulative Distribution Function (CDF) of the distribution
+           of the rank of the favored allele in 500 simulations for
+           \comale\ ($H$), Gaussian Process (GP), CMH, and Frequency
+           Increment Test (FIT), for different values of selection
+           coefficient $s$ and initial carrier frequency. Note that the
+           individual variant \comale\ score ($H$) is used to rank
+           variants.  The Area Under Curve (AUC) is computed as a
+           quantitative measure to compare the performance of methods
+           for each configuration.}
 	\label{fig:rank300}
 \end{figure}}
 \begin{figure}[H]
@@ -266,15 +266,15 @@
 	\includegraphics[trim=.2in 0 .2in 0, 
 	clip,width=\textwidth]{figures/rankinf.pdf}
 	\caption{{\bf Ranking performance for infinite coverage.}
-          Cumulative Distribution Function (CDF) of the distribution
-          of the rank of the adaptive allele in 500 simulations for
-          \comale-H ($H$), Gaussian Process (GP) and Frequency
-          Increment Test (FIT), for different values of selection
-          strength $s$ and initial carrier frequency, when coverage is
-          infinite. Area Under Curve (AUC) is computed as a
-          quantitative measure ranking performance of methods for each
-          configuration. In all case \comale\ provides the best performance. 
-          Localization in soft sweep is an easier task.}
+           Cumulative Distribution Function (CDF) of the distribution
+           of the rank of the favored allele in 500 simulations for
+           \comale\ ($H$), Gaussian Process (GP), CMH, and Frequency
+           Increment Test (FIT), for different values of selection
+           coefficient $s$ and initial carrier frequency. Note that the
+           individual variant \comale\ score ($H$) is used to rank
+           variants.  The Area Under Curve (AUC) is computed as a
+           quantitative measure to compare the performance of methods
+           for each configuration.}
 	\label{fig:rankinf}
 \end{figure}
 
@@ -282,13 +282,16 @@
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.6\textwidth]{figures/{bias.30}.pdf}
-	\caption{{\bf Distribution of bias for 30$\times$ coverage.} The 
-	distribution of 
-	bias of selection fitness (A-B), $s-\hat{s}$, and overdominance (C-D), 
-	$h-\hat{h}$, computed for 500 simulations for a range of choices for the 
-	selection
-		coefficient $s$ and starting carrier frequency $\nu_0$, when coverage 
-		is 30.}
+	\caption{{\bf Distribution of bias for 30$\times$ coverage.} The
+		distribution of bias ($s-\hat{s}$) in estimating selection
+		coefficient over 500 simulations using Gaussian Process (GP) and
+		\comale\ ($H$) is shown for a range of choices for the selection
+		coefficient $s$ and starting carrier frequency $\nu_0$, when
+		coverage $\lambda=30$ (Panels A,B). GP and \comale\ have similar
+		variance in estimates of $s$ for soft sweep, while \comale\ provides
+		lower variance in hard sweep. Also see Table~\ref{tab:biasdist}. Panels 
+		C,D
+		show the variance in the estimation of $h$.}
 	\label{fig:bias30}
 \end{figure}
 
@@ -296,12 +299,17 @@
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.6\textwidth]{figures/{bias.inf}.pdf}
-	\caption{{\bf Distribution of bias for infinite coverage.} The distribution 
-	of bias
-		($s-\hat{s}$) in estimating selection coefficient over 500
-		simulations is shown for a range of choices for the selection
-		coefficient $s$ and starting carrier frequency $\nu_0$, when coverage 
-		is infinity.}
+	\caption{{\bf Distribution of bias for infinite coverage.} The
+		distribution of bias ($s-\hat{s}$) in estimating selection
+		coefficient over 500 simulations using Gaussian Process (GP) and
+		\comale\ ($H$) is shown for a range of choices for the selection
+		coefficient $s$ and starting carrier frequency $\nu_0$, when
+		coverage $\lambda=\infty$ (Panels A,B). GP and \comale\ have similar
+		variance in estimates of $s$ for soft sweep, while \comale\ provides
+		lower variance in hard sweep. Also see Table~\ref{tab:biasdist}. Panels 
+		C,D
+		show the variance in the estimation of $h$.
+		}
 	\label{fig:biasinf}
 \end{figure}
 

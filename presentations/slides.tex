@@ -1,6 +1,6 @@
 %\documentclass[handout]{beamer} % \pause disabled
 \documentclass[t]{beamer} % \pause enabled
-\input{macros_arya}
+\input{../macros_arya}
 \usepackage{datetime}
 \def\vecbold#1{{\boldsymbol#1}}
 
@@ -9,6 +9,7 @@
 
 %\usepackage[linesnumbered,ruled]{algorithm2e}
 \usetheme{Madrid}
+\usepackage{tabularx}
 \setbeamertemplate{footline}
 {
   \leavevmode%
@@ -27,7 +28,7 @@
 }
 \def\dHAF{\text{-HAF}}
 \makeatother
-\title{Detecting Selection in Experimental Evolution Experiment}
+\title{Identifying Selection in Experimental Evolution}
 \subtitle{}
 \author[Arya Iranmehr]
 {%
@@ -46,19 +47,7 @@ University of California, San Diego}
 \monthyeardate\today}
 \subject{Optimization}
 \usefonttheme{serif} % default family is serif
-%\AtBeginSection[]
-%  {
-%     \begin{frame}<beamer>
-%     \frametitle{Agenda}
-%     \tableofcontents[currentsection,currentsubsection]
-%     \end{frame}
-%  }
-%\AtBeginSubsection[]
-%{
-%  \begin{frame}<beamer>{Outline}
-%    \tableofcontents[currentsection,currentsubsection]
-%  \end{frame}
-%}
+
 
 \begin{document}
 \begin{frame}
@@ -68,284 +57,294 @@ University of California, San Diego}
 
 \begin{frame}{Introduction}
 \begin{itemize}
-\item We are interested in identifying genetic adaptations in different organisms in find genes (or alleles) that are beneficial w.r.t. a  \emphr{selective pressure}.
-\item Examples of interesting selective pressures: harsh environmental conditions, antibiotics, chemotherapy, etc.
-\end{itemize}
-\end{frame}
-
-
-
-\begin{frame}{History}
-\begin{itemize}
-\item Traditionally, detecting/locating selection is done by analysing Allele 
-Frequency Spectrum(AFS) or Haplotypes of a region (say 50Kbp).
-\item {\bf Now}
-\begin{enumerate}
-\item We can sequence the population at different generations
-\item We can't wait until fixation. 
-\end{enumerate}
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-Experimental Evolution
+\item Next generation sequencing has made \emphr{whole-genome \& 
+whole-population} sequencing possible.
 \begin{figure}
-\includegraphics[trim={0 2.1in 0 0},clip, scale=0.6]{eg.jpg} 
+\includegraphics[trim={0in 0in 0in 
+	0in},clip,width=0.5\textwidth]{../figures/{wgwp}}
+\tiny{www.1000genomes.org}
 \end{figure}
+\pause
+\item For organisms with  ``short-generation-time", (e.g., yeast, \emph{E. 
+coli}, \dmel etc.) it is  also
+possible 
+to collect \emphr{time-series} data of 
+population.
+\pause
+\item Given rise of these \emphr{modern datasets} (population longitudinal 
+data), new techniques required to answer classical population genetics 
+questions on real data.
+\end{itemize}
 \end{frame}
 
-\begin{frame}{Goals}
+\begin{frame}{ Goals }
+Design a method which
 \begin{itemize}
-\item Given the genome time series data (allele frequencies) we are interested in
-\begin{enumerate}[I]
-\item Detecting selection 
-\item Locating selection
+	\item Detect regions under selection.
+	\item Localizing adaptive allele within the candidate region.
+	\item Estimating selection parameters.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Experimental Evolution (EE)}
+\begin{itemize}
+	\item EE is a long tradition in biology, which studies the 
+	\emphr{phenotype in time} by reducing \emphr{environmental effects} .
+		\begin{figure}
+			\includegraphics[trim={0in 3.6in 8.8in 
+				1.5in},clip,width=0.3\textwidth]{../figures/{ee-eg1}}
+\tiny{Nature Reviews Genetics 14, 827-839 (2013)}
+		\end{figure}
+		\pause
+	\item In a \emphr{controlled} environment, EE evolves a homogeneous 
+	population.
+	\pause
+	\item Let phenotype of interest be the \emphr{response to a selection 
+	pressure}, e.g., 
+	response to
+	\begin{itemize}
+		\item antibiotic
+		\item low oxygen conditions
+		\item hot and cold temperatures 
+		\item etc.
+	\end{itemize}
+				
+\end{itemize}
+\end{frame}
+
+\begin{frame}{An experiment design for \dmel}
+	\begin{figure}
+		\includegraphics[trim={18in 0.0in 0.0in 
+			0in},clip,width=0.8\textwidth]{../figures/ExperimentalEvolution}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Whole-Genome Whole-Population Sequencing}
+	\begin{itemize}
+		\item Pooled-Sequencing 
+		\begin{figure}
+			\includegraphics[trim={.05in 7.5in 0.0in 
+				0in},clip,width=0.9\textwidth]{../figures/pool-seq}\\
+			\tiny{Nature Reviews Genetics 15, 749-763 (2014)}
+		\end{figure}
+		\pause
+			\item Implication: only population allele frequency can be computed.
+	\end{itemize}	
+\end{frame}
+
+\begin{frame}{Dynamic of population allele frequency }
+	under different \emphr{initial conditions} and \emph{selection strengths} 
+	frequency 
+	change differently
+	\begin{figure}
+		\includegraphics[trim={10in 0.0in 0.0in 
+			0in},clip,width=0.7\textwidth]{../figures/AF}
+	\end{figure}
+\end{frame}
+
+
+\begin{frame}{ Simplified Model (I)}
+	\begin{itemize}
+		\item  Suppose we have sequenced a whole (diploid, size=$N$) 
+		population \emphr{every 
+		generation} (eg, for 6 generations) and \emphr{exact allele 
+		frequency} are given.
+	\pause
+		\item A discrete-time discrete-state model, Markov chain, can 
+		generate such a data.
+		\begin{figure}
+			\includegraphics[trim={.05in 0in 0.0in 
+				0.5in},clip,width=0.5\textwidth]{../figures/markoveg}
+		\end{figure}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{ Simplified Model (II)}
+	\begin{itemize}
+		\item  Where $Q_{i,j}(s,h)$ is the probability of going from frequency 
+		$i/(2N)$ to $j/(2N)$ when selection strength is $s$ and over dominance 
+		is $h$.
+		\pause
+		\item Likelihood of parameter can be easily computed
+		\beqq
+		\Lc(s,h| \{\nu_0,\ldots,\nu_5\}) = \pr(\{\nu_0,\ldots,\nu_5\}| Q(s,h) )
+		\eeqq
+		\pause
+		\item perform maximum likelihood to find $\hat{s}$, $\hat{h}$.
+		\pause
+		\item compute likelihood ratio, $M$ statistic for each SNP:
+		\beqq
+		M&=\frac{\text{likelihood of data as if being under 
+		selection with } \hat{s},\hat{h}}{l\text{ikelihood 
+		of data as if being neutral}}\\
+		&=\frac{	\Lc(\hat{s},\hat{h}| \{\nu_0,\ldots,\nu_5\})}{	\Lc(0,0| 
+		\{\nu_0,\ldots,\nu_5\})}
+		\eeqq
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}{ Model (complete)}
+	\begin{itemize}
+		\item  In reality, population is sequenced after some ($\tau$) 
+		generations.\\
+		\emphr{solution: use  $Q^\tau$ in computing likelihoods.}
+		\pause
+		\item Allele frequencies are unknown, and depth of each variant can be 
+		different.\\
+		\emphr{solution: extend Markov chain to an HMM by specifying 
+		emission probabilities }
+	\beqq%	\pr(\text{derived allele read count}|\text{depth},\nu)=\pr(c|d,\nu)\\
+	d &\sim \text{Poisson}(\text{Coverage})\\	
+	c &\sim \text{Bionomial}(N=d, \theta=\nu)	
+	\eeqq
+	\pause
+	\item everything the is the same, except we need to use \emphr{forward 
+	algorithm} to compute likelihood of a sequence of reads.
+\pause
+	\item Similarly, 
+	\beqq
+	H&=\frac{\text{likelihood of read-count data as if being under 
+			selection }}{l\text{ikelihood 
+			of read-count data as if being neutral}}
+	\eeqq
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Composite Likelihood for a Region (I)}
+	\begin{itemize}
+		\item So far we developed log-odds ratio statistics $M$ (frequency 
+		data) and $H$ (read count data) \emphr{for each variant}.
+		\pause
+		\item  For a small region with $L$ variants we can simply take the max 
+		score in the region, which is prone to \emphr{false positives}.
+		\pause
+		\item We know that variants are \emphr{correlated}
+		\begin{figure}
+			\includegraphics[trim={.05in 0in 0.0in 
+				0in},clip,width=0.5\textwidth]{../figures/{ld.eg}.png}\\
+			\tiny{Crit Care. 2014 Jun 20;18(3):R127}
+		\end{figure}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Composite Likelihood for a Region (II)}
+	\begin{itemize}
+		\item Computing joint likelihoods of SNPs is \emphr{infeasible} 
+		(haplotypes are 
+		required) and \emphr{intractable} (requires estimating covariance).
+		\pause
+		\item A heuristic is to compute composite (aka, pseudo) likelihood of  
+		the 
+		region $L$ to reduce false-positives
+		\beqq
+		\Hc = \frac{1}{|L|}\sum_{\ell \in L}H_\ell
+		\eeqq
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}{ Performance in Detecting Regions under Selection}
+Each point represent power  (TPR when FPR$\le$0.05) of detection in 1000 
+simulations (500 neutral, 500 selection) of a 50Kbp window, for different 
+coverages.
+		\begin{figure}
+			\includegraphics[trim={.05in .0in 0.0in 
+				0in},clip,width=\textwidth]{../figures/power.pdf}
+		\end{figure}
+\end{frame}
+
+\begin{frame}{ Detecting regions under selection: Observations}
 \begin{enumerate}[(i)]
- \item Identify gene under selection
- \item Identify the mutation 
+	\item Provides better and much robust performances to change of coverage.
+	\pause
+	\item It can detect well even when coverage is low, i.e., favored allele 
+	frequency (1/200 in hard 
+	sweep) is below accuracy of sequencing (1/30).
+	\pause
+	\item Run time is better or comparable with others.
+	\begin{figure}
+		\includegraphics[trim={.0in .0in 0.0in 
+			0in},clip,width=0.5\textwidth]{../figures/runTime.pdf}
+	\end{figure}
 \end{enumerate}
-\item Estimating model parameters
-\end{enumerate}
-\end{itemize}
 \end{frame}
 
-\begin{frame}{Simulations}
-\begin{enumerate}[(i)]
-\item For each simulation, population of $F=200$ founder lines is created in  \texttt{msms} program with parameters 
+
+\begin{frame}{ Localizing favored allele}
+Each curve depicts cumulative distribution of the rank  of favored allele among 
+($\approx$ 1150) variants, in 500 simulations.
+
+	\begin{figure}
+		\includegraphics[trim={.05in .0in 0.0in 
+			0in},clip,width=\textwidth]{../figures/{rank100.0}.pdf}
+	\end{figure}
+\end{frame}
+
+
+\begin{frame}{ Estimating parameters (I)}
+Our model estimates strength of selection $s$ and overdominance 
+		$h$ parameter for each variant.
+	\begin{figure}
+			\includegraphics[trim={.0in .0in 0.0in 
+				0in},clip,width=0.5\textwidth]{../figures/{dominance}.pdf}
+	\end{figure}
+		\begin{itemize}
+			\item $h=0$ : recessive adaptive allele
+			\item 				$h=0.5$ : directional selection
+			\item $h=1$:	dominant adaptive allele
+			\item 				$h>1$ :overdominance
+		\end{itemize}
+\end{frame}
+
+
+\begin{frame}{ Estimating parameters (II)}
+	Distribution of bias of parameters in 500 simulations.
+	\begin{figure}
+		\includegraphics[trim={.05in .0in 0.0in 
+			0in},clip,width=0.6\textwidth]{../figures/{bias.100}.pdf}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{ Analysis of real data}
 \begin{itemize}
-\item window size $L=50$Kbp.
-\item mutation rate $\theta=200$.
-\end{itemize}
-
-\item Using $F=200$ founder lines a population diploid is created.
-\item Using forward simulator population is evolved and AF is sampled every 10 generation for 50 generations. 
-\item This procedure is repeated 100 times for each $s=\{0.1, 0.05, 0.02, 0.01, 0\}$.
-\end{enumerate}
-\end{frame}
-
-
-%\begin{frame}{Hard Sweep}
-%\begin{itemize}
-%\item With this setting around 20\% of sites are at Minimum Allele Frequency 
-%=1/200  (at time 0).
-%\end{itemize}
-%\hspace{-0in}\includegraphics[scale=0.17]{afs}
-%\end{frame}
-
-\begin{frame}{Single Locus Logistic Model: Carrier Frequency}
-Dynamics of sweep extremely depend on $s$ as well as initial carrier frequency.Sampling times are very important prediction performance!
-
-\begin{figure}
-\centering
-\hspace{-0in}\includegraphics[trim={2in 0.5in 1.5in 0in},clip,page=2,width=0.5\textwidth]{sigmoidSoft}
-\hspace{-0in}\includegraphics[trim={2in 0.5in 1.9in 0in},clip,page=2,width=0.5\textwidth]{sigmoidHard}
-\end{figure}
-%{\tiny
-%\begin{enumerate}
-%\item Left) Terhorst et al. considered soft sweep. The time-window which  they 
-%sampled is shaded. 
-%\item Right) With the same sampling scheme, it is difficult to make 
-%predictions base on observations under 50 generations.
-%\end{enumerate}
-%}
-\end{frame}
-
-\begin{frame}{Bottleneck}
-\begin{itemize}
-	\item side-effect of not tracking new mutations and restricting population 
-	to founder-lines.
-%\item When restricting observations to a fixed set of sites, at each 
-%generation some sites get lost (due to drift), but no new mutation happens.
-%\item Pr(Absorption of site $i$) = Frequency of site $i$.
-\end{itemize}
-\begin{figure}
-\centering
-\includegraphics[trim=2in 0 2in 0, clip,width=\textwidth]{bottleneck}
-\end{figure}
-
-\end{frame}
-
-
-
-\begin{figure}
-  \centering
-  		    \includegraphics[trim={2in 0.5in 2in 0in},clip,page=1,width=\textwidth]{{GlobalDynamics.TimeSeries}.pdf}
-  \caption{Mean and 95\% CI of 1000 simulations for strong selection.}
-\end{figure}
-
-\begin{figure}
-  \centering
-  		    \includegraphics[trim={2in 0.5in 2in 0in},clip,page=4,width=\textwidth]{{GlobalDynamics.TimeSeries}.pdf}
-  \caption{Mean and 95\% CI of 1000 simulations for weak selection.}
-\end{figure}
-
-\begin{frame}[allowframebreaks]{Single-Locus Least-Squares Method}
-\begin{figure}
-\begin{enumerate}
-\item Model is consistent with observations
-\begin{figure}
-  \centering
-\hspace{-0.5in}\includegraphics[trim={2in 9.3in 2in 0in},clip,page=1,width=\textwidth]{{GlobalDynamics.TimeSeries}.pdf}
-  		   \end{figure}
-  		   \newpage
- \item strong linkage in a window
-\begin{figure}
-\centering
-\hspace{-0in}\includegraphics[scale=0.2]{spaceTimeLD}
-\end{figure}
- \item Estimating $s$ at each site
-\begin{figure}
-\centering
-\hspace{-0in}\includegraphics[scale=0.2]{ls01}
-\end{figure}
-
- \item spectrum of $\hat{s}$ for a window
-\begin{figure}
-\centering
-\hspace{-0in}\includegraphics[scale=0.15]{sspectrum}
-\end{figure}
-\item We considered avg of top $\hat{s}$ as a predictor of selection for a 
-window. 
-\end{enumerate}
-
-\end{figure}
-\end{frame}
-
-\begin{frame}{Tajima's D and Fay Wu's H}
-\begin{enumerate}
-\item After correcting observations for bottleneck effect the model look like observations, but it has a higher variance.
-\begin{figure}
-\hspace{-0.5in} \includegraphics[trim={1.8in 0.25in 2in 9.25in},clip,page=1,width=\textwidth]{{GlobalDynamics.TimeSeries}.pdf}
-  		   \end{figure}
-\begin{figure}
-\hspace{-0.5in} \includegraphics[trim={1.8in 7.75in 2in 2.75in},clip,page=1,width=\textwidth]{{GlobalDynamics.TimeSeries}.pdf}
-  		   \end{figure}
-
-  \item The parametric models assumes hard-sweep, so the model become ivalid in soft sweep.
-\end{enumerate}
-
-\end{frame}
-
-
-\begin{frame}{SFSelect and Gaussian Process}
-\begin{enumerate}
-\item SFSelect process is a monotone process, so we summed all the values in the time series to get a predictor for selection.
-\begin{figure}
-\hspace{-0.5in} \includegraphics[trim={1.8in 4.5in 2in 5.95in},clip,page=1,width=\textwidth]{{GlobalDynamics.TimeSeries}.pdf}
-  		   \end{figure}
-
-  \item GP is the state-of-the art model, proposed by Terhorst et al, which fits a Gaussian process on the time series data.
-\end{enumerate}
-
-\end{frame}
-
-\begin{frame}{Experiments}
-\begin{itemize}
-\item for each setting we performs 200 simulations, (100 neutral and 100 selection), and predictive performance of all the methods in detecting selection.
-\item We computed ROC curve and defined power of a method as area under ROC curve when False-Positive rate is less than 0.1.
+	\item A population of \dmel is evolved for 59 generations, under 
+	alternative hot and cold temperatures.
+	\pause
+	\item Coverage is different at generations and samples are not synchronized.
+	\pause
+	\item Genome scan for sliding window size=50Kbp,  steps=10Kbp
+		\begin{figure}
+			\includegraphics[trim={.05in .0in 0.0in 
+				0in},clip,width=0.8\textwidth]{../figures/{manhattan.min500snp}.pdf}
+		\end{figure}		
 \end{itemize}
 \end{frame}
 
-\begin{figure}
-  \centering \includegraphics[width=\textwidth]{{power}}
-\end{figure}
 
 
 
-\begin{frame}{Summary}
-\begin{itemize}
-\item Behaviour of different population statistics in time is studied.
-\item A method based on single locus AF is proposed and shown to have superior performance than multi-locus and traditional methods.
-\item Analysis of real data and locating genes in the genome is our next step.
-\end{itemize}
-
+\begin{frame}{ Discussion}
+	\begin{itemize}
+		\item An efficient method for analyzing \emphr{ full time-series 
+		read-count data} is proposed.
+		\pause
+		\item By computing composite likelihood $\Hc$ statistic is more robust 
+		to false positives.	
+		\pause 
+		\item When initial frequency of the favored allele is low, stronger 
+		selection helps detecting selection but makes locating favored allele a 
+		harder task.
+		\item Next step is to apply to new dataset with a well defined 
+		phenotype, e.g. response to hypoxia.
+	\end{itemize}
 \end{frame}
-
-
-%\end{frame}
-
-
-%
-%\begin{frame}{Computational Performance}
-%\begin{figure}[H]
-%  \centering
-%    \includegraphics[width=0.6\textwidth]{times}
-%\end{figure}
-%\end{frame}
-
-
-
-
 
 \begin{frame}{\ }
-\vspace{1	in}
-\begin{center}
-	\huge{Thanks!}\\
-\end{center}
-
-\end{frame}
-
-\begin{frame}{Single Locus Model: Carrier Frequency}
-\begin{itemize}
-\item By differentiating update equations ($x_{t+1}=x_t+\frac{sx_t(1-x_t)}{2+2sx_t}$ w.r.t. $t$ and solving differential equation, we have
-\beqq
-\nu_t=\sigma\left(st/2+\eta(\nu_0)\right)
-\eeqq
-where $\sigma(.)$ is logistic function and $\eta=\sigma^{-1}$ is the logit function and $\nu_t$ is the frequency of the carrier at time $t$.
-\end{itemize}
-\hspace{-0.6in}\includegraphics[scale=0.2]{sigmoid}
-\end{frame}
-\begin{frame}{Multi Locus Model: Average Haplotype Allele Frequency}
-
-\begin{equation*}
-\resizebox{.99\hsize}{!}{
-$\mathbb{E}[1\dHAF(t)]= \|\mathbf{x}_t\|^2\approx \theta \nu_t \left(\frac{\nu_t+1}{2} - \frac{1}{(1-\nu_t)n+1}\right) +
- \theta (1-\nu_t)\left(\frac{n+1}{2n}-\frac{1}{(1-\nu_t)n+1}\right)$
-}
-\end{equation*}
-where $ \mathbf{x}_t$ is vector of AF at time $t$ and $\nu_t=\sigma\left(st/2+\eta(\nu_0)\right)$.
-
-\hspace{-0.1in}\includegraphics[scale=0.2]{haf}
-\end{frame}
-\begin{frame}{Critics to GP}
-\begin{itemize}
-\item Its too complex, likely to overfit with small number of iid replicates.
-\item Although the likelihood model is based on different parameters, in practice, it can learn only one parameter at a time.
-\item not tractable, its time complexity is quartic!
-\item worse, each iteration requires \texttt{maxGeneration} recursion which makes it very hard to analyse late epochs of sweeps.
-\item In addition to PoolSeq data, it requires initial population haplotypes.
-\item Despite its elegant theory, it has not compared with classical methods.
-\item In practice, single locus scan is performed and multi-locus (with 3-7 seg. sites.) model is fitted at regions of interests.
-\end{itemize}
+	\vspace{1	in}
+	\begin{center}
+		\huge{Thanks!}\\
+	\end{center}
+	
 \end{frame}
 \end{document}
-
-
-\begin{frame}{Simulations}
-\begin{enumerate}[(i)]
-\item For each simulation, population of $F=200$ founder lines is created in  \texttt{msms} program with parameters 
-\begin{itemize}
-\item Length of genome $L=10^6$Kbp.
-\item Population size $N_e=10^6$.
-\item Recombination rate $r=2\times10^{-8}$.
-\item Mutation rate $\mu=10^{-9}$ which give $\theta = 200$ and $m\approx 1200$ .
-\end{itemize}
-
-\item Using $F=200$ founder lines a population of $N=1000$ diploid homozygote individuals are created.
-\item Using \texttt{SimuPop}, the initial population is forward simulated for 10 replicates and AF is recorded every 10 generation for a complete hard sweep. 
-\item I.e., a site with minimum allele frequency of $1/F$ is always under selection.
-\item for each $s=\{0.1, 0.05, 0.02, 0.01, 0\}$ 100 simulations are done.
-\end{enumerate}
-\end{frame}
-\begin{frame}{Multi-Locus Methods}
-\begin{itemize}
-\item In hard sweep, site under selection has perfect LD with all the other sites at time 0.\item With hard-sweep, it is difficult to aim locating mutation in less than 2K generations.
-\item 50Kb window seems to be a reasonable resolution.
-\end{itemize}
-\begin{figure}
-\centering
-\hspace{-0in}\includegraphics[scale=0.17]{spaceTimeLD}
-\caption{Decay of LD in space through time under neutral evolution, when selected site is at position 500K. 50Kb window centered at the site is shaded.}
-
-\end{figure}
-\end{frame}
