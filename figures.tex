@@ -28,7 +28,7 @@
             Motion (red), and Markov chain (blue).} Panels A-F:
           Experiments were conducted under neutral evolution with
           different starting frequencies $\nu_0\in\{0.005,0.1\}$ and
-          sampling times $\tau \in \{1,10,100\}$ generations. The
+          sampling times of $\Tc=\{0,\tau\}$, where $\tau \in \{1,10,100\}$. The
           empirical distribution was computed by sampling 143,900
           sites with $\nu_0=0.005$ and 47,500 variants with
           $\nu_0=0.1$. Panels G,H,I: Comparisons of Empirical and
@@ -50,7 +50,9 @@
           $\pi^{*}=\arg\max_{\pi}\{\mbox{Power}(\Hc),\mbox{Power}(\Hc^{+})\}$. Average
           power was computed using $1,000$ simulations for each choice
           of $s$. The appropriate choice of $\pi$ can be used to
-          improve performance for different coverage values. }
+          improve performance for different coverage values. 
+          In all simulations, 3 replicates are evolved and sampled at generations 
+          $\Tc=\{0,10,20,30,40,50\}$.}
 	\label{fig:clrq}
 \end{figure}
 
@@ -64,7 +66,10 @@
           $y$-axis measures power -- sensitivity with false positive
           rate FPR $\le 0.05$ -- for $1,000$ simulations of $50$Kbp
           regions. The horizontal line reflects the power of a random
-          classifier. } \label{fig:powerCLR}
+          classifier.
+          In all simulations, 3 replicates are evolved and sampled at generations 
+          $\Tc=\{0,10,20,30,40,50\}$.
+           } \label{fig:powerCLR}
 \end{figure}
 
 \begin{figure}[H]
@@ -78,7 +83,10 @@
           $y$-axis measures power -- sensitivity with false positive
           rate FPR $\le 0.05$ -- for $1,000$ simulations of $50$Kbp
           regions. The horizontal line reflects the power of a random
-          classifier.} \label{fig:power}
+          classifier.
+          In all simulations, 3 replicates are evolved and sampled at generations 
+          $\Tc=\{0,10,20,30,40,50\}$.}
+           \label{fig:power}
 \end{figure}
 
 \clearpage
@@ -91,7 +99,9 @@
           GP with single, 3, 5, 7, and 10 loci over 1000 simulations
           conducted on a workstation with 4th Generation Intel Core i7
           processor. The average running time for each method is shown
-          on the x-axis.}
+          on the x-axis.
+          In all simulations, 3 replicates are evolved and sampled at generations 
+          $\Tc=\{0,10,20,30,40,50\}$.}
 	\label{fig:runTime}
 \end{figure}
 \clearpage
@@ -135,7 +145,9 @@
           individual variant \comale\ score ($H$) is used to rank
           variants.  The Area Under Curve (AUC) is computed as a
           quantitative measure to compare the performance of methods
-          for each configuration.}
+          for each configuration. In all simulations, 3 replicates are evolved and 
+          sampled at generations 
+          $\Tc=\{0,10,20,30,40,50\}$.}
 	\label{fig:rank}
 \end{figure}
 
@@ -154,7 +166,9 @@
   coverage $\lambda=100$ (Panels A,B). GP and \comale\ have similar
   variance in estimates of $s$ for soft sweep, while \comale\ provides
   lower variance in hard sweep. Also see Table~\ref{tab:biasdist}. Panels C,D
-  show the variance in the estimation of $h$. }
+  show the variance in the estimation of $h$. 
+  In all simulations, 3 replicates are evolved and sampled at generations 
+  $\Tc=\{0,10,20,30,40,50\}$.}
 	\label{fig:bias100}
 \end{figure}
 
