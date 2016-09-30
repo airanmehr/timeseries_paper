@@ -1,5 +1,5 @@
 \section{Introduction}
-Natural selection is the key force in evolution, and a mechanism by
+Natural selection is a key force in evolution, and a mechanism by
 which populations can adapt to external `selection'
 constraints. Examples of adaptation abound in the natural world,
 including for example, classic examples like lactose tolerance in
@@ -128,15 +128,17 @@ numerically and performed standard likelihood ratio test under $\Xc^2$
 distribution.
 
 It is only recently that direct tests for analyzing time-series data
-have been developed, and much of it is based on pooled sequencing
-(pool-seq) of a population sub-sample at specific times. Using
+have been developed, and much of it is based on 
+whole-genome sequencing of pools of individuals (pool-seq)
+at specific times. Using
 continuous-time continuous-state Brownian motion process, Feder
 \emph{et al.}~\cite{feder2014Identifying} proposed the Frequency
-Increment Test (FIT). More recently, Song \emph{et
-  al.}~\cite{Terhorst2015Multi} proposed empirical Gaussian Process
-(GP) likelihood ratio test for single and multiple loci dynamic allele
-frequency data. Topa \emph{et al.}~\cite{topa2015gaussian} extended GP
-to analyze pool-seq read count data. A key contribution of our paper
+Increment Test (FIT). More recently, Topa \emph{et al.}~\cite{topa2015gaussian} 
+proposed a Gaussian Process(GP) for modeling single-locus time-series pool-seq 
+data. Terhorst \emph{et al.}~\cite{Terhorst2015Multi} extended GP to compute 
+joint likelihood of multiple loci under null and alternative hypotheses. 
+
+A key contribution of our paper
 is the development of a direct, and significantly faster method,
 \comale, for identifying selection in short-term experimental
 evolution with pool-seq data. We show for a wide range of parameters

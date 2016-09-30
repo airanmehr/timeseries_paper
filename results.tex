@@ -214,14 +214,15 @@ on the time per variant, the actual running times are comparable after
 vectorization and broadcasting over variants (see below).
 
 These times can have a practical consequence. For instance, to run GP
-in the single locus mode on the entire pool-seqed \dmel genome of a
+in the single locus mode on the entire pool-seq data of the \dmel genome from a
 small sample (1.5M variant sites), it would take 1444 CPU-hours
 ($\approx$ 1 CPU-month). In contrast, after vectorizing and
 broadcasting operations for all variants operations using
-\texttt{numba} package, \comale\ takes less than an hour to perform an
-scan, including precomputation. \VB{CMH took XXX minutes}
+\texttt{numba} package, \comale\ took 75 minutes to perform an
+scan, including precomputation, while the fastest method, CMH, took 17 minutes.
 
-\subsection{Analysis of a \dmel EE experiment}\label{sec:dmel}
+\subsection{Analysis of a \dmel Adaptation to Cold and Hot 
+Temperatures}\label{sec:dmel}
 We applied \comale\ to the \data~\cite{orozco2012adaptation}, where 3
 replicate samples were chosen from a population of \dmel for 59
 generations under alternating 12-hour cycles of hot (28$^{\circ}$C)

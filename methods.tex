@@ -11,7 +11,7 @@ data as $\bm{\nu}^{(r)}$.
 \subsection{The \comale\  statistic}
 To test if a genomic region is evolving under natural selection, we
 consider a likelihood-based
-approach~\cite{vitti2013detecting,nielsen2005genomic,Terhorst2015Multi}
+approach~\cite{vitti2013detecting,nielsen2005genomic,topa2015gaussian,Terhorst2015Multi}
 that (a) maximizes the likelihood of the time series data
 w.r.t. selection and overdominance parameters $s,h$, for each
 polymorphism in the region; and, (b) computes the log-odds ratio of
@@ -28,14 +28,15 @@ selection parameters.
 To model neutral evolution, it is natural to model the change in
 frequency $\nu_t$ over time via Brownian
 motion~\cite{feder2014Identifying} or Gaussian
-process~\cite{Terhorst2015Multi}. Significant deviations from this
+process~\cite{topa2015gaussian,Terhorst2015Multi}. Significant deviations from 
+this
 Null could be indicative of non-neutrality. However, in our
 experiments, we found that the Brownian motion approximation is
 inadequate for small populations, low starting frequencies and sparse
 sampling (in time) that are typical in experimental evolution (see
 Results, and Fig.~\ref{fig:markov}). In fact, other ``continuous''
 models such as Gaussian process for dynamic allele frequencies, are
-also susceptible to this issue.
+also susceptible to this issue (see results and Fig.~\ref{fig:power}A-C).
 
 Instead, by computing likelihood of data using a discrete-time
 discrete-state-space Wright-Fisher Markov chain, we turn the problem
@@ -170,7 +171,7 @@ H &=& \sgn (\hat{s}). \log
 In general, the favored allele can be in linkage disequilibrium with
 some of its surrounding variation. The linked-loci hitchhike and share
 similar dynamics with the favored allele.  Some models such as
-Gaussian process~\cite{Terhorst2015Multi} incorporate these
+multiple-loci Gaussian process~\cite{Terhorst2015Multi} incorporate these
 associations by modeling linkage and recombination
 explicitly. However, these approaches are computationally
 expensive. Moreover, linkage computations are difficult without
@@ -352,7 +353,7 @@ the negative controls.}
 We performed extensive simulations using parameters that have been
 used for \dmel experimental
 evolution~\cite{kofler2013guide}. See also Fig.~\ref{fig:ee} for
-illustration. To implement real wold pool-seq experimental evolution, we 
+illustration. To implement real world pool-seq experimental evolution, we 
 conducted simulations as follows:
 \begin{enumerate}[I.]
 \item {\bf Creating initial founder line haplotypes.} Using
