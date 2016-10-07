@@ -408,3 +408,17 @@ estimates of deviation from neutrality. To simulate these scenarios,
 $N_e=10^4$, $\nu_0=10^{-4}$, and to record SFS of a 50Kbp region
 (Fig.~\ref{fig:ee}A). The remaining parameters were identical to
 controlled experimental evolution simulations.
+
+\paragraph{False Discovery Rate (FDR) control.} We applied \comale\ to the
+\datadm~\cite{orozco2012adaptation}, by computing the $\Hc^{+}$
+statistic for sliding windows of 50Kbp with steps of 10Kbp over the
+entire genome. Due to great variation in the density of polymorphic
+sites, we observed a large variation in scores. Moreover, high LD
+between proximal sites resulted in many neighboring windows with
+similar scores. Therefore, we computed a local false discovery rate
+for any candidate window by choosing an encompassing genomic region of
+$2$Mbp to preserve the genomic background. For each candidate window,
+we sampled a subset of variants from the encompassing region $10,000$
+times, and computed the $\Hc^+$ score. The candidate window was
+selected if its score was among the top $1\%$ of scores in the
+permuted tests.

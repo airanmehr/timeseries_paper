@@ -5,6 +5,13 @@ Guillaume Achaz.
 \newblock {Frequency spectrum neutrality tests: one for all and all for one}.
 \newblock {\em Genetics}, 183(1):249--258, 2009.
 
+\bibitem{adams2000genome}
+Mark~D Adams, Susan~E Celniker, Robert~A Holt, Cheryl~A Evans, Jeannine~D
+  Gocayne, Peter~G Amanatides, Steven~E Scherer, Peter~W Li, Roger~A Hoskins,
+  Richard~F Galle, and Others.
+\newblock {The genome sequence of Drosophila melanogaster}.
+\newblock {\em Science}, 287(5461):2185--2195, 2000.
+
 \bibitem{agresti2011categorical}
 Alan Agresti and Maria Kateri.
 \newblock {\em {Categorical data analysis}}.
@@ -169,12 +176,6 @@ Michael~M Gottesman.
 \newblock {Mechanisms of cancer drug resistance}.
 \newblock {\em Annual review of medicine}, 53(1):615--627, 2002.
 
-\bibitem{gulen2004effect}
-Hatice Gulen and Atilla Eris.
-\newblock {Effect of heat stress on peroxidase activity and total protein
-  content in strawberry plants}.
-\newblock {\em Plant Science}, 166(3):739--744, 2004.
-
 \bibitem{hegreness2006equivalence}
 Matthew Hegreness, Noam Shoresh, Daniel Hartl, and Roy Kishony.
 \newblock {An equivalence principle for the incorporation of favorable
@@ -186,6 +187,14 @@ Kent~E Holsinger and Bruce~S Weir.
 \newblock {Genetics in geographically structured populations: defining,
   estimating and interpreting FST}.
 \newblock {\em Nature Reviews Genetics}, 10(9):639--650, 2009.
+
+\bibitem{hoskins2007sequence}
+Roger~A Hoskins, Joseph~W Carlson, Cameron Kennedy, David Acevedo, Martha
+  Evans-Holm, Erwin Frise, Kenneth~H Wan, Soo Park, Maria Mendez-Lago, Fabrizio
+  Rossi, and Others.
+\newblock {Sequence finishing and mapping of Drosophila melanogaster
+  heterochromatin}.
+\newblock {\em Science}, 316(5831):1625--1628, 2007.
 
 \bibitem{illingworth2011distinguishing}
 Christopher J~R Illingworth and Ville Mustonen.
@@ -229,15 +238,6 @@ Robert Kofler and Christian Schl{\"{o}}tterer.
 \newblock {A guide for the design of evolve and resequencing studies}.
 \newblock {\em Molecular biology and evolution}, page mst221, 2013.
 
-\bibitem{konstandi2005enzymatic}
-Ourania~A Konstandi, Issidora~S Papassideri, Dimitrios~J Stravopodis,
-  Christos~A Kenoutis, Zulfiqar Hasan, Theodoros Katsorchis, Ron Wever, and
-  Lukas~H Margaritis.
-\newblock {The enzymatic component of Drosophila melanogaster chorion is the
-  Pxd peroxidase}.
-\newblock {\em Insect biochemistry and molecular biology}, 35(9):1043--1057,
-  2005.
-
 \bibitem{lang2011genetic}
 Gregory~I Lang, David Botstein, and Michael~M Desai.
 \newblock {Genetic variation and the fate of beneficial mutations in asexual
@@ -250,13 +250,6 @@ Gregory~I Lang, Daniel~P Rice, Mark~J Hickman, Erica Sodergren, George~M
 \newblock {Pervasive genetic hitchhiking and clonal interference in forty
   evolving yeast populations}.
 \newblock {\em Nature}, 500(7464):571--574, 2013.
-
-\bibitem{li2006major}
-Junsuo~S Li and Jianyong Li.
-\newblock {Major chorion proteins and their crosslinking during chorion
-  hardening in Aedes aegypti mosquitoes}.
-\newblock {\em Insect biochemistry and molecular biology}, 36(12):954--964,
-  2006.
 
 \bibitem{long2013massive}
 Quan Long, Fernando~A Rabanal, Dazhe Meng, Christian~D Huber, Ashley Farlow,
@@ -410,6 +403,12 @@ Tatum~S Simonson, Yingzhong Yang, Chad~D Huff, Haixia Yun, Ga~Qin, David~J
   and Others.
 \newblock {Genetic evidence for high-altitude adaptation in Tibet}.
 \newblock {\em Science}, 329(5987):72--75, 2010.
+
+\bibitem{smith2007release}
+Christopher~D Smith, ShengQiang Shu, Christopher~J Mungall, and Gary~H Karpen.
+\newblock {The Release 5.1 annotation of Drosophila melanogaster
+  heterochromatin}.
+\newblock {\em Science}, 316(5831):1586--1591, 2007.
 
 \bibitem{spellberg2008epidemic}
 Brad Spellberg, Robert Guidos, David Gilbert, John Bradley, Helen~W Boucher,

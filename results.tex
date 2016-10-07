@@ -223,64 +223,32 @@ scan, including precomputation, while the fastest method, CMH, took 17 minutes.
 
 \subsection{Analysis of a \dmel Adaptation to Cold and Hot 
 Temperatures}\label{sec:dmel}
-We applied \comale\ to the \data~\cite{orozco2012adaptation}, where 3
+We applied \comale\ to the \datadm~\cite{orozco2012adaptation}, where 3
 replicate samples were chosen from a population of \dmel for 59
 generations under alternating 12-hour cycles of hot (28$^{\circ}$C)
 and cold (18$^{\circ}$C) temperatures and sequenced.  In this dataset,
 sequencing coverage is different across replicates and generations
 (see Fig. S2 of~\cite{Terhorst2015Multi}) which makes variant depths
 highly heterogeneous (Suppl.
-Figs.~~\ref{fig:depth},~\ref{fig:depthHetero}). Filtering low coverage
-sites from data can dramatically reduce data available for
-analysis. For example, by setting minimum read depth at a site to be
-$30$, allowing the site to be retained only if the depth for all time
-points, and all replicates exceeded $30$, the number of sites analyzed
-would drop from from 1,544,374 to 10,387. The \comale\ ($\Hc^{+}$)
-statistic automatically handles such a heterogeneity in HMM (see
-Fig.~\ref{fig:stateConditional}). We computed the $\Hc^{+}$ statistic
-for sliding window of 50Kbp with steps of 10Kbp over the whole
-genome. We filtered out genomic regions containing fewer than $500$
-SNPs, as those regions were close to the centromere or
-telomere. Fig.~\ref{fig:manhattancutoffed} shows a Manhattan plot of
-scores. Our results are consistent with previous studies in showing an
-over-representation of significant variants on Chromosome
-3R~\cite{orozco2012adaptation} and identifying intervals under
-selection~\cite{Terhorst2015Multi}.
+Figs.~\ref{fig:depth},~\ref{fig:depthHetero}). We computed the
+$\Hc^{+}$ statistic for sliding windows of 50Kbp with steps of 10Kbp
+over the whole genome. After filtering for heterochromatin, and
+applying a local false discovery rate $\le 0.01$ (Methods), we
+identified 90 intervals (Fig.~\ref{fig:manhattancutoffed}) containing
+844 genes.
 
-The 1\%-ile cut-off (dashed line in Fig.~\ref{fig:manhattancutoffed})
-reveals $21$ distinct intervals (Table~\ref{tab:intervals}) spanning
-$243$ of the $13,965$ genes that encoded variants. We found $36$ GO
-terms associated with ``Biological Process'' to be over-represented in
-the $243$ genes using the Fisher exact test for
-significance. Table~\ref{tab:Fisher} describes all $13$ terms that
-were significant and contained at least $3$ genes. The effect of high
-temperature on metabolism is profound, and it is not surprising that
-the enriched GO terms include many generic stress and stress response
-genes. They also include $5$ of $7$ genes with aminoacylase activity,
-and $4$ of $17$ genes involved in peroxidase activity. Stress induced
-formation of reactive oxygen species (ROS) can have deleterious
-effects, and peroxidase activity has been seen in other organisms. In
-many plants, including strawberry, high temperature adaptation led to
-an increase in expression of ROS scavenging genes, including
-peroxidase, and a reduction in total protein content due to protein
-denaturation, and inhibited synthesis~\cite{gulen2004effect}, and
-these effects are also observed in potato. The genes include Pxd
-(CG3477), the peroxidase component of the
-chorion~\cite{konstandi2005enzymatic}. Chorion peroxidases are
-conjectured to play a role in ROS defense during egg formation in
-mosquitoes~\cite{li2006major}.
-
-
-One of the difficulties in genome-wide association studies is that the
-number of polymorphisms are different between genes, i.e., longer
-genes contain more SNPs and larger number of polymorphisms increase
-the chance of showing association for larger genes.  Although the
-\comale\ statistic for genes does not favor longer genes, we performed
-SNP-based GO enrichment and compared enrichment versus the window
-based approach. We tested associations of top 1\%-ile of the SNPs
-within the $21$ candidate intervals (Table~\ref{tab:intervals}) using
-\texttt{Gowinda}~\cite{kofler2012gowinda} and found 325 GO terms (see
-supplemental table S4) with FDR $\le 0.001$. $9$ of the $13$
-previously enriched terms (Table~\ref{tab:Fisher}), overlapped with
-the $325$ \texttt{Gowinda} terms (Fisher exact $p$-val: $10^{-11}$)
-suggesting consistency of SNP based and window-based analysis.
+We found $XXX$ GO Biological Process terms to be enriched with Fisher
+exact $P$-value $\le 10^{-3}$ (Table~\ref{tab:Fisher2}), including
+many Heat shock proteins involved in `cold acclimation' (Hsp22, 23,
+26), and `response to heat' (e.g., Adar, Syn). The effect of rapid
+changes in temperature is profound, and it is not surprising that the
+enriched GO terms include many generic stress and stress response
+genes. As longer genes contain more variants, the probability of a
+false variant being selected could increase with the length of the
+gene. Although the \comale\ statistic for genes does not favor longer
+genes, we also performed a single variant based GO enrichment using
+\texttt{Gowinda}~\cite{kofler2012gowinda}. The analysis identified 68
+enriched GO terms (Supplemental File~\ref{XXX}). XXX of XXX GO terms
+in the gene level analysis overlapped with the $68$ \texttt{Gowinda}
+terms (Fisher exact $p$-val: $XXX$) suggesting consistency of single
+variant based and gene-based analysis.
