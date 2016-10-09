@@ -81,8 +81,8 @@
 	clip,width=\textwidth]{figures/powerROC.pdf}
 	\caption{{\bf Schematic for computing power of detecting
             selection.} Receiver Operating Characteristics (ROC) curve
-            (left) for classification of 1,000 simulations (500 selection and
-          500 neutral). The Area Under the Curve (AUC) represents
+            (left) for classification of 2000 simulations (1000 selection and
+          1000 neutral). The Area Under the Curve (AUC) represents
           overall performance. The diagonal black line represents
           performance of a random hypothesis which achieves Area under
           the curve (AUC) of 0.5. To avoid computing AUC for the
@@ -128,17 +128,17 @@
 \begin{figure}[H]
 	\centering
 	\begin{tabular}{c}
-		\includegraphics[trim=.2in 0 .0in 0, 
+		\includegraphics[trim=.0in 0 .0in 0, 
 		clip,width=\textwidth]{figures/{depth}.pdf}
 	\end{tabular}
 	\caption{ {\bf Distribution of depth in the real data.}
-		 Scaled PDF (A) and CDF (B) of the read depths of all ($\approx$20.1M) 
+		 Scaled PDF (A) and CDF (B) of the read depths of all ($\approx$22.1M) 
 		 measurements, i.e., all replicates and time points of the all 
-		 ($\approx$1.5M) variants.
+		 ($\approx$1.7M) variants.
 		 Scaled PDF (C) and CDF (D) of the minimum depth of sites. While more 
 		 than half 
-		 most ($\approx$11.5M) of the measurements have depth of 50 or greater 
-		 (dashed line in (A),(B)), only a small fraction ($\approx$10K) of 
+		 most ($\approx$12.5M) of the measurements have depth of 50 or greater 
+		 (dashed line in (A),(B)), only a small fraction ($\approx$11K) of 
 		 variants (dashed line in (C),(D)) pass the filter of having minimum 
 		 depth of 50.}  
 	\label{fig:depth}
@@ -234,7 +234,7 @@
 	clip,width=\textwidth]{figures/{rank30.0}.pdf}
 	\caption{{\bf Ranking performance for 30$\times$ coverage.}
            Cumulative Distribution Function (CDF) of the distribution
-           of the rank of the favored allele in 500 simulations for
+           of the rank of the favored allele in 1000 simulations for
            \comale\ ($H$), Gaussian Process (GP), CMH, and Frequency
            Increment Test (FIT), for different values of selection
            coefficient $s$ and initial carrier frequency. Note that the
@@ -251,7 +251,7 @@
 	clip,width=\textwidth]{figures/{rank300.0}.pdf}
 	\caption{{\bf Ranking performance for 300$\times$ coverage.}
            Cumulative Distribution Function (CDF) of the distribution
-           of the rank of the favored allele in 500 simulations for
+           of the rank of the favored allele in 1000 simulations for
            \comale\ ($H$), Gaussian Process (GP), CMH, and Frequency
            Increment Test (FIT), for different values of selection
            coefficient $s$ and initial carrier frequency. Note that the
@@ -267,7 +267,7 @@
 	clip,width=\textwidth]{figures/rankinf.pdf}
 	\caption{{\bf Ranking performance for infinite coverage.}
            Cumulative Distribution Function (CDF) of the distribution
-           of the rank of the favored allele in 500 simulations for
+           of the rank of the favored allele in 1000 simulations for
            \comale\ ($H$), Gaussian Process (GP), CMH, and Frequency
            Increment Test (FIT), for different values of selection
            coefficient $s$ and initial carrier frequency. Note that the
@@ -284,7 +284,7 @@
 	\includegraphics[width=0.6\textwidth]{figures/{bias.30}.pdf}
 	\caption{{\bf Distribution of bias for 30$\times$ coverage.} The
 		distribution of bias ($s-\hat{s}$) in estimating selection
-		coefficient over 500 simulations using Gaussian Process (GP) and
+		coefficient over 1000 simulations using Gaussian Process (GP) and
 		\comale\ ($H$) is shown for a range of choices for the selection
 		coefficient $s$ and starting carrier frequency $\nu_0$, when
 		coverage $\lambda=30$ (Panels A,B). GP and \comale\ have similar
@@ -301,7 +301,7 @@
 	\includegraphics[width=0.6\textwidth]{figures/{bias.inf}.pdf}
 	\caption{{\bf Distribution of bias for infinite coverage.} The
 		distribution of bias ($s-\hat{s}$) in estimating selection
-		coefficient over 500 simulations using Gaussian Process (GP) and
+		coefficient over 1000 simulations using Gaussian Process (GP) and
 		\comale\ ($H$) is shown for a range of choices for the selection
 		coefficient $s$ and starting carrier frequency $\nu_0$, when
 		coverage $\lambda=\infty$ (Panels A,B). GP and \comale\ have similar
@@ -329,7 +329,8 @@
 	\centering
 	\includegraphics[trim=0.1in 0 .08in 0.02in , 
 	clip,width=0.6\textwidth]{figures/topSNPs.pdf}
-	\caption{ {\bf Directional (Left) and over-dominant, aka balancing,(Right) 
+	\caption{ {\bf Variant showing strong signal of directional (Left) and 
+	over-dominant, 	aka balancing,(Right). 
 			selection.}  . }
 	\label{fig:dir-bal}
 \end{figure}

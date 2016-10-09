@@ -5,13 +5,6 @@ Guillaume Achaz.
 \newblock {Frequency spectrum neutrality tests: one for all and all for one}.
 \newblock {\em Genetics}, 183(1):249--258, 2009.
 
-\bibitem{adams2000genome}
-Mark~D Adams, Susan~E Celniker, Robert~A Holt, Cheryl~A Evans, Jeannine~D
-  Gocayne, Peter~G Amanatides, Steven~E Scherer, Peter~W Li, Roger~A Hoskins,
-  Richard~F Galle, and Others.
-\newblock {The genome sequence of Drosophila melanogaster}.
-\newblock {\em Science}, 287(5461):2185--2195, 2000.
-
 \bibitem{agresti2011categorical}
 Alan Agresti and Maria Kateri.
 \newblock {\em {Categorical data analysis}}.
@@ -95,6 +88,11 @@ Molly~K Burke, Joseph~P Dunham, Parvin Shahrestani, Kevin~R Thornton, Michael~R
   Drosophila}.
 \newblock {\em Nature}, 467(7315):587--590, 2010.
 
+\bibitem{comeron2012many}
+Josep~M Comeron, Ramesh Ratnappan, and Samuel Bailin.
+\newblock {The many landscapes of recombination in Drosophila melanogaster}.
+\newblock {\em PLoS Genet}, 8(10):e1002905, 2012.
+
 \bibitem{daborn2001ddt}
 P~Daborn, S~Boundy, J~Yen, B~Pittendrigh, and Others.
 \newblock {DDT resistance in Drosophila correlates with Cyp6g1 over-expression
@@ -161,6 +159,11 @@ Alison~F Feder, Soo-Yon Rhee, Susan~P Holmes, Robert~W Shafer, Dmitri~A Petrov,
   evolution of drug resistance in HIV-1.}
 \newblock {\em eLife}, 5, jan 2016.
 
+\bibitem{fiston2010drosophila}
+Anna-Sophie Fiston-Lavier, Nadia~D Singh, Mikhail Lipatov, and Dmitri~A Petrov.
+\newblock {Drosophila melanogaster recombination rate calculator}.
+\newblock {\em Gene}, 463(1):18--20, 2010.
+
 \bibitem{fu1995statistical}
 Yun-Xin Fu.
 \newblock {Statistical properties of segregating sites}.
@@ -187,14 +190,6 @@ Kent~E Holsinger and Bruce~S Weir.
 \newblock {Genetics in geographically structured populations: defining,
   estimating and interpreting FST}.
 \newblock {\em Nature Reviews Genetics}, 10(9):639--650, 2009.
-
-\bibitem{hoskins2007sequence}
-Roger~A Hoskins, Joseph~W Carlson, Cameron Kennedy, David Acevedo, Martha
-  Evans-Holm, Erwin Frise, Kenneth~H Wan, Soo Park, Maria Mendez-Lago, Fabrizio
-  Rossi, and Others.
-\newblock {Sequence finishing and mapping of Drosophila melanogaster
-  heterochromatin}.
-\newblock {\em Science}, 316(5831):1625--1628, 2007.
 
 \bibitem{illingworth2011distinguishing}
 Christopher J~R Illingworth and Ville Mustonen.
@@ -403,12 +398,6 @@ Tatum~S Simonson, Yingzhong Yang, Chad~D Huff, Haixia Yun, Ga~Qin, David~J
   and Others.
 \newblock {Genetic evidence for high-altitude adaptation in Tibet}.
 \newblock {\em Science}, 329(5987):72--75, 2010.
-
-\bibitem{smith2007release}
-Christopher~D Smith, ShengQiang Shu, Christopher~J Mungall, and Gary~H Karpen.
-\newblock {The Release 5.1 annotation of Drosophila melanogaster
-  heterochromatin}.
-\newblock {\em Science}, 316(5831):1586--1591, 2007.
 
 \bibitem{spellberg2008epidemic}
 Brad Spellberg, Robert Guidos, David Gilbert, John Bradley, Helen~W Boucher,

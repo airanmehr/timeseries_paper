@@ -121,7 +121,15 @@ are supplied. However, in most cases, allele frequencies are estimated
 from genotype data with small sample size or pool-seq data with low
 depth of coverage (Suppl.~Fig.~\ref{fig:stateConditional}).  Moreover,
 the depth at a site varies for different replicates, and different
-time samples (Suppl.~Fig.~\ref{fig:depthHetero}). To account for this
+time samples (Suppl.~Fig.~\ref{fig:depthHetero}) and filtering low coverage 
+variants can potentially discard useful information.
+For instance, in analyzing \datadm~\cite{orozco2012adaptation}, by setting 
+minimum read depth at a site to 
+be 30,
+allowing the site to be retained only if the depth for all time points, and all 
+replicates exceeded $50$, the number of sites to be analyzed
+would drop from from 1,733,121 to 11,232 (Suppl. Fig.~\ref{fig:depth}). To 
+account for this
 heterogeneity, we extend the Markov chain likelihood in
 Eq.~\ref{eq:mkvlik} to a Hidden Markov Model (HMM) for pool-seq data.
 
@@ -218,7 +226,7 @@ selection. Therefore, we also define:
 \end{equation}
 We also note here that unlike $\Hc$, $\Hc^{+}_{\pi}$ can be computed
 without knowledge of the ancestral allele.
-\paragraph{Final word on notation.}
+\paragraph{Final Word on Notation.}
 In the following, we use $M$, Eq.~\ref{eq:mcts} (respectively, $H$,
 Eq.~\ref{eq:hmmml}) to denote the \comale\ scores for individual
 variants. Similarly, we use $\Mc_{\pi},\Mc^{+}_{\pi}$ (respectively,
@@ -240,7 +248,7 @@ detail). In our analysis of the \dmel EE data, we identify a set of
 threshold based on the distribution of \comale\ scores on negative
 controls.
 
-\paragraph{Estimating parameters.}
+\paragraph{Estimating Parameters.}
 \label{sec:regression}
 Depending on data (read count or allele frequency) the optimal value
 of the parameters can be found by 
@@ -259,7 +267,8 @@ be done in significantly smaller time than iterating a numerical
 optimization routine for each variant(see Results and
 Fig.~\ref{fig:runTime}). The value of the overdominance parameter can
 provide extra information regarding dominance of the favored allele
-and the kind of selection~\cite{gillespie2010population} :
+and the kind of selection~\cite{gillespie2010population} (See Suppl. 
+Fig.~\ref{fig:dominance},\ref{fig:dir-bal}):
 \begin{center}
 	\begin{tabular}{l|c}
 		condition & comment\\
@@ -337,7 +346,7 @@ statistics throughout time to compute a time-series score
 
 
 \ignore{
-\paragraph{$p$-value computation.}
+\paragraph{$p$-value Computation.}
 By Wilks’ theorem~\cite{williams2001weighing}, the standard likelihood
 ratio statistic (Eq.~\ref{eq:mcts}) is asymptotically distributed
 according to $\Xc^2$. However, Feder et
@@ -409,9 +418,9 @@ $N_e=10^4$, $\nu_0=10^{-4}$, and to record SFS of a 50Kbp region
 (Fig.~\ref{fig:ee}A). The remaining parameters were identical to
 controlled experimental evolution simulations.
 
-\paragraph{False Discovery Rate (FDR) control.} We applied \comale\ to the
+\paragraph{False Discovery Rate (FDR).} We applied \comale\ to the
 \datadm~\cite{orozco2012adaptation}, by computing the $\Hc^{+}$
-statistic for sliding windows of 50Kbp with steps of 10Kbp over the
+statistic for sliding windows of 30Kbp with steps of 10Kbp over the
 entire genome. Due to great variation in the density of polymorphic
 sites, we observed a large variation in scores. Moreover, high LD
 between proximal sites resulted in many neighboring windows with

@@ -6,7 +6,7 @@
 		&&\input{tables/powerSoftMethods.tex}
 	\end{tabular}
         \caption{Average of power for detecting selection in a 50Kbp region, 
-        when power is computer for 1000 simulations with 
+        when power is computer for 8000 simulations with 
         $s\in\{0.025,0.05,0.075,0.1\}$. Frequency Increment 
         Test (FIT), Gaussian Process (GP), \comale\ ($\Hc$) and 
         Cochran–Mantel–Haenszel (CMH) are compared for different initial 
@@ -33,7 +33,7 @@
 		\input{tables/bias.100.tex}
 	\end{tabular}
 	\caption{Mean and standard deviation of the distribution of bias 
-	($s-\hat{s}$) of 2000 simulations with coverage $\lambda=100\times$ and 
+	($s-\hat{s}$) of 8000 simulations with coverage $\lambda=100\times$ and 
 	$s\in\{0.025,0.05,0.075,0.1\}$.}\label{tab:biasdist}
 \end{table}
 
@@ -41,7 +41,16 @@
 \begin{table}[h]
 	\centering
 	\begin{tabular}{c}
+		\input{tables/gowinda.tex}
+	\end{tabular}
+	\caption{GO enrichment analysis of \datadm using 
+	\texttt{Gowinda}.}\label{tab:gowinda}
+\end{table}
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{c}
 		\input{tables/stats.tex}
 	\end{tabular}
-	\caption{.}\label{tab:stats}
+	\caption{General statistic of analysis of \datadm .}\label{tab:stats}
 \end{table}

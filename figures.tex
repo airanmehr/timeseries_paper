@@ -5,16 +5,17 @@
 	\centering
 	\includegraphics[trim=0.1in 0 .08in 0.02in , 
 	clip,width=\textwidth]{figures/ExperimentalEvolution.pdf}
-	\caption{ {\bf Two settings for collecting genomic time series
-            data.}  Different settings in which dynamic data is
+	\caption{ {\bf Two settings for collecting genomic time series            
+	data.}\\
+		 Different settings in which dynamic data is
           collected are depicted with typical parameters for \emph{D.
             melanogaster}. In both settings, 6 samples (vertical red
           dashed lines) are taken every 10 generation.  When sampling
           from naturally evolving populations (A), the time of onset
           of selection is unknown, and population size is larger. For
-          (controlled) experimental evolution, founder lines are first
+          (controlled) experimental evolution (B), founder lines are first
           sampled from a natural population to create a homogeneous
-          population. Multiple replicates of this population are
+          population. Then, multiple replicates of this population are
           evolved and sampled over time. }
 	\label{fig:ee}
 \end{figure}
@@ -24,18 +25,20 @@
 	\centering
 	\includegraphics[width=\textwidth]{figures/{markovDists}.pdf}
         \caption{{\bf Comparison of empirical distributions of allele
-            frequencies (green) versus predictions from Brownian
-            Motion (red), and Markov chain (blue).} Panels A-F:
-          Experiments were conducted under neutral evolution with
+            frequencies (red) versus predictions from Brownian
+            Motion (green), and Markov chain (blue).}\\ 
+          Comparison of empirical and theoretical distributions under neutral 
+          evolution (panels A-F) and 
+          selection (panels G-M) with
           different starting frequencies $\nu_0\in\{0.005,0.1\}$ and
-          sampling times of $\Tc=\{0,\tau\}$, where $\tau \in \{1,10,100\}$. The
-          empirical distribution was computed by sampling 143,900
-          sites with $\nu_0=0.005$ and 47,500 variants with
-          $\nu_0=0.1$. Panels G,H,I: Comparisons of Empirical and
-          Markov chain based allele frequency distributions under a
-          selection regime with $s=0.1$. Initial frequency was chosen
-          as $\nu_0=0.005$ and sampling performed after $\tau$
-          generations for $\tau \in \{1,10,100\}$.}
+          sampling times of $\Tc=\{0,\tau\}$, where $\tau \in \{1,10,100\}$. 
+          For each panel, the
+          empirical distribution was computed over 100,000 simulations. 
+          Brownian motion (Gaussian approximation) provides poor approximations 
+          when initial frequency is far from 0.5 (A) or sampling is sparse 
+          (B,C,E,F). In addition, Brownian motion can only provide 
+          approximations under neutral evolution. In contrast, Markov chain 
+          consistently provide a good approximation in all cases.}
 	\label{fig:markov}
 \end{figure}
 
@@ -44,11 +47,11 @@
 	\includegraphics[trim=.2in 0 .2in 0, 
 	clip,width=\textwidth]{figures/{CLRQ}.pdf}
 	\caption{{\bf Average power of \comale\ statistics as function
-            of percentile cutoffs.} Detection power is averaged for
+            of percentile cutoffs.}\\ Detection power is averaged for
           $s\in\{0.025,0.05,0.075,0.1\}$ for \comale\ statistics, $\Hc_{\pi}$ and
           $\Hc^{+}_{\pi}$. We denote
           $\pi^{*}=\arg\max_{\pi}\{\mbox{Power}(\Hc),\mbox{Power}(\Hc^{+})\}$. Average
-          power was computed using $1,000$ simulations for each choice
+          power was computed using $2000$ simulations for each choice
           of $s$. The appropriate choice of $\pi$ can be used to
           improve performance for different coverage values. 
           In all simulations, 3 replicates are evolved and sampled at generations 
@@ -59,12 +62,12 @@
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{figures/powerCLR.pdf}
-	\caption{{\bf Comparison of power of $\Mc$ and $\Hc$.}
+	\caption{{\bf Comparison of power of $\Mc$ and $\Hc$.}\\
           Detection power for $\Mc$ and $\Hc$ under hard (top) and
           soft sweep (bottom) scenarios, for different settings of
           mean coverage $\lambda$ and selection strength $s$.  The
           $y$-axis measures power -- sensitivity with false positive
-          rate FPR $\le 0.05$ -- for $1,000$ simulations of $50$Kbp
+          rate FPR $\le 0.05$ -- for $2000$ simulations of $50$Kbp
           regions. The horizontal line reflects the power of a random
           classifier.
           In all simulations, 3 replicates are evolved and sampled at generations 
@@ -75,13 +78,13 @@
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{figures/power.pdf}
-	\caption{ {\bf Power calculations for detection of selection.}
+	\caption{ {\bf Power calculations for detection of selection.}\\
           Detection power for \comale ($\Hc$), Frequency Increment
           Test (FIT), Gaussian Process (GP), and CMH under hard (top)
           and soft sweep (bottom) scenarios. $\lambda$, $s$ denote the
           mean coverage and selection coefficient, respectively. The
           $y$-axis measures power -- sensitivity with false positive
-          rate FPR $\le 0.05$ -- for $1,000$ simulations of $50$Kbp
+          rate FPR $\le 0.05$ -- for $2,000$ simulations of $50$Kbp
           regions. The horizontal line reflects the power of a random
           classifier.
           In all simulations, 3 replicates are evolved and sampled at generations 
@@ -94,7 +97,7 @@
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.75\textwidth]{figures/{runTime.pdf}}
-	\caption{{\bf Running time}. Box plots of running time per
+	\caption{{\bf Running time.}\\ Box plots of running time per
           variant (CPU-secs.) of \comale ($\Mc$, $\Hc$), CMH, FIT, and
           GP with single, 3, 5, 7, and 10 loci over 1000 simulations
           conducted on a workstation with 4th Generation Intel Core i7
@@ -110,7 +113,7 @@
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\textwidth]{figures/naturalee.pdf}
-	\caption{{\bf Power of SFS based statistics.} Power of
+	\caption{{\bf Power of SFS based statistics.}\\ Power of
           detecting selection for Frequency Increment Test (FIT),
           Gaussian Process (GP), \comale ($\Hc$) on hard sweep
           natural experimental evolution with $N_e=10^4$ and depth
@@ -136,9 +139,9 @@
 	\centering
 	\includegraphics[trim=.2in 0 .2in 0, 
 	clip,width=\textwidth]{figures/{rank100.0}.pdf}
-	\caption{{\bf Ranking performance for 100$\times$ coverage.}
+	\caption{{\bf Ranking performance for 100$\times$ coverage.}\\
           Cumulative Distribution Function (CDF) of the distribution
-          of the rank of the favored allele in 500 simulations for
+          of the rank of the favored allele in 1000 simulations for
           \comale\ ($H$), Gaussian Process (GP), CMH, and Frequency
           Increment Test (FIT), for different values of selection
           coefficient $s$ and initial carrier frequency. Note that the
@@ -158,9 +161,9 @@
 \begin{figure}[H]
 	\centering
 \includegraphics[width=0.7\textwidth]{figures/{bias.100}.pdf}
-\caption{{\bf Distribution of bias for 100$\times$ coverage.} The
+\caption{{\bf Distribution of bias for 100$\times$ coverage.}\\ The
   distribution of bias ($s-\hat{s}$) in estimating selection
-  coefficient over 500 simulations using Gaussian Process (GP) and
+  coefficient over 1000 simulations using Gaussian Process (GP) and
   \comale\ ($H$) is shown for a range of choices for the selection
   coefficient $s$ and starting carrier frequency $\nu_0$, when
   coverage $\lambda=100$ (Panels A,B). GP and \comale\ have similar
@@ -177,9 +180,9 @@
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{figures/manhattan.pdf}
-	\caption{{\bf \comale\ scan of the \datadm.} Manhattan plot
+	\caption{{\bf \comale\ scan of the \datadm.}\\ Manhattan plot
           of the \comale\ ($\Hc^{+})$ statistic (A) and the number of
-          SNPs (B) in 50Kbp sliding windows with steps of 10Kbp,
+          SNPs (B) in 30Kbp sliding windows with steps of 10Kbp,
           excluding windows close to centromere and telomere. The
           dashed line corresponds to the top $1$\%-ile
           threshold. Regions that exceed the threshold are shown in

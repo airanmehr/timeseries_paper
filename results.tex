@@ -1,9 +1,10 @@
 \section{Results}
-\paragraph{Modeling allele frequency trajectories in finite populations.} 
+\paragraph{Modeling Allele Frequency Trajectories in Finite Populations.} 
 We first tested the goodness of fit of the discrete-time Markov chain
-versus continuous-time Brownian motion in modeling allele frequency
+versus continuous-time Brownian motion (Gaussian approximation) in modeling 
+allele frequency
 trajectories in finite populations, under different sampling schemes
-and starting frequencies.  For this purpose, we conducted $150$K
+and starting frequencies.  For this purpose, we conducted $100$K
 simulations with two time samples $\Tc=\{0,\tau\}$ where $\tau\in
 \{1,10,100\}$ is the parameter controlling the frequency of sampling
 in time.  In addition, we repeated simulations for different values of
@@ -13,7 +14,7 @@ selection). Then, given initial frequency $\nu_0$, we computed
 expected distribution of the frequency of the next sample $\nu_\tau$
 under two models and compared them with empirical distributions
 calculated from simulated data.  Fig.~\ref{fig:markov}A-F shows that
-Brownian motion (Gaussian approximation) is inadequate when $\nu_0$ is
+Brownian motion is inadequate when $\nu_0$ is
 far from $0.5$, and when sampling times are sparse ($\tau>1$). If the
 favored allele arises from standing variation in a neutral population,
 it is unlikely to have frequency close to $0.5$, and the starting
@@ -23,7 +24,7 @@ example, sampling is sparse. Often, the experiment is designed so that
 $10\le\tau\le100$~\cite{kofler2013guide, orozco2012adaptation,
   zhou2011experimental}.
 
-In contrast to the Brownian motion results, Fig.~\ref{fig:markov}A-I
+In contrast to the Brownian motion results, Fig.~\ref{fig:markov}A-M
 also shows that Markov chain predictions (Eq.~\ref{eq:mkvs}) are
 highly consistent with empirical data for a wide range of simulation
 parameters for both selection and neutral evolution.
@@ -38,7 +39,7 @@ for different coverage values sampled from a Poisson distribution with
 mean $\lambda\in \{30,100,\infty\}$.  To evaluate power for each
 configuration (specified with values for selection coefficient $s$,
 starting allele frequency $\nu_0$ and coverage $\lambda$), we
-conducted $1000$ simulations, half of which modeled neutral evolution
+conducted $2000$ simulations, half of which modeled neutral evolution
 and the rest modeled positive selection.
 
 Before comparing against other methods, we first evaluated the use of
@@ -49,20 +50,21 @@ $\Hc_\pi,\Hc^{+}_\pi$. We computed the optimal value of $\pi$ using a
 line-search. Fig.~\ref{fig:clrq} reveals several important trade-off
 between $\pi$, initial frequency, and coverage.
 \begin{packed_itemize}
-\item $\Hc^{+}_\pi$ consistently achieves a high value for $\pi=0$,
+\item $\Hc^{+}_\pi$ consistently achieves a high power for $\pi=0$,
   and in the absence of knowledge of the selection regime or the
-  ancestral allele is unknown, $\Hc^{+}_0$ is a good statistic to use.
+  ancestral allele, $\Hc^{+}_0$ is a powerful statistic to use.
 \item In every scenario tested,
   $\max_{\pi}\{\mbox{Power}(\Hc_\pi)\}\ge
   \max_{\pi}\{\mbox{Power}(\Hc^{+}_\pi)\}$, suggesting that it helps
   to choose $\Hc_{\pi}$ with the optimum value of $\pi$, if the
   selection regime is well-understood.
 \item In soft sweep, relative to hard sweep, it helps to choose a
-  higher value of the cut-off $\pi$. This is consistent with LD
-  between the favored site and other sites being lower for
+  higher value of the cut-off $\pi$. This is consistent with the fact that LD
+  between the favored site and other sites is generally lower for
   soft sweep. For instance, in soft sweep with infinite coverage
   (Fig.~\ref{fig:clrq}F), optimum is gained at $\pi=100$, equivalent
-  to considering the highest scoring site.
+  to considering the score of the highest scoring site as $\Hc$ statistic of 
+  the region.
 \item When coverage is low (Fig.~\ref{fig:clrq}A,D), it helps to
   accumulate evidence from multiple sites, and the best results are
   achieved for lower values of $\pi$.
@@ -89,7 +91,7 @@ scenario. All methods other than \comale\ and CMH convert read counts
 to allele frequencies prior to computing the test statistic.  \comale\
 shows the highest power in all cases and the power stays relatively
 high even for low coverage (Fig.~\ref{fig:power} and
-Table~\ref{XXX}). In particular, the difference in performance of
+Table~\ref{tab:power}). In particular, the difference in performance of
 \comale\ with other methods is pronounced when starting frequency is
 low (hard sweep). This stems from the fact that favored alleles with
 low frequency alleles might be missed by low coverage sequencing, and
@@ -156,9 +158,9 @@ Localizing the favored site is a nontrivial task. We used the simple
 approach of ranking each site in a region detected as being under
 selection. The sites were ranked according to the likelihood ratio
 scores (Eqns.~\ref{eq:mcts},~\ref{eq:hmmml}). For each setting of
-$\nu_0$ and $s$, we conducted $500$ simulations and computed the rank
+$\nu_0$ and $s$, we conducted $1000$ simulations and computed the rank
 of the favored mutation in each simulation. The cumulative
-distribution of the rank of the favored allele in 500 simulation for
+distribution of the rank of the favored allele in 1000 simulation for
 each setting (Fig.~\ref{fig:rank}) shows that \comale\ outperforms
 other statistics. We also compared each method to see how often it
 ranked the favored site in as the top ranked site
@@ -206,8 +208,8 @@ score of each variant requires $\Oc(TR)$ and $\Oc(TRN^2)$ computation
 for $\Mc$, and $\Hc$, respectively. However, most of the operations
 are can be vectorized for all replicates to make the effective running
 time for each variant, $\Oc(T)$ and $\Oc(TN)$, respectively.  We
-conducted $1000$ simulations and measured running times for \comale-M,
-\comale-H, FIT, CMH and GP with different number of linked-loci.  Our
+conducted $1000$ simulations and measured running times for computing site 
+statistics $M$, $H$, FIT, CMH and GP with different number of linked-loci.  Our
 analysis reveals (Fig.~\ref{fig:runTime}) that \comale\ is orders of
 magnitude faster than GP, and comparable to FIT. While slower than CMH
 on the time per variant, the actual running times are comparable after
@@ -215,7 +217,7 @@ vectorization and broadcasting over variants (see below).
 
 These times can have a practical consequence. For instance, to run GP
 in the single locus mode on the entire pool-seq data of the \dmel genome from a
-small sample (1.5M variant sites), it would take 1444 CPU-hours
+small sample ($\approx$1.6M variant sites), it would take 1444 CPU-hours
 ($\approx$ 1 CPU-month). In contrast, after vectorizing and
 broadcasting operations for all variants operations using
 \texttt{numba} package, \comale\ took 75 minutes to perform an
@@ -231,13 +233,14 @@ sequencing coverage is different across replicates and generations
 (see Fig. S2 of~\cite{Terhorst2015Multi}) which makes variant depths
 highly heterogeneous (Suppl.
 Figs.~\ref{fig:depth},~\ref{fig:depthHetero}). We computed the
-$\Hc^{+}$ statistic for sliding windows of 50Kbp with steps of 10Kbp
-over the whole genome. After filtering for heterochromatin, and
+$\Hc^{+}$ statistic for sliding windows of 30Kbp with steps of 10Kbp
+over the whole genome. After filtering for 
+heterochromatin\cite{fiston2010drosophila,comeron2012many}, and
 applying a local false discovery rate $\le 0.01$ (Methods), we
-identified 90 intervals (Fig.~\ref{fig:manhattancutoffed}) containing
-844 genes.
+identified 89 intervals (Fig.~\ref{fig:manhattancutoffed}) containing
+968 genes (Suppl. Table~\ref{tab:stats}).
 
-We found $XXX$ GO Biological Process terms to be enriched with Fisher
+We found $11$ GO Biological Process terms to be enriched with Fisher
 exact $P$-value $\le 10^{-3}$ (Table~\ref{tab:Fisher2}), including
 many Heat shock proteins involved in `cold acclimation' (Hsp22, 23,
 26), and `response to heat' (e.g., Adar, Syn). The effect of rapid
@@ -247,8 +250,9 @@ genes. As longer genes contain more variants, the probability of a
 false variant being selected could increase with the length of the
 gene. Although the \comale\ statistic for genes does not favor longer
 genes, we also performed a single variant based GO enrichment using
-\texttt{Gowinda}~\cite{kofler2012gowinda}. The analysis identified 68
-enriched GO terms (Supplemental File~\ref{XXX}). XXX of XXX GO terms
-in the gene level analysis overlapped with the $68$ \texttt{Gowinda}
-terms (Fisher exact $p$-val: $XXX$) suggesting consistency of single
+\texttt{Gowinda}~\cite{kofler2012gowinda}. The analysis identified 34
+enriched GO terms (Suppl. Table~\ref{tab:gowinda}) associated with Biological 
+Process. 5 of 11 GO terms
+in the gene level analysis overlapped with the $34$ \texttt{Gowinda}
+terms (Fisher exact $p$-val: $10^{-8}$) suggesting consistency of single
 variant based and gene-based analysis.
