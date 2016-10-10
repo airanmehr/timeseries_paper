@@ -13,7 +13,7 @@
 *.fls
 *.out
 *.toc
-main.pdf
+## main.pdf
 .Rhistory
 ## Intermediate documents:
 *.dvi
