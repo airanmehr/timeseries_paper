@@ -21,8 +21,8 @@ region. Subsequently, (c) site likelihood ratios in a genomic region
 are combined to compute the \comale\ statistic, which is a composite
 likelihood score for the region being under selection. In addition to
 detecting selection, the \comale\ statistic can be used to rank
-variants for site-identification, and it provides ML estimates of
-selection parameters.
+variants for site-identification, and it provides maximum likelihood estimates 
+of selection parameters.
 
 \paragraph{Likelihood for Neutral Model.}
 To model neutral evolution, it is natural to model the change in
@@ -103,7 +103,7 @@ independent replicate samples $\bm{\nu}^{(r)}$, we get:
 \end{equation}
 Let $\hat{s},\hat{h}$ denote the parameters that maximize the
 likelihood. The simplest form of the Markov likelihood ratio test statistic  
-for each variant (\comale-M) is given by
+for each variant is given by
 \begin{eqnarray}
 M=\sgn (\hat{s}). \log 
 \left(\frac{\Lc_M(\hat{s},\hat{h}|\{\bm{\nu}^{(r)}\})}{\Lc_M(0,0|\{\bm{\nu}^{(r)}\})}\right).
@@ -117,9 +117,10 @@ M=\sgn (\hat{s}). \log
 
 \paragraph{Accounting for Heterogeneous Ascertainment Bias.}
 In the discussion so far, we assumed that the exact allele frequencies
-are supplied. However, in most cases, allele frequencies are estimated
-from genotype data with small sample size or pool-seq data with low
-depth of coverage (Suppl.~Fig.~\ref{fig:stateConditional}).  Moreover,
+are supplied. However, in most cases, allele frequencies are 
+estimated from genotype data with small sample size or pool-seq 
+data~\cite{lynch2014population} 
+(Suppl.~Fig.~\ref{fig:stateConditional},\ref{fig:trajectoryReal}).  Moreover,
 the depth at a site varies for different replicates, and different
 time samples (Suppl.~Fig.~\ref{fig:depthHetero}) and filtering low coverage 
 variants can potentially discard useful information.
@@ -168,7 +169,7 @@ observed data from $R$ independent observations is given by
 \end{equation}
 Similar to Eq.~\ref{eq:mcts}, let $\hat{s},\hat{h}$ denote the parameters that
 maximize likelihood. The likelihood ratio statistic for
-each variant of pool-seq data(\comale-H) is given by
+each variant of pool-seq data is given by
 \begin{eqnarray}
 H &=& \sgn (\hat{s}). \log 
 \left(\frac{\Lc_H(\hat{s},\hat{h}|\{\bm{x}^{(r)}\})}{\Lc_H(0,0|\{\bm{x}^{(r)}\})}\right).
@@ -421,7 +422,7 @@ controlled experimental evolution simulations.
 \paragraph{False Discovery Rate (FDR).} We applied \comale\ to the
 \datadm~\cite{orozco2012adaptation}, by computing the $\Hc^{+}$
 statistic for sliding windows of 30Kbp with steps of 10Kbp over the
-entire genome. Due to great variation in the density of polymorphic
+entire genome. Due to the great variation in the density of polymorphic
 sites, we observed a large variation in scores. Moreover, high LD
 between proximal sites resulted in many neighboring windows with
 similar scores. Therefore, we computed a local false discovery rate

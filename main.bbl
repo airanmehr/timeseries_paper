@@ -216,6 +216,13 @@ Aashish~R Jha, Cecelia~M Miles, Nodia~R Lippert, Christopher~D Brown, Kevin~P
   polygenic basis of egg-size variation in Drosophila melanogaster}.
 \newblock {\em Molecular biology and evolution}, 32(10):2616--2632, 2015.
 
+\bibitem{jonas2016estimating}
+Agnes J{\'{o}}n{\'{a}}s, Thomas Taus, Carolin Kosiol, Christian
+  Schl{\"{o}}tterer, and Andreas Futschik.
+\newblock {Estimating the Effective Population Size from Temporal Allele
+  Frequency Changes in Experimental Evolution}.
+\newblock {\em Genetics}, aug 2016.
+
 \bibitem{kawecki2012experimental}
 Tadeusz~J Kawecki, Richard~E Lenski, Dieter Ebert, Brian Hollis, Isabelle
   Olivieri, and Michael~C Whitlock.
@@ -253,6 +260,11 @@ Quan Long, Fernando~A Rabanal, Dazhe Meng, Christian~D Huber, Ashley Farlow,
 \newblock {Massive genomic variation and strong selection in Arabidopsis
   thaliana lines from Sweden}.
 \newblock {\em Nature genetics}, 45(8):884--890, 2013.
+
+\bibitem{lynch2014population}
+Michael Lynch, Darius Bost, Sade Wilson, Takahiro Maruki, and Scott Harrison.
+\newblock {Population-genetic inference from pooled-sequencing data}.
+\newblock {\em Genome biology and evolution}, 6(5):1210--1218, 2014.
 
 \bibitem{malaspinas2012estimating}
 Anna-Sapfo Malaspinas, Orestis Malaspinas, Steven~N Evans, and Montgomery

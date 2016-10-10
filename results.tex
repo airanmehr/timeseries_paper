@@ -69,10 +69,10 @@ between $\pi$, initial frequency, and coverage.
   accumulate evidence from multiple sites, and the best results are
   achieved for lower values of $\pi$.
 \end{packed_itemize}
-In the following tests, we fix the value of $\pi=0.95,0.98, 0.99$ for
-$\lambda=30,100,\infty$, respectively, and simplify notation by
+In the following tests, we fix the value of $\pi=70,97, 99$ for
+$\lambda=30,100,300$, respectively, and simplify notation by
 denoting the optimum score as $\Hc$. For example, when $\lambda=30$,
-$\Hc$ corresponds to $\Hc_{0.95}$. In addition, we use $\Hc^{+}$ to
+$\Hc$ corresponds to $\Hc_{70}$. In addition, we use $\Hc^{+}$ to
 denote $\Hc^{+}_0$. We also compared $\Mc$ (Markov likelihoods) versus
 $\Hc$. As shown in Fig.~\ref{fig:powerCLR}, $\Hc$ has better power for
 low coverage ($\lambda=30$) compared to $\Mc$ decays.
@@ -177,7 +177,7 @@ the high LD between hitchhiking sites and the favored allele
 (Table~\ref{tab:rank}A-F).  Moreover, site-identification is harder in
 hard sweep scenarios relative to soft sweeps. For example, when
 coverage $\lambda=100$ and selection coefficient $s=0.1$, the
-detection power is 80\% for hard sweep, but 100\% for soft sweep
+detection power is 75\% for hard sweep, but 100\% for soft sweep
 (Fig.~\ref{fig:power}B-E). In contrast, the favored site was ranked as
 the top in 14\% of hard sweep cases, compared to and 95\% of soft
 sweep simulations (Table~\ref{tab:rank}A-B).  Our results are
@@ -241,8 +241,9 @@ identified 89 intervals (Fig.~\ref{fig:manhattancutoffed}) containing
 968 genes (Suppl. Table~\ref{tab:stats}).
 
 We found $11$ GO Biological Process terms to be enriched with Fisher
-exact $P$-value $\le 10^{-3}$ (Table~\ref{tab:Fisher2}), including
-many Heat shock proteins involved in `cold acclimation' (Hsp22, 23,
+exact $P$-value $\le 10^{-3}$ (Table~\ref{tab:Fisher2},\ref{tab:tempGenes}), 
+including
+many Heat Shock Proteins (HSPs) involved in `cold acclimation' (Hsp22, 23,
 26), and `response to heat' (e.g., Adar, Syn). The effect of rapid
 changes in temperature is profound, and it is not surprising that the
 enriched GO terms include many generic stress and stress response
