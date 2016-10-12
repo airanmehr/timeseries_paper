@@ -102,11 +102,11 @@ independent replicate samples $\bm{\nu}^{(r)}$, we get:
   \label{eq:mkvlik}
 \end{equation}
 Let $\hat{s},\hat{h}$ denote the parameters that maximize the
-likelihood. The simplest form of the modified likelihood ratio test statistic  
+likelihood. The simplest form of (modified) likelihood ratio test statistic  
 for each variant is given by
 \begin{eqnarray}
-M=\sgn (\hat{s}). \log 
-\left(\frac{\Lc_M(\hat{s},\hat{h}|\{\bm{\nu}^{(r)}\})}{\Lc_M(0,0|\{\bm{\nu}^{(r)}\})}\right).
+  M=\sgn (\hat{s}). \log 
+  \left(\frac{\Lc_M(\hat{s},\hat{h}|\{\bm{\nu}^{(r)}\})}{\Lc_M(0,0|\{\bm{\nu}^{(r)}\})}\right).
 \label{eq:mcts}
 \end{eqnarray}
 %where the sign $\sgn(\hat{s})$ helps focus on positive selection using a 
@@ -117,21 +117,19 @@ M=\sgn (\hat{s}). \log
 
 \paragraph{Accounting for Heterogeneous Ascertainment Bias.}
 In the discussion so far, we assumed that the exact allele frequencies
-are supplied. However, in most cases, allele frequencies are 
-estimated from genotype data with small sample size or pool-seq 
-data~\cite{lynch2014population} 
-(Suppl.~Fig.~\ref{fig:stateConditional},\ref{fig:trajectoryReal}).  In pool-seq 
-datasets,
-the sequencing depth at a site varies for different replicates, and different
-time samples (Suppl.~Fig.~\ref{fig:depthHetero}) and filtering low coverage 
-variants can potentially discard useful information.
-For instance, in analyzing \datadm~\cite{orozco2012adaptation}, by setting 
-minimum read depth at a site to 
-be 50,
-allowing the site to be retained only if the depth for all time points, and all 
-replicates exceeded $50$, the number of sites to be analyzed
-would drop from from 1,733,121 to 11,232 (Suppl. Fig.~\ref{fig:depth}). To 
-account for this
+are supplied. However, in most cases, allele frequencies are estimated
+from genotype data with small sample size or pool-seq
+data~\cite{lynch2014population}
+(Suppl.~Fig.~\ref{fig:stateConditional},\ref{fig:trajectoryReal}).  In
+pool-seq datasets, the sequencing depth at a site varies for different
+replicates, and different time samples
+(Suppl.~Fig.~\ref{fig:depthHetero}). Therefore, filtering low coverage
+variants can potentially discard useful information.  For instance, in
+analyzing \datadm~\cite{orozco2012adaptation}, by setting minimum read
+depth at a site to be 50, allowing the site to be retained only if the
+depth for all time points, and all replicates exceeded $50$, the
+number of sites to be analyzed would drop from from 1,733,121 to
+11,232 (Suppl. Fig.~\ref{fig:depth}). To account for this
 heterogeneity, we extend the Markov chain likelihood in
 Eq.~\ref{eq:mkvlik} to a Hidden Markov Model (HMM) for pool-seq data.
 
@@ -168,9 +166,9 @@ observed data from $R$ independent observations is given by
   \prod_{r=1}^R \sum_i\alpha_{T,i}^{(r)}\;\;.
   \label{eq:hmmlik}
 \end{equation}
-Similar to Eq.~\ref{eq:mcts}, let $\hat{s},\hat{h}$ denote the parameters that
-maximize likelihood. The modified likelihood ratio statistic for
-each variant of pool-seq data is given by
+Similar to Eq.~\ref{eq:mcts}, let $\hat{s},\hat{h}$ denote the
+parameters that maximize likelihood. The corresponding likelihood
+ratio statistic for each variant of pool-seq data is given by
 \begin{eqnarray}
 H &=& \sgn (\hat{s}). \log 
 \left(\frac{\Lc_H(\hat{s},\hat{h}|\{\bm{x}^{(r)}\})}{\Lc_H(0,0|\{\bm{x}^{(r)}\})}\right).
@@ -208,7 +206,7 @@ with the favored allele, from computation of CLR.  In particular, we
 can choose to only include sites whose likelihood ratio score is above
 a certain threshold. For percentile cut-off $\pi$, let
 $L_{\pi}\subseteq L$ denote the set of sites whose likelihood ratio
-scores had percentile $\pi$ or better. For all $\pi$, the modified CLR
+scores had percentile $\pi$ or better. For all $\pi$, the CLR
 statistic for Markov chain and HMM is computed using: 
 \begin{equation}
  {\cal M}_{\pi} = \frac{1}{|L_{\pi}|}\sum_{\ell \in L_{\pi}}M_\ell,
@@ -218,7 +216,7 @@ statistic for Markov chain and HMM is computed using:
 \end{equation}
 In combining the sites, recall that sites that are not on the same
 lineage as the favored site, will reduce in frequency and have
-negative modified likelihood ratio values, but are still informative about
+negative likelihood ratio values, but are still informative about
 selection. Therefore, we also define:
 \begin{equation}
  {\cal M}^{+}_{\pi} = \frac{1}{|L_{\pi}|}\sum_{\ell \in L_{\pi}}\vert M_\ell\vert ,
@@ -385,17 +383,17 @@ conducted simulations as follows:
   size $N$.
 
 \item{\bf Forward Simulation.} We used forward simulations for
-  evolving populations under selection. We also consider selection regimes  
-  which the favored allele is be chosen merely from standing variation (not 
-  \emph{de novo} mutations). Given initial diploid population, position of
-  the site under selection, selection strength $s$, number of
-  replicates $R=3$, recombination rate $r=2\times10^{-8}$ and sampling
-  times $\Tc=\{0,10,20,30,40,50\}$, \texttt{simuPop}~\cite{peng2005simupop} was 
-  used to
-  perform forward simulation and compute allele frequencies for all of
-  the $R$ replicates.  For hard sweep (respectively, soft sweep)
-  simulations we randomly chosen a site with initial frequency of
-  $\nu_0=0.005$ (respectively, $\nu_0=0.1$) to be the favored allele.
+  evolving populations under selection. We also consider selection
+  regimes which the favored allele is be chosen from standing
+  variation (not \emph{de novo} mutations). Given initial diploid
+  population, position of the site under selection, selection strength
+  $s$, number of replicates $R=3$, recombination rate
+  $r=2\times10^{-8}$ and sampling times $\Tc=\{0,10,20,30,40,50\}$,
+  \texttt{simuPop}~\cite{peng2005simupop} was used to perform forward
+  simulation and compute allele frequencies for all of the $R$
+  replicates.  For hard sweep (respectively, soft sweep) simulations
+  we randomly chosen a site with initial frequency of $\nu_0=0.005$
+  (respectively, $\nu_0=0.1$) to be the favored allele.
 \item{\bf Sequencing Simulation.} Give allele frequency trajectories
   we sampled depth of each site identically and independently from
   Poisson($\lambda$), where $\lambda \in \{30,100,300,\infty\}$ is the
@@ -414,13 +412,13 @@ evolution in some important ways. First, the time of onset of
 selection may not be known. Second, as the start of sampling can be
 any generation during selective sweep, mutations that arose after the
 onset of selection appear in data can have a nontrivial effect on SFS,
-specifically if sampling is started long after onset of selection. While SFS 
-based techniques expected to perform poorly in controlled EEs, their power is 
-highest near fixation. To simulate these scenarios,
-\texttt{msms} was used to forward-simulate a population with
-$N_e=10^4$, $\nu_0=10^{-4}$, and to record SFS of a 50Kbp region
-(Fig.~\ref{fig:ee}A). The remaining parameters were identical to
-controlled experimental evolution simulations.
+specifically if sampling is started long after onset of
+selection. While SFS based techniques are expected to perform poorly
+in controlled EEs, their power is highest near fixation. To simulate
+these scenarios, \texttt{msms} was used to forward-simulate a
+population with $N_e=10^4$, $\nu_0=10^{-4}$, and to record SFS of a
+50Kbp region (Fig.~\ref{fig:ee}A). The remaining parameters were
+identical to controlled experimental evolution simulations.
 
 \paragraph{False Discovery Rate (FDR).} We applied \comale\ to the
 \datadm~\cite{orozco2012adaptation}, by computing the $\Hc^{+}$

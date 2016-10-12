@@ -91,23 +91,21 @@ scenario. All methods other than \comale\ and CMH convert read counts
 to allele frequencies prior to computing the test statistic.  \comale\
 shows the highest power in all cases and the power stays relatively
 high even for low coverage (Fig.~\ref{fig:power} and
-Table~\ref{tab:power}). In particular, the difference in performance of
-\comale\ with other methods is pronounced when starting frequency is
-low. Starting frequency is at its minimum in selection on an allele from 
-\emph{de novo} mutations and is likely to be low if selection is on an allele 
-from standing variation (Suppl. Fig.~\ref{fig:sfs}). 
-The advantage of \comale\ stems from the fact 
-that favored allele with
-low starting frequency might be missed by low coverage sequencing. In this 
-case, taking into account of linked sites becomes increasingly important. We 
-note
-that methods using only two time points, such as CMH, do relatively
-well for high selection values and high coverage. However, the use of 
-time-series data can increase detection power in low coverage experiments or 
-when starting frequency is low. Moreover, time-series data provide means for 
-estimating selection parameters $s,h$ (see
-below). Finally, as \comale\ is robust to change of coverage, our results 
-(Fig.~\ref{fig:power}B,C) suggest that taking
+Table~\ref{tab:power}). In particular, the difference in performance
+of \comale\ with other methods is pronounced when starting frequency
+is low. Starting frequency is at its minimum in selection on an allele
+from \emph{de novo} mutations and is likely to be low if selection is
+on an allele from standing variation (Suppl. Fig.~\ref{fig:sfs}).  The
+advantage of \comale\ stems from the fact that favored allele with low
+starting frequency might be missed by low coverage sequencing. In this
+case, incorporating the signal from linked sites becomes increasingly
+important. We note that methods using only two time points, such as
+CMH, do relatively well for high selection values and high
+coverage. However, the use of time-series data can increase detection
+power in low coverage experiments or when starting frequency is
+low. Moreover, time-series data provide means for estimating selection
+parameters $s,h$ (see below). Finally, as \comale\ is robust to change
+of coverage, our results (Fig.~\ref{fig:power}B,C) suggest that taking
 many samples with lower coverage is preferable to sparse sampling with
 higher coverage.
 
@@ -213,7 +211,7 @@ sweep simulations (Table~\ref{tab:rank}A-B).
 		{\input{../tables/top50.100.0.hard.tex}}
 		&{\input{../tables/top50.100.0.soft.tex} }\\
 		\hline
-	\end{tabular}
+	\end{tabular}\\
 	\caption{{\bf Percentage of simulations which appears in top of ranking.}\\
 		Percentage of simulations in which the favored allele is ranked 
 	first 
@@ -266,8 +264,8 @@ scan, including precomputation, while the fastest method, CMH, took 17 minutes.
 
 \subsection{Analysis of a \dmel Adaptation to Cold and Hot 
 Temperatures}\label{sec:dmel}
-We applied \comale\ to the \datadm~\cite{orozco2012adaptation}, where 3
-replicate samples were chosen from a population of \dmel for 59
+We applied \comale\ to the \datadm~\cite{orozco2012adaptation}, where
+3 replicate samples were chosen from a population of \dmel for 59
 generations under alternating 12-hour cycles of hot (28$^{\circ}$C)
 and cold (18$^{\circ}$C) temperatures and sequenced.  In this dataset,
 sequencing coverage is different across replicates and generations
@@ -275,30 +273,27 @@ sequencing coverage is different across replicates and generations
 highly heterogeneous (Suppl.
 Figs.~\ref{fig:depth},~\ref{fig:depthHetero}). We computed the
 $\Hc^{+}$ statistic for sliding windows of 30Kbp with steps of 10Kbp
-over the whole genome. After filtering out
-heterochromatic, centromeric and telomeric 
-regions\cite{fiston2010drosophila,comeron2012many}, and
-applying a local false discovery rate $\le 0.01$ (Methods), we
-identified 89 intervals (Fig.~\ref{fig:manhattancutoffed}) containing
-968 genes (Suppl. Table~\ref{tab:stats}).
+over the whole genome. After filtering out heterochromatic,
+centromeric and telomeric
+regions\cite{fiston2010drosophila,comeron2012many}, and applying a
+local false discovery rate $\le 0.01$ (Methods), we identified 89
+intervals (Fig.~\ref{fig:manhattancutoffed}) containing 968 genes
+(Suppl. Table~\ref{tab:stats}).
 
 We found $11$ GO Biological Process terms to be enriched with Fisher
-exact $P$-value $\le 10^{-3}$ (Table~\ref{tab:Fisher2}). 
-Interestingly, many Heat Shock Protein (HSP) expressing genes involved in 
-`cold acclimation', and `response to heat' ontologies 
-(Table~\ref{tab:tempGenes}.). The effect of rapid
-changes in temperature is profound, and it is not surprising that the
-enriched GO terms include many generic stress and stress response
-genes. As longer genes contain more variants, the probability of a
-false variant being selected could increase with the length of the
-gene. Although the \comale\ statistic for genes does not favor longer
-genes, we also performed a single variant based GO enrichment using
-\texttt{Gowinda}~\cite{kofler2012gowinda}. The analysis identified 34
-enriched GO terms (Suppl. Table~\ref{tab:gowinda}) associated with Biological 
-Process. 5 of 11 GO terms
-in the gene level analysis overlapped with the $34$ \texttt{Gowinda}
-terms (Fisher exact $p$-val: $10^{-8}$) suggesting consistency of single
-variant based and gene-based analysis.
+exact $P$-value $\le 10^{-3}$ (Table~\ref{tab:Fisher2}). The selected
+genes include many heat shock proteins in enriched ontologies
+including `cold acclimation' and `response to heat'
+(Table~\ref{tab:tempGenes}). As longer genes contain more variants,
+the probability of a false variant being selected could increase with
+the length of the gene. Although the \comale\ statistic for genes does
+not favor longer genes, we also performed a single variant based GO
+enrichment using \texttt{Gowinda}~\cite{kofler2012gowinda}. The
+analysis identified 34 enriched GO terms
+(Suppl. Table~\ref{tab:gowinda}) associated with Biological Process. 5
+of 11 GO terms in the gene level analysis were also among the $34$
+\texttt{Gowinda} terms (Fisher exact $p$-val: $10^{-8}$) suggesting
+consistency between variant and gene-based analysis.
 
 \begin{table}[H]
 	\begin{tabular}{c}
