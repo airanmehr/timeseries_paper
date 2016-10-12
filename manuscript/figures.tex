@@ -51,8 +51,8 @@
           $s\in\{0.025,0.05,0.075,0.1\}$ for \comale\ statistics, $\Hc_{\pi}$ and
           $\Hc^{+}_{\pi}$. We denote
           $\pi^{*}=\arg\max_{\pi}\{\mbox{Power}(\Hc),\mbox{Power}(\Hc^{+})\}$. Average
-          power was computed using $2000$ simulations for each choice
-          of $s$. The appropriate choice of $\pi$ can be used to
+          power was computed using $8000$ simulations for each choice
+          of $\pi$. The appropriate choice of $\pi$ can be used to
           improve performance for different coverage values. 
           In all simulations, 3 replicates are evolved and sampled at generations 
           $\Tc=\{0,10,20,30,40,50\}$.}
@@ -62,10 +62,11 @@
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{powerCLR.pdf}
-	\caption{{\bf Comparison of power of $\Mc$ and $\Hc$.}\\
-          Detection power for $\Mc$ and $\Hc$ under hard (top) and
-          soft sweep (bottom) scenarios, for different settings of
-          mean coverage $\lambda$ and selection strength $s$.  The
+	\caption{{\bf Comparison of power of Markov chain and HMM.}\\
+          Detection power for Markov chain ($\Mc$) and HMM ($\Hc$) under 
+          hard (A-C) and
+          soft sweep (D-F) scenarios, for different coverage $\lambda$ and 
+          selection strength $s$.  The
           $y$-axis measures power -- sensitivity with false positive
           rate FPR $\le 0.05$ -- for $2000$ simulations of $50$Kbp
           regions. The horizontal line reflects the power of a random
@@ -80,8 +81,8 @@
 	\includegraphics[width=\textwidth]{power.pdf}
 	\caption{ {\bf Power calculations for detection of selection.}\\
           Detection power for \comale ($\Hc$), Frequency Increment
-          Test (FIT), Gaussian Process (GP), and CMH under hard (top)
-          and soft sweep (bottom) scenarios. $\lambda$, $s$ denote the
+          Test (FIT), Gaussian Process (GP), and CMH under hard (A-C)
+          and soft sweep (D-F) scenarios. $\lambda$, $s$ denote the
           mean coverage and selection coefficient, respectively. The
           $y$-axis measures power -- sensitivity with false positive
           rate FPR $\le 0.05$ -- for $2,000$ simulations of $50$Kbp
@@ -92,8 +93,6 @@
            \label{fig:power}
 \end{figure}
 
-\clearpage
-\newpage
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.75\textwidth]{{runTime.pdf}}
@@ -107,8 +106,7 @@
           $\Tc=\{0,10,20,30,40,50\}$.}
 	\label{fig:runTime}
 \end{figure}
-\clearpage
-\newpage
+
 
 \begin{figure}[H]
 	\centering
@@ -116,7 +114,7 @@
 	\caption{{\bf Power of SFS based statistics.}\\ Power of
           detecting selection for Frequency Increment Test (FIT),
           Gaussian Process (GP), \comale ($\Hc$) on hard sweep
-          natural experimental evolution with $N_e=10^4$ and depth
+          natural experimental evolution with $N_e=10^4$ and coverage
           $\lambda=\infty$. The measurements are conducted for a range
           of selection coefficients, $s$. Each point represents the
           mean of 200 simulations. For each simulation, sampling
@@ -133,8 +131,6 @@
           \label{fig:powerSFS}
 \end{figure}
 
-\clearpage
-\newpage
 \begin{figure}[H]
 	\centering
 	\includegraphics[trim=.2in 0 .2in 0, 
@@ -146,7 +142,7 @@
           Increment Test (FIT), for different values of selection
           coefficient $s$ and initial carrier frequency. Note that the
           individual variant \comale\ score ($H$) is used to rank
-          variants.  The Area Under Curve (AUC) is computed as a
+          variants.  The Area Under Curve (AUC) is computed as an overall
           quantitative measure to compare the performance of methods
           for each configuration. In all simulations, 3 replicates are evolved and 
           sampled at generations 
@@ -156,8 +152,6 @@
 
 
 
-\clearpage
-\newpage
 \begin{figure}[H]
 	\centering
 \includegraphics[width=0.7\textwidth]{{bias.100}.pdf}
@@ -175,19 +169,15 @@
 	\label{fig:bias100}
 \end{figure}
 
-\clearpage
-\newpage
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{manhattan.pdf}
 	\caption{{\bf \comale\ scan of the \datadm.}\\ Manhattan plot
           of the \comale\ ($\Hc^{+})$ statistic (A) and the number of
           SNPs (B) in 30Kbp sliding windows with steps of 10Kbp,
-          excluding windows close to centromere and telomere. The
-          dashed line corresponds to the top $1$\%-ile
-          threshold. Regions that exceed the threshold are shown in
-          red dots. For comparison to past results, only Chromosomes
-          2, 3, and X are shown.}
+          excluding heterochromatic regions. Regions that exceed the local 
+          FDR threshold of $\Hc^+$ are shown in
+          red dots.}
 	\label{fig:manhattancutoffed}
 \end{figure}
 

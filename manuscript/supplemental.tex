@@ -22,10 +22,11 @@ Assume that a site is evolving under selection constraints $s,h\in
 respectively. Let $\nu_t$ denote the frequency of the site at time
 $\tau_t\in {\cal T}$. Then, $\nusp$, the frequency at time $\tau_t+1$
 can be estimated (See Eq.~\ref{eq:transition}) using:
-\[\hat{\nu}_{t^+}
+\beq
+\hat{\nu}_{t^+}
 =\nu_t+\frac{s(h+(1-2h)\nu_t)\nu_t(1-\nu_t)}{1+s\nu_t(2h+(1-2h)\nu_t))}.
   \label{eq:transition2}
-\]
+\eeq
 We can show that the dynamic of the favored allele can be modeled
 via a logistic function, in the case of directional selection
 ($h=0.5$). Taking derivatives of Eq.~\ref{eq:transition2}, we have
@@ -184,7 +185,7 @@ allele.
 		Average power is computed  for 8000 simulations with 
 		$s\in\{0.025,0.05,0.075,0.1\}$. Frequency Increment 
 		Test (FIT), Gaussian Process (GP), \comale\ ($\Hc$ statistic) and 
-		Cochran–Mantel–Haenszel (CMH) are compared for different initial 
+		Cochran Mantel Haenszel (CMH) are compared for different initial 
 		carrier frequency $\nu_0$. For all sequencing coverages, \comale\ 
 		outperform other methods. When coverage is not high 
 		($\lambda\in\{30,100\}$) and initial frequency is low (hard sweep), 
@@ -239,5 +240,5 @@ allele.
 	\begin{tabular}{c}
 		\input{../tables/stats.tex}
 	\end{tabular}
-	\caption{\bf General statistic of analysis of \datadm .}\label{tab:stats}
+	\caption{\bf General statistics of analysis of \datadm .}\label{tab:stats}
 \end{table}
