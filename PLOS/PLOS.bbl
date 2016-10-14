@@ -354,6 +354,11 @@ Holsinger KE, Weir BS.
   estimating and interpreting FST}.
 \newblock Nature Reviews Genetics. 2009;10(9):639--650.
 
+\bibitem{gunther2013robust}
+G{\"{u}}nther T, Coop G.
+\newblock {Robust identification of local adaptation from allele frequencies}.
+\newblock Genetics. 2013;195(1):205--220.
+
 \bibitem{nielsen2005genomic}
 Nielsen R, Williamson S, Kim Y, Hubisz MJ, Clark AG, Bustamante C.
 \newblock {Genomic scans for selective sweeps using SNP data}.
@@ -420,6 +425,12 @@ Durbin R, Eddy SR, Krogh A, Mitchison G.
 \newblock {Biological sequence analysis: probabilistic models of proteins and
   nucleic acids}.
 \newblock Cambridge university press; 1998.
+
+\bibitem{elyashiv2016genomic}
+Elyashiv E, Sattath S, Hu TT, Strutsovsky A, McVicker G, Andolfatto P, et~al.
+\newblock {A Genomic Map of the Effects of Linked Selection in Drosophila}.
+\newblock PLoS Genet. 2016;12(8):1--24.
+\newblock doi:{10.1371/journal.pgen.1006130}.
 
 \bibitem{williamson2007localizing}
 Williamson SH, Hubisz MJ, Clark AG, Payseur BA, Bustamante CD, Nielsen R.

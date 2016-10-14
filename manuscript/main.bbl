@@ -47,6 +47,11 @@ Jeffrey~E Barrick, Dong~Su Yu, Sung~Ho Yoon, Haeyoung Jeong, Tae~Kwang Oh,
   Escherichia coli}.
 \newblock {\em Nature}, 461(7268):1243--1247, 2009.
 
+\bibitem{berg2014population}
+Jeremy~J Berg and Graham Coop.
+\newblock {A population genetic signal of polygenic adaptation}.
+\newblock {\em PLoS Genet}, 10(8):e1004412, 2014.
+
 \bibitem{bergland2014genomic}
 Alan~O Bergland, Emily~L Behrman, Katherine~R O'Brien, Paul~S Schmidt, and
   Dmitri~A Petrov.
@@ -125,6 +130,12 @@ Richard Durbin, Sean~R Eddy, Anders Krogh, and Graeme Mitchison.
   and nucleic acids}}.
 \newblock Cambridge university press, 1998.
 
+\bibitem{elyashiv2016genomic}
+Eyal Elyashiv, Shmuel Sattath, Tina~T Hu, Alon Strutsovsky, Graham McVicker,
+  Peter Andolfatto, Graham Coop, and Guy Sella.
+\newblock {A Genomic Map of the Effects of Linked Selection in Drosophila}.
+\newblock {\em PLoS Genet}, 12(8):1--24, 2016.
+
 \bibitem{evans2007non}
 Steven~N Evans, Yelena Shvets, and Montgomery Slatkin.
 \newblock {Non-equilibrium theory of the allele frequency spectrum}.
@@ -190,6 +201,11 @@ John~H Gillespie.
 Michael~M Gottesman.
 \newblock {Mechanisms of cancer drug resistance}.
 \newblock {\em Annual review of medicine}, 53(1):615--627, 2002.
+
+\bibitem{gunther2013robust}
+Torsten G{\"{u}}nther and Graham Coop.
+\newblock {Robust identification of local adaptation from allele frequencies}.
+\newblock {\em Genetics}, 195(1):205--220, 2013.
 
 \bibitem{hegreness2006equivalence}
 Matthew Hegreness, Noam Shoresh, Daniel Hartl, and Roy Kishony.
