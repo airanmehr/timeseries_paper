@@ -290,12 +290,11 @@ Zhou D, Udpa N, Gersten M, Visk DW, Bashir A, Xue J, et~al.
 \newblock Proceedings of the National Academy of Sciences.
   2011;108(6):2349--2354.
 
-\bibitem{tobler2014massive}
-Tobler R, Franssen SU, Kofler R, Orozco-terWengel P, Nolte V, Hermisson J,
-  et~al.
-\newblock {Massive habitat-specific genomic response in D. melanogaster
-  populations during experimental evolution in hot and cold environments}.
-\newblock Molecular biology and evolution. 2014;31(2):364--375.
+\bibitem{franssen2015patterns}
+Franssen SU, Nolte V, Tobler R, Schl{\"{o}}tterer C.
+\newblock {Patterns of linkage disequilibrium and long range hitchhiking in
+  evolving experimental Drosophila melanogaster populations}.
+\newblock Molecular biology and evolution. 2015;32(2):495--509.
 
 \bibitem{jha2015whole}
 Jha AR, Miles CM, Lippert NR, Brown CD, White KP, Kreitman M.
@@ -436,6 +435,13 @@ Elyashiv E, Sattath S, Hu TT, Strutsovsky A, McVicker G, Andolfatto P, et~al.
 Williamson SH, Hubisz MJ, Clark AG, Payseur BA, Bustamante CD, Nielsen R.
 \newblock {Localizing recent adaptive evolution in the human genome}.
 \newblock PLoS Genet. 2007;3(6):e90.
+
+\bibitem{tobler2014massive}
+Tobler R, Franssen SU, Kofler R, Orozco-terWengel P, Nolte V, Hermisson J,
+  et~al.
+\newblock {Massive habitat-specific genomic response in D. melanogaster
+  populations during experimental evolution in hot and cold environments}.
+\newblock Molecular biology and evolution. 2014;31(2):364--375.
 
 \bibitem{gillespie2010population}
 Gillespie JH.

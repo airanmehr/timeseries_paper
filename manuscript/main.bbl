@@ -47,11 +47,6 @@ Jeffrey~E Barrick, Dong~Su Yu, Sung~Ho Yoon, Haeyoung Jeong, Tae~Kwang Oh,
   Escherichia coli}.
 \newblock {\em Nature}, 461(7268):1243--1247, 2009.
 
-\bibitem{berg2014population}
-Jeremy~J Berg and Graham Coop.
-\newblock {A population genetic signal of polygenic adaptation}.
-\newblock {\em PLoS Genet}, 10(8):e1004412, 2014.
-
 \bibitem{bergland2014genomic}
 Alan~O Bergland, Emily~L Behrman, Katherine~R O'Brien, Paul~S Schmidt, and
   Dmitri~A Petrov.
@@ -180,6 +175,12 @@ Alison~F Feder, Soo-Yon Rhee, Susan~P Holmes, Robert~W Shafer, Dmitri~A Petrov,
 Anna-Sophie Fiston-Lavier, Nadia~D Singh, Mikhail Lipatov, and Dmitri~A Petrov.
 \newblock {Drosophila melanogaster recombination rate calculator}.
 \newblock {\em Gene}, 463(1):18--20, 2010.
+
+\bibitem{franssen2015patterns}
+Susanne~U Franssen, Viola Nolte, Ray Tobler, and Christian Schl{\"{o}}tterer.
+\newblock {Patterns of linkage disequilibrium and long range hitchhiking in
+  evolving experimental Drosophila melanogaster populations}.
+\newblock {\em Molecular biology and evolution}, 32(2):495--509, 2015.
 
 \bibitem{fu1995statistical}
 Yun-Xin Fu.

@@ -13,20 +13,20 @@ and selection strength $s\in\{0,0.1\}$ (i.e., neutral and
 selection). Then, given initial frequency $\nu_0$, we computed
 expected distribution of the frequency of the next sample $\nu_\tau$
 under two models and compared them with empirical distributions
-calculated from simulated data.  Fig.~\ref{fig:markov}A-F shows that
+calculated from simulated data.  \ref{fig:markov}A-F shows that
 Brownian motion is inadequate when $\nu_0$ is
 far from $0.5$, or when sampling times are sparse ($\tau>1$). If the
 favored allele arises from standing variation in a neutral population,
 it is unlikely to have frequency close to $0.5$, and the starting
 frequencies are usually much smaller (see
-Suppl. Fig.~\ref{fig:sfs}). Moreover, in typical \dmel experiments for
+\ref{fig:sfs}). Moreover, in typical \dmel experiments for
 example, sampling is sparse. Often, the experiment is designed so that
 $10\le\tau\le100$~\cite{kofler2013guide, orozco2012adaptation,
-  zhou2011experimental}.
+  zhou2011experimental,franssen2015patterns}.
 
 In contrast to the Brownian motion results,  Markov chain can provide 
 predictions when the the allele is under selection. In addition 
-Fig.~\ref{fig:markov}A-M
+\ref{fig:markov}A-M
 also shows that Markov chain predictions (Eq.~\ref{eq:mkvs}) are
 highly consistent with empirical data for a wide range of simulation
 parameters.
@@ -35,7 +35,7 @@ parameters.
 We compared the performance of \comale\ against other methods for
 detecting selection. For each method we calculated detection power as the 
 percentage of true-positives identified with false-positive rate $\le 0.05$
-(Suppl.~Fig.~\ref{fig:powerROC}). For each
+(\ref{fig:powerROC}). For each
 configuration (specified with values for selection coefficient $s$,
 starting allele frequency $\nu_0$ and coverage $\lambda$), power of each method 
 is evaluated over $2000$ distinct simulations, half of which modeled neutral 
@@ -47,7 +47,7 @@ Before comparing against other methods, we first evaluated the use of
 in computing composite statistics of a region. For each configuration,
 we computed average Power for $s\in\{0.025,0.05,0.075,0.1\}$, using
 $\Hc_\pi,\Hc^{+}_\pi$. We computed the optimal value of $\pi$ using a
-line-search. Fig.~\ref{fig:clrq} reveals several important trade-off
+line-search. \ref{fig:clrq} reveals several important trade-off
 between $\pi$, initial frequency, and coverage.
 \begin{packed_itemize}
 \item $\Hc^{+}_\pi$ consistently achieves a high power for $\pi=0$,
@@ -62,10 +62,10 @@ between $\pi$, initial frequency, and coverage.
   higher value of the cut-off $\pi$. This is consistent with the fact that LD
   between the favored site and other sites is generally lower for
   soft sweep. For instance, in soft sweep with infinite coverage
-  (Fig.~\ref{fig:clrq}F), optimum is gained at $\pi=100$, equivalent
+  (\ref{fig:clrq}F), optimum is gained at $\pi=100$, equivalent
   to considering the score of the highest scoring site as $\Hc$ statistic of 
   the region.
-\item When coverage is low (Fig.~\ref{fig:clrq}A,D), it helps to
+\item When coverage is low (\ref{fig:clrq}A,D), it helps to
   accumulate evidence from multiple sites, and the best results are
   achieved for lower values of $\pi$.
 \end{packed_itemize}
@@ -74,7 +74,7 @@ $\lambda=30,100,300$, respectively, and simplify notation by
 denoting the optimum score as $\Hc$. For example, when $\lambda=30$,
 $\Hc$ corresponds to $\Hc_{70}$. In addition, we use $\Hc^{+}$ to
 denote $\Hc^{+}_0$. We also compared $\Mc$ (Markov likelihoods) versus
-$\Hc$. As shown in Fig.~\ref{fig:powerCLR}, $\Hc$ has better power for
+$\Hc$. As shown in \ref{fig:powerCLR}, $\Hc$ has better power for
 low coverage ($\lambda=30$) compared to $\Mc$ decays.
 
 
@@ -90,12 +90,12 @@ count data, here we used $\lambda=300$ to implement infinite coverage
 scenario. All methods other than \comale\ and CMH convert read counts
 to allele frequencies prior to computing the test statistic.  \comale\
 shows the highest power in all cases and the power stays relatively
-high even for low coverage (Fig.~\ref{fig:power} and
-Table~\ref{tab:power}). In particular, the difference in performance
+high even for low coverage (\ref{fig:power} and
+\ref{tab:power}). In particular, the difference in performance
 of \comale\ with other methods is pronounced when starting frequency
 is low. Starting frequency is at its minimum in selection on an allele
 from \emph{de novo} mutations and is likely to be low if selection is
-on an allele from standing variation (Suppl. Fig.~\ref{fig:sfs}).  The
+on an allele from standing variation (\ref{fig:sfs}).  The
 advantage of \comale\ stems from the fact that favored allele with low
 starting frequency might be missed by low coverage sequencing. In this
 case, incorporating the signal from linked sites becomes increasingly
@@ -105,29 +105,29 @@ coverage. However, the use of time-series data can increase detection
 power in low coverage experiments or when starting frequency is
 low. Moreover, time-series data provide means for estimating selection
 parameters $s,h$ (see below). Finally, as \comale\ is robust to change
-of coverage, our results (Fig.~\ref{fig:power}B,C) suggest that taking
+of coverage, our results (\ref{fig:power}B,C) suggest that taking
 many samples with lower coverage is preferable to sparse sampling with
 higher coverage.
 
 
 \ignore{ Moreover, the observation of
-  Fig.~\ref{fig:markov} is revisited here, approximate continues
+  \ref{fig:markov} is revisited here, approximate continues
   models (GP and FIT) perform poorly when starting frequency is low
-  (Fig.~\ref{fig:power}A-C).  }
+  (\ref{fig:power}A-C).  }
 
 \paragraph{SFS for Detection in Natural Samples.} We did not show the
-SFS based statistics in Fig.~\ref{fig:power} as they did not perform
+SFS based statistics in \ref{fig:power} as they did not perform
 better than random. In majority of controlled experimental evolution studies, 
 the population is restricted set of $F$ founder lines, where $F<<N_e$
-(Fig.~\ref{fig:ee}B) and inbred during the experiment. This creates a severe 
+(\ref{fig:ee}B) and inbred during the experiment. This creates a severe 
 bottleneck, confounding
-SFS. Suppl.~Fig.~\ref{fig:bottleneck} demonstrates the effect of
+SFS. ~\ref{fig:bottleneck} demonstrates the effect of
 experimental evolution on different SFS statistics under neutral
 evolution for 1000 simulations. A second problem with using SFS for
 experimental evolution is that the sampling starts right after the
 onset of experimentally induced selection, and the favored allele may
 not reach high enough frequency to modify the site frequency spectrum
-(Suppl. Fig.~\ref{fig:sweep}).
+(\ref{fig:sweep}).
 
 However, in experiments involving naturally evolving populations,
 even if the span of the time-series is small, the onset of selection
@@ -142,20 +142,20 @@ the expected time (in generations) required to reach carrier frequency
 $x$ in a hard sweep and $U[a,b]$ denote discrete uniform distribution
 in the interval $[a,b]$. First we considered the case when start of
 sampling is chosen throughout the whole sweep. i.e., $\tau_0 \sim
-U\left[1,t_{\nu=1}(s,N_e)\right]$ (Fig.~\ref{fig:powerSFS}A). Next, we
+U\left[1,t_{\nu=1}(s,N_e)\right]$ (\ref{fig:powerSFS}A). Next, we
 considered sampling start time chosen nearer to fixation of the
 favored allele, i.e., $\tau_0 \sim
 U\left[t_{\nu=0.9}(s,N_e),t_{\nu=1}(s,N_e)\right]$
-(Fig.~\ref{fig:powerSFS}B). In both scenarios, sampling was done over
-$6$ time points within $50$ generations of $\tau_0$ (Fig.~\ref{fig:ee}A). We 
+(\ref{fig:powerSFS}B). In both scenarios, sampling was done over
+$6$ time points within $50$ generations of $\tau_0$ (~\ref{fig:ee}A). We 
 compared
 \comale, GP, FIT with both static and dynamic SFS based statistics of
-SFSelect and Tajima's D. Fig.~\ref{fig:powerSFS}A shows that SFS based
+SFSelect and Tajima's D. ~\ref{fig:powerSFS}A shows that SFS based
 statistics are outperformed by other methods. However,
 when sampling is performed close to fixation, i.e., when the favored
 allele has frequency of 0.9 or higher, SFS based statistics perform
 considerably better than GP, FIT and \comale\
-(Fig.~\ref{fig:powerSFS}b). Moreover, dynamic SFS statistics
+(\ref{fig:powerSFS}B). Moreover, dynamic SFS statistics
 provide higher power than static SFS statistics, demonstrating that in the use 
 of time-series SFS based statistics is advantageous.
 
@@ -169,33 +169,36 @@ scores (Eqns.~\ref{eq:mcts},~\ref{eq:hmmml}). For each setting of
 $\nu_0$ and $s$, we conducted $1000$ simulations and computed the rank
 of the favored mutation in each simulation. The cumulative
 distribution of the rank of the favored allele in 1000 simulation for
-each setting (Fig.~\ref{fig:rank}) shows that \comale\ outperforms
+each setting (\ref{fig:rank}) shows that \comale\ outperforms
 other statistics. We also compared each method to see how often it
 ranked the favored site in as the top ranked site
-(Table~\ref{tab:rank}A-B), among the top 10 ranked sites
-(Table~\ref{tab:rank}C-D), and among the top 50
-(Table~\ref{tab:rank}E-F) ranked sites. In the $\approx$1150 variants tested,
+(\ref{tab:rank}A-B), among the top 10 ranked sites
+(\ref{tab:rank}C-D), and among the top 50
+(\ref{tab:rank}E-F) ranked sites. In the $\approx$1150 variants tested,
 \comale\ performed consistently better than other methods in all of
 these measures.
 
 An interesting observation is revisiting the contrast between 
 site-identification
-and detection~\cite{long2013massive,tobler2014massive} (Appendix~\ref{app:ld}). 
+and detection~\cite{long2013massive,tobler2014massive} (see \ref{app:ld} for 
+more details). 
 When selection 
 coefficient is high, detection is easier
-(Fig.~\ref{fig:power}A-F), but site-identification is harder due to
+(\ref{fig:power}A-F), but site-identification is harder due to
 the high LD between hitchhiking sites and the favored allele
-(Table~\ref{tab:rank}A-F).  Moreover, site-identification is harder in
+(\ref{tab:rank}A-F).  Moreover, site-identification is harder in
 hard sweep scenarios relative to soft sweeps. For example, when
 coverage $\lambda=100$ and selection coefficient $s=0.1$, the
 detection power is 75\% for hard sweep, but 100\% for soft sweep
-(Fig.~\ref{fig:power}B-E). In contrast, the favored site was ranked as
+(\ref{fig:power}B-E). In contrast, the favored site was ranked as
 the top in 14\% of hard sweep cases, compared to and 95\% of soft
-sweep simulations (Table~\ref{tab:rank}A-B).  
+sweep simulations (\ref{tab:rank}A-B).  
 
 \newcommand*\rot{\rotatebox{-90} }
 \begin{table}[H]
 	\centering
+		\caption{\bf Percentage of simulations which favored allele appears in 
+		top of the ranking.}
 	\begin{tabular}{c||c}
 		 Hard Sweep &Soft Sweep\\
 		\hline
@@ -212,9 +215,8 @@ sweep simulations (Table~\ref{tab:rank}A-B).
 		&{\input{../tables/top50.100.0.soft.tex} }\\
 		\hline
 	\end{tabular}\\
-	\caption{{\bf Percentage of simulations which favored allele appears in top 
-	of the ranking.}\\
-		Percentage of simulations in which the favored allele is ranked 
+	\caption*{		Percentage of simulations in which the favored allele is 
+	ranked 
 	first 
 		(A-B); 
 		appears in top 10 (C-D); or,  appears in top 50 (E-F). In soft sweep 
@@ -230,14 +232,14 @@ sweep simulations (Table~\ref{tab:rank}A-B).
 a byproduct of the hypothesis testing. We computed bias of selection
 fitness ($s-\hat{s}$) and overdominance ($h-\hat{h}$) for of \comale\
 and GP in each setting. The distribution of the error (bias) for
-100$\times$ coverage is presented in Fig.~\ref{fig:bias100} for
+100$\times$ coverage is presented in \ref{fig:bias100} for
 different configurations.
-Suppl.~Fig.~\ref{fig:bias30},~\ref{fig:biasinf} provide the
+\ref{fig:bias30} and \ref{fig:biasinf} provide the
 distribution of estimation errors for 30$\times$, and infinite
 coverage, respectively.  For hard sweep, \comale\ provides estimates
-of $s$ with lower variance of bias (Fig.\ref{fig:bias100}A). In soft
+of $s$ with lower variance of bias (\ref{fig:bias100}A). In soft
 sweep, GP and \comale\ both provide unbiased estimates with low
-variance (Fig.~\ref{fig:bias100}B). Fig.~\ref{fig:bias100}C-D shows
+variance (\ref{fig:bias100}B). \ref{fig:bias100}C-D shows
 that \comale\ provides unbiased estimates of $h$ as well.
 
 \paragraph{Running Time.}
@@ -250,7 +252,7 @@ are can be vectorized for all replicates to make the effective running
 time for each variant.  We
 conducted $1000$ simulations and measured running times for computing site 
 statistics $M$, $H$, FIT, CMH and GP with different number of linked-loci.  Our
-analysis reveals (Fig.~\ref{fig:runTime}) that \comale\ is orders of
+analysis reveals (\ref{fig:runTime}) that \comale\ is orders of
 magnitude faster than GP, and comparable to FIT. While slower than CMH
 on the time per variant, the actual running times are comparable after
 vectorization and broadcasting over variants (see below).
@@ -265,43 +267,45 @@ scan, including precomputation, while the fastest method, CMH, took 17 minutes.
 
 \subsection{Analysis of a \dmel Adaptation to Cold and Hot 
 Temperatures}\label{sec:dmel}
-We applied \comale\ to the \datadm~\cite{orozco2012adaptation}, where
+We applied \comale\ to the 
+\datadm~\cite{orozco2012adaptation,franssen2015patterns}, where
 3 replicate samples were chosen from a population of \dmel for 59
 generations under alternating 12-hour cycles of hot (28$^{\circ}$C)
 and cold (18$^{\circ}$C) temperatures and sequenced.  In this dataset,
 sequencing coverage is different across replicates and generations
-(see Fig. S2 of~\cite{Terhorst2015Multi}) which makes variant depths
-highly heterogeneous (Suppl.
-Figs.~\ref{fig:depth},~\ref{fig:depthHetero}). We computed the
+(see S2 Fig of~\cite{Terhorst2015Multi}) which makes variant depths
+highly heterogeneous (\ref{fig:depth} and \ref{fig:depthHetero}). We 
+computed the
 $\Hc^{+}$ statistic for sliding windows of 30Kbp with steps of 10Kbp
 over the whole genome. After filtering out heterochromatic,
 centromeric and telomeric
 regions\cite{fiston2010drosophila,comeron2012many}, and applying a
 local false discovery rate $\le 0.01$ (Methods), we identified 89
-intervals (Fig.~\ref{fig:manhattancutoffed}) containing 968 genes
-(Suppl. Table~\ref{tab:stats}).
+intervals (\ref{fig:manhattancutoffed}) containing 968 genes
+(\ref{tab:stats}).
 
 We found $11$ GO Biological Process terms to be enriched with Fisher
-exact $P$-value $\le 10^{-3}$ (Table~\ref{tab:Fisher2}). The selected
+exact $P$-value $\le 10^{-3}$ (\ref{tab:Fisher2}). The selected
 genes include many heat shock proteins in enriched ontologies
 including `cold acclimation' and `response to heat'
-(Table~\ref{tab:tempGenes}). As longer genes contain more variants,
+(\ref{tab:tempGenes}). As longer genes contain more variants,
 the probability of a false variant being selected could increase with
 the length of the gene. Although the \comale\ statistic for genes does
 not favor longer genes, we also performed a single variant based GO
 enrichment using \texttt{Gowinda}~\cite{kofler2012gowinda}. The
 analysis identified 34 enriched GO terms
-(Suppl. Table~\ref{tab:gowinda}) associated with Biological Process. 5
+(\ref{tab:gowinda}) associated with Biological Process. 5
 of 11 GO terms in the gene level analysis were also among the $34$
 \texttt{Gowinda} terms (Fisher exact $p$-val: $10^{-8}$) suggesting
 consistency between variant and gene-based analysis.
 
 \begin{table}[H]
 	\centering
+		\caption{\bf GO (Biological Process) enrichment.}
 	\begin{tabular}{c}
 		\input{../tables/biological_process.tex}
 	\end{tabular}
-	\caption{{\bf GO (Biological Process) enrichment.}\\ A Fisher exact test 
+	\caption*{ A Fisher exact test 
 	was 
 	performed for GO enrichment in genes located in selected regions. All GO 
 	terms that contained at least $3$ selected genes, and had Fisher exact 

@@ -1,0 +1,80 @@
+
+\begin{table}[H]
+	\centering
+		\caption{\bf Average of power for detecting selection.}
+	\begin{tabular}{ccc}
+		Hard Sweep & &Soft Sweep\\ \\  
+		\input{../tables/powerHardMathods.tex}
+		&&\input{../tables/powerSoftMethods.tex}
+	\end{tabular}
+	\caption*{		Average power is computed  for 8000 simulations 
+	with 
+		$s\in\{0.025,0.05,0.075,0.1\}$. Frequency Increment 
+		Test (FIT), Gaussian Process (GP), \comale\ ($\Hc$ statistic) and 
+		Cochran Mantel Haenszel (CMH) are compared for different initial 
+		carrier frequency $\nu_0$. For all sequencing coverages, \comale\ 
+		outperform other methods. When coverage is not high 
+		($\lambda\in\{30,100\}$) and initial frequency is low (hard sweep), 
+		\comale\ significantly perform better than others.}
+	\label{tab:power}
+\end{table}
+
+
+\begin{table}[H]
+	\centering
+		\caption{\bf Average running time per variant in seconds for 
+		different 
+			methods.}
+	\begin{tabular}{c}
+		\input{../tables/times.tex}
+	\end{tabular}
+\label{tab:times}
+\end{table}
+
+\begin{table}[h]
+	\centering
+	\caption{\bf Mean and standard deviation of the distribution of 
+	bias 
+		($s-\hat{s}$) of 8000 simulations with coverage 
+		$\lambda=100\times$ and 
+		$s\in\{0.025,0.05,0.075,0.1\}$.}
+	\begin{tabular}{c}
+		\input{../tables/bias.100.tex}
+	\end{tabular}
+	\label{tab:biasdist}
+\end{table}
+
+\clearpage
+\newpage
+\begin{table}[H]
+	\centering
+	\caption{\bf GO enrichment analysis of \datadm using 
+		\texttt{Gowinda}.}
+	\begin{tabular}{c}
+		\input{../tables/gowinda.tex}
+	\end{tabular}
+	\label{tab:gowinda}
+\end{table}
+\newpage
+
+\begin{table}[H]
+	\centering
+		\caption{\bf Enriched genes of analysis of \datadm associated 
+		with GO 
+		terms 
+			of 
+			``cold acclimation" and ``response to heat".}
+	\begin{tabular}{c}
+		\input{../tables/tempGenes.tex}
+	\end{tabular}
+\label{tab:tempGenes}
+\end{table}
+
+\begin{table}[H]
+	\centering
+		\caption{\bf General statistics of analysis of \datadm.}
+	\begin{tabular}{c}
+		\input{../tables/stats.tex}
+	\end{tabular}
+\label{tab:stats}
+\end{table}

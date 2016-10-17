@@ -1,27 +1,20 @@
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%% Supplemental Material%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\clearpage
+%\clearpage
 %\newpage
-%\setcounter{page}{1}
-\setcounter{figure}{0}
-\setcounter{table}{0}
-\setcounter{equation}{0}
-\renewcommand{\thefigure}{S\arabic{figure}}
-\renewcommand{\thetable}{S\arabic{table}}
-\renewcommand{\theequation}{S\arabic{equation}}
+
 
 %\section*{Main text figure captions}
-%\section*{Supporting information captions}
-\section{Appendix}
+\section{Dynamics of Site Frequency Spectrum-based Statistics and Linkage 
+	Disequilibrium under Selection }\label{app}
 \subsection{An approximate logistic function  for allele frequency dynamics} 
 \label{app:af}
 Assume that a site is evolving under selection constraints $s,h\in
 \Rbb$, where $s$ and $h$ denote selection strength and overdominance,
 respectively. Let $\nu_t$ denote the frequency of the site at time
 $\tau_t\in {\cal T}$. Then, $\nusp$, the frequency at time $\tau_t+1$
-can be estimated (See Eq.~\ref{eq:transition}) using:
+can be estimated using:
 \beq
 \hat{\nu}_{t^+}
 =\nu_t+\frac{s(h+(1-2h)\nu_t)\nu_t(1-\nu_t)}{1+s\nu_t(2h+(1-2h)\nu_t))}.
@@ -140,15 +133,15 @@ segregating site $l$ base-pairs away, then under natural selection we have
 where $K_t=2\nu_t(1-\nu_t)$ is the heterozygousity at the selected site, $r$ is 
 the recombination rate/bp/gen. The 
 \emph{decay factor}, $\alpha_t=e^{-rtl}$,
-and \emph{growth factor}, $\beta_t$ (see Eq. 30-31 in 
+and \emph{growth factor}, $\beta_t$ (see Eqs. 30-31 in 
 \cite{stephan2006hitchhiking}), are result of recombination and 
-selection, respectively. Fig.~\ref{fig:ld3d} presents the expected theoretical 
+selection, respectively. \ref{fig:ld3d} presents the expected theoretical 
 value of LD when $\rho_0=0.5$ between favored allele (site at position 500K) 
 and the rest of 
 genome, and $\nu_0=0.1$. For neutral evolution (top), LD decays exponentially 
 through space and time, while in natural selection (bottom), LD increases and 
 then decreases. Interestingly, LD increases to its maximum value, 1, for the 
-nearby region (the plateau in the Fig.~\ref{fig:ld3d} bottom) of the favored 
+nearby region (the plateau in \ref{fig:ld3d} bottom) of the favored 
 allele.
 
 In principle, LD increases after the onset of selection, until $\log(\alpha_t) 
@@ -157,7 +150,9 @@ In principle, LD increases after the onset of selection, until $\log(\alpha_t)
 Specifically, log of decay term is linear and, using 
 Eq.~\ref{eq:inf-pop}, we write growth 
 factor in term of initial frequency $\nu_0$ and selection strength $s$. 
-Fig.~\ref{fig:ldf} depicts interaction of decay and growth factors for weak and 
+\ref{fig:ldf0},~\ref{fig:ldf1},~\ref{fig:ldf2}, and ~\ref{fig:ldf3} 
+depict interaction of 
+decay and growth factors for weak and 
 strong selection and soft and hard sweeps. In all the case, LD of the 
 favored allele with a segregating site 50Kbp away, increases in the first 50 
 generations, which give rise to increasing number of \emph{hitchhikers}. 
@@ -168,77 +163,5 @@ used. As a result, $\Hc$ statistic outperforms existing (single-loci) tools in
 identifying selection. In contrast, augmentation of LD, increases the 
 number 
 of candidates for 
-the favored allele, which makes is difficult to localize the favored 
+the favored allele, which makes it difficult to localize the favored 
 allele.
-
-\clearpage
-\newpage
-
-\begin{table}[H]
-	\centering
-	\begin{tabular}{ccc}
-		Hard Sweep & &Soft Sweep\\ \\  
-		\input{../tables/powerHardMathods.tex}
-		&&\input{../tables/powerSoftMethods.tex}
-	\end{tabular}
-	\caption{{\bf Average of power for detecting selection.}\\
-		Average power is computed  for 8000 simulations with 
-		$s\in\{0.025,0.05,0.075,0.1\}$. Frequency Increment 
-		Test (FIT), Gaussian Process (GP), \comale\ ($\Hc$ statistic) and 
-		Cochran Mantel Haenszel (CMH) are compared for different initial 
-		carrier frequency $\nu_0$. For all sequencing coverages, \comale\ 
-		outperform other methods. When coverage is not high 
-		($\lambda\in\{30,100\}$) and initial frequency is low (hard sweep), 
-		\comale\ significantly perform better than others.}
-	\label{tab:power}
-\end{table}
-
-
-\begin{table}[H]
-	\centering
-	\begin{tabular}{c}
-		\input{../tables/times.tex}
-	\end{tabular}
-	\caption{\bf Average running time per variant in seconds for different 
-		methods.}\label{tab:times}
-\end{table}
-
-\begin{table}[h]
-	\centering
-	\begin{tabular}{c}
-		\input{../tables/bias.100.tex}
-	\end{tabular}
-	\caption{\bf Mean and standard deviation of the distribution of bias 
-		($s-\hat{s}$) of 8000 simulations with coverage $\lambda=100\times$ and 
-		$s\in\{0.025,0.05,0.075,0.1\}$.}\label{tab:biasdist}
-\end{table}
-
-\clearpage
-\newpage
-\begin{table}[H]
-	\centering
-	\begin{tabular}{c}
-		\input{../tables/gowinda.tex}
-	\end{tabular}
-	\caption{\bf GO enrichment analysis of \datadm using 
-		\texttt{Gowinda}.}\label{tab:gowinda}
-\end{table}
-\newpage
-
-\begin{table}[H]
-	\centering
-	\begin{tabular}{c}
-		\input{../tables/tempGenes.tex}
-	\end{tabular}
-	\caption{\bf Enriched genes of analysis of \datadm associated with GO terms 
-	of 
-		``cold acclimation" and ``response to heat".}\label{tab:tempGenes}
-\end{table}
-
-\begin{table}[H]
-	\centering
-	\begin{tabular}{c}
-		\input{../tables/stats.tex}
-	\end{tabular}
-	\caption{\bf General statistics of analysis of \datadm .}\label{tab:stats}
-\end{table}

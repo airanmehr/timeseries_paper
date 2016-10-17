@@ -55,13 +55,16 @@
 %% END MACROS SECTION
 
 \makeatletter
+
+%%%%%%%%%%%%%%%%%% Arya Header
 \def\input@path{{../manuscript/}}
 \makeatother
 \graphicspath{{../figures/}}
 \input{macros_arya.tex}
 \input{macros_vineet.tex}
-
-
+\renewcommand{\includegraphics}[2][]{}
+\usepackage{xr}
+\externaldocument{S1Text}
 \begin{document}
 \vspace*{0.2in}
 
@@ -124,12 +127,29 @@ algorithm.
 \input{discussion}
 \input{acknowledgments}
 \input{confilict_of_interest}
-\input{figures}
+
 \newpage
 \bibliographystyle{plos2015}
 \bibliography{../library}
-\input{supplemental}
+\clearpage
+\input{figures}
+
+\clearpage
+%\input{supplemental}
+\setcounter{figure}{0}
+\setcounter{table}{0}
+\setcounter{equation}{0}
+\renewcommand{\figurename}{}
+\renewcommand{\tablename}{}
+\renewcommand{\thefigure}{S\arabic{figure} Fig}
+\renewcommand{\thetable}{S\arabic{table} Table}
+\renewcommand{\theequation}{S\arabic{equation}}
+
 \input{supp-figures}
+
+\input{supp-tables}
+\paragraph{S1 Text Dynamics of Site Frequency Spectrum-based Statistics and Linkage 
+	Disequilibrium under Selection.}
 \nolinenumbers
 
 \end{document}

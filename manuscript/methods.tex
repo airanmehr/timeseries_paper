@@ -33,10 +33,11 @@ deviations from this Null could be indicative of
 non-neutrality. However, in our experiments, we found that the
 Brownian motion approximation is inadequate for small populations, low
 starting frequencies and sparse sampling (in time) that are typical in
-experimental evolution (see Results, and Fig.~\ref{fig:markov}). In
+experimental evolution (see Results, and 
+\ref{fig:markov}). In
 fact, other ``continuous'' models such as Gaussian process for dynamic
 allele frequencies, are also susceptible to this issue (see Results
-and Fig.~\ref{fig:power}A-C).
+and \ref{fig:power}A-C).
 
 Instead, by computing likelihood of data using a discrete-time
 discrete-state-space Wright-Fisher Markov chain, we turn the problem
@@ -120,16 +121,20 @@ In the discussion so far, we assumed that the exact allele frequencies
 are supplied. However, in most cases, allele frequencies are estimated
 from genotype data with small sample size or pool-seq
 data~\cite{lynch2014population}
-(Suppl.~Fig.~\ref{fig:stateConditional},\ref{fig:trajectoryReal}).  In
+(\ref{fig:stateConditional} and 
+\ref{fig:trajectoryReal}).
+  In
 pool-seq datasets, the sequencing depth at a site varies for different
 replicates, and different time samples
-(Suppl.~Fig.~\ref{fig:depthHetero}). Therefore, filtering low coverage
+(\ref{fig:depthHetero}). Therefore, filtering low 
+coverage
 variants can potentially discard useful information.  For instance, in
-analyzing \datadm~\cite{orozco2012adaptation}, by setting minimum read
+analyzing \datadm~\cite{orozco2012adaptation,franssen2015patterns}, by setting 
+minimum read
 depth at a site to be 50, allowing the site to be retained only if the
 depth for all time points, and all replicates exceeded $50$, the
 number of sites to be analyzed would drop from from 1,733,121 to
-11,232 (Suppl. Fig.~\ref{fig:depth}). To account for this
+11,232 (\ref{fig:depth}). To account for this
 heterogeneity, we extend the Markov chain likelihood in
 Eq.~\ref{eq:mkvlik} to a Hidden Markov Model (HMM) for pool-seq data.
 
@@ -201,7 +206,7 @@ classical CLR is computed by averaging scores of all the variants
 withing the testing region.  However, the levels of LD between favored
 allele and its surrounding variation depend on initial frequency
 $\nu_0$, strength of selection $s$ and time since the onset of
-selection (see Appendix~\ref{app:ld} for more details).  Hence, we
+selection (see \ref{app:ld} for more details).  Hence, we
 parameterize CLR to discard those polymorphisms that are in low LD
 with the favored allele, from computation of CLR.  In particular, we
 can choose to only include sites whose likelihood ratio score is above
@@ -245,7 +250,8 @@ statistic,
 individual variant scores ($M$ or $H$) in a region are ranked to predict the
 favored site. In general, identifying the favored site in pool-seq
 data is difficult~\cite{tobler2014massive}, due to extensive span of
-hitchhikers in an ongoing sweep (see Appendix~\ref{app:ld} for more
+hitchhikers in an ongoing sweep (see \ref{app:ld} for 
+more
 detail). In our analysis of the \dmel EE data, we identify a set of
 ``candidate'' variants whose scores exceed a False Discovery Rate
 threshold based on the distribution of \comale\ scores on negative
@@ -268,12 +274,14 @@ search. By broadcasting and vectorizing the grid search operations
 across all variants, the genome scan on millions of polymorphisms can
 be done in significantly smaller time than iterating a numerical
 optimization routine for each variant(see Results and
-Fig.~\ref{fig:runTime}). The value of the overdominance parameter can
+\ref{fig:runTime}). The value of the overdominance 
+parameter can
 provide extra information regarding dominance of the favored allele
-and the kind of selection~\cite{gillespie2010population} (See Suppl. 
-Fig.~\ref{fig:dominance},\ref{fig:dir-bal}):
+and the kind of selection~\cite{gillespie2010population} 
+(See \ref{tab:h}, \ref{fig:dominance} and \ref{fig:dir-bal}).
 \begin{table}
 	\centering
+	\caption{\bf Overdominance parameter values and their implications.}
 	\begin{tabular}{l|c}
 		Value & Condition\\
 		\hline
@@ -281,9 +289,7 @@ Fig.~\ref{fig:dominance},\ref{fig:dir-bal}):
 		$h=0.5$ & directional selection\\
 		$h=1$&	dominant adaptive allele	\\
 		$h>1$ &overdominance
-	\end{tabular}
-		\caption{\bf Overdominance parameter values and their 
-		implications.}
+	\end{tabular}\label{tab:h}
 \end{table}
 
 
@@ -325,9 +331,10 @@ selection coefficient $s$:
   \label{eq:tdt}    
 \end{equation}
 where $W_0$ and $\Pi_0$ are Watterson's and Tajima's estimates of
-$\theta$ in the initial generation (Appendix~\ref{app:td}).  See
-Suppl.~Fig.~\ref{fig:sfsts} for comparison to empirical values from
-simulations. Similarly, we show (Appendix~\ref{app:h}), that the
+$\theta$ in the initial generation (\ref{app:td}).  See
+\ref{fig:sfsts} for comparison to empirical values 
+from
+simulations. Similarly, we show (\ref{app:h}), that the
 dynamics of Fay and Wu's $H$ statistic~\cite{fay2000hitchhiking} are
 directly related to expected value of the of Haplotype Allele
 Frequency (HAF) score~\cite{ronen2015predicting}, and can be written
@@ -339,7 +346,8 @@ as a function of $\nu_t$ as follows:
   \label{eq:ht}
 \end{equation}	
 In both cases, $\nu_t$ itself can be written as a function of $s,t$
-(Suppl.~Eq.~\ref{eq:inf-pop}). This allows us to compute likelihood
+(Eq.~\ref{eq:inf-pop}). This allows us to compute 
+likelihood
 functions $\Lc_S(s; \{D_t\})$ or $\Lc_S(s; \{H_t\})$. Then, a
 likelihood ratio, similar to Eqns.~\ref{eq:mcts},~\ref{eq:hmmml}
 provides a statistic for detecting selection in each window. 
@@ -348,7 +356,7 @@ However, as $\nu_0$ and $D_0$ are often unknown in sampling from
 natural populations, we do not directly use
 Eqns.~\ref{eq:tdt},~\ref{eq:ht}. Instead, we heuristically aggregate
 statistics throughout time to compute a time-series score
-(Appendix~\ref{app:agg}).
+(\ref{app:agg}).
 
 
 \ignore{
@@ -367,7 +375,8 @@ the negative controls.}
 \subsection{Simulations}
 We performed extensive simulations using parameters that have been
 used for \dmel experimental
-evolution~\cite{kofler2013guide}. See also Fig.~\ref{fig:ee} for
+evolution~\cite{kofler2013guide}. See also \ref{fig:ee} 
+for
 illustration. To implement real world pool-seq experimental evolution, we 
 conducted simulations as follows:
 \begin{enumerate}[I.]
@@ -421,11 +430,13 @@ selection. While SFS based techniques are expected to perform poorly
 in controlled EEs, their power is highest near fixation. To simulate
 these scenarios, \texttt{msms} was used to forward-simulate a
 population with $N_e=10^4$, $\nu_0=10^{-4}$, and to record SFS of a
-50Kbp region (Fig.~\ref{fig:ee}A). The remaining parameters were
+50Kbp region (\ref{fig:ee}A). The remaining parameters 
+were
 identical to controlled experimental evolution simulations.
 
 \paragraph{False Discovery Rate (FDR).} We applied \comale\ to the
-\datadm~\cite{orozco2012adaptation}, by computing the $\Hc^{+}$
+\datadm~\cite{orozco2012adaptation,franssen2015patterns}, by computing the 
+$\Hc^{+}$
 statistic for sliding windows of 30Kbp with steps of 10Kbp over the
 entire genome. Due to the great variation in the density of polymorphic
 sites, we observed a large variation in scores. Moreover, high LD
