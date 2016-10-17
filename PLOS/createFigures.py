@@ -21,6 +21,6 @@ def mkdir(path):
 from shutil import copyfile
 
 
-mkdir('PLOS/figures')
+# mkdir('PLOS/figures')
 pd.read_csv('PLOS/index.figures.txt',header=None).apply(lambda x: copyfile('figures/{}.tiff'.format(x[0]), 'PLOS/figures/Fig{}.tiff'.format(x.name+1)) ,axis=1)
-pd.read_csv('PLOS/index.supplfigures.txt',header=None).apply(lambda x: copyfile('figures/{}.tiff'.format(x[0]), 'PLOS/figures/S{}Fig.tiff'.format(x.name+1)) ,axis=1)
+pd.read_csv('PLOS/index.supplfigures.txt',header=None).apply(lambda x: copyfile('figures/{}.tiff'.format(x[0]), 'PLOS/figures/S{}_Fig.tiff'.format(x.name+1)) ,axis=1)
