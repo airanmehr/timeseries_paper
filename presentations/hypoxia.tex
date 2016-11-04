@@ -1,0 +1,104 @@
+%\documentclass[handout]{beamer} % \pause disabled
+\documentclass[t]{beamer} % \pause enabled
+\input{../manuscript/macros_arya}
+\usepackage{datetime}
+\def\vecbold#1{{\boldsymbol#1}}
+
+\newdateformat{monthyeardate}{%
+  \monthname[\THEMONTH], \THEYEAR}
+
+%\usepackage[linesnumbered,ruled]{algorithm2e}
+\usetheme{Madrid}
+\usepackage{tabularx}
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshortauthor
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+    \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\def\dHAF{\text{-HAF}}
+\makeatother
+\title{Identifying Adaptation to Hypoxia in Experimental Evolution}
+\subtitle{}
+\author[Arya Iranmehr]
+{%
+  \texorpdfstring{
+      \centering
+      Arya Iranmehr\\
+      \href{mailto:airanmehr@ucsd.edu}{airanmehr@ucsd.edu}
+  }
+  {Arya Iranmehr}
+}
+%\email{}
+\institute{
+Bafna Lab\\
+University of California, San Diego}
+\date{
+\monthyeardate\today}
+\subject{Optimization}
+\usefonttheme{serif} % default family is serif
+
+
+\begin{document}
+\begin{frame}
+  \titlepage
+\end{frame}
+
+
+\begin{frame}{	\comale }
+
+\begin{itemize}
+\item takes read-count data (models uncertainties in allele frequency of 
+pool-seq data).
+\item takes complete time-series (not restricted to 2 time-points)
+\item detects balancing and directional selection.
+\item works well for when selection is acting upon \emph{de novo} mutation as 
+well as standing variation.
+\item takes into account of background genetic variation (first detects 
+candidate regions and then return variants).
+\item models demographic changes during (bottleneck, or expansion) EE.
+\item very powerful for detecting directional selection in short term EE.
+\item to be adapted for cross populations tests.
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Objectives I: Analyze long-term EE using \comale}
+	Given 21 populations of Normaxia, Hyperoxia and Hypoxia at generations 4,17 
+	and 200, we would like to perform comprehensive scan to identify gene sets 
+	, pathways, genes and specific alleles showing signal of selection.
+\end{frame}
+
+\begin{frame}{Objectives II: replication using short-term EE}
+	Given that \comale\ is powerful in detecting directional selection 
+	short-term 
+	EE, can we detect same genes using smaller number of generations?
+	\includegraphics[width=\textwidth]{../figures/AF.pdf}
+\end{frame}
+
+
+\begin{frame}{Objectives III: Balancing selection}
+	Given that \comale\ can detect balancing selection in long-term EE can we 
+	identify balancing selection?
+	\includegraphics[width=0.8\textwidth]{../figures/dominance.pdf}
+\end{frame}
+
+\begin{frame}{\ }
+	\vspace{1	in}
+	\begin{center}
+		\huge{Thanks!}\\
+	\end{center}
+	
+\end{frame}
+\end{document}
