@@ -16,6 +16,12 @@ Joshua~M Akey.
   we go from here?}
 \newblock {\em Genome research}, 19(5):711--722, 2009.
 
+\bibitem{anderson2000monte}
+Eric~C Anderson, Ellen~G Williamson, and Elizabeth~A Thompson.
+\newblock {Monte Carlo evaluation of the likelihood for Ne from temporally
+  spaced samples}.
+\newblock {\em Genetics}, 156(4):2109--2118, 2000.
+
 \bibitem{ariey2014molecular}
 Fr{\'{e}}d{\'{e}}ric Ariey, Benoit Witkowski, Chanaki Amaratunga, Johann
   Beghain, Anne-Claire Langlois, Nimol Khim, Saorin Kim, Valentine Duru,
@@ -88,6 +94,12 @@ Molly~K Burke, Joseph~P Dunham, Parvin Shahrestani, Kevin~R Thornton, Michael~R
   Drosophila}.
 \newblock {\em Nature}, 467(7315):587--590, 2010.
 
+\bibitem{burke2014standing}
+Molly~K Burke, Gianni Liti, and Anthony~D Long.
+\newblock {Standing genetic variation drives repeatable experimental evolution
+  in outcrossing populations of Saccharomyces cerevisiae}.
+\newblock {\em Molecular biology and evolution}, page msu256, 2014.
+
 \bibitem{comeron2012many}
 Josep~M Comeron, Ramesh Ratnappan, and Samuel Bailin.
 \newblock {The many landscapes of recombination in Drosophila melanogaster}.
@@ -130,11 +142,6 @@ Eyal Elyashiv, Shmuel Sattath, Tina~T Hu, Alon Strutsovsky, Graham McVicker,
   Peter Andolfatto, Graham Coop, and Guy Sella.
 \newblock {A Genomic Map of the Effects of Linked Selection in Drosophila}.
 \newblock {\em PLoS Genet}, 12(8):1--24, 2016.
-
-\bibitem{evans2007non}
-Steven~N Evans, Yelena Shvets, and Montgomery Slatkin.
-\newblock {Non-equilibrium theory of the allele frequency spectrum}.
-\newblock {\em Theoretical population biology}, 71(1):109--119, 2007.
 
 \bibitem{Ewens2012Mathematical}
 Warren~J Ewens.
@@ -181,11 +188,6 @@ Susanne~U Franssen, Viola Nolte, Ray Tobler, and Christian Schl{\"{o}}tterer.
 \newblock {Patterns of linkage disequilibrium and long range hitchhiking in
   evolving experimental Drosophila melanogaster populations}.
 \newblock {\em Molecular biology and evolution}, 32(2):495--509, 2015.
-
-\bibitem{fu1995statistical}
-Yun-Xin Fu.
-\newblock {Statistical properties of segregating sites}.
-\newblock {\em Theoretical population biology}, 48(2):172--197, 1995.
 
 \bibitem{garud2015recent}
 Nandita~R Garud, Philipp~W Messer, Erkan~O Buzbas, and Dmitri~A Petrov.
@@ -401,13 +403,6 @@ Silvia~C Remolina, Peter~L Chang, Jeff Leips, Sergey~V Nuzhdin, and Kimberly~A
   melanogaster}.
 \newblock {\em Evolution}, 66(11):3390--3403, 2012.
 
-\bibitem{ronen2015predicting}
-Roy Ronen, Glenn Tesler, Ali Akbari, Shay Zakov, Noah~A Rosenberg, and Vineet
-  Bafna.
-\newblock {Predicting Carriers of Ongoing Selective Sweeps Without Knowledge of
-  the Favored Allele}.
-\newblock {\em PLoS Genet}, 11(9):e1005527, 2015.
-
 \bibitem{ronen2013learning}
 Roy Ronen, Nitin Udpa, Eran Halperin, and Vineet Bafna.
 \newblock {Learning natural selection from the site frequency spectrum}.
@@ -418,14 +413,6 @@ P~C Sabeti, S~F Schaffner, B~Fry, J~Lohmueller, P~Varilly, O~Shamovsky,
   A~Palma, T~S Mikkelsen, D~Altshuler, and E~S Lander.
 \newblock {Positive natural selection in the human lineage}.
 \newblock {\em science}, 312(5780):1614--1620, 2006.
-
-\bibitem{sabeti2007genome}
-Pardis~C Sabeti, Patrick Varilly, Ben Fry, Jason Lohmueller, Elizabeth
-  Hostetter, Chris Cotsapas, Xiaohui Xie, Elizabeth~H Byrne, Steven~A
-  McCarroll, Rachelle Gaudet, and Others.
-\newblock {Genome-wide detection and characterization of positive selection in
-  human populations}.
-\newblock {\em Nature}, 449(7164):913--918, 2007.
 
 \bibitem{sawyer1992population}
 Stanley~A Sawyer and Daniel~L Hartl.
@@ -514,6 +501,12 @@ Robin~S Waples.
 \newblock {A generalized approach for estimating effective population size from
   temporal changes in allele frequency.}
 \newblock {\em Genetics}, 121(2):379--391, 1989.
+
+\bibitem{williams2001weighing}
+David Williams and David Williams.
+\newblock {\em {Weighing the odds: a course in probability and statistics}},
+  volume 548.
+\newblock Springer, 2001.
 
 \bibitem{williamson1999using}
 Ellen~G Williamson and Montgomery Slatkin.

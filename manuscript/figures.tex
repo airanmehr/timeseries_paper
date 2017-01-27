@@ -1,3 +1,66 @@
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim=0in 0.in 0in 
+	0.0in,clip,width=0.8\textwidth]{HMMGM.pdf}
+ \begin{algorithm}[H]
+ 	\SetAlgorithmName{Generative Process}
+ 	\DontPrintSemicolon
+ 	\SetAlgoNoLine
+ 	\KwIn{$N,n,R,\{\lambda_{\tau_0},\ldots,\lambda_{\tau_T}\},\Tc= 
+ 		\{\tau_0,\ldots\tau_T\}$ }
+ 	\KwOut{Time-series pool-seq data for $R$ replicates of a single locus 
+ 		$\{\bfc^{(r)}\}$ and $\{\bfd^{(r)}\}$.}
+ 	\For{$r\leftarrow 1$ \KwTo $R$}
+ 	{
+ 		\For{$t\leftarrow \tau_0$ \KwTo $\tau_T$}
+ 		{
+ 			$2N\nu_t \sim \text{Binomial}({2N},{\nu_{t-1}})$\;
+ 			\If{$t\in \Tc$ }
+ 			{
+ 				$d^{(r)}_{t} \sim \poiss(\lambda_{\tau_i})$ \;
+ 				$2ny_t \sim \text{Binomial}({2n},{\nu_{t}})$\;  
+ 				$c^{(r)}_{t} \sim \text{Binomial}(d^{(r)}_{t},{y_{t}})$\; 
+ 			}
+ 		}
+ 	}
+ 	\caption{The Generative Process for Dynamic Pool-seq Data.} 
+ 	\label{proc:arya}
+ \end{algorithm}	
+	\caption{{\bf Graphical model and generative process of the hidden Markov 
+	model for single-locus pool-seq experimental evolution.}\\ . }
+ 	\label{fig:GM}
+\end{figure} 
+
+\begin{figure}[H]
+	\includegraphics[trim=0in 0.in 0in 
+	0.1in,clip,width=\textwidth]{AF.pdf}
+	\caption{{\bf Theoretical and empirical
+			trajectories of favored allele for hard and soft sweep
+			scenarios.}\\  Single-loci diallelic Wright-Fisher Markov chain 
+			model (A,C) and empirical (B,D) trajectories 
+		of 
+		the
+		frequency of the favored allele are computed for $1000$ 
+		simulations of populations with 
+		$1000$ diploid individuals. Each curve shows the mean and the 95\% 
+		confidence
+		interval. Panels A and C depict theoretical calculations of the favored 
+		allele frequency under
+		hard ($\nu_0$ is small), and soft sweep due to standing
+		variation (higher $\nu_0$), for a range of values of
+		$s$. $s=0$ corresponds to neutral
+		evolution. Similarly, panels B and D show the empirical
+		forward simulations of populations under the same selection
+		regimes, and hard/soft-sweep scenarios. The first $50$
+		generations are shaded in gray to represent the typical
+		sampling span of EE experiments. The plot illustrates the
+		difficulty of EE experiments in having to predict selection
+		at a very early stage of the sweep. The signal is slightly
+		stronger under standing variation scenario. The theoretical
+		and empirical simulations are in close correspondence. }
+	\label{fig:sweep}
+\end{figure}
+
 
 \begin{figure}[H]
 	\centering
@@ -42,7 +105,7 @@
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[trim=.2in 0 .2in 0, 
+	\includegraphics[trim=.2in 0 .2in 0,
 	clip,width=\textwidth]{{CLRQ}.pdf}
 	\caption{{\bf Average power of \comale\ statistics as function
             of percentile cutoffs.}\\ Detection power is averaged for
@@ -51,8 +114,8 @@
           $\pi^{*}=\arg\max_{\pi}\{\mbox{Power}(\Hc),\mbox{Power}(\Hc^{+})\}$. Average
           power was computed using $8000$ simulations for each choice
           of $\pi$. The appropriate choice of $\pi$ can be used to
-          improve performance for different coverage values. 
-          In all simulations, 3 replicates are evolved and sampled at generations 
+          improve performance for different coverage values.
+          In all simulations, 3 replicates are evolved and sampled at generations
           $\Tc=\{0,10,20,30,40,50\}$.}
 	\label{fig:clrq}
 \end{figure}
@@ -61,15 +124,15 @@
 	\centering
 	\includegraphics[width=\textwidth]{powerCLR.pdf}
 	\caption{{\bf Comparison of power of Markov chain and HMM.}\\
-          Detection power for Markov chain ($\Mc$) and HMM ($\Hc$) under 
+          Detection power for Markov chain ($\Mc$) and HMM ($\Hc$) under
           hard (A-C) and
-          soft sweep (D-F) scenarios, for different coverage $\lambda$ and 
+          soft sweep (D-F) scenarios, for different coverage $\lambda$ and
           selection strength $s$.  The
           $y$-axis measures power -- sensitivity with false positive
           rate FPR $\le 0.05$ -- for $2000$ simulations of $50$Kbp
           regions. The horizontal line reflects the power of a random
           classifier.
-          In all simulations, 3 replicates are evolved and sampled at generations 
+          In all simulations, 3 replicates are evolved and sampled at generations
           $\Tc=\{0,10,20,30,40,50\}$.
            } \label{fig:powerCLR}
 \end{figure}
@@ -125,7 +188,7 @@
           discrete uniform distribution. (B) The start of sampling is
           chosen near fixation of the favored allele, i.e. $\tau_1
           \sim
-          U\left[t_{\nu=0.9}(s,N_e),t_{\nu=1}(s,N_e)\right]$.} 
+          U\left[t_{\nu=0.9}(s,N_e),t_{\nu=1}(s,N_e)\right]$.}
           \label{fig:powerSFS}
 \end{figure}
 
@@ -177,6 +240,13 @@
           FDR threshold of $\Hc^+$ are shown in
           red dots.}
 	\label{fig:manhattancutoffed}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{topVariantsDominance.pdf}
+	\caption{{\bf dominant variants.}\\ .}
+	\label{fig:dominantVariants}
 \end{figure}
 
 \clearpage
