@@ -1,85 +1,83 @@
 \begin{figure}[H]
-	\centering
-	\includegraphics[trim=0in 0.in 0in 
-	0.0in,clip,width=0.8\textwidth]{HMMGM.pdf}
- \begin{algorithm}[H]
- 	\SetAlgorithmName{Generative Process}
- 	\DontPrintSemicolon
- 	\SetAlgoNoLine
- 	\KwIn{$N,n,R,\{\lambda_{\tau_0},\ldots,\lambda_{\tau_T}\},\Tc= 
- 		\{\tau_0,\ldots\tau_T\}$ }
- 	\KwOut{Time-series pool-seq data for $R$ replicates of a single locus 
- 		$\{\bfc^{(r)}\}$ and $\{\bfd^{(r)}\}$.}
- 	\For{$r\leftarrow 1$ \KwTo $R$}
- 	{
- 		\For{$t\leftarrow \tau_0$ \KwTo $\tau_T$}
- 		{
- 			$2N\nu_t \sim \text{Binomial}({2N},{\nu_{t-1}})$\;
- 			\If{$t\in \Tc$ }
- 			{
- 				$d^{(r)}_{t} \sim \poiss(\lambda_{\tau_i})$ \;
- 				$2ny_t \sim \text{Binomial}({2n},{\nu_{t}})$\;  
- 				$c^{(r)}_{t} \sim \text{Binomial}(d^{(r)}_{t},{y_{t}})$\; 
- 			}
- 		}
- 	}
- 	\caption{The Generative Process for Dynamic Pool-seq Data.} 
- 	\label{proc:arya}
- \end{algorithm}	
-	\caption{{\bf Graphical model and generative process of the hidden Markov 
-	model for single-locus pool-seq experimental evolution.}\\ . }
- 	\label{fig:GM}
-\end{figure} 
-
-\begin{figure}[H]
-	\includegraphics[trim=0in 0.in 0in 
-	0.1in,clip,width=\textwidth]{AF.pdf}
-	\caption{{\bf Theoretical and empirical
-			trajectories of favored allele for hard and soft sweep
-			scenarios.}\\  Single-loci diallelic Wright-Fisher Markov chain 
-			model (A,C) and empirical (B,D) trajectories 
-		of 
-		the
-		frequency of the favored allele are computed for $1000$ 
-		simulations of populations with 
-		$1000$ diploid individuals. Each curve shows the mean and the 95\% 
-		confidence
-		interval. Panels A and C depict theoretical calculations of the favored 
-		allele frequency under
-		hard ($\nu_0$ is small), and soft sweep due to standing
-		variation (higher $\nu_0$), for a range of values of
-		$s$. $s=0$ corresponds to neutral
-		evolution. Similarly, panels B and D show the empirical
-		forward simulations of populations under the same selection
-		regimes, and hard/soft-sweep scenarios. The first $50$
-		generations are shaded in gray to represent the typical
-		sampling span of EE experiments. The plot illustrates the
-		difficulty of EE experiments in having to predict selection
-		at a very early stage of the sweep. The signal is slightly
-		stronger under standing variation scenario. The theoretical
-		and empirical simulations are in close correspondence. }
-	\label{fig:sweep}
-\end{figure}
-
-
-\begin{figure}[H]
-	\centering
+		\centering
+(A)\\
 	\includegraphics[trim=0in 0in .08in 0.02in , 
-	clip,width=\textwidth]{ExperimentalEvolution.pdf}
-	\caption{ {\bf Two settings for collecting genomic time series            
-	data.}\\
-		 Different settings in which dynamic data is
-          collected are depicted with typical parameters for \emph{D.
-            melanogaster}. In both settings, 6 samples (vertical red
-          dashed lines) are taken every 10 generation.  When sampling
-          from naturally evolving populations (A), the time of onset
-          of selection is unknown, and population size is larger. For
-          (controlled) experimental evolution (B), founder lines are first
-          sampled from a natural population to create a homogeneous
-          population. Then, multiple replicates of this population are
-          evolved and sampled over time. }
-	\label{fig:ee}
+	clip,width=0.7\textwidth]{ExperimentalEvolution.pdf}\\
+
+\begin{tabular}{l|l}
+		\hline\\
+		(B) &(C)\\
+		\raisebox{0.5in}{
+\includegraphics[trim=0in 0.in 0in 
+0.0in,clip,width=0.5\textwidth]{HMMGM.pdf}}
+& 	\includegraphics[trim=0in 0.in 0in 
+0.0in,clip,width=0.6\textwidth]{AF.pdf}	
+
+\end{tabular}
+\hspace{-1in}
+\caption{sadffdsa}
+\label{fig:1}
 \end{figure}
+
+%\begin{figure}[H]
+%	\centering
+%	\includegraphics[trim=0in 0.in 0in 
+%	0.0in,clip,width=0.8\textwidth]{HMMGM.pdf}
+
+%	\caption{{\bf Graphical model and generative process of the hidden Markov 
+%	model for single-locus pool-seq experimental evolution.}\\ . }
+% 	\label{fig:GM}
+%\end{figure} 
+
+%\begin{figure}[H]
+%	\includegraphics[trim=0in 0.in 0in 
+%	0.1in,clip,width=\textwidth]{AF.pdf}
+%	\caption{{\bf Theoretical and empirical
+%			trajectories of favored allele for hard and soft sweep
+%			scenarios.}\\  Single-loci diallelic Wright-Fisher Markov chain 
+%			model (A,C) and empirical (B,D) trajectories 
+%		of 
+%		the
+%		frequency of the favored allele are computed for $1000$ 
+%		simulations of populations with 
+%		$1000$ diploid individuals. Each curve shows the mean and the 95\% 
+%		confidence
+%		interval. Panels A and C depict theoretical calculations of the favored 
+%		allele frequency under
+%		hard ($\nu_0$ is small), and soft sweep due to standing
+%		variation (higher $\nu_0$), for a range of values of
+%		$s$. $s=0$ corresponds to neutral
+%		evolution. Similarly, panels B and D show the empirical
+%		forward simulations of populations under the same selection
+%		regimes, and hard/soft-sweep scenarios. The first $50$
+%		generations are shaded in gray to represent the typical
+%		sampling span of EE experiments. The plot illustrates the
+%		difficulty of EE experiments in having to predict selection
+%		at a very early stage of the sweep. The signal is slightly
+%		stronger under standing variation scenario. The theoretical
+%		and empirical simulations are in close correspondence. }
+%	\label{fig:sweep}
+%\end{figure}
+
+
+%\begin{figure}[H]
+%	\centering
+%	\includegraphics[trim=0in 0in .08in 0.02in , 
+%	clip,width=\textwidth]{ExperimentalEvolution.pdf}
+%	\caption{ {\bf Two settings for collecting genomic time series            
+%	data.}\\
+%		 Different settings in which dynamic data is
+%          collected are depicted with typical parameters for \emph{D.
+%            melanogaster}. In both settings, 6 samples (vertical red
+%          dashed lines) are taken every 10 generation.  When sampling
+%          from naturally evolving populations (A), the time of onset
+%          of selection is unknown, and population size is larger. For
+%          (controlled) experimental evolution (B), founder lines are first
+%          sampled from a natural population to create a homogeneous
+%          population. Then, multiple replicates of this population are
+%          evolved and sampled over time. }
+%	\label{fig:ee}
+%\end{figure}
 
 
 \begin{figure}[H]
@@ -102,7 +100,7 @@
           consistently provide a good approximation in all cases.}
 	\label{fig:markov}
 \end{figure}
-
+\ignore{
 \begin{figure}[H]
 	\centering
 	\includegraphics[trim=.2in 0 .2in 0,
@@ -136,6 +134,7 @@
           $\Tc=\{0,10,20,30,40,50\}$.
            } \label{fig:powerCLR}
 \end{figure}
+}
 
 \begin{figure}[H]
 	\centering
@@ -168,7 +167,7 @@
 	\label{fig:runTime}
 \end{figure}
 
-
+\ignore{
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\textwidth]{naturalee.pdf}
@@ -191,6 +190,7 @@
           U\left[t_{\nu=0.9}(s,N_e),t_{\nu=1}(s,N_e)\right]$.}
           \label{fig:powerSFS}
 \end{figure}
+}
 
 \begin{figure}[H]
 	\centering
@@ -232,21 +232,41 @@
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{manhattan.pdf}
-	\caption{{\bf \comale\ scan of the \datadm.}\\ Manhattan plot
-          of the \comale\ ($\Hc^{+})$ statistic (A) and the number of
-          SNPs (B) in 30Kbp sliding windows with steps of 10Kbp,
-          excluding heterochromatic regions. Regions that exceed the local 
-          FDR threshold of $\Hc^+$ are shown in
-          red dots.}
-	\label{fig:manhattancutoffed}
+	\begin{tabular}{cc}
+	\includegraphics[trim=0.4in 0.in 0.6in 
+	0.0in,clip,width=0.6\textwidth]{man-dmel-snp.pdf}&	
+	\includegraphics[trim=0.1in 0.in 0in 
+	0.0in,clip,width=0.35\textwidth]{{topVariants.dmel}.pdf}
+	\end{tabular}
+	\caption{{\bf Single locus analysis of the \datadm.}\\ Manhattan plot 
+	of scan for testing directional selection (A) and balancing selection (C).
+		Significant variants with FDR$\le 0.001$ and FDR $\le 0.01$ are deoted 
+		in red, and their trajectories are depicted in panels (B) and (D).}
+	\label{fig:man-dmel-snp}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{topVariantsDominance.pdf}
-	\caption{{\bf dominant variants.}\\ .}
-	\label{fig:dominantVariants}
+	\begin{tabular}{cc}
+		\includegraphics[trim=0.4in 0.in 0.6in 
+		0.0in,clip,width=0.6\textwidth]{man-yeast-snp.pdf}&	
+		\raisebox{0.2in}{
+		\includegraphics[trim=0in 0.in 0in 
+		0.0in,clip,width=0.4\textwidth]{{topVariants.yeast}.pdf}}
+	\end{tabular}
+	\caption{{\bf Single locus analysis of the \datadm.}\\ Manhattan plot 
+		of scan for testing directional selection (A) and balancing selection 
+		(C).
+		Significant variants with FDR$\le 0.001$ and FDR $\le 0.01$ are deoted 
+		in red, and their trajectories are depicted in panels (B) and (D).}
+	\label{fig:man-dmel-snp}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[width=0.8\textwidth]{estimateN.pdf}
+	\caption{{\bf Estimating N on simulated and real data.}}
+	\label{fig:estimateN}
 \end{figure}
 
 \clearpage

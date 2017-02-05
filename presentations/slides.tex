@@ -1,12 +1,12 @@
 %\documentclass[handout]{beamer} % \pause disabled
 \documentclass[t]{beamer} % \pause enabled
-\input{../macros_arya}
+\input{../manuscript/macros_arya}
 \usepackage{datetime}
 \def\vecbold#1{{\boldsymbol#1}}
 
 \newdateformat{monthyeardate}{%
   \monthname[\THEMONTH], \THEYEAR}
-
+\usepackage[ruled]{algorithm2e}
 %\usepackage[linesnumbered,ruled]{algorithm2e}
 \usetheme{Madrid}
 \usepackage{tabularx}
@@ -137,8 +137,8 @@ Design a method which
 	frequency 
 	change differently
 	\begin{figure}
-		\includegraphics[trim={10in 0.0in 0.0in 
-			0in},clip,width=0.7\textwidth]{../figures/AF}
+		\includegraphics[trim={0in 0.0in 0.0in 
+			0in},clip,width=0.9\textwidth]{../figures/AF.pdf}
 	\end{figure}
 \end{frame}
 
@@ -154,7 +154,7 @@ Design a method which
 		generate such a data.
 		\begin{figure}
 			\includegraphics[trim={.05in 0in 0.0in 
-				0.5in},clip,width=0.5\textwidth]{../figures/markoveg}
+				0.5in},clip,width=0.5\textwidth]{../figures/markoveg.png}
 		\end{figure}
 	\end{itemize}
 \end{frame}
@@ -163,8 +163,26 @@ Design a method which
 	\begin{itemize}
 		\item  Where $Q_{i,j}(s,h)$ is the probability of going from frequency 
 		$i/(2N)$ to $j/(2N)$ when selection strength is $s$ and over dominance 
-		is $h$.
-		\pause
+		is $h$. 
+		\item Neutral:  
+		\beqq
+		Q_{i,j}=\pr(j; n=2N,x=\nu_t=i/2N)={2N \choose j} 
+			 \nu_{t}^j
+			(1-\nu_{t})^{2N-j}
+		\eeqq
+		\item Selection, for $w_{11}=1+s,\ w_{01}=1+hs, w_{00}=1$
+		\beqq 
+		\hat{\nu}_{t^+} =
+		\mathbb{E}[\nu_{t^+}|s,h,\nu_t]&=\frac{w_{11}\nu_t^2 +
+			w_{01}\nu_t(1-\nu_t)}{w_{11}\nu^2_t + 2w_{01}\nu_t(1-\nu_t) +
+			w_{00}(1-\nu_t)^2}\\
+					Q_{i,j}(s,h)&=\pr(j; n=2N,x=\hat{\nu}_{t^+})
+		\label{eq:transition}
+		\eeqq
+	\end{itemize}
+\end{frame}
+\begin{frame}{ Simplified Model (III)}
+	\begin{itemize}
 		\item Likelihood of parameter can be easily computed
 		\beqq
 		\Lc(s,h| \{\nu_0,\ldots,\nu_5\}) = \pr(\{\nu_0,\ldots,\nu_5\}| Q(s,h) )
@@ -191,24 +209,39 @@ Design a method which
 		\emphr{solution: use  $Q^\tau$ in computing likelihoods.}
 		\pause
 		\item Allele frequencies are unknown, and depth of each variant can be 
-		different.\\
-		\emphr{solution: extend Markov chain to an HMM by specifying 
-		emission probabilities }
-	\beqq%	\pr(\text{derived allele read count}|\text{depth},\nu)=\pr(c|d,\nu)\\
-	d &\sim \text{Poisson}(\text{Coverage})\\	
-	c &\sim \text{Bionomial}(N=d, \theta=\nu)	
-	\eeqq
-	\pause
-	\item everything the is the same, except we need to use \emphr{forward 
-	algorithm} to compute likelihood of a sequence of reads.
-\pause
-	\item Similarly, 
-	\beqq
-	H&=\frac{\text{likelihood of read-count data as if being under 
-			selection }}{l\text{ikelihood 
-			of read-count data as if being neutral}}
-	\eeqq
+		different, and finite sample is taken for sequencing.
+		\begin{figure}
+	\includegraphics[trim={.05in 0in 0.0in 
+		0in},clip,width=0.8\textwidth]{../figures/HMMGM}
+\end{figure}
 	\end{itemize}
+\end{frame}
+
+\begin{frame}{ Generative Process}
+\begin{algorithm}[H]
+\SetAlgorithmName{Generative Process}
+\DontPrintSemicolon
+\SetAlgoNoLine
+\KwIn{$N,n,R,\{\lambda_{\tau_0},\ldots,\lambda_{\tau_T}\},\Tc= 
+	\{\tau_0,\ldots\tau_T\}$ }
+\KwOut{Time-series pool-seq data for $R$ replicates of a single locus 
+	$\{\bfc^{(r)}\}$ and $\{\bfd^{(r)}\}$.}
+\For{$r\leftarrow 1$ \KwTo $R$}
+{
+	\For{$t\leftarrow \tau_0$ \KwTo $\tau_T$}
+	{
+		$2N\nu_t \sim \text{Binomial}({2N},{\nu_{t-1}})$\;
+		\If{$t\in \Tc$ }
+		{
+			$d^{(r)}_{t} \sim \poiss(\lambda_{\tau_i})$ \;
+			$2ny_t \sim \text{Binomial}({2n},{\nu_{t}})$\;  
+			$c^{(r)}_{t} \sim \text{Binomial}(d^{(r)}_{t},{y_{t}})$\; 
+		}
+	}
+}
+\caption{The Generative Process for Dynamic Pool-seq Data.} 
+\label{proc:arya}
+\end{algorithm}	
 \end{frame}
 
 \begin{frame}{Composite Likelihood for a Region (I)}
@@ -219,7 +252,8 @@ Design a method which
 		\item  For a small region with $L$ variants we can simply take the max 
 		score in the region, which is prone to \emphr{false positives}.
 		\pause
-		\item We know that variants are \emphr{correlated}
+		\item We know that nearby variants can be \emphr{correlated}, esp. when 
+		selection is going on
 		\begin{figure}
 			\includegraphics[trim={.05in 0in 0.0in 
 				0in},clip,width=0.5\textwidth]{../figures/{ld.eg}.png}\\
@@ -305,6 +339,28 @@ Our model estimates strength of selection $s$ and overdominance
 			0in},clip,width=0.6\textwidth]{../figures/{bias.100}.pdf}
 	\end{figure}
 \end{frame}
+\begin{frame}{ Estimating parameters (III)}
+Assuming majority of the variants evolving neutrally, we can fit population 
+size $N$ on neutral model, i.e. $Q(0,0,2N)$
+	\begin{figure}
+		\includegraphics[trim={.05in .0in 0.0in 
+			0in},clip,width=0.6\textwidth]{../figures/{estimateN}.pdf}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Hypothesis Testing}
+	The statistical procedure involves:
+\begin{enumerate}[(i)]
+	\item  Estimating population size,	$\hN$, over the whole genome.
+	\item Estimating selection parameters for given $\hN$
+	\item Computing likelihood statistics.
+	\item Hypothesis testing:The null distribution of likelihood 
+	ratio 
+	statistics are computed on 
+	a set of single locus drift simulations with population size of $\hN$. 
+	$p$-values and FDR is computed accordingly.
+\end{enumerate}
+\end{frame}
 
 \begin{frame}{ Analysis of real data}
 \begin{itemize}
@@ -316,12 +372,16 @@ Our model estimates strength of selection $s$ and overdominance
 	\item Genome scan for sliding window size=50Kbp,  steps=10Kbp
 		\begin{figure}
 			\includegraphics[trim={.05in .0in 0.0in 
-				0in},clip,width=0.8\textwidth]{../figures/{manhattan.min500snp}.pdf}
+				0in},clip,width=\textwidth]{../figures/{mandmel}.pdf}
 		\end{figure}		
-\end{itemize}
+\end{itemize}\end{frame}
+
+\begin{frame}{384 variants showing signature of overdominance}
+		\begin{figure}
+			\includegraphics[trim={.05in .0in 0.0in 
+				0in},clip,width=\textwidth]{../figures/{topVariantsDominance}.pdf}
+		\end{figure}		
 \end{frame}
-
-
 
 
 \begin{frame}{ Discussion}

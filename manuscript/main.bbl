@@ -53,6 +53,12 @@ Jeffrey~E Barrick, Dong~Su Yu, Sung~Ho Yoon, Haeyoung Jeong, Tae~Kwang Oh,
   Escherichia coli}.
 \newblock {\em Nature}, 461(7268):1243--1247, 2009.
 
+\bibitem{beaumont2003estimation}
+Mark~A Beaumont.
+\newblock {Estimation of population growth or decline in genetically monitored
+  populations}.
+\newblock {\em Genetics}, 164(3):1139--1160, 2003.
+
 \bibitem{bergland2014genomic}
 Alan~O Bergland, Emily~L Behrman, Katherine~R O'Brien, Paul~S Schmidt, and
   Dmitri~A Petrov.
@@ -67,6 +73,12 @@ Todd Bersaglieri, Pardis~C Sabeti, Nick Patterson, Trisha Vanderploeg, Steve~F
 \newblock {Genetic signatures of strong recent positive selection at the
   lactase gene}.
 \newblock {\em The American Journal of Human Genetics}, 74(6):1111--1120, 2004.
+
+\bibitem{berthier2002likelihood}
+Pierre Berthier, Mark~A Beaumont, Jean-Marie Cornuet, and Gordon Luikart.
+\newblock {Likelihood-based estimation of the effective population size using
+  temporal changes in allele frequencies: a genealogical approach}.
+\newblock {\em Genetics}, 160(2):741--751, 2002.
 
 \bibitem{bollback2007clonal}
 Jonathan~P Bollback and John~P Huelsenbeck.
@@ -99,11 +111,6 @@ Molly~K Burke, Gianni Liti, and Anthony~D Long.
 \newblock {Standing genetic variation drives repeatable experimental evolution
   in outcrossing populations of Saccharomyces cerevisiae}.
 \newblock {\em Molecular biology and evolution}, page msu256, 2014.
-
-\bibitem{comeron2012many}
-Josep~M Comeron, Ramesh Ratnappan, and Samuel Bailin.
-\newblock {The many landscapes of recombination in Drosophila melanogaster}.
-\newblock {\em PLoS Genet}, 8(10):e1002905, 2012.
 
 \bibitem{daborn2001ddt}
 P~Daborn, S~Boundy, J~Yen, B~Pittendrigh, and Others.
@@ -248,7 +255,7 @@ Aashish~R Jha, Cecelia~M Miles, Nodia~R Lippert, Christopher~D Brown, Kevin~P
 \newblock {\em Molecular biology and evolution}, 32(10):2616--2632, 2015.
 
 \bibitem{jonas2016estimating}
-Agnes J{\'{o}}n{\'{a}}s, Thomas Taus, Carolin Kosiol, Christian
+{\'{A}}gnes J{\'{o}}n{\'{a}}s, Thomas Taus, Carolin Kosiol, Christian
   Schl{\"{o}}tterer, and Andreas Futschik.
 \newblock {Estimating the Effective Population Size from Temporal Allele
   Frequency Changes in Experimental Evolution}.
@@ -292,10 +299,11 @@ Quan Long, Fernando~A Rabanal, Dazhe Meng, Christian~D Huber, Ashley Farlow,
   thaliana lines from Sweden}.
 \newblock {\em Nature genetics}, 45(8):884--890, 2013.
 
-\bibitem{lynch2014population}
-Michael Lynch, Darius Bost, Sade Wilson, Takahiro Maruki, and Scott Harrison.
-\newblock {Population-genetic inference from pooled-sequencing data}.
-\newblock {\em Genome biology and evolution}, 6(5):1210--1218, 2014.
+\bibitem{malaspinas2016methods}
+Anna-Sapfo Malaspinas.
+\newblock {Methods to characterize selective sweeps using time serial samples:
+  an ancient DNA perspective}.
+\newblock {\em Molecular ecology}, 25(1):24--41, 2016.
 
 \bibitem{malaspinas2012estimating}
 Anna-Sapfo Malaspinas, Orestis Malaspinas, Steven~N Evans, and Montgomery
@@ -425,6 +433,12 @@ Christian Schl{\"{o}}tterer, R~Kofler, E~Versace, R~Tobler, and S~U Franssen.
   powerful tool to study adaptation from standing genetic variation}.
 \newblock {\em Heredity}, 114(5):431--440, 2015.
 
+\bibitem{schraiber2016bayesian}
+Joshua~G Schraiber, Steven~N Evans, and Montgomery Slatkin.
+\newblock {Bayesian inference of natural selection from allele frequency time
+  series}.
+\newblock {\em Genetics}, 203(1):493--511, 2016.
+
 \bibitem{simonson2010genetic}
 Tatum~S Simonson, Yingzhong Yang, Chad~D Huff, Haixia Yun, Ga~Qin, David~J
   Witherspoon, Zhenzhong Bai, Felipe~R Lorenzo, Jinchuan Xing, Lynn~B Jorde,
@@ -451,6 +465,12 @@ Wolfgang Stephan, Yun~S Song, and Charles~H Langley.
 \newblock {The hitchhiking effect on linkage disequilibrium between linked
   neutral loci}.
 \newblock {\em Genetics}, 172(4):2647--2663, 2006.
+
+\bibitem{storey2003statistical}
+John~D Storey and Robert Tibshirani.
+\newblock {Statistical significance for genomewide studies}.
+\newblock {\em Proceedings of the National Academy of Sciences},
+  100(16):9440--9445, 2003.
 
 \bibitem{tajima1989statistical}
 Fumio Tajima.

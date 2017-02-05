@@ -5,34 +5,27 @@
   sequencing technologies has made whole-genome and whole-population
   sampling possible, even for eukaryotic organisms with large genomes,
   and allowed us to locate the genes and variants responsible for
-  genetic adaptation. While many computational tests have been
-  developed for detecting regions under selection, they are mainly
-  designed for static (single time) data, and work best when the
-  favored allele is close to fixation. Conversely, EE studies provide samples over 
-  multiple time points, often at early stages of selective sweep. 
-  
-  While more predictive than static data analysis, a majority of the
-  EE studies are constrained by the limited time span since onset of
-  selection, depending upon the generation time of the organism.  This
-  constraint curbs the power of adaptation studies, as the population
-  can only be evolved-and-resequenced for a small number of
-  generations relative to the fixation-time of the favored
-  allele. Moreover, coverage in pooled sequencing experiments varies
-  across replicates and time points for every variant. 
+  genetic adaptation. While majority of the existing literature on dynamic data 
+  analysis, is mainly devoted to the settings with large population sizes, allele 
+  frequency as input data and wide time spans, these assumptions does not 
+  hold in many EE studies.
 	
-  In this article, we directly address these issues while developing
-  tools for identifying selective sweep in pool-sequenced EE of sexual
-  organisms and propose Composition of Likelihoods for
-  Evolve-And-Resequence experiments (\comale). Extensive simulations
+  In this article, we propose a method -Composition of Likelihoods for
+  Evolve-And-Resequence experiments (\comale)- to identify selection in 
+  short-term (as 
+  well as long-term), EE of \emph{small} sexual populations. Also, \comale\  
+  takes whole-genome sequence of pool of individuals (pool-seq) as input, 
+  and properly addresses heterogeneous ascertainment bias, due to uneven 
+  coverages.
+  \comale\ also provides unbiased estimates of model
+  parameters, including selection strength and overdominance, and population 
+  size, while being computationally efficient.
+	Extensive simulations
   show that \comale\ achieves higher power in detecting and localizing
-  selection over a wide range of parameters. In contrast to existing
-  methods, the \comale\ statistic is robust to variation of
-  coverage. \comale\ also provides robust estimates of model
-  parameters, including selection strength and overdominance, as
-  byproduct of the statistical testing, while being orders of
-  magnitude faster. Finally, we applied the \comale\ statistic to
-  \datadm. We identified selection in many genes, including Heat Shock
-  Proteins. The genes were enriched in ``response to heat", ``cold
-  acclimation'' and ``defense response to bacterium'', and other
-  relevant biological processes.
+  selection over a wide range of parameters. Moreover, \comale\ statistic is 
+  robust to variation of
+  coverage.  
+  We applied 
+  \comale\ statistic to previously published datasets, including,
+  \datadm and study of outcrossing Yeast populations. Result XXXX
 \end{abstract}

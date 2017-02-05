@@ -1,4 +1,4 @@
-\section{Introduction}
+\ section{Introduction}
 Natural selection is a key force in evolution, and a mechanism by
 which populations can adapt to external `selection'
 constraints. Examples of adaptation abound in the natural 
@@ -81,7 +81,7 @@ analysis is focused on reduction in genetic
 diversity~\cite{tajima1989statistical,fay2000hitchhiking,ronen2013learning,garud2015recent}
 shift in allele-frequencies, prevalence of long
 haplotypes~\cite{sabeti2006positive,vitti2013detecting}, population
-differentiation~\cite{holsinger2009genetics,burke2010genome,gunther2013robust} 
+differentiation~\cite{holsinger2009genetics,burke2010genome,gunther2013robust}
 in
 multiple-population data and others. Many existing methods use the
 Site Frequency Spectrum (SFS, see \ref{fig:sfs}) to
@@ -123,30 +123,66 @@ drifting populations. Bergland \emph{et
 throughout time to signify their differentiation from ancestral (two
 time-point data) as well as geographically different populations. Jha
 \emph{et al.}~\cite{jha2015whole} computed test statistic of
-generalized linear-mixed model directly from read counts. Bollback \emph{et 
-al.}~\cite{bollback2008estimation} provided a diffusion approximation to
-the continues Wright Fisher Markov process and estimated $s$
-numerically and provided a standard likelihood ratio test under $\Xc^2$
-distribution.
+generalized linear-mixed model directly from read counts. 
 
-It is only recently that direct tests for analyzing time-series data
-have been developed, and much of it is based on whole-genome
-sequencing of pools of individuals (pool-seq) at specific times. Using
-continuous-time continuous-state Brownian motion process, Feder
-\emph{et al.}~\cite{feder2014Identifying} proposed the Frequency
+Early \emph{direct} methods for analyzing time-series data
+devoted to estimate population size in neutral populations 
+~\cite{williamson1999using,anderson2000monte,beaumont2003estimation,berthier2002likelihood,wang2001pseudo},
+ using statistical (HMM) and population genetics (Coalescent) models. 
+The first effort to properly address the problem of parameter estimation in time 
+series 
+selection data was done by Bollback \emph{et 
+	al.}~\cite{bollback2008estimation}.
+ They provided a diffusion approximation 
+	to
+the continues Wright Fisher Markov process and estimated $s$
+numerically for large population sizes.
+Malaspinas \emph{et al.}~\cite{malaspinas2012estimating} extended Bollback 
+et al.’s 
+method to estimate allele age in ancient-DNA (aDNA).
+Steinr\"{u}cken and Song~\cite{steinrucken2014novel} proposed a general 
+diploid selection model which 
+takes into account of dominance of the favored allele and approximates 
+likelihood analytically.
+Mathieson and McVean~\cite{mathieson2013estimating} adopted HMMs to 
+structured populations and estimated parameters using an Expectation 
+Maximization (EM) procedure, on discretized allele frequency.
+Feder \emph{et al.}~\cite{feder2014Identifying}
+modeled increments in allele frequency with a Brownian motion process,  
+proposed the Frequency
 Increment Test (FIT). More recently, Topa \emph{et
   al.}~\cite{topa2015gaussian} proposed a Gaussian Process (GP) for
 modeling single-locus time-series pool-seq data. Terhorst \emph{et
   al.}~\cite{Terhorst2015Multi} extended GP to compute joint
 likelihood of multiple loci under null and alternative hypotheses.
+Recently, schraiber \emph{et al.}~\cite{schraiber2016bayesian} proposed a 
+Bayesian framework to estimate 
+parameters using Monte Carlo Markov chain sampling.
 
-A key contribution of our paper
-is the development of a direct, and significantly faster method,
-\comale, for identifying selection in short-term 
-experimental
-evolution with pool-seq data. We show for a wide range of parameters
+
+While existing methods have been successfully applied to their corresponding 
+application, they make several key assumptions which does not hold in many 
+of EE studies.
+First, they assume that the underlying population size is large, if not infinity,
+(See Table 3 in \cite{malaspinas2016methods} for illustration). As a result,  
+they provide continues state models for dynamics of allele frequencies.
+In addition, most these methods, originally designed to process wide time 
+spans, i.e. aDNA studies. Also, they assume input data is allele 
+frequency or at least is \emph{sampled} allele frequency, where ascertainment 
+bias is uniform along genome.
+
+This manuscript, explicitly posits a small-population-size assumption on 
+Williamson~\emph{et al.}~\cite{williamson1999using} and Bollback~\emph{et 
+al.}'s model~\cite{bollback2008estimation}, and as a consequence, the 
+resulting model become a discrete state (frequency) model. 
+We show that for small population sizes discrete models can compute 
+likelihood exactly, which make a difference in the statistical performance, 
+especially in short term 
+experiments. Additionally, we add another level of sampling-noise to the 
+traditional HMM, which models heterogeneous ascertainment bias due to 
+uneven coverages among variants. We show for a wide range of parameters
 that \comale\ provides higher power for detecting selection, is robust
 to ascertainment bias due to coverage heterogeneity, estimates model
 parameters consistently, and localizes favored allele more accurately
-compared to the state-of-the-art methods, while being orders of
-magnitude faster.
+compared to the state-of-the-art methods, while being computationally 
+efficient.

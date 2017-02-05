@@ -1,4 +1,31 @@
 \begin{figure}[H]
+ \begin{algorithm}[H]
+ 	\SetAlgorithmName{Generative Process}
+ 	\DontPrintSemicolon
+ 	\SetAlgoNoLine
+ 	\KwIn{$N,n,R,\{\lambda_{\tau_0},\ldots,\lambda_{\tau_T}\},\Tc= 
+ 		\{\tau_0,\ldots\tau_T\}$ }
+ 	\KwOut{Time-series pool-seq data for $R$ replicates of a single locus 
+ 		$\{\bfc^{(r)}\}$ and $\{\bfd^{(r)}\}$.}
+ 	\For{$r\leftarrow 1$ \KwTo $R$}
+ 	{
+ 		\For{$t\leftarrow \tau_0$ \KwTo $\tau_T$}
+ 		{
+ 			$2N\nu_t \sim \text{Binomial}({2N},{\nu_{t-1}})$\;
+ 			\If{$t\in \Tc$ }
+ 			{
+ 				$d^{(r)}_{t} \sim \poiss(\lambda_{\tau_i})$ \;
+ 				$2ny_t \sim \text{Binomial}({2n},{\nu_{t}})$\;  
+ 				$c^{(r)}_{t} \sim \text{Binomial}(d^{(r)}_{t},{y_{t}})$\; 
+ 			}
+ 		}
+ 	}
+ 	\caption{The Generative Process for Dynamic Pool-seq Data.} 
+ \end{algorithm}
+ \caption{aa}
+  	\label{proc:arya}
+\end{figure}	
+\begin{figure}[H]
 	\centering
 	\includegraphics[trim=.01in 0.1in .01in 
 	0.1in,clip,width=\textwidth]{sfs.pdf}
@@ -12,7 +39,7 @@
           frequency.} \label{fig:sfs}
 \end{figure}
 
-
+\ignore{
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{trajectoryReal.pdf}
@@ -41,7 +68,7 @@
 		with different variances,
 		around the true value in all cases with.}
 	\label{fig:stateConditional}
-\end{figure}
+\end{figure}}
 \begin{figure}[H]
 	\centering
 	\begin{tabular}{c}
@@ -79,7 +106,7 @@
 	\label{fig:depth}
 \end{figure}
 
-
+\ignore{
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\textwidth]{dominance.pdf}
@@ -165,12 +192,12 @@
 		suppress the signal of selection, especially in early
 		generations. }
 	\label{fig:bottleneck}
-\end{figure}
+\end{figure}}
 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.6\textwidth]{{bias.30}.pdf}
+		\includegraphics[width=0.6\textwidth]{{bias.30}.pdf}
 	\caption{{\bf Distribution of bias for 30$\times$ coverage.}\\ The
 		distribution of bias ($s-\hat{s}$) in estimating selection
 		coefficient over 1000 simulations using Gaussian Process (GP) and
@@ -201,7 +228,7 @@
 	}
 	\label{fig:biasinf}
 \end{figure}
-
+\ignore{
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{LDDecay3d}
@@ -300,7 +327,7 @@ soft
 	localizing adaptive allele in short 
 	term experimental evolution is a difficult task.} \label{fig:ldf3}
 \end{figure}
-
+}
 
 \begin{figure}[H]
 	\centering
@@ -331,6 +358,25 @@ soft
 	\label{fig:rankinf}
 \end{figure}
 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim=.0in 0in .2in 0in, 	
+	clip,width=0.9\textwidth]{{null-alt-dmel}.pdf}
+	\caption{{\bf .}.}
+	\label{fig:null-alt}
+\end{figure}
+
+\begin{figure}[H]
+\begin{tabular}{cc}
+	\includegraphics[width=0.5\textwidth]{{SFS.Y.G0}.pdf}&
+	\includegraphics[width=0.5\textwidth]{{SFS.Y.G180}.pdf}\\
+	\includegraphics[width=0.5\textwidth]{{SFS.Y.G360}.pdf}&
+	\includegraphics[width=0.5\textwidth]{{SFS.Y.G540}.pdf}
+\end{tabular}
+\caption{{\bf Yeast SFS.}}
+\label{fig:yeast-sfs}
+\end{figure}
 
 
 

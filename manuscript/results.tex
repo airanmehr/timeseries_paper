@@ -42,39 +42,13 @@ is evaluated over $2000$ distinct simulations, half of which modeled neutral
 evolution
 and the rest modeled positive selection.
 
-Before comparing against other methods, we first evaluated the use of
-\comale\ with different percentile-cutoffs $\pi$ (Eq.~\ref{eq:pihmm})
-in computing composite statistics of a region. For each configuration,
-we computed average Power for $s\in\{0.025,0.05,0.075,0.1\}$, using
-$\Hc_\pi,\Hc^{+}_\pi$. We computed the optimal value of $\pi$ using a
-line-search. \ref{fig:clrq} reveals several important trade-off
-between $\pi$, initial frequency, and coverage.
-\begin{packed_itemize}
-\item $\Hc^{+}_\pi$ consistently achieves a high power for $\pi=0$,
-  and in the absence of knowledge of the selection regime or the
-  ancestral allele, $\Hc^{+}_0$ is a powerful statistic to use.
-\item In every scenario tested,
-  $\max_{\pi}\{\mbox{Power}(\Hc_\pi)\}\ge
-  \max_{\pi}\{\mbox{Power}(\Hc^{+}_\pi)\}$, suggesting that it is beneficial to 
-  make predictions based on $\Hc_{\pi}$, if the
-  selection regime is well-understood and ancestral allele is known.
-\item In soft sweep, relative to hard sweep, it helps to choose a
-  higher value of the cut-off $\pi$. This is consistent with the fact that LD
-  between the favored site and other sites is generally lower for
-  soft sweep. For instance, in soft sweep with infinite coverage
-  (\ref{fig:clrq}F), optimum is gained at $\pi=100$, equivalent
-  to considering the score of the highest scoring site as $\Hc$ statistic of 
-  the region.
-\item When coverage is low (\ref{fig:clrq}A,D), it helps to
-  accumulate evidence from multiple sites, and the best results are
-  achieved for lower values of $\pi$.
-\end{packed_itemize}
 
-Finally, we compared the power of \comale\ with Gaussian process
+
+We compared the power of \comale\ with Gaussian process
 (GP)~\cite{Terhorst2015Multi}, FIT~\cite{feder2014Identifying}, and
 CMH~\cite{agresti2011categorical} statistics.  As CMH only takes read
 count data, here we used $\lambda=300$ to implement infinite coverage
-scenario. All methods other than \comale\ and CMH convert read counts
+scenario. FIT and GP convert read counts
 to allele frequencies prior to computing the test statistic.  \comale\
 shows the highest power in all cases and the power stays relatively
 high even for low coverage (\ref{fig:power} and
@@ -100,7 +74,7 @@ higher coverage.
 \ignore{ Moreover, the observation of
   \ref{fig:markov} is revisited here, approximate continues
   models (GP and FIT) perform poorly when starting frequency is low
-  (\ref{fig:power}A-C).  }
+  (\ref{fig:power}A-C).  
 
 \paragraph{SFS for Detection in Natural Samples.} We did not show the
 SFS based statistics in \ref{fig:power} as they did not perform
@@ -144,7 +118,7 @@ allele has frequency of 0.9 or higher, SFS based statistics perform
 considerably better than GP, FIT and \comale\
 (\ref{fig:powerSFS}B). Moreover, dynamic SFS statistics
 provide higher power than static SFS statistics, demonstrating that in the use 
-of time-series SFS based statistics is advantageous.
+of time-series SFS based statistics is advantageous.}
 
 
 \paragraph{Site-identification.}
@@ -180,7 +154,7 @@ detection power is 75\% for hard sweep, but 100\% for soft sweep
 (\ref{fig:power}B-E). In contrast, the favored site was ranked as
 the top in 14\% of hard sweep cases, compared to and 95\% of soft
 sweep simulations (\ref{tab:rank}A-B).  
-
+\ignore{
 \newcommand*\rot{\rotatebox{-90} }
 \begin{table}[H]
 	\centering
@@ -213,7 +187,7 @@ sweep simulations (\ref{tab:rank}A-B).
 		hitchhikers (false positives) and favored allele in soft sweep 
 		scenarios.}\label{tab:rank}
 \end{table}
- 
+} 
 \paragraph{Estimating Parameters.}
 \comale\ computes the selection parameters $\hat{s}$ and $\hat{h}$ as
 a byproduct of the hypothesis testing. We computed bias of selection
@@ -261,40 +235,49 @@ generations under alternating 12-hour cycles of hot (28$^{\circ}$C)
 and cold (18$^{\circ}$C) temperatures and sequenced.  In this dataset,
 sequencing coverage is different across replicates and generations
 (see S2 Fig of~\cite{Terhorst2015Multi}) which makes variant depths
-highly heterogeneous (\ref{fig:depth} and \ref{fig:depthHetero}). We 
-computed the
-$\Hc^{+}$ statistic for sliding windows of 30Kbp with steps of 10Kbp
-over the whole genome. After filtering out heterochromatic,
+highly heterogeneous (\ref{fig:depth} and \ref{fig:depthHetero}). 
+
+We first filtered out heterochromatic,
 centromeric and telomeric
-regions\cite{fiston2010drosophila,comeron2012many}, and applying a
-local false discovery rate $\le 0.01$ (Methods), we identified 89
-intervals (\ref{fig:manhattancutoffed}) containing 968 genes
-(\ref{tab:stats}).
+regions~\cite{fiston2010drosophila}, and those variant that have collective 
+coverage of more that 1500 in all 13 populations: three replicates at the base 
+population, two replicates at generation 15, one replicate at generation 23, 
+one replicate at generation 27, three replicates at generation 37 and three 
+replicates at generation 59. After filtering, we ended up with 1,605,714 
+variants.
 
-We found $11$ GO Biological Process terms to be enriched with Fisher
-exact $P$-value $\le 10^{-3}$ (\ref{tab:Fisher2}). The selected
-genes include many heat shock proteins in enriched ontologies
-including `cold acclimation' and `response to heat'
-(\ref{tab:tempGenes}). As longer genes contain more variants,
-the probability of a false variant being selected could increase with
-the length of the gene. Although the \comale\ statistic for genes does
-not favor longer genes, we also performed a single variant based GO
-enrichment using \texttt{Gowinda}~\cite{kofler2012gowinda}. The
-analysis identified 34 enriched GO terms
-(\ref{tab:gowinda}) associated with Biological Process. 5
-of 11 GO terms in the gene level analysis were also among the $34$
-\texttt{Gowinda} terms (Fisher exact $p$-val: $10^{-8}$) suggesting
-consistency between variant and gene-based analysis.
+First we estimated population size over the whole genome, by bootstrapping 
+100,000  variants 100 times \ref{fig:estimateN}. 
+The likelihood curves of \comale\ is sharper around the optimum compared to 
+Bollback et. al~\cite{bollback2008estimation} (see Supplementary Fig. 1 
+in~\cite{orozco2012adaptation}).
+While chromosomes 3L and 3R 
+appear to have smaller population size \ref{fig:NdmelChrom}, which can taken 
+into account of 
+chromosome-wise significance cutoffs, we took the genome-wide population size 
+of $\widehat{N}=$250 to calculate $p$-values and FDR.
+Next, we found maximum likelihood estimates of $s$, and computed the test 
+statistic $H$ for each variant, given $N=250, h=0.5$. To compute $p$-values of 
+$H$ statistics, we calculated 
+single locus Wright-Fisher simulations for $\widehat{N}=$250, initial 
+frequencies and variant depths of real data (see \ref{proc:arya}). We repeated 
+forward simulations 50 times for whole genome, to collect $\approx$90M pool-seq 
+trajectories 
+with starting frequencies and coverage of real data. Then, $p$-value of each 
+variant in the real 
+data is calculated as the fraction of null statistics that are grater than or 
+equal of test statistic(see~\ref{fig:null-alt}). Finally, to correct for 
+multiple 
+testing, we used 
+Storey \& Tibshirani~\cite{storey2003statistical} method to compute 
+FDR.~\ref{fig:man-dmel-snp} shows the distribution of 804 variants 
+passing FDR$\le 
+0.001$. We also performed GO
+enrichment using \texttt{Gowinda}~\cite{kofler2012gowinda} and found 16 
+enriched GO terms including XXXX, XXXX ~\ref{tab:gowinda}.
 
-\begin{table}[H]
-	\centering
-		\caption{\bf GO (Biological Process) enrichment.}
-	\begin{tabular}{c}
-		\input{../tables/biological_process.tex}
-	\end{tabular}
-	\caption*{ A Fisher exact test 
-	was 
-	performed for GO enrichment in genes located in selected regions. All GO 
-	terms that contained at least $3$ selected genes, and had Fisher exact 
-	$p$-value $\le 10^{-3}$, are listed above.}\label{tab:Fisher2}
-\end{table}
+Finally, we tested if variants showing signal of overdominance, we computed $D$ 
+statistic on simulated and experimental data, and computed $p$-values 
+accordingly. After correcting for multiple testing, 96 variants discovered with 
+FDR$\le 0.01$~\ref{fig:man-dmel-snp}. 
+\subsection{Analysis of Outcrossing Yeast Populations}

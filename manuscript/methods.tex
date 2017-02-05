@@ -1,12 +1,9 @@
 \section{Materials and Methods}
 \label{sec:method}
-
-\paragraph{Statistical Procedure.}
-To find the genes that are responding to the selection pressure, we
-consider a likelihood-based
-approach~\cite{bollback2008estimation, 
-vitti2013detecting,nielsen2005genomic,topa2015gaussian,Terhorst2015Multi}.
-The statistical procedure involves
+To identify the genes/variants that are responding to the selection pressure, we
+consider a statistical procedure which takes likelihood-based
+approach. 
+Our statistical procedure involves:
 \begin{enumerate}[(i)]
 	\item  {\bf Estimating population size.} The procedure starts by 
 	finding 
@@ -18,27 +15,26 @@ The statistical procedure involves
 	selection and overdominance parameters $s,h$, for each	
 	polymorphism.
 	\item {\bf Computing likelihood statistics.} For each variant, it 
-	calculates in order to calculate the log-odds 
+	calculates the log-odds 
 	ratio of the likelihood of selection model to the likelihood of neutral
 	evolution/drift model. Likelihood ratios in a genomic region
-	are combined to compute the \comale\ statistic, which is a composite
-	likelihood score for the region being under selection. Extremal analysis 
-	will provide candidate regions for further functional analysis.
-	\item {\bf Hypothesis testing.} The null distribution of likelihood 
-	ratio 
+	are combined to compute the \comale\ statistic. 
+	\item {\bf Hypothesis testing.} The null distribution of the \comale\ (or 
+	likelihood ratio) 
 	statistics are computed on 
-	a set of single locus drift simulations with population size of $\hN$, and 
+	a set of whole-genome (single locus, respectively) drift simulations with 
+	population size of $\hN$, and 
 	configuration (e.g. sequencing coverage) as closely as possible to the EE 
 	in which real data generated. Given the null distribution of statistics, 
 	$p$-value of the observed likelihood ratios are calculated.
 	False Discovery Rate (FDR) correction is applied to the $p$-values 
 	to 
 	account for multiple testing. The overlapping genes with the 
-	variants that 
+	regions (or variants) that 
 	satisfy FDR criterion, 
 	will be reported for functional analysis or imported to the Gene Set 
 	Enrichment Analysis (GSEA).
-	\item {\bf Extra analysis.} of estimated parameter could reveal 
+	\item {\bf Further analysis.} Estimated parameter could reveal 
 	extra 
 	information, e.g., overdominance or fixation time, regarding the ongoing 
 	selective sweep.
@@ -48,7 +44,8 @@ statistical procedure.
 \subsection{Estimating Population Size}
 Estimating population sizes from temporal neutral evolution data has 
 been previously studied~\cite{williamson1999using,anderson2000monte, 
-bollback2008estimation, Terhorst2015Multi}. Existing methods are well 
+bollback2008estimation, Terhorst2015Multi,jonas2016estimating}. Existing 
+methods are well 
 designed 
 for when 
 the allele 
@@ -56,13 +53,13 @@ frequencies are computed from a finite sample, that is the
 ascertainment bias 
 is uniform over the genome. However, in the case of pool-seq data in 
 addition 
-to uniform ascertainment bias, 
+to uniform ascertainment bias caused by finite samples for sequencing, 
 each variant is sampled at different rate, due to finite sequencing 
-coverage. In addition, majority of the state-of-the-art 
+coverage. In addition, bulk of existing 
 models~\cite{bollback2008estimation,feder2014Identifying,topa2015gaussian,Terhorst2015Multi}
-model time and state space as continuous variables. However, in our 
-experiments, we found that the
-smooth approximations is inadequate for small populations, low
+are designed for large populations, and model frequency is modeled as a 
+continues quantity. However, we show that smooth approximations is 
+inadequate for small populations, low
 starting frequencies and sparse sampling (in time) that are typical in
 experimental evolution (see Results, \ref{fig:power}A-C, and 
 \ref{fig:markov}). To this end, we use using a discrete-time
@@ -89,43 +86,33 @@ generations
  \beq
  \nu_0 \sim \pi, \hspace{1in} 2N\nu_t|\nu_{t-1} \sim \bino(2N,\nu_{t-1})
  \eeq
-where is the marginal distribution of allele frequencies in the base 
-population. In general $\pi$ depends on demographic history of the founder 
-lines, here we simply assume is $\pi$ is the site frequency spectrum of fixed 
+where $\pi$ is the global (marginal) distribution of allele frequencies in the 
+base 
+population. In general, $\pi$ depends on demographic history of the founder 
+lines. Here we simply assume is $\pi$ is the site frequency spectrum of fixed 
 sized neutral population~\ref{fig:sfs}.
 
 To compute distributions after $\tau$ transitions, it is enough to specify the
 $2N\times2N$ transition matrix $P^{(\tau)}$, where $P^{(\tau)}[i,j]$ denotes
-probability of change in allele frequency from $\frac{i}{2N}$ to
-$\frac{j}{2N}$ in $\tau$ generations:
+probability of change in allele frequency from ${i}/{2N}$ to
+${j}/{2N}$ in $\tau$ generations:
 \begin{eqnarray}
   P^{(1)}[i,j] &=& \pr\left(\nu_{t+1}=\frac{j}{2N} \left|
       \nu_{t}=\frac{i}{2N}\right)={2N \choose j} \right.  \nu_{t}^j
   (1-\nu_{t})^{2N-j}, \;\;\label{eq:P1}\\
   P^{(\tau)} &=&   P^{(\tau-1)}P^{(1)} \label{eq:Pt}
 \end{eqnarray}
-\ignore{
-and $c_t$,$d_\tau$ be 
-the 
-number of reads of alternate allele and total number of read at a 
-locus for 
-each replicate, then the graphical model~\ref{fig:GM} completely 
-specifies the 
-model for a single locus. Note that, for each replicate the only 
-observed 
-variables are $\bfc=\{c_0,\ldots,c_T\}$ and $\bfd=\{d_0,\ldots,d_T\}$, 
-shaded 
-nodes in~\ref{fig:GM}. The generative model is}
+
 As at each generation $n$ out of $N$  individuals are randomly selected 
-for sequencing, The \emph{sampled allele frequencies}, $\{y_{t}\}_{t\in\Tc}$, 
+for sequencing, The {sampled allele frequencies}, $\{y_{t}\}_{t\in\Tc}$, 
 are also Binomially distributed
 \beq
 2ny_{t} \sim \text{Binomial}(2n,\nu_t)
 \eeq
 We introduce the $2N\times2n$ sampling matrix $Y$, where $Y[i,j]$ stores the 
-probability that the sample allele frequency is $\frac{i}{2n}$ given that the 
+probability that the sample allele frequency is ${i}/{2n}$ given that the 
 true 
-allele frequency is $\frac{i}{2N}$.
+allele frequency is ${i}/{2N}$.
 
 \ignore{In the discussion so far, we assumed that the exact allele 
 frequencies
@@ -158,7 +145,7 @@ generations, then, the observed data are sampled according to
 \beq
 d_t \sim \poiss(\lambda_t), \hspace{1in} c_t \sim \bino(d_t,y_t)
 \eeq
-where the the emission prbabilities for a observed tuple  $x_t=\langle d_t, 
+where the the emission probabilities for a observed tuple  $x_t=\langle d_t, 
 c_t\rangle $ is
 \beq
 	{\bf e}_{i}(x_t) = {d_t \choose c_t} \left(\frac{i}{2n} \right)^{c_t}\left 
@@ -197,10 +184,11 @@ n)=\prod_{r=1}^R\Lc(N|\bm{x}^{(r)},n)
 	\label{eq:hmmlik}
 \end{equation}
 where $\bm{x}=\{x_t\}_{t\in \Tc}$. The graphical model and the generative 
-process for which data is being generated is depicted in~\ref{fig:GM}.
+process for which data is being generated is depicted in~\ref{fig:1}-B 
+and~\ref{proc:arya}, respectively.
 
 Finally, the last step is to find the  $\hN$ in which maximizes the likelihood of 
-the all variants in whole genome:
+the all the $M$ variants in whole genome:
 \beq
 \hN = \underset{N}{\arg \max} \prod_i^M \Lc(N|\{\bm{x}_i^{(r)}\} 
 \label{eq:mlen}
@@ -216,7 +204,8 @@ respectively. By definition, the relative fitness values of genotypes
 0$|$0, 0$|$1 and 1$|$1 are given by $w_{00}=1$, $w_{01}=1+hs$ and
 $w_{11}=1+s$. Recall that $\nu_t$ denotes the frequency of the site at
 time $\tau_t\in {\cal T}$. Then, $\nusp$, the frequency at time
-$\tau_{t}+1$ (one generation ahead), can be estimated using: \beq 
+$\tau_{t}+1$ (one generation ahead), can be estimated using: 
+\beq 
 \hat{\nu}_{t^+} =
 \mathbb{E}[\nusp|s,h,\nu_t]&=\frac{w_{11}\nu_t^2 +
   w_{01}\nu_t(1-\nu_t)}{w_{11}\nu^2_t + 2w_{01}\nu_t(1-\nu_t) +
@@ -253,17 +242,14 @@ The maximum likelihood estimates are given by
  optimization routine for each variant(see Results and
  \ref{fig:runTime}).
 \subsection{Empirical Likelihood Ratio Statistics}
-
-Similar to Eq.~\ref{eq:mcts}, let $\hat{s},\hat{h}$ denote the
-parameters that maximize likelihood. The corresponding likelihood
+The  likelihood
 ratio statistic for each variant of pool-seq data is given by
 \beq
 	H &= -2 \log 
-	\left(\frac{\Lc(\hs,\hh|\{\bm{x}^{(r)}\},\hN)}{\Lc(0,0.5|\{\bm{x}^{(r)}\},\hN)}\right)\\
+	\left(\frac{\Lc(\hs,0.5|\{\bm{x}^{(r)}\},\hN)}{\Lc(0,0.5|\{\bm{x}^{(r)}\},\hN)}\right)\\
 	\label{eq:ELRS}
 \eeq
 
-\paragraph{Composite Likelihood Ratio.}
 In general, the favored allele can be in linkage disequilibrium with
 some of its surrounding variation. The linked-loci hitchhike and share
 similar dynamics with the favored allele~\cite{elyashiv2016genomic}.  Some
@@ -283,7 +269,7 @@ Consider a genomic region $L$ to be a collection of segregating sites
 with little or no recombination between sites and the favored
 allele. This scenario holds when the starting frequency of the favored
 allele is not high and the region is small. Let  $H_\ell$ denote the likelihood 
-ratio score based for each site $\ell$ in $L$. The CLR is computed by 
+ratio score based for each site $\ell$ in $L$. The \comale\ is computed by 
 averaging scores of all the variants
 withing the testing region
 \begin{equation}
@@ -293,43 +279,37 @@ withing the testing region
 
 
 \subsection{Hypothesis Testing}
-\paragraph{$p$-value Computation.}
-By Wilks’ theorem~\cite{williams2001weighing}, the likelihood
+Both statistics $H$ and $\Hc$ can be used for hypothesis testing. However, 
+$p$-value computation on $\Hc$ require additional data including, initial 
+phased haplotypes and local recombination rates. 
+
+To compute $p$-value for an $H$ statistic, one can use Wilks’ 
+theorem~\cite{williams2001weighing}, that is the likelihood
 ratio statistic (Eq.~\ref{eq:ELRS}) is asymptotically distributed
 according to $\Xc^2_k$, where $k$ is the difference between dimensions of 
 parameters of alternative and null model. Feder \emph{et
 	al.}~\cite{feder2014Identifying} showed that the empirical
 distribution of statistic on simulations with $\hN$ provide more accurate 
 $p$-values than $\Xc^2$ when the
-number of independent samples (replicates) is small. 
-However, the simulations for composite statistics require initial haplotypes of 
-the founder population, local recombination rates and massive computational 
-resources. Hence we use $\Xc^2$ for testing composite statistic $\Hc$ and 
-simulations for polymorphism statistic.
+number of independent samples (replicates) is small. Here, to compute null 
+distribution of $H$, we conduct single locus drift simulations starting from 
+initial frequencies of the experimental data. After, time series frequencies are 
+sampled, read counts of the derived allele given coverage and allele frequency 
+will be sampled, see~\ref{proc:arya} for step-by-step procedure. Finally, test 
+statistic is computed for simulated drifting pool-seq data and $p$-value of an 
+experimental samples is computed as fraction of null statistics that have a 
+higher or equal value than testing statistic.
 
-Specifically, for composite statistics, we make a simplifying assumption that 
-is all the statistics ${H_\ell}$ are independent, then
-\beq
-H_\ell \sim \Xc^2_2 \ \ \Longrightarrow \ \ \sum_{\ell \in L} H_\ell \sim 
-\Xc^2_{2L}
-\ \ \Longleftrightarrow \ \ \Hc \sim \text{Gamma}(\alpha=L,\theta=2/L)
-\eeq
-
-To create single  locus simulations, we repeat the generative process for 
-$N=\hN$ outlined 
-in the~\ref{fig:GM} for every variant in the real data, with only difference that 
-$\nu_0$ and $\{\bm d^{(r)}\}$ are given from the real data.
-\paragraph{Correcting for multiple testing}
-To control for False Discovery Rate in multiple testing, we by
-
-\paragraph{Enrichment Analysis}
-
-\subsection{Extra Analysis}
+To compute null distribution of $\Hc$, whole genome drift simulations of the 
+initial haplotypes given local recombination rate should be performed and read 
+counts will be sampled accordingly.
+To control for False Discovery Rate in multiple testing, we use Storey and 
+Tibshirani's method\cite{storey2003statistical} 
 
 \paragraph{Site-identification.} 
-Once a genomic region is classified to be under selection by $\Hc$ or $\Mc$ 
+Once a genomic region is classified to be under selection by $\Hc$ 
 statistic,
-individual variant scores ($M$ or $H$) in a region are ranked to predict the
+individual variant scores ( $H$) in a region are ranked to predict the
 favored site. In general, identifying the favored site in pool-seq
 data is difficult~\cite{tobler2014massive}, due to extensive span of
 hitchhikers in an ongoing sweep (see \ref{app:ld} for 
@@ -344,8 +324,8 @@ controls.
  The value of the overdominance 
  parameter can
 reveal if the favored allele
-is overdominant, repressive or dominant~\cite{gillespie2010population} 
- (See \ref{tab:h}, \ref{fig:dominance} and \ref{fig:dir-bal}). The test statistic for 
+is over-dominant, repressive or dominant~\cite{gillespie2010population}. The 
+test statistic for 
  such hypothesis test is
 \beq
 D &= -2 \log 
@@ -354,7 +334,7 @@ D &= -2 \log
 &\bar{s} = \underset{s}{\arg \max} \prod_i^M 
 \Lc(s,0.5|\{\bm{x}_i^{(r)},\hN\}.
 \eeq
-
+\ignore{
 \begin{table}
 	\centering
 	\caption{\bf Overdominance parameter values and their implications.}
@@ -366,7 +346,7 @@ D &= -2 \log
 		$h=1$&	dominant adaptive allele	\\
 		$h>1$ &overdominance
 	\end{tabular}\label{tab:h}
-\end{table}
+\end{table}}
 
 
 \paragraph{Precomputing Transition Matrices.}
@@ -442,7 +422,7 @@ statistics throughout time to compute a time-series score
 \subsection{Simulations}
 We performed extensive simulations using parameters that have been
 used for \dmel experimental
-evolution~\cite{kofler2013guide}. See also \ref{fig:ee} 
+evolution~\cite{kofler2013guide}. See also \ref{fig:1}-A 
 for
 illustration. To implement real world pool-seq experimental evolution, we 
 conducted simulations as follows:
@@ -476,12 +456,10 @@ conducted simulations as follows:
   (respectively, $\nu_0=0.1$) to be the favored allele.
 \item{\bf Sequencing Simulation.} Give allele frequency trajectories
   we sampled depth of each site identically and independently from
-  Poisson($\lambda$), where $\lambda \in \{30,100,300,\infty\}$ is the
+  Poisson($\lambda$), where $\lambda \in \{30,100,300\}$ is the
   coverage for the experiment. Once depth $d$ is drawn for the site
   with frequency $\nu$, the number of reads $c$ carrying the derived
   allele are sampled according to Binomial$(d,\nu)$. For experiments
   with finite depth the tuple $\langle c,d\rangle$ is the input data
-  for each site. Infinite depth experiments refer to the case, where
-  the true allele frequency is provided and Markov and HMM likelihood
-  computations give identical results.
+  for each site. 
 \end{enumerate}
