@@ -221,16 +221,21 @@ sweep scenarios and $N=1000$.
 	0.0in,clip,width=0.35\textwidth]{{topVariants.dmel}.pdf}
 	\end{tabular}
 	\caption{{\bf Single locus analysis of the \datadm.}\\ Manhattan plot 
-	of scan for testing directional selection (A) and balancing selection (C).
-		Significant variants with FDR$\le 0.001$ and FDR $\le 0.01$ are deoted 
+	of scan for testing directional selection (A) and overdominant selection 
+	(C).
+		Significant variants with FDR$\le 0.001$ and FDR $\le 0.01$ are denoted 
 		in red, and their trajectories are depicted in panels (B) and (D).}
 	\label{fig:man-dmel-snp}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{man-dmel-region.pdf}
-	\caption{{\bf Estimating N on simulated and real data.}}
+	\includegraphics[width=0.8\textwidth]{man-dmel-region.pdf}
+	\caption{{\bf Scan of composite statistic on \datadm.}
+		Manhattan plot of scan for $\Hc^*$ statistic over the genome. 
+		The dashed line represents cutoff for  genome-wide FDR$\le0.05$,
+		selecting 16 regions.
+		}
 	\label{fig:man-dmel-region}
 \end{figure}
 
@@ -238,23 +243,35 @@ sweep scenarios and $N=1000$.
 	\centering
 	\begin{tabular}{cc}
 		\includegraphics[trim=0.4in 0.in 0.6in 
-		0.0in,clip,width=0.6\textwidth]{man-yeast-snp.pdf}&	
+		0.0in,clip,width=0.65\textwidth]{man-yeast-snp.pdf}&	
 		\raisebox{0.2in}{
 		\includegraphics[trim=0in 0.in 0in 
-		0.0in,clip,width=0.4\textwidth]{{topVariants.yeast}.pdf}}
+		0.0in,clip,width=0.35\textwidth]{{topVariants.yeast}.pdf}}
 	\end{tabular}
 	\caption{{\bf Single locus analysis of the \datadm.}\\ Manhattan plot 
-		of scan for testing directional selection (A) and balancing selection 
-		(C).
-		Significant variants with FDR$\le 0.001$ and FDR $\le 0.01$ are deoted 
-		in red, and their trajectories are depicted in panels (B) and (D).}
-	\label{fig:man-dmel-snp}
+		of scan for testing directional selection (A) and overdominant 
+		selection 
+		(C). dashed
+		The dashed line represents cutoff for  genome-wide FDR$\le0.05$.
+		Trajectories of the selected variants are depicted in panels (B) and 
+		(D).}
+	\label{fig:man-yeast-snp}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 		\includegraphics[width=\textwidth]{estimateN.pdf}
-	\caption{{\bf Estimating N on simulated and real data.}}
+	\caption{{\bf Estimating N on simulated and real data.}
+		Average and 95\% confidence interval if likelihood of simulated data 
+		with $N=200$ (A), $N=600$(B), and $N=1000$ individuals, over 100 
+		simulations, shows that estimator is unbiased.
+		Chromosome-wise (D) and genome-wide (E) estimation of population size 
+		for \datadm. Chromosome 3R fits population size of 150, while 
+		genome-wide population size is 250. 
+		(F) Despite large census population size 
+		($10^6-10^7$~\cite{burke2014standing}), Yeast dataset exhibits much 
+		smaller ($\hN=2000$) populations size.
+		}
 	\label{fig:estimateN}
 \end{figure}
 
