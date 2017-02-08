@@ -1,10 +1,9 @@
 \section{Results}
-\paragraph{Modeling Allele Frequency Trajectories in Finite Populations.} 
-We first tested the goodness of fit of the discrete-time Markov chain
-versus continuous-time Brownian motion (Gaussian approximation) in modeling 
-allele frequency
-trajectories in finite populations, under different sampling schemes
-and starting frequencies.  For this purpose, we conducted $100$K
+\paragraph{Modeling Allele Frequency Trajectories in Small Populations.} 
+We first tested the goodness of fit of the discrete versus continuous models in 
+modeling allele frequency trajectories, under general E\&R parameters.  For 
+this 
+purpose, we conducted $100$K
 simulations with two time samples $\Tc=\{0,\tau\}$ where $\tau\in
 \{1,10,100\}$ is the parameter controlling the density of sampling
 in time.  In addition, we repeated simulations for different values of
@@ -14,7 +13,7 @@ selection). Then, given initial frequency $\nu_0$, we computed
 the expected distribution of the frequency of the next sample $\nu_\tau$
 under two models and compared them with empirical distributions
 calculated from simulated data.  \ref{fig:markov}A-F shows that
-Brownian motion is inadequate when $\nu_0$ is
+Brownian motion (continuous model) is inadequate when $\nu_0$ is
 far from $0.5$, or when sampling times are sparse ($\tau>1$). If the
 favored allele arises from standing variation in a neutral population,
 it is unlikely to have frequency close to $0.5$, and the starting
@@ -34,8 +33,8 @@ parameters.
 \paragraph{Detection Power.} 
 We compared the performance of \comale\ against other methods for
 detecting selection. For each method we calculated detection power as the 
-percentage of true-positives identified with false-positive rate $\le 0.05$
-(\ref{fig:powerROC}). For each
+percentage of true-positives identified with false-positive rate $\le 0.05$. For 
+each
 configuration (specified with values for selection coefficient $s$,
 starting allele frequency $\nu_0$ and coverage $\lambda$), power of each method 
 is evaluated over $2000$ distinct simulations, half of which modeled neutral 
@@ -46,17 +45,14 @@ and the rest modeled positive selection.
 
 We compared the power of \comale\ with Gaussian process
 (GP)~\cite{Terhorst2015Multi}, FIT~\cite{feder2014Identifying}, and
-CMH~\cite{agresti2011categorical} statistics.  As CMH only takes read
-count data, here we used $\lambda=300$ to implement infinite coverage
-scenario. FIT and GP convert read counts
+CMH~\cite{agresti2011categorical} statistics.  FIT and GP convert read counts
 to allele frequencies prior to computing the test statistic.  \comale\
 shows the highest power in all cases and the power stays relatively
 high even for low coverage (\ref{fig:power} and
 \ref{tab:power}). In particular, the difference in performance
 of \comale\ with other methods is pronounced when starting frequency
-is low. Starting frequency is at its minimum in selection on an allele
-from \emph{de novo} mutations and is likely to be low if selection is
-on an allele from standing variation (\ref{fig:sfs}).  The
+is low. 
+The
 advantage of \comale\ stems from the fact that favored allele with low
 starting frequency might be missed by low coverage sequencing. In this
 case, incorporating the signal from linked sites becomes increasingly
@@ -125,35 +121,28 @@ of time-series SFS based statistics is advantageous.}
 In general, localizing the favored variant, using pool-seq data is a nontrivial 
 task~\cite{tobler2014massive}. We used the simple
 approach of ranking each site in a region detected as being under
-selection. The sites were ranked according to the likelihood ratio
-scores (Eqns.~\ref{eq:mcts},~\ref{eq:hmmml}). For each setting of
+selection. The variants were ranked according to the likelihood ratio
+scores (Eqn.~\ref{eq:ELRS}). For each setting of
 $\nu_0$ and $s$, we conducted $1000$ simulations and computed the rank
 of the favored mutation in each simulation. The cumulative
 distribution of the rank of the favored allele in 1000 simulation for
 each setting (\ref{fig:rank}) shows that \comale\ outperforms
-other statistics. We also compared each method to see how often it
-ranked the favored site in as the top ranked site
-(\ref{tab:rank}A-B), among the top 10 ranked sites
-(\ref{tab:rank}C-D), and among the top 50
-(\ref{tab:rank}E-F) ranked sites. In the $\approx$1150 variants tested,
-\comale\ performed consistently better than other methods in all of
-these measures.
+other statistics.
 
 An interesting observation is revisiting the contrast between 
 site-identification
-and detection~\cite{long2013massive,tobler2014massive} (see \ref{app:ld} for 
-more details). 
+and detection~\cite{long2013massive,tobler2014massive}. 
 When selection 
 coefficient is high, detection is easier
 (\ref{fig:power}A-F), but site-identification is harder due to
 the high LD between hitchhiking sites and the favored allele
-(\ref{tab:rank}A-F).  Moreover, site-identification is harder in
+(\ref{fig:rank}A-F).  Moreover, site-identification is harder in
 hard sweep scenarios relative to soft sweeps. For example, when
 coverage $\lambda=100$ and selection coefficient $s=0.1$, the
 detection power is 75\% for hard sweep, but 100\% for soft sweep
 (\ref{fig:power}B-E). In contrast, the favored site was ranked as
 the top in 14\% of hard sweep cases, compared to and 95\% of soft
-sweep simulations (\ref{tab:rank}A-B).  
+sweep simulations.  
 \ignore{
 \newcommand*\rot{\rotatebox{-90} }
 \begin{table}[H]
@@ -207,12 +196,12 @@ that \comale\ provides unbiased estimates of $h$ as well.
 As \comale\ does not compute exact likelihood of a region (i.e., does
 not explicitly model linkage between sites), the complexity of
 scanning a genome is linear in number of polymorphisms.  Calculating
-score of each variant requires $\Oc(TR)$ and $\Oc(TRN^2)$ computation
-for $\Mc$, and $\Hc$, respectively. However, most of the operations
+score of each variant requires and $\Oc(TRN^2)$ computation
+for $\Hc$. However, most of the operations
 are can be vectorized for all replicates to make the effective running
 time for each variant.  We
 conducted $1000$ simulations and measured running times for computing site 
-statistics $M$, $H$, FIT, CMH and GP with different number of linked-loci.  Our
+statistics $H$, FIT, CMH and GP with different number of linked-loci.  Our
 analysis reveals (\ref{fig:runTime}) that \comale\ is orders of
 magnitude faster than GP, and comparable to FIT. While slower than CMH
 on the time per variant, the actual running times are comparable after
@@ -246,13 +235,13 @@ one replicate at generation 27, three replicates at generation 37 and three
 replicates at generation 59. After filtering, we ended up with 1,605,714 
 variants.
 
-First we estimated population size over the whole genome, by bootstrapping 
-100,000  variants 100 times \ref{fig:estimateN}. 
+First we estimated population size $\hat{N}=250$ over the whole 
+genome,~\ref{fig:estimateN}. 
 The likelihood curves of \comale\ is sharper around the optimum compared to 
 Bollback et. al~\cite{bollback2008estimation} (see Supplementary Fig. 1 
 in~\cite{orozco2012adaptation}).
 While chromosomes 3L and 3R 
-appear to have smaller population size \ref{fig:NdmelChrom}, which can taken 
+appear to have smaller population size~\ref{fig:estimateN}-D, which can taken 
 into account of 
 chromosome-wise significance cutoffs, we took the genome-wide population size 
 of $\widehat{N}=$250 to calculate $p$-values and FDR.
@@ -274,10 +263,16 @@ FDR.~\ref{fig:man-dmel-snp} shows the distribution of 804 variants
 passing FDR$\le 
 0.001$. We also performed GO
 enrichment using \texttt{Gowinda}~\cite{kofler2012gowinda} and found 16 
-enriched GO terms including XXXX, XXXX ~\ref{tab:gowinda}.
-
-Finally, we tested if variants showing signal of overdominance, we computed $D$ 
+enriched GO terms including XXXX, XXXX ~\ref{tab:gowinda}. Also, we tested 
+if variants showing signal of overdominance, we computed $D$ 
 statistic on simulated and experimental data, and computed $p$-values 
 accordingly. After correcting for multiple testing, 96 variants discovered with 
 FDR$\le 0.01$~\ref{fig:man-dmel-snp}. 
+
+\input{../tables/regions.tex}
+\input{../tables/gowinda.reg.tex}
+\begin{table}
+\input{../tables/genes.tex}
+\end{table}
+
 \subsection{Analysis of Outcrossing Yeast Populations}

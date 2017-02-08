@@ -1,4 +1,4 @@
-\ section{Introduction}
+\section{Introduction}
 Natural selection is a key force in evolution, and a mechanism by
 which populations can adapt to external `selection'
 constraints. Examples of adaptation abound in the natural 
@@ -24,16 +24,16 @@ or natural
 environment. Recent advances in whole genome sequencing have enabled
 us to sequence populations at a reasonable cost even for large
 genomes. Perhaps more important for experimental evolution studies, we
-can now evolve and re-sequence multiple replicates of a population to
+can now evolve and resequence (E\&R) multiple replicates of a population to
 obtain \emph{longitudinal time-series data}, in order to investigate
 the dynamics of evolution at molecular level.  Although constraints
 such as small sizes, limited timescales, and oversimplified
-laboratory environments may limit the interpretation of EE results,
+laboratory environments may limit the interpretation of E\&R results,
 these studies are increasingly being used to test a wide range of
 hypotheses~\cite{kawecki2012experimental} and have been shown to be
 more predictive than static data analysis
 \cite{boyko2008assessing,desai2008polymorphism,sawyer1992population}.
-In particular, longitudinal EE data is being used to estimate model
+In particular, longitudinal E\&R data is being used to estimate model
 parameters including population
 size~\cite{williamson1999using,wang2001pseudo,pollak1983new,waples1989generalized,
   Terhorst2015Multi, jonas2016estimating}, strength of
@@ -45,7 +45,7 @@ rate~\cite{Barrick2013Genome, Terhorst2015Multi}, quantitative trait
 loci~\cite{baldwin2014power} and for tests of neutrality
 hypotheses~\cite{feder2014Identifying,Terhorst2015Multi,burke2010genome,bergland2014genomic}.
 
-While objectives, designs and organisms of EE studies can be entirely
+While objectives, designs and organisms of E\&R studies can be entirely
 different~\cite{Barrick2013Genome,schlotterer2015combining}, here we
 restrict our attention to the adaptive evolution of multi-cellular
 sexual organisms.  For simplicity, we assume fixed population size,
@@ -137,9 +137,10 @@ selection data was done by Bollback \emph{et
 	to
 the continues Wright Fisher Markov process and estimated $s$
 numerically for large population sizes.
-Malaspinas \emph{et al.}~\cite{malaspinas2012estimating} extended Bollback 
+\AI{(this is the only additional reference I added.) Malaspinas \emph{et 
+al.}~\cite{malaspinas2012estimating} extended Bollback 
 et al.’s 
-method to estimate allele age in ancient-DNA (aDNA).
+method to estimate allele age in ancient-DNA (aDNA).}
 Steinr\"{u}cken and Song~\cite{steinrucken2014novel} proposed a general 
 diploid selection model which 
 takes into account of dominance of the favored allele and approximates 
@@ -162,7 +163,7 @@ parameters using Monte Carlo Markov chain sampling.
 
 While existing methods have been successfully applied to their corresponding 
 application, they make several key assumptions which does not hold in many 
-of EE studies.
+of E\&R studies.
 First, they assume that the underlying population size is large, if not infinity,
 (See Table 3 in \cite{malaspinas2016methods} for illustration). As a result,  
 they provide continues state models for dynamics of allele frequencies.
@@ -171,7 +172,7 @@ spans, i.e. aDNA studies. Also, they assume input data is allele
 frequency or at least is \emph{sampled} allele frequency, where ascertainment 
 bias is uniform along genome.
 
-This manuscript, explicitly posits a small-population-size assumption on 
+This manuscript, explicitly posits a ``small-population-size" assumption on 
 Williamson~\emph{et al.}~\cite{williamson1999using} and Bollback~\emph{et 
 al.}'s model~\cite{bollback2008estimation}, and as a consequence, the 
 resulting model become a discrete state (frequency) model. 

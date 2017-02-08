@@ -1,12 +1,11 @@
 \section{Materials and Methods}
 \label{sec:method}
-To identify the genes/variants that are responding to the selection pressure, we
-consider a statistical procedure which takes likelihood-based
-approach. 
-Our statistical procedure involves:
+To identify the genes and variants that are responding to the selection 
+pressure, we
+consider the following statistical procedure:
 \begin{enumerate}[(i)]
 	\item  {\bf Estimating population size.} The procedure starts by 
-	finding 
+	finding the
 	maximum likelihood estimate of population size, 
 	$\hN$, over the whole genome.
 	\item {\bf Estimating selection parameters.} Given $\hN$, 
@@ -23,21 +22,14 @@ Our statistical procedure involves:
 	likelihood ratio) 
 	statistics are computed on 
 	a set of whole-genome (single locus, respectively) drift simulations with 
-	population size of $\hN$, and 
-	configuration (e.g. sequencing coverage) as closely as possible to the EE 
-	in which real data generated. Given the null distribution of statistics, 
-	$p$-value of the observed likelihood ratios are calculated.
-	False Discovery Rate (FDR) correction is applied to the $p$-values 
-	to 
-	account for multiple testing. The overlapping genes with the 
+	population size of $\hN$, and variant starting frequency and coverage of 
+	the experimental data. Given the null distribution of statistics, 
+	$p$-values and corresponding False Discovery Rate (FDR) are calculated.
+	 The overlapping genes with the 
 	regions (or variants) that 
 	satisfy FDR criterion, 
 	will be reported for functional analysis or imported to the Gene Set 
 	Enrichment Analysis (GSEA).
-	\item {\bf Further analysis.} Estimated parameter could reveal 
-	extra 
-	information, e.g., overdominance or fixation time, regarding the ongoing 
-	selective sweep.
 \end{enumerate}
 In the subsequent of this section, we outline different steps of the 
 statistical procedure.
@@ -53,18 +45,18 @@ frequencies are computed from a finite sample, that is the
 ascertainment bias 
 is uniform over the genome. However, in the case of pool-seq data in 
 addition 
-to uniform ascertainment bias caused by finite samples for sequencing, 
+to uniform ascertainment bias, 
 each variant is sampled at different rate, due to finite sequencing 
 coverage. In addition, bulk of existing 
 models~\cite{bollback2008estimation,feder2014Identifying,topa2015gaussian,Terhorst2015Multi}
-are designed for large populations, and model frequency is modeled as a 
+are designed for large populations, and model frequency as a 
 continues quantity. However, we show that smooth approximations is 
 inadequate for small populations, low
 starting frequencies and sparse sampling (in time) that are typical in
 experimental evolution (see Results, \ref{fig:power}A-C, and 
-\ref{fig:markov}). To this end, we use using a discrete-time
-discrete-state-space Wright-Fisher Markov chain to model dynamic 
-pool-seq data. 
+\ref{fig:markov}). To this end, we model Wright-Fisher Markov process for 
+generating pool-seq data~(\ref{proc:arya}) via a \emph{discrete} 
+HMM,~\ref{fig:1}-B. 
 In order to find an estimate of population size, we first need to find 
 likelihood of the population size given neutral pool-seq data.
 
@@ -104,7 +96,7 @@ ${j}/{2N}$ in $\tau$ generations:
 \end{eqnarray}
 
 As at each generation $n$ out of $N$  individuals are randomly selected 
-for sequencing, The {sampled allele frequencies}, $\{y_{t}\}_{t\in\Tc}$, 
+for sequencing. The {sampled allele frequencies}, $\{y_{t}\}_{t\in\Tc}$, 
 are also Binomially distributed
 \beq
 2ny_{t} \sim \text{Binomial}(2n,\nu_t)
@@ -180,7 +172,7 @@ observed data from $R$ independent observations is given by
 \pr(\{\bm{x}^{(r)}\}|N,n) =	\Lc(N|\{\bm{x}^{(r)}\}, 
 n)=\prod_{r=1}^R\Lc(N|\bm{x}^{(r)},n)
 	 = 
-	\prod_{r=1}^R \sum_i\alpha_{T,i}^{(r)}\;\;.
+	\prod_{r=1}^R \sum_i\alpha_{T,i}^{(r)}
 	\label{eq:hmmlik}
 \end{equation}
 where $\bm{x}=\{x_t\}_{t\in \Tc}$. The graphical model and the generative 
@@ -215,10 +207,10 @@ $\tau_{t}+1$ (one generation ahead), can be estimated using:
 \eeq
 The machinery for computing likelihood of the selection parameters is 
 identical to that of population size, except for transition matrices. Hence, here 
-we only introduce the definition transition matrix $Q_{s,h}$ of the selection 
+we only describe the definition transition matrix $Q_{s,h}$ of the selection 
 model.
 Let $Q^{(\tau)}_{s,h}[i,j]$ denote the
-probability of transition from $\frac{i}{2N}$ to $\frac{j}{2N}$ in
+probability of transition from ${i}/{2N}$ to ${j}/{2N}$ in
 $\tau$ generations, then (See~\cite{Ewens2012Mathematical}, Pg.~24, 
 Eqn.~$1.58$-$1.59$):
 \begin{eqnarray}
@@ -243,120 +235,102 @@ The maximum likelihood estimates are given by
  \ref{fig:runTime}).
 \subsection{Empirical Likelihood Ratio Statistics}
 The  likelihood
-ratio statistic for each variant of pool-seq data is given by
+ratio statistic for testing directional selection, to be computed for each variant, 
+is given by
 \beq
 	H &= -2 \log 
 	\left(\frac{\Lc(\hs,0.5|\{\bm{x}^{(r)}\},\hN)}{\Lc(0,0.5|\{\bm{x}^{(r)}\},\hN)}\right)\\
 	\label{eq:ELRS}
 \eeq
 
-In general, the favored allele can be in linkage disequilibrium with
-some of its surrounding variation. The linked-loci hitchhike and share
-similar dynamics with the favored allele~\cite{elyashiv2016genomic}.  Some
-models such as
-multi-locus Gaussian process~\cite{Terhorst2015Multi} incorporate
-these associations by modeling linkage and recombination
-explicitly. However, these approaches are computationally
-expensive. Moreover, linkage computations are infeasible without
-haplotype resolved data, which pool-seq does not provide. Instead, we
-work with a simpler Composite Likelihood Ratio
-(CLR)~\cite{nielsen2005genomic,williamson2007localizing} computation
-to combine the individual scores of all variants into a composite
-score.
+Similarly we can define test statistic for testing if selection is over-dominant 
+ \beq
+ D &= -2 \log 
+ \left(\frac{\Lc(\hs,\hh|\{\bm{x}^{(r)}\},\hN)}{\Lc(\bar{s},0.5|\{\bm{x}^{(r)}\},\hN)}\right),
+ \text{ where}
+ &\bar{s} = \underset{s}{\arg \max} \prod_i^M 
+ \Lc(s,0.5|\{\bm{x}_i^{(r)},\hN\}.
+ \eeq
 
-
-Consider a genomic region $L$ to be a collection of segregating sites
-with little or no recombination between sites and the favored
-allele. This scenario holds when the starting frequency of the favored
-allele is not high and the region is small. Let  $H_\ell$ denote the likelihood 
-ratio score based for each site $\ell$ in $L$. The \comale\ is computed by 
-averaging scores of all the variants
-withing the testing region
+While extending the single-locus WF model to a multiple linked-loci can 
+improve the power of the model~\cite{Terhorst2015Multi}, it is 
+computationally and statistically expensive to compute exact likelihood.
+haplotype resolved data, which pool-seq does not provide. Instead, similar to 
+Nielse~\emph{et al}~\cite{nielsen2005genomic}, we calculate  Composite 
+Likelihood Ratio score for a genomic region.
 \begin{equation}
- \Hc = \frac{1}{|L|}\sum_{\ell \in L} H_\ell.
+\Hc = \frac{1}{|L|}\sum_{\ell \in L} H_\ell.
 \label{eq:pihmm}
 \end{equation}
+where $L$ to be a collection of segregating sites
+and  $H_\ell$  is the likelihood ratio score based for each variant $\ell$ in $L$.
+The optimal value of the hyper-parameter $L$ depends upon a number of factors, 
+including, initial frequency of the favored allele, recombination rates, initial 
+linkage of the favored allele to its surrounding variation, population size, 
+coverage, and time since the 
+onset of selection (duration of the experiment). 
+However, we provide a heuristic choose size of $L$ for an experiment.
+
+In general, as selection acts locally in the genome, size of $L$ have a direct 
+effect on the 
+power. For instance, when $L$ is chosen to be a large region (e.g. 
+chromosome), power will be degraded since distribution of null and 
+alternative $\Hc$ statistics converge together. 
+Hence, we choose $L$ to be the largest, such that it provides enough 
+discoveries that satisfies experiment's FDR.
 
 
 \subsection{Hypothesis Testing}
-Both statistics $H$ and $\Hc$ can be used for hypothesis testing. However, 
-$p$-value computation on $\Hc$ require additional data including, initial 
-phased haplotypes and local recombination rates. 
-
-To compute $p$-value for an $H$ statistic, one can use Wilks’ 
-theorem~\cite{williams2001weighing}, that is the likelihood
-ratio statistic (Eq.~\ref{eq:ELRS}) is asymptotically distributed
-according to $\Xc^2_k$, where $k$ is the difference between dimensions of 
-parameters of alternative and null model. Feder \emph{et
-	al.}~\cite{feder2014Identifying} showed that the empirical
-distribution of statistic on simulations with $\hN$ provide more accurate 
-$p$-values than $\Xc^2$ when the
-number of independent samples (replicates) is small. Here, to compute null 
-distribution of $H$, we conduct single locus drift simulations starting from 
-initial frequencies of the experimental data. After, time series frequencies are 
-sampled, read counts of the derived allele given coverage and allele frequency 
-will be sampled, see~\ref{proc:arya} for step-by-step procedure. Finally, test 
-statistic is computed for simulated drifting pool-seq data and $p$-value of an 
+\paragraph{Single-Locus.}
+Under neutrality, Wilks’s theorem~\cite{williams2001weighing} states that 
+$H\sim\Xc^2_1$, asymptotically, and $p$-values can be computed directly.
+However, Feder \emph{et
+	al.}~\cite{feder2014Identifying} showed that when the
+number of independent samples (replicates) is small, $\Xc^2$ is a crude 
+approximation to the true null distribution and underestimates FDR. They 
+suggested to compute $p$-values based on the empirical
+distribution of statistic on simulations with $\hN$ . Here, take the same 
+approach and conduct single 
+locus drift simulations starting from 
+initial frequencies of the experimental data. Then we sample read counts of the 
+derived allele given coverage and allele frequency, see~\ref{proc:arya} for 
+step-by-step procedure. 
+Test 
+statistic is then computed for simulated drifting pool-seq data and $p$-value 
+of an 
 experimental samples is computed as fraction of null statistics that have a 
 higher or equal value than testing statistic.
+Finally, we use Storey and 
+Tibshirani's method~\cite{storey2003statistical}, to control for False 
+Discovery 
+Rate in multiple testing.
 
-To compute null distribution of $\Hc$, whole genome drift simulations of the 
-initial haplotypes given local recombination rate should be performed and read 
-counts will be sampled accordingly.
-To control for False Discovery Rate in multiple testing, we use Storey and 
-Tibshirani's method\cite{storey2003statistical} 
 
-\paragraph{Site-identification.} 
-Once a genomic region is classified to be under selection by $\Hc$ 
-statistic,
-individual variant scores ( $H$) in a region are ranked to predict the
-favored site. In general, identifying the favored site in pool-seq
-data is difficult~\cite{tobler2014massive}, due to extensive span of
-hitchhikers in an ongoing sweep (see \ref{app:ld} for 
-more
-detail). In our analysis of the \dmel EE data, we identify a set of
-``candidate'' variants whose scores exceed a False Discovery Rate
-threshold based on the distribution of \comale\ scores on negative
-controls.
-
-\paragraph{Overdominance.}
-\label{sec:regression}
- The value of the overdominance 
- parameter can
-reveal if the favored allele
-is over-dominant, repressive or dominant~\cite{gillespie2010population}. The 
-test statistic for 
- such hypothesis test is
+\paragraph{Regions.}
+To compute null distribution of $\Hc$ one should compute $\Hc$ on a set of 
+neutral genome-wide neutral simulations. Also, as selection is expected to have 
+local effect on the genome, we normalize $\Hc$ with respect to each chromosome 
+both in simulated and experimental data in computing $p$-values:
 \beq
-D &= -2 \log 
-\left(\frac{\Lc(\hs,\hh|\{\bm{x}^{(r)}\},\hN)}{\Lc(\bar{s},0.5|\{\bm{x}^{(r)}\},\hN)}\right),
-\text{ where}
-&\bar{s} = \underset{s}{\arg \max} \prod_i^M 
-\Lc(s,0.5|\{\bm{x}_i^{(r)},\hN\}.
+\Hc_i^*=\frac{\Hc_i-\mu_\Cc}{\sigma_\Cc}, \hspace{0.5in} \forall i \in 
+  \Cc
 \eeq
+where $\mu_\Cc$ and $\sigma_\Cc$ are the chromosome-wise mean and standard 
+deviation. $p$-values and FDR can be computed in the same regime as single 
+locus. 
+After discovering intervals that satisfy FDR requirement, we further select 
+those variants within selected intervals that their individual score $H$ is 
+significantly large and find the intersected genes accordingly.
+
 \ignore{
-\begin{table}
-	\centering
-	\caption{\bf Overdominance parameter values and their implications.}
-	\begin{tabular}{l|c}
-		Value & Condition\\
-		\hline
-		$h=0$ & recessive adaptive allele\\
-		$h=0.5$ & directional selection\\
-		$h=1$&	dominant adaptive allele	\\
-		$h>1$ &overdominance
-	\end{tabular}\label{tab:h}
-\end{table}}
-
-
 \paragraph{Precomputing Transition Matrices.}
 \comale\ requires a one-time computation of matrices
 $Q^{(\tau)}_{s,h}$ for the entire range of $s,h$
-values. Precomputation of $909$ transition matrices for
-$s\in\{-0.5,-0.49,\ldots,0.5 \}$ and $h\in \{0,0.25,\ldots,2\}$ took
-less that 15 minutes ($\approx$ 1 second per matrix) on a desktop
-computer with a Core i7 CPU and 16GB of RAM.
-
+values. Precomputation of $121$ transition matrices for
+$s\in\{-0.5,-0.45\ldots,0.5 \}$ and $h\in \{0,0.5,\ldots,5\}$ took
+less than 3 minutes ($\approx$ 1 second per matrix) on a desktop
+computer with a Intel Core i7 CPU and 16GB of RAM.
+}
 \ignore{
 \subsection{Extending Site Frequency Spectrum  based tests for  time series 
 data}\label{sec:extending-sfs}

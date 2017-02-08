@@ -15,47 +15,29 @@
 
 \end{tabular}
 \hspace{-1in}
-\caption{sadffdsa}
+\caption{{\bf Evolve and Resequence Selection Experiments on \dmel.} (A) 
+Typical 
+configuration in which dynamic data is collected for \dmel.
+(B) Graphical model showing dependence of the random variables in the 
+single-locus model used to compute \comale\ statistics. Only shaded 
+variables are observed.
+(C) 			Mean and the 95\% confidence interval of the theoretical (a,b) and 
+empirical (b,d)			trajectories of the favored allele for hard (a,b) and soft 
+(c,d) 
+sweep scenarios and $N=1000$.
+			The first $50$
+		generations are shaded in gray to represent the
+		sampling span of sampling in short-term experiments, implying the 
+		difficulty in predicting selection
+		at early stages of selective sweep.  }
 \label{fig:1}
 \end{figure}
 
-%\begin{figure}[H]
-%	\centering
-%	\includegraphics[trim=0in 0.in 0in 
-%	0.0in,clip,width=0.8\textwidth]{HMMGM.pdf}
-
-%	\caption{{\bf Graphical model and generative process of the hidden Markov 
-%	model for single-locus pool-seq experimental evolution.}\\ . }
-% 	\label{fig:GM}
-%\end{figure} 
 
 %\begin{figure}[H]
 %	\includegraphics[trim=0in 0.in 0in 
 %	0.1in,clip,width=\textwidth]{AF.pdf}
-%	\caption{{\bf Theoretical and empirical
-%			trajectories of favored allele for hard and soft sweep
-%			scenarios.}\\  Single-loci diallelic Wright-Fisher Markov chain 
-%			model (A,C) and empirical (B,D) trajectories 
-%		of 
-%		the
-%		frequency of the favored allele are computed for $1000$ 
-%		simulations of populations with 
-%		$1000$ diploid individuals. Each curve shows the mean and the 95\% 
-%		confidence
-%		interval. Panels A and C depict theoretical calculations of the favored 
-%		allele frequency under
-%		hard ($\nu_0$ is small), and soft sweep due to standing
-%		variation (higher $\nu_0$), for a range of values of
-%		$s$. $s=0$ corresponds to neutral
-%		evolution. Similarly, panels B and D show the empirical
-%		forward simulations of populations under the same selection
-%		regimes, and hard/soft-sweep scenarios. The first $50$
-%		generations are shaded in gray to represent the typical
-%		sampling span of EE experiments. The plot illustrates the
-%		difficulty of EE experiments in having to predict selection
-%		at a very early stage of the sweep. The signal is slightly
-%		stronger under standing variation scenario. The theoretical
-%		and empirical simulations are in close correspondence. }
+%	\caption{{
 %	\label{fig:sweep}
 %\end{figure}
 
@@ -157,9 +139,9 @@
 	\centering
 	\includegraphics[width=0.75\textwidth]{{runTime.pdf}}
 	\caption{{\bf Running time.}\\ Box plots of running time per
-          variant (CPU-secs.) of \comale ($\Mc$, $\Hc$), CMH, FIT, and
+          variant (CPU-secs.) of \comale ($\Hc$), CMH, FIT, and
           GP with single, 3, 5, 7, and 10 loci over 1000 simulations
-          conducted on a workstation with 4th Generation Intel Core i7
+          conducted on a workstation with Intel Core i7
           processor. The average running time for each method is shown
           on the x-axis.
           In all simulations, 3 replicates are evolved and sampled at generations 
@@ -247,6 +229,13 @@
 
 \begin{figure}[H]
 	\centering
+	\includegraphics[width=\textwidth]{man-dmel-region.pdf}
+	\caption{{\bf Estimating N on simulated and real data.}}
+	\label{fig:man-dmel-region}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
 	\begin{tabular}{cc}
 		\includegraphics[trim=0.4in 0.in 0.6in 
 		0.0in,clip,width=0.6\textwidth]{man-yeast-snp.pdf}&	
@@ -264,10 +253,12 @@
 
 \begin{figure}[H]
 	\centering
-		\includegraphics[width=0.8\textwidth]{estimateN.pdf}
+		\includegraphics[width=\textwidth]{estimateN.pdf}
 	\caption{{\bf Estimating N on simulated and real data.}}
 	\label{fig:estimateN}
 \end{figure}
+
+
 
 \clearpage
 \newpage
