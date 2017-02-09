@@ -22,7 +22,7 @@
  	}
  	\caption{The Generative Process for Dynamic Pool-seq Data.} 
  \end{algorithm}
- \caption{aa}
+ \caption{{\bf The Generative Process for Dynamic Pool-seq Data.}}
   	\label{proc:arya}
 \end{figure}	
 \begin{figure}[H]
@@ -254,7 +254,13 @@ soft
 	\centering
 	\includegraphics[trim=.0in 0in .2in 0in, 	
 	clip,width=0.9\textwidth]{{null-alt-dmel}.pdf}
-	\caption{{\bf .}.}
+	\caption{{\bf Distribution of $p$-values.}
+		Distribution of $p$-values of \comale\ in null simulations and 
+		experimental data when $N=250$. Panel (A),(C) shows the effect of under 
+		estimations ($\hN=100$) and over-estimation ($\hN=500$) of population 
+		size in computing $p$-values, and panel (B) shows the distribution of 
+		$p-$values when unbiased estimate is used to create simulations.
+		.}
 	\label{fig:null-alt}
 \end{figure}
 
@@ -265,14 +271,23 @@ soft
 	\includegraphics[width=0.5\textwidth]{{SFS.Y.G360}.pdf}&
 	\includegraphics[width=0.5\textwidth]{{SFS.Y.G540}.pdf}
 \end{tabular}
-\caption{{\bf Site frequency spectrum of the Yeast dataset.}}
+\caption{{\bf Site frequency spectrum of the Yeast dataset.}
+	Whole-genome site frequency spectrum of the Yeast dataset at generations 0 
+	(A), 180 (B), 
+	360 (C) and 540 (D). Some replicates, e.g. replicate 2, undergoing severe 
+	demographic events.
+	}
 \label{fig:yeast-sfs}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-		\includegraphics[width=0.5\textwidth]{{PCA}.pdf}
-	\caption{{\bf Yeast SFS.}}
+		\includegraphics[width=0.7\textwidth]{{PCA}.pdf}
+	\caption{{\bf Population similarity.}
+		Principle component analysis of the 12 replicates throughout the 
+		experiment, showing that some populations exhibiting distinct frequency 
+		spectra.
+		}
 	\label{fig:yeast-pca}
 \end{figure}
 

@@ -240,13 +240,19 @@ genome,~\ref{fig:estimateN}.
 The likelihood curves of \comale\ is sharper around the optimum compared to 
 Bollback et. al~\cite{bollback2008estimation} (see Supplementary Fig. 1 
 in~\cite{orozco2012adaptation}).
-While chromosomes 3L and 3R 
-appear to have smaller population size~\ref{fig:estimateN}-D, which can taken 
-into account of 
-chromosome-wise significance cutoffs, we took the genome-wide population size 
-of $\widehat{N}=$250 to calculate $p$-values and FDR.
+Also, chromosomes 3L and 3R 
+appear to have smaller population size~\ref{fig:estimateN}-D, $\hN=200,150$, 
+respectively.
 Next, we found maximum likelihood estimates of $s$, and computed the test 
-statistic $H$ for each variant, given $N=250, h=0.5$. To compute $p$-values of 
+statistic $\Hc*$ with $N=250$  on sliding windows of size of 500 SNPs 
+and step size of 100  variants over the genome.
+We computed null distribution of $\Hc^*$ by creating 100 chromosome simulations 
+using experimental data parameters and length of 20Mbp. After correcting for 
+multiple testing, only 16 intervals~\ref{fig:man-dmel-region} satisfy 
+FDR$\le0.05$, which form 5 contiguous interval~\ref{tab:intervals} covering 
+3740 polymorphic sites. We then selected the 216 significant variants with FDR 
+$\le0.05$ within selected regions using single locus hypothesis testing.
+To compute $p$-values of 
 $H$ statistics, we calculated 
 single locus Wright-Fisher simulations for $\widehat{N}=$250, initial 
 frequencies and variant depths of real data (see \ref{proc:arya}). We repeated 
@@ -255,34 +261,26 @@ trajectories
 with starting frequencies and coverage of real data. Then, $p$-value of each 
 variant in the real 
 data is calculated as the fraction of null statistics that are grater than or 
-equal of test statistic(see~\ref{fig:null-alt}). Finally, to correct for 
-multiple 
-testing, we used 
-Storey \& Tibshirani~\cite{storey2003statistical} method to compute 
-FDR.~\ref{fig:man-dmel-snp} shows the distribution of 804 variants 
-passing FDR$\le 
-0.001$. We also performed GO
-enrichment using \texttt{Gowinda}~\cite{kofler2012gowinda} and found 16 
-enriched GO terms including XXXX, XXXX . Also, we tested 
+equal of test statistic(see~\ref{fig:null-alt}).
+The selected 216 variants fall within 33 
+genes~\ref{tab:genes}. 
+We also performed GO
+enrichment using \texttt{Gowinda}~\cite{kofler2012gowinda} and found 4
+enriched GO terms including XXXX, XXXX ~\ref{tab:go-reg}.
+
+Finally, we tested 
 if variants showing signal of overdominance, we computed $D$ 
 statistic on simulated and experimental data, and computed $p$-values 
-accordingly. After correcting for multiple testing, 96 variants discovered with 
-FDR$\le 0.01$~\ref{fig:man-dmel-snp}. However, it has been shown 
+accordingly. 
+After correcting for multiple testing, 96 variants discovered with 
+FDR$\le 0.01$~\ref{fig:man-dmel-snp}. 
+
+\ignore{However, it has been shown 
 that~\cite{tobler2014massive,franssen2015patterns}  large number of candidate 
 loci is due to low frequency haplotype blocks as 
 well as large inversions and most of candidate loci are rather hitchhikers to 
-the favored allele.
+the favored allele.}
 
-We also applied composite statistic to the \dmel data by computing $\Hc^*$ with 
-sliding windows of size of 500 SNPs and step size of 100  variants over the 
-genome.
-We computed null distribution of $\Hc^*$ by creating 100 chromosome simulations 
-using experimental data parameters and length of 20Mbp. After correcting for 
-multiple testing, only 16 intervals~\ref{fig:man-dmel-region} satisfy 
-FDR$\le0.05$, which form 5 contiguous interval~\ref{tab:intervals} covering 
-3740 polymorphic sites. We then selected the 216 significant variants with FDR 
-$\le0.05$ within selected regions. These variants fall within 33 
-genes~\ref{tab:genes} and enrich 4 GO terms~\ref{tab:go-reg}. 
 
 
 Here is 
@@ -296,13 +294,6 @@ Here is
 	\label{tab:intervals}
 \end{table}
 
-
-
-\begin{table}
-	\input{../tables/gowinda.reg.tex}
-	\caption{aa}
-		\label{tab:go-reg}
-\end{table}
 }
 
 \subsection{Analysis of Outcrossing Yeast Populations}

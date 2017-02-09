@@ -1,32 +1,35 @@
 \section{Discussion}
-We developed a computational tool, \comale, that can detect regions
-under selection experimental evolution experiments of sexual
+We developed a computational tool, \comale, that can detect regions and variants
+under selection E\&R experiments of sexual
 populations. Using extensive simulations, we show that \comale\
 outperforms existing methods in detecting selection, locating the
-favored allele, and estimating selection parameters. Importantly, we
-make design choices that make \comale\ very fast in practice,
-facilitating genome-wide studies.
+favored allele, and estimating selection parameters. 
+Also, while being computationally efficient, \comale\ provide means for 
+estimating populations size and hypothesis testing.
+
+Many factors such as small population size, finite coverage, linkage 
+disequilibrium, finite sampling for sequencing, duration of the experiment and 
+the small number of replicates can limit the power of tools for analyzing E\&R. 
+Here, by an discrete modeling, \comale\ estimates population size, and provides 
+unbiased estimates of $s,h$. 
+ It adjusts for uniform and heterogeneous
+ascertainment bias of pooled-seq data, and exploits presence of high linkage 
+within a region to compute composite likelihood ratio statistic. 
 
 
-Many factors play a role in adaptation during experimental evolution
-studies. The statistics used by \comale\ perform well because they
-account for many of these aspects. \comale\ is not restricted to
-two-time points, but uses the complete time-series data. Because it
-uses an exact model, \comale\ achieves robust predictions for all
-values of the initial frequency. It adjusts for heterogeneous
-ascertainment bias in finite-depth pooled-seq data to avoid hard
-filtering variants. It exploits presence of high linkage within a
-region to compute composite likelihood ratio statistic. Finally,
-\comale\ uses $s,h$ as model parameters in its likelihood calculation,
-and provides optimized estimates of these parameters, which can
-provide extra information such as fixation time, and dominance 
-(\ref{fig:dir-bal}).
+It should be noted that, even though we outlined \comale\ for small populations 
+for small and fixed $N$, it can be adjusted for such scenarios. For instance, 
+for a \emph{known} changing population sizes, transition probabilities can be 
+readily computed. For large populations, transitions can be computed for a 
+fixed size of frequencies.
 
+\ignore{
 In our simulations, we found that the power of detection can be
 severely affected by the sampling schedule as well as initial
 frequency of the favored allele.  In general, while E\&R studies are
-powerful, they also pose some challenges that are not adequately
-considered by other tools. One serious constraint is the sampling time
+powerful, they also pose some challenges that
+ are not adequately considered by other tools. 
+One serious constraint is the sampling time
 span, the gap between the first and last sampled generations, which
 depends upon the generation time of the organism. It can be very small
 relative to the time of fixation of the favored allele. In \dmel for
@@ -36,31 +39,12 @@ exceptions~\cite{zhou2011experimental}.  Therefore, unless the
 selection coefficient is very strong, the time series data will only
 capture a `partial sweep'. This limitation is more pronounced in
 controlled experimental evolution, where the sampling often starts at
-the onset of selection. In particular, in a hard sweep scenario, the
-initial frequency of the favored allele is low, and may not reach
-detectable frequency in sequencing, given the sampling time
-span. Through exact (discrete-time, discrete-frequency) modeling,
-\comale\ performs better than competing tools even when initial
-frequency is low and sampling time span is limited.
+the onset of selection. In particular, in small populations it is difficult to 
+differentiate between drift and natural selection is an incomplete sweep. }
 
 
-However, even if it were possible to sample over a larger time-span,
-many methods, especially the ones that compute full likelihoods, would
-simply not scale to allow computation of evolutionary trajectories
-over a large time-span. In contrast, \comale\ precomputes the
-transition matrices, and scales linearly with number of samples,
-irrespective of the time-span in which they were acquired.
 
-Sequence coverage is a practical consideration that is often ignored
-by other tools. Low sequencing coverage can lead to incorrect
-frequency estimates, even for the favored allele, especially when the
-initial frequency is low. \comale\ uses HMMs to explicitly model
-variation in sequence coverage. Moreover, it computes the composite
-likelihood from multiple linked sites, reducing the impact of coverage
-on any one site, and detects selection even when the favored site is
-not sampled due to low sequencing depth.
-
-
+\ignore{
 In controlled experimental evolution experiments, populations are
 evolved and inbred. As this scenario involves picking a small number
 of founders, the effective population size significantly drops from
@@ -76,23 +60,16 @@ However, SFS-based methods perform very well when sampling is started
 long after the onset of selection (e.g., sampling from natural
 populations). The larger time gap from the onset of selection provides
 an opportunity for the site frequency spectrum to shift away from
-neutrality.
+neutrality.}
 
 
 
-The comparison of hard and soft sweep scenarios lead to interesting
-observations. First, when LD is high in the selected region, as is
-often the case in a hard sweep, composition of scores significantly
-improves power of detection. When LD is low, as in soft sweep
-scenarios, composition of scores does not work as well. However, the
-favored allele is well established at the onset of selection, and will
-grow faster compared to the hard sweep scenario under identical
-selection regimes. This makes it possible to detect selection even in
-soft sweep scenarios. The situation is a little different with respect
-to localizing the favored allele. In soft sweep scenarios, the favored
-allele is not in high LD with nearby variants, and its frequency
-change is independent of them. Therefore, we obtain better
-localization results in soft sweep scenarios.
+The comparison of hard and soft sweep scenarios showed that initial frequency 
+of the favored allele can have an nontrivial effect on the statistical power 
+for identifying selection. Interestingly, while in stronger selections it is 
+easier to detect regions of selection, it is difficult to locate favored allele 
+in those regions.
+
 
 There are many directions to improve the analyses presented here.  In
 particular, we plan to focus our attention on other organisms with
@@ -101,32 +78,5 @@ sampling-time-spans. As evolve and resequencing experiments continue
 to grow, deeper insights into adaptation will go hand in hand with
 improved computational analysis.
 
-\ignore{
-
- Therefore, it is easier to detect selection in soft
-sweep. Second, favored allele is in lower LD with its surrounding
-variation in soft sweep than hard sweep. In the most extreme case
-where favored allele is not in LD with any variant in the region,
-frequency of the favored allele changes independently of other
-variants. Therefore, composition of scores does not improve power of
-detection. We found that for higher initial frequency taking the
-maximum of the scores of SNPs provides better performance, while in
-hard sweep where LD with favored allele is higher, composition of
-scores significantly improve power of detecting a region as of being
-under selection or not. Interestingly, in soft sweep case where LD to
-beneficial allele is lower, significantly better results achieved for
-localizing favored allele than hard sweeps.
- 
-Finally, we note a possible future direction to adopt \comale\ can
-used to identify adaptation in other sexual and \emph{asexual}
-populations.  Given preceding observations, \comale\ can potentially
-provide even better performance of detecting selection in asexual
-populations, since the performance of \comale\ is being boosted as
-linkage become higher and the favored allele is in higher LD with its
-surrounding variation than sexual population due to lack of
-recombination.  In site-localization and estimating parameters,
-\comale\ expected to provide similar performance as it was applied to
-sexual population.
-}
 
 
