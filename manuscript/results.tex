@@ -224,7 +224,7 @@ generations under alternating 12-hour cycles of hot (28$^{\circ}$C)
 and cold (18$^{\circ}$C) temperatures and sequenced.  In this dataset,
 sequencing coverage is different across replicates and generations
 (see S2 Fig of~\cite{Terhorst2015Multi}) which makes variant depths
-highly heterogeneous (\ref{fig:depth} and \ref{fig:depthHetero}). 
+highly heterogeneous (\ref{fig:depthHetero}). 
 
 We first filtered out heterochromatic,
 centromeric and telomeric
@@ -263,7 +263,7 @@ FDR.~\ref{fig:man-dmel-snp} shows the distribution of 804 variants
 passing FDR$\le 
 0.001$. We also performed GO
 enrichment using \texttt{Gowinda}~\cite{kofler2012gowinda} and found 16 
-enriched GO terms including XXXX, XXXX ~\ref{tab:gowinda}. Also, we tested 
+enriched GO terms including XXXX, XXXX . Also, we tested 
 if variants showing signal of overdominance, we computed $D$ 
 statistic on simulated and experimental data, and computed $p$-values 
 accordingly. After correcting for multiple testing, 96 variants discovered with 
@@ -288,7 +288,7 @@ genes~\ref{tab:genes} and enrich 4 GO terms~\ref{tab:go-reg}.
 Here is 
 \href{https://genome.ucsc.edu/cgi-bin/hgTracks?hgS_doOtherUser=submit&hgS_otherUserName=airanmehr&hgS_otherUserSessionName=Dmel\%20EE\%20HotCold}{UCSC
  track} for this data.
-
+\ignore{
 \begin{table}
 	\input{../tables/regions.tex}
 	\caption{Coordinates of the selected intervals found by \comale\ $\Hc^*$ 
@@ -297,18 +297,13 @@ Here is
 \end{table}
 
 
-\begin{table}
-\input{../tables/genes.tex}
-\caption{aa}
-	\label{tab:genes}
-\end{table}
 
 \begin{table}
 	\input{../tables/gowinda.reg.tex}
 	\caption{aa}
 		\label{tab:go-reg}
 \end{table}
-
+}
 
 \subsection{Analysis of Outcrossing Yeast Populations}
 We also applied \comale\ to outcrossing Yeast 

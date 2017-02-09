@@ -14,6 +14,7 @@ other antibiotic resistance~\cite{spellberg2008epidemic}. In these
 examples, understanding the genetic basis of adaptation can provide
 actionable information, underscoring the importance of the problem.
 
+
 Experimental evolution refers to the study of the evolutionary
 processes of a model organism in a controlled
 \cite{hegreness2006equivalence,lang2013pervasive,orozco2012adaptation,
@@ -45,6 +46,7 @@ rate~\cite{Barrick2013Genome, Terhorst2015Multi}, quantitative trait
 loci~\cite{baldwin2014power} and for tests of neutrality
 hypotheses~\cite{feder2014Identifying,Terhorst2015Multi,burke2010genome,bergland2014genomic}.
 
+
 While objectives, designs and organisms of E\&R studies can be entirely
 different~\cite{Barrick2013Genome,schlotterer2015combining}, here we
 restrict our attention to the adaptive evolution of multi-cellular
@@ -72,7 +74,7 @@ nucleotide level. Finally, \emph{estimation of model parameters}, such
 as strength of selection and overdominance at the site, can provide a
 comprehensive description of the selection process.
 
-A wide range of computational methods~\cite{vitti2013detecting} have
+\ignore{A wide range of computational methods~\cite{vitti2013detecting} have
 been developed to detect regions under positive selection. A majority
 of the existing methods focus on static data analysis; analysis of a
 single sample of the population at a specific time, either during the
@@ -100,11 +102,11 @@ tests continue to be used successfully, often in combination with
 other tests~\cite{akey2009constructing,vitti2013detecting}. One of the
 contributions of this paper is the extension of SFS based methods to
 analyze time-series data, and the identification of selection regimes
-where these methods perform well.
+where these methods perform well.}
 
-Relative to the analysis of static samples, fewer tests-of-selection
-for dynamic time-series data have been proposed. Often, existing tests
-for static data are adopted for dynamic data with two time-points. Zhu
+In an effort for analyzing E\&R selection experiments many authors chose to
+adopt existing tests that originally used for static data, for scanning dynamic 
+data with two time-points. For instance, Zhu
 \emph{et al.}~\cite{zhou2011experimental} used the ratio of the estimated
 population size of case and control populations to compute test
 statistic for each genomic region. Burke \emph{et
@@ -137,10 +139,10 @@ selection data was done by Bollback \emph{et
 	to
 the continues Wright Fisher Markov process and estimated $s$
 numerically for large population sizes.
-\AI{(this is the only additional reference I added.) Malaspinas \emph{et 
+Malaspinas \emph{et 
 al.}~\cite{malaspinas2012estimating} extended Bollback 
 et al.’s 
-method to estimate allele age in ancient-DNA (aDNA).}
+method to estimate allele age in ancient-DNA (aDNA).
 Steinr\"{u}cken and Song~\cite{steinrucken2014novel} proposed a general 
 diploid selection model which 
 takes into account of dominance of the favored allele and approximates 

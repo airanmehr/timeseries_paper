@@ -211,7 +211,23 @@ sweep scenarios and $N=1000$.
   $\Tc=\{0,10,20,30,40,50\}$.}
 	\label{fig:bias100}
 \end{figure}
-
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{estimateN.pdf}
+	\caption{{\bf Estimating N on simulated and real data.}
+		Average and 95\% confidence interval if likelihood of simulated data 
+		with $N=200$ (A), $N=600$(B), and $N=1000$ individuals, over 100 
+		simulations, shows that estimator is unbiased.
+		Chromosome-wise (D) and genome-wide (E) estimation of population size 
+		for \datadm. Chromosome 3R fits population size of 150, while 
+		genome-wide population size is 250. 
+		(F) Despite large census population size 
+		($10^6-10^7$~\cite{burke2014standing}), Yeast dataset exhibits much 
+		smaller ($\hN=2000$) populations size.
+	}
+	\label{fig:estimateN}
+\end{figure}
+\ignore{
 \begin{figure}[H]
 	\centering
 	\begin{tabular}{cc}
@@ -227,7 +243,7 @@ sweep scenarios and $N=1000$.
 		in red, and their trajectories are depicted in panels (B) and (D).}
 	\label{fig:man-dmel-snp}
 \end{figure}
-
+}
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{man-dmel-region.pdf}
@@ -258,22 +274,7 @@ sweep scenarios and $N=1000$.
 	\label{fig:man-yeast-snp}
 \end{figure}
 
-\begin{figure}[H]
-	\centering
-		\includegraphics[width=\textwidth]{estimateN.pdf}
-	\caption{{\bf Estimating N on simulated and real data.}
-		Average and 95\% confidence interval if likelihood of simulated data 
-		with $N=200$ (A), $N=600$(B), and $N=1000$ individuals, over 100 
-		simulations, shows that estimator is unbiased.
-		Chromosome-wise (D) and genome-wide (E) estimation of population size 
-		for \datadm. Chromosome 3R fits population size of 150, while 
-		genome-wide population size is 250. 
-		(F) Despite large census population size 
-		($10^6-10^7$~\cite{burke2014standing}), Yeast dataset exhibits much 
-		smaller ($\hN=2000$) populations size.
-		}
-	\label{fig:estimateN}
-\end{figure}
+
 
 
 
