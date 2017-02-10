@@ -249,9 +249,9 @@ and step size of 100  variants over the genome.
 We computed null distribution of $\Hc^*$ by creating 100 chromosome simulations 
 using experimental data parameters and length of 20Mbp. After correcting for 
 multiple testing, only 16 intervals~\ref{fig:man-dmel-region} satisfy 
-FDR$\le0.05$, which form 5 contiguous interval~\ref{tab:intervals} covering 
-3740 polymorphic sites. We then selected the 216 significant variants with FDR 
-$\le0.05$ within selected regions using single locus hypothesis testing.
+FDR$\le0.05$, which form 5 contiguous interval covering 
+2,829 polymorphic sites. We then selected the 174 significant variants with FDR 
+$\le0.01$\% within selected regions using single locus hypothesis testing.
 To compute $p$-values of 
 $H$ statistics, we calculated 
 single locus Wright-Fisher simulations for $\widehat{N}=$250, initial 
@@ -262,11 +262,12 @@ with starting frequencies and coverage of real data. Then, $p$-value of each
 variant in the real 
 data is calculated as the fraction of null statistics that are grater than or 
 equal of test statistic(see~\ref{fig:null-alt}).
-The selected 216 variants fall within 33 
+The selected 174 variants fall within 32 
 genes~\ref{tab:genes}. 
+\ignore{
 We also performed GO
-enrichment using \texttt{Gowinda}~\cite{kofler2012gowinda} and found 4
-enriched GO terms including XXXX, XXXX ~\ref{tab:go-reg}.
+enrichment and found 
+enriched GO terms including XXXX, XXXX ~\ref{tab:go-reg}.}
 
 Finally, we tested 
 if variants showing signal of overdominance, we computed $D$ 
@@ -286,15 +287,7 @@ the favored allele.}
 Here is 
 \href{https://genome.ucsc.edu/cgi-bin/hgTracks?hgS_doOtherUser=submit&hgS_otherUserName=airanmehr&hgS_otherUserSessionName=Dmel\%20EE\%20HotCold}{UCSC
  track} for this data.
-\ignore{
-\begin{table}
-	\input{../tables/regions.tex}
-	\caption{Coordinates of the selected intervals found by \comale\ $\Hc^*$ 
-	statistic.}
-	\label{tab:intervals}
-\end{table}
 
-}
 
 \subsection{Analysis of Outcrossing Yeast Populations}
 We also applied \comale\ to outcrossing Yeast 
