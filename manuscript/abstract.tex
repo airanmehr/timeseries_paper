@@ -1,34 +1,28 @@
 \begin{abstract}
-The advent of next generation
-sequencing technologies has made whole-genome and whole-population
-sampling possible, even for eukaryotic organisms. With this development, 
-  experimental evolution studies can be designed to observe
-  molecular evolution ``in-action'' by Evolving-and-Resequencing (E\&R) 
-  populations.Among other applications, E\&R studies can be used to locate the 
-  genes and variants responsible for
-  genetic adaptation. To analyze E\&R datasets, majority of the existing 
-  literature on time-series   data 
-  analysis, is mainly devoted to the settings with large population sizes, allele 
-  frequency as input data and wide time spans, these assumptions does not 
-  hold in many E\&R studies.
+  The advent of next generation sequencing technologies has made
+  whole-genome and whole-population sampling possible, even for
+  eukaryotes with large genomes. With this development, experimental
+  evolution studies can be designed to observe molecular evolution
+  ``in-action'' via Evolve-and-Resequence (E\&R) experiments. Among
+  other applications, E\&R studies can be used to locate the genes and
+  variants responsible for genetic adaptation. Existing literature on
+  time-series data analysis often assumes large population size,
+  accurate allele frequency estimates, and wide time spans. These
+  assumptions do not hold in many E\&R studies.
 	
-  In this article, we propose a method, Composition of Likelihoods for
-  Evolve-And-Resequence experiments (\comale), to identify selection in 
-  short-term (as 
-  well as long-term), E\&R of \emph{small} sexual populations. \comale\  
-  takes whole-genome sequence of pool of individuals (pool-seq) as input, 
-  and properly addresses heterogeneous ascertainment bias, due to uneven 
-  coverages.
-  \comale\ also provides unbiased estimates of model
-  parameters, including selection strength and overdominance, and population 
-  size, while being computationally efficient.
-	Extensive simulations
-  show that \comale\ achieves higher power in detecting and localizing
-  selection over a wide range of parameters. Moreover, we show \comale\ 
-  statistic is 
-  robust to variation of
-  coverage.  
-  We applied 
-  \comale\ statistic to previously published datasets, including,
-  \datadm and study of outcrossing Yeast populations. Result XXXX
+  In this article, we propose a method--Composition of Likelihoods for
+  Evolve-And-Resequence experiments (\comale)--to identify selection
+  in short-term (as well as long-term), E\&R experiments in sexual
+  populations with small size. \comale\ takes whole-genome sequence of
+  pool of individuals (pool-seq) as input, and properly addresses
+  heterogeneous ascertainment bias resulting from uneven coverage.
+  \comale\ also provides unbiased estimates of model parameters,
+  including population size, selection strength and overdominance,
+  while being computationally efficient.  Extensive simulations show
+  that \comale\ achieves higher power in detecting and localizing
+  selection over a wide range of parameters, and is robust to
+  variation of coverage.  We applied \comale\ statistic to multiple
+  E\&R experiments, including, \datadm\ and a study of outcrossing
+  Yeast populations, and identified multiple regions under selection
+  with genomewide significance.
 \end{abstract}
