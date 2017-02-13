@@ -15,21 +15,18 @@
 
 \end{tabular}
 \hspace{-1in}
-\caption{{\bf Evolve and Resequence Selection Experiments on \dmel.} (A) 
-Typical 
-configuration in which dynamic data is collected for \dmel.
-(B) Graphical model showing dependence of the random variables in the 
-single-locus model used to compute \comale\ statistics. Only shaded 
-variables are observed.
-(C) 			Mean and the 95\% confidence interval of the theoretical (a,b) and 
-empirical (b,d)			trajectories of the favored allele for hard (a,b) and soft 
-(c,d) 
-sweep scenarios and $N=1000$.
-			The first $50$
-		generations are shaded in gray to represent the
-		sampling span of sampling in short-term experiments, implying the 
-		difficulty in predicting selection
-		at early stages of selective sweep.  }
+\caption{{\bf Evolve and Resequence Selection Experiments on \dmel.}
+  (A) Typical configuration in which time-series data is collected for
+  \dmel.  (B) Graphical model showing dependence of the random
+  variables in the single-locus model used to compute \comale\
+  statistics. Only shaded variables are observed.  (C) Mean and the
+  95\% confidence interval of the theoretical \VB{Please change the
+    insets to (i,ii,iii,iv)} (a,b) and empirical (b,d) trajectories of
+  the favored allele for hard (a,b) and soft (c,d) sweep scenarios and
+  $N=1000$.  The first $50$ generations are shaded in gray to
+  represent the sampling span of sampling in short-term experiments,
+  implying the difficulty in predicting selection at early stages of
+  selective sweep.  }
 \label{fig:1}
 \end{figure}
 
@@ -67,19 +64,19 @@ sweep scenarios and $N=1000$.
 	\includegraphics[width=\textwidth]{{markovDists}.pdf}
         \caption{{\bf Comparison of empirical distributions of allele
             frequencies (red) versus predictions from Brownian
-            Motion (green), and Markov chain (blue).}\\ 
-          Comparison of empirical and theoretical distributions under neutral 
-          evolution (panels A-F) and 
-          selection (panels G-M) with
-          different starting frequencies $\nu_0\in\{0.005,0.1\}$ and
-          sampling times of $\Tc=\{0,\tau\}$, where $\tau \in \{1,10,100\}$. 
-          For each panel, the
-          empirical distribution was computed over 100,000 simulations. 
-          Brownian motion (Gaussian approximation) provides poor approximations 
-          when initial frequency is far from 0.5 (A) or sampling is sparse 
-          (B,C,E,F). In addition, Brownian motion can only provide 
-          approximations under neutral evolution. In contrast, Markov chain 
-          consistently provide a good approximation in all cases.}
+            Motion (green), and Markov chain (blue).}\\
+          Comparison of empirical and theoretical distributions under
+          neutral evolution (panels A-F) and selection (panels G-M)
+          with different starting frequencies $\nu_0\in\{0.005,0.1\}$
+          and sampling times of $\Tc=\{0,\tau\}$, where $\tau \in
+          \{1,10,100\}$.  For each panel, the empirical distribution
+          was computed over 100,000 simulations.  Brownian motion
+          (Gaussian approximation) provides poor approximations when
+          initial frequency is far from 0.5 (A) or sampling is sparse
+          (B,C,E,F). In addition, Brownian motion can only provide
+          approximations under neutral evolution. In contrast, Markov
+          chain consistently provides a good approximation in all
+          cases.}
 	\label{fig:markov}
 \end{figure}
 \ignore{
@@ -214,17 +211,17 @@ sweep scenarios and $N=1000$.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{estimateN.pdf}
-	\caption{{\bf Estimating N on simulated and real data.}
-		Average and 95\% confidence interval if likelihood of simulated data 
-		with $N=200$ (A), $N=600$(B), and $N=1000$ individuals, over 100 
-		simulations, shows that estimator is unbiased.
-		Chromosome-wise (D) and genome-wide (E) estimation of population size 
-		for \datadm. Chromosome 3R fits population size of 150, while 
-		genome-wide population size is 250. 
-		(F) Despite large census population size 
-		($10^6-10^7$~\cite{burke2014standing}), Yeast dataset exhibits much 
-		smaller ($\hN=2000$) populations size.
-	}
+	\caption{{\bf Estimating N on simulated and real data.}  Mean
+          and 95\% confidence interval of likelihoods of $N$ on
+          simulated data with $N=200$ (A), $N=600$(B), and $N=1000$
+          individuals, over 100 simulations. Chromosome-wise (D) and
+          genome-wide (E) estimation of population size for
+          \datadm. Chromosome 3R fits population size of 150, while
+          genome-wide population size is 250.  (F) Despite large
+          census population size
+          ($10^6-10^7$~\cite{burke2014standing}), Yeast dataset
+          exhibits much smaller effective population size
+          ($\hN=2000$).  }
 	\label{fig:estimateN}
 \end{figure}
 
@@ -238,11 +235,12 @@ sweep scenarios and $N=1000$.
 		.0in,clip,width=0.35\textwidth]{{topVariants.dmel.dir}.pdf}
 	\end{tabular}
 	\caption{{\bf Scan of composite statistic on \datadm.}
-		Manhattan plot of scan for $\Hc^*$ statistic over the genome. 
-		The dashed line represents cutoff for  genome-wide FDR$\le0.05$,
-		selecting 16 regions (A). Trajectories of the top 174 variants shown in 
-		panel (B).
-	}
+          Manhattan plot of scan for $\Hc^*$ statistic over the
+          genome.  The dashed line represents cutoff for genome-wide
+          FDR$\le0.05$, selecting 16 regions (A).\VB{Please remove
+            this panel and caption for (B) as it is noisy and doesn't
+            add much} Trajectories of the top 174 variants shown in
+          panel (B).  }
 	\label{fig:man-dmel-region}
 \end{figure}
 
@@ -255,10 +253,12 @@ sweep scenarios and $N=1000$.
 	\includegraphics[trim=0.1in 0.in 0in 
 	1.5in,clip,width=0.35\textwidth]{{topVariants.dmel}.pdf}
 	\end{tabular}
-	\caption{{\bf Single locus analysis of the \datadm.}\\ Manhattan plot 
-	of scan for testing  overdominant selection (A).
-		Significant variants with FDR $\le 0.01$ are denoted 
-		in red, and their trajectories are depicted in panel (B).}
+	\caption{{\bf Single locus analysis of the \datadm.}\\
+          \VB{Please move this plot to supplemental, as we do not
+            really say much about it.} Manhattan plot of scan for
+          testing overdominant selection (A).  Significant variants
+          with FDR $\le 0.01$ are denoted in red, and their
+          trajectories are depicted in panel (B).}
 	\label{fig:man-dmel-snp}
 \end{figure}
 
