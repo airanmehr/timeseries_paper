@@ -261,49 +261,45 @@ starting frequencies and coverage of real data. Then, $p$-value of
 each variant in the real data is calculated as the fraction of null
 statistics that are greater than or equal of test
 statistic(see~\ref{fig:null-alt})\VB{We need to change this a bit}.
-The selected 174 variants fall within 32 genes~\ref{tab:genes}.
-\ignore{ We also performed GO enrichment and found enriched GO terms
-  including XXXX, XXXX ~\ref{tab:go-reg}.}
+The selected 174 variants fall within 32 genes~\ref{tab:genes},
+including many Serine inhibitory proteases (serpins), and other genes
+involved in endocytosis (Table XXX). Recycling of synaptic vesicles is
+seen to be blocked at high temperature in temperature sensitive
+Drosophila mutants~\cite{KosakaJnlCellBiol1983}. This is also
+supported by GO enrichment analysis, where a single GO term
+`inhibition of prtoeolysis' is found to enriched ($p$-val.:0.0041).
+To test for overdominance, we computed $D$ statistic on simulated
+neutral and experimental data, and computed $p$-values accordingly.
+After correcting for multiple testing, 96 variants were discovered
+with FDR$\le 0.01$~(\ref{fig:man-dmel-snp}).
 
-Finally, we tested 
-if variants showing signal of overdominance, we computed $D$ 
-statistic on simulated and experimental data, and computed $p$-values 
-accordingly. 
-After correcting for multiple testing, 96 variants discovered with 
-FDR$\le 0.01$~\ref{fig:man-dmel-snp}. 
-
-\ignore{However, it has been shown 
-that~\cite{tobler2014massive,franssen2015patterns}  large number of candidate 
-loci is due to low frequency haplotype blocks as 
-well as large inversions and most of candidate loci are rather hitchhikers to 
-the favored allele.}
-
-
-
+\ignore{
 Here is 
 \href{https://genome.ucsc.edu/cgi-bin/hgTracks?hgS_doOtherUser=submit&hgS_otherUserName=airanmehr&hgS_otherUserSessionName=Dmel\%20EE\%20HotCold}{UCSC
  track} for this data.
-
+}
 
 \subsection{Analysis of Outcrossing Yeast Populations}
-We also applied \comale\ to outcrossing Yeast 
-populations~\cite{burke2014standing}, with 12 replicates where samples are 
-taken at generations $\Tc=\{0,180,360,540\}$. While this experiment is being 
-conducted with larger set of replicates, population size, and number of 
-generations, it appears that a number of replicates undergoing severe 
-demographic events~\ref{fig:yeast-sfs}. Hence we chose seven replicates 
-$r\in\{3,7,8,9,10,11,12\}$ that exhibit consistent genome-wide site-frequency 
-spectrum over the whole experiment~\ref{fig:yeast-pca}.
+We also applied \comale\ to outcrossing $12$ replicate samples of
+Yeast populations~\cite{burke2014standing}, where samples are taken at
+generations $\Tc=\{0,180,360,540\}$. We observed a significant
+variation in the genome-wide site frequency spectrum of certain
+variants over different time points for some
+replicates~(\ref{fig:yeast-sfs}). The variation does not have an
+easily identifiable cause. Therefore, we focused analysis on seven
+replicates $r\in\{3,7,8,9,10,11,12\}$ with genome-wide site-frequency
+spectrum over the time range~(\ref{fig:yeast-pca}).
 
-We estimated population size to be $\hN=2000$ haplotypes, and computed $\hs$, 
-$\hh$ and $H$ statistic accordingly. To compute $p$-values, we created 1M 
-single-locus neutral simulations according to experimental data's initial 
-frequency and coverage. By setting FDR cutoff to $0.05$, only 18 and 16 
-variants 
-show significant signal for directional and overdominant selection, 
-respectively, see~\ref{fig:man-dmel-snp}.
+We estimated population size to be $\hN=2000$ haplotypes, and computed
+$\hs$, $\hh$ and $H$ statistic accordingly. To compute $p$-values, we
+created 1M single-locus neutral simulations according to experimental
+data's initial frequency and coverage. By setting FDR cutoff to
+$0.05$, only 18 and 16 variants show significant signal for
+directional and overdominant selection, respectively,
+see~\ref{fig:man-dmel-snp}.
 
+\ignore{
 Here is 
 \href{https://genome.ucsc.edu/cgi-bin/hgTracks?hgS_doOtherUser=submit\&hgS_otherUserName=airanmehr\&hgS_otherUserSessionName=Yeast\%20EE}{UCSC
  track} for this data.
-
+}
