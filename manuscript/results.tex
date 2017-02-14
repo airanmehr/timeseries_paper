@@ -247,27 +247,27 @@ estimates of $s$, and computed the normalized test statistic $\Hc^*$
 on sliding windows of size of 500 SNPs and step size of 100 variants
 over the genome.  We computed null distribution of $\Hc^*$ by creating
 100 chromosome simulations using experimental data parameters and
-length of 20Mbp. After correcting for multiple testing, only 16
-intervals~\ref{fig:man-dmel-region} satisfy FDR$\le0.05$. The $16$
-intervals encompass $5$ contiguous regions covering 2,829 polymorphic
-sites. To focus on the strongest signals, we selected $174$ variants
-with FDR $\le0.01$\% within selected regions using single locus
-hypothesis testing.  To compute $p$-values of $H$ statistics, we
-calculated single locus Wright-Fisher simulations for
-$\widehat{N}=$250, initial frequencies and variant depths of real data
-(see \ref{proc:arya}). We repeated forward simulations 50 times for
-whole genome, to collect $\approx$90M pool-seq trajectories with
-starting frequencies and coverage of real data. Then, $p$-value of
-each variant in the real data is calculated as the fraction of null
-statistics that are greater than or equal of test
-statistic(see~\ref{fig:null-alt})\VB{We need to change this a bit}.
-The selected 174 variants fall within 32 genes~\ref{tab:genes},
-including many Serine inhibitory proteases (serpins), and other genes
-involved in endocytosis (Table XXX). Recycling of synaptic vesicles is
-seen to be blocked at high temperature in temperature sensitive
-Drosophila mutants~\cite{KosakaJnlCellBiol1983}. This is also
+length of 20Mbp. After correcting for multiple testing, we identify
+$5$ contiguous intervals~\ref{fig:man-dmel-region} satisfying
+FDR$\le0.05$, and covering $2,829$ polymorphic sites. To focus on the
+strongest signals, we selected $174$ variants with FDR $\le0.01$\%
+within selected regions using single locus hypothesis testing.  To
+compute $p$-values of $H$ statistics, we calculated single locus
+Wright-Fisher simulations for $\widehat{N}=$250, initial frequencies
+and variant depths of real data (see \ref{proc:arya}). We repeated
+forward simulations 50 times for whole genome, to collect $\approx$90M
+pool-seq trajectories with starting frequencies and coverage of real
+data. Then, $p$-value of each variant in the real data is calculated
+as the fraction of null statistics that are greater than or equal of
+test statistic(see~\ref{fig:null-alt})\VB{We need to change this a
+  bit}.  The selected 174 variants fall within 32
+genes~\ref{tab:genes}, including many Serine inhibitory proteases
+(serpins), and other genes involved in endocytosis (Table
+XXX). Recycling of synaptic vesicles is seen to be blocked at high
+temperature in temperature sensitive Drosophila
+mutants~\cite{10.1083/jcb.97.2.499KosakaJnlCellBiol1983}. This is also
 supported by GO enrichment analysis, where a single GO term
-`inhibition of prtoeolysis' is found to enriched ($p$-val.:0.0041).
+`inhibition of prteoolysis' is found to enriched ($p$-val.:0.0041).
 To test for overdominance, we computed $D$ statistic on simulated
 neutral and experimental data, and computed $p$-values accordingly.
 After correcting for multiple testing, 96 variants were discovered
@@ -295,13 +295,11 @@ $\hs$, $\hh$ and $H$ statistic accordingly. To compute $p$-values, we
 created 1M single-locus neutral simulations according to experimental
 data's initial frequency and coverage. By setting FDR cutoff to
 $0.05$, only 18 and 16 variants show significant signal for
-directional and overdominant selection, respectively,
-see~\ref{fig:man-dmel-snp}.
-Selected variants consistent with with the the preliminary analysis done by 
-Burke~\emph{et al.}~\cite{burke2014standing}, (regions C and E in Fig. 2-a 
-in~\cite{burke2014standing})
-\ignore{
-Here is 
-\href{https://genome.ucsc.edu/cgi-bin/hgTracks?hgS_doOtherUser=submit\&hgS_otherUserName=airanmehr\&hgS_otherUserSessionName=Yeast\%20EE}{UCSC
- track} for this data.
-}
+directional and overdominant selection,
+respectively~(\ref{fig:man-dmel-snp}).  Selected variants for
+directional selection are clustered in two regions, which match $2$ of
+the $5$ regions (regions C and E in Fig. 2-a
+in~\cite{burke2014standing}) identified by Burke~\emph{et al.} in
+their preliminary analysis.  \ignore{ Here is
+  \href{https://genome.ucsc.edu/cgi-bin/hgTracks?hgS_doOtherUser=submit\&hgS_otherUserName=airanmehr\&hgS_otherUserSessionName=Yeast\%20EE}{UCSC
+    track} for this data.  }
