@@ -61,8 +61,8 @@ Binomial distribution. Specifically,
 \end{eqnarray*}
 where $\pi$ is the global distribution of allele frequencies in the
 base population. Here we simply assume is $\pi$ is the site frequency
-spectrum of fixed sized neutral population~\ref{fig:sfs}\VB{Something
-  is wrong with the reffig macro}. Note that $\pi$ may depend on the
+spectrum of fixed sized neutral population~\ref{fig:sfs}. Note that $\pi$ may 
+depend on the
 demographic history of the founder lines.
 
 To estimate frequency after $\tau$ transitions, it is enough to
@@ -81,8 +81,7 @@ $\{y_{t}\}_{t\in\Tc}$, are also Binomially distributed \beq 2ny_{t}
 \sim \text{Binomial}(2n,\nu_t) \eeq We introduce the $2N\times2n$
 sampling matrix $Y$, where $Y[i,j]$ stores the probability that the
 sample allele frequency is ${j}/{2n}$ given that the true allele
-frequency is ${i}/{2N}$\VB{One of sample or true allele frequencies
-  needs to be $j/2N$}.
+frequency is ${i}/{2N}$.
 
 \ignore{In the discussion so far, we assumed that the exact allele 
 frequencies
@@ -216,14 +215,12 @@ where $\bar{s} = \underset{s}{\arg \max} \prod_{r=1}^R
 
 
 
-
-
  While extending the single-locus WF model to a multiple linked-loci
  can improve the power of the model~\cite{Terhorst2015Multi}, it is
  computationally and statistically expensive to compute exact
- likelihood\VB{Please provide plain text from the git repository to
-   allow me to correct this}.  haplotype resolved data, which pool-seq
- does not provide. Instead, similar to Nielse~\emph{et
+ likelihood. In addition, computing linked-loci joint likelihood requires  
+ haplotype resolved data, which pool-seq
+ does not provide. Here, similar to Nielsen~\emph{et
    al}~\cite{nielsen2005genomic}, we calculate Composite Likelihood
  Ratio score for a genomic region.
 \begin{equation}
@@ -236,8 +233,12 @@ optimal value of the hyper-parameter $L$ depends upon a number of
 factors, including initial frequency of the favored allele,
 recombination rates, linkage of the favored allele to neighboring
 variants, population size, coverage, and time since the onset of
-selection (duration of the experiment). However, we provide a
-heuristic choose size of $L$ for an experiment \VB{WE cannot use this
+selection (duration of the experiment). In~\ref{app}, we provide an heuristic 
+to compute a reasonable $L$, based on experimental data parameters.
+
+\ignore{However, we provide a
+heuristic choose size of $L$ for an experiment 
+\VB{WE cannot use this
   argument. You are saying that L is very dependent on these
   parameters and then you say that it can have large impact on the
   final answer. In that case why should the reviewer allow us to
@@ -251,7 +252,7 @@ large region (e.g.  chromosome), power will be degraded since
 distribution of null and alternative $\Hc$ statistics converge
 together.  Hence, we choose $L$ to be the largest, such that it
 provides enough discoveries that satisfies experiment's FDR.
-
+}
 
 \subsection{Hypothesis Testing}
 \paragraph{Single-Locus tests.}
@@ -357,7 +358,7 @@ statistics throughout time to compute a time-series score
 		
 
 
-\subsection{Simulations}
+\subsection{Simulations}\label{sec:sims}
 We performed extensive simulations using parameters that have been
 used for \dmel experimental
 evolution~\cite{kofler2013guide}. See also \ref{fig:1}-A 

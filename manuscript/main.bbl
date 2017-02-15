@@ -1,20 +1,9 @@
 \begin{thebibliography}{10}
 
-\bibitem{achaz2009frequency}
-Guillaume Achaz.
-\newblock {Frequency spectrum neutrality tests: one for all and all for one}.
-\newblock {\em Genetics}, 183(1):249--258, 2009.
-
 \bibitem{agresti2011categorical}
 Alan Agresti and Maria Kateri.
 \newblock {\em {Categorical data analysis}}.
 \newblock Springer, 2011.
-
-\bibitem{akey2009constructing}
-Joshua~M Akey.
-\newblock {Constructing genomic maps of positive selection in humans: Where do
-  we go from here?}
-\newblock {\em Genome research}, 19(5):711--722, 2009.
 
 \bibitem{anderson2000monte}
 Eric~C Anderson, Ellen~G Williamson, and Elizabeth~A Thompson.
@@ -53,12 +42,6 @@ Jeffrey~E Barrick, Dong~Su Yu, Sung~Ho Yoon, Haeyoung Jeong, Tae~Kwang Oh,
   Escherichia coli}.
 \newblock {\em Nature}, 461(7268):1243--1247, 2009.
 
-\bibitem{beaumont2003estimation}
-Mark~A Beaumont.
-\newblock {Estimation of population growth or decline in genetically monitored
-  populations}.
-\newblock {\em Genetics}, 164(3):1139--1160, 2003.
-
 \bibitem{bergland2014genomic}
 Alan~O Bergland, Emily~L Behrman, Katherine~R O'Brien, Paul~S Schmidt, and
   Dmitri~A Petrov.
@@ -73,12 +56,6 @@ Todd Bersaglieri, Pardis~C Sabeti, Nick Patterson, Trisha Vanderploeg, Steve~F
 \newblock {Genetic signatures of strong recent positive selection at the
   lactase gene}.
 \newblock {\em The American Journal of Human Genetics}, 74(6):1111--1120, 2004.
-
-\bibitem{berthier2002likelihood}
-Pierre Berthier, Mark~A Beaumont, Jean-Marie Cornuet, and Gordon Luikart.
-\newblock {Likelihood-based estimation of the effective population size using
-  temporal changes in allele frequencies: a genealogical approach}.
-\newblock {\em Genetics}, 160(2):741--751, 2002.
 
 \bibitem{bollback2007clonal}
 Jonathan~P Bollback and John~P Huelsenbeck.
@@ -168,11 +145,6 @@ Shaohua Fan, Matthew E~B Hansen, Yancy Lo, and Sarah~A Tishkoff.
   adaptation}.
 \newblock {\em Science}, 354(6308):54--59, 2016.
 
-\bibitem{fay2000hitchhiking}
-Justin~C Fay and Chung-I Wu.
-\newblock {Hitchhiking under positive Darwinian selection}.
-\newblock {\em Genetics}, 155(3):1405--1413, 2000.
-
 \bibitem{feder2014Identifying}
 Alison~F Feder, Sergey Kryazhimskiy, and Joshua~B Plotkin.
 \newblock {Identifying signatures of selection in genetic time series}.
@@ -196,38 +168,16 @@ Susanne~U Franssen, Viola Nolte, Ray Tobler, and Christian Schl{\"{o}}tterer.
   evolving experimental Drosophila melanogaster populations}.
 \newblock {\em Molecular biology and evolution}, 32(2):495--509, 2015.
 
-\bibitem{garud2015recent}
-Nandita~R Garud, Philipp~W Messer, Erkan~O Buzbas, and Dmitri~A Petrov.
-\newblock {Recent selective sweeps in North American Drosophila melanogaster
-  show signatures of soft sweeps}.
-\newblock {\em PLoS Genet}, 11(2):e1005004, 2015.
-
-\bibitem{gillespie2010population}
-John~H Gillespie.
-\newblock {\em {Population genetics: a concise guide}}.
-\newblock JHU Press, 2010.
-
 \bibitem{gottesman2002mechanisms}
 Michael~M Gottesman.
 \newblock {Mechanisms of cancer drug resistance}.
 \newblock {\em Annual review of medicine}, 53(1):615--627, 2002.
-
-\bibitem{gunther2013robust}
-Torsten G{\"{u}}nther and Graham Coop.
-\newblock {Robust identification of local adaptation from allele frequencies}.
-\newblock {\em Genetics}, 195(1):205--220, 2013.
 
 \bibitem{hegreness2006equivalence}
 Matthew Hegreness, Noam Shoresh, Daniel Hartl, and Roy Kishony.
 \newblock {An equivalence principle for the incorporation of favorable
   mutations in asexual populations}.
 \newblock {\em Science}, 311(5767):1615--1617, 2006.
-
-\bibitem{holsinger2009genetics}
-Kent~E Holsinger and Bruce~S Weir.
-\newblock {Genetics in geographically structured populations: defining,
-  estimating and interpreting FST}.
-\newblock {\em Nature Reviews Genetics}, 10(9):639--650, 2009.
 
 \bibitem{illingworth2011distinguishing}
 Christopher J~R Illingworth and Ville Mustonen.
@@ -267,16 +217,16 @@ Tadeusz~J Kawecki, Richard~E Lenski, Dieter Ebert, Brian Hollis, Isabelle
 \newblock {Experimental evolution}.
 \newblock {\em Trends in ecology {\&} evolution}, 27(10):547--560, 2012.
 
-\bibitem{kofler2012gowinda}
-Robert Kofler and Christian Schl{\"{o}}tterer.
-\newblock {Gowinda: unbiased analysis of gene set enrichment for genome-wide
-  association studies}.
-\newblock {\em Bioinformatics}, 28(15):2084--2085, 2012.
-
 \bibitem{kofler2013guide}
 Robert Kofler and Christian Schl{\"{o}}tterer.
 \newblock {A guide for the design of evolve and resequencing studies}.
 \newblock {\em Molecular biology and evolution}, page mst221, 2013.
+
+\bibitem{kosaka1983reversible}
+Toshio Kosaka and Kazuo Ikeda.
+\newblock {Reversible Blockage of Membrane Retrieval and Endocytosis in the
+  Garland Cell of the Temperature-sensitive}.
+\newblock {\em The Journal of cell biology}, 97, 1983.
 
 \bibitem{lang2011genetic}
 Gregory~I Lang, David Botstein, and Michael~M Desai.
@@ -298,12 +248,6 @@ Quan Long, Fernando~A Rabanal, Dazhe Meng, Christian~D Huber, Ashley Farlow,
 \newblock {Massive genomic variation and strong selection in Arabidopsis
   thaliana lines from Sweden}.
 \newblock {\em Nature genetics}, 45(8):884--890, 2013.
-
-\bibitem{malaspinas2016methods}
-Anna-Sapfo Malaspinas.
-\newblock {Methods to characterize selective sweeps using time serial samples:
-  an ancient DNA perspective}.
-\newblock {\em Molecular ecology}, 25(1):24--41, 2016.
 
 \bibitem{malaspinas2012estimating}
 Anna-Sapfo Malaspinas, Orestis Malaspinas, Steven~N Evans, and Montgomery
@@ -335,11 +279,6 @@ Iain Mathieson and Gil McVean.
   populations from time series data of allele frequencies}.
 \newblock {\em Genetics}, 193(3):973--984, 2013.
 
-\bibitem{messer2013population}
-Philipp~W Messer and Dmitri~A Petrov.
-\newblock {Population genomics of rapid adaptation by soft selective sweeps}.
-\newblock {\em Trends in ecology {\&} evolution}, 28(11):659--669, 2013.
-
 \bibitem{nair2007recurrent}
 Shalini Nair, Denae Nash, Daniel Sudimack, Anchalee Jaidee, Marion Barends,
   Anne-Catrin Uhlemann, Sanjeev Krishna, Fran{\c{c}}ois Nosten, and Tim J~C
@@ -347,12 +286,6 @@ Shalini Nair, Denae Nash, Daniel Sudimack, Anchalee Jaidee, Marion Barends,
 \newblock {Recurrent gene amplification and soft selective sweeps during
   evolution of multidrug resistance in malaria parasites}.
 \newblock {\em Molecular Biology and Evolution}, 24(2):562--573, 2007.
-
-\bibitem{nielsen2003correcting}
-Rasmus Nielsen and James Signorovitch.
-\newblock {Correcting for ascertainment biases when analyzing SNP data:
-  applications to the estimation of linkage disequilibrium}.
-\newblock {\em Theoretical population biology}, 63(3):245--255, 2003.
 
 \bibitem{nielsen2005genomic}
 Rasmus Nielsen, Scott Williamson, Yuseob Kim, Melissa~J Hubisz, Andrew~G Clark,
@@ -386,18 +319,6 @@ Edward Pollak.
   allele frequency changes}.
 \newblock {\em Genetics}, 104(3):531--548, 1983.
 
-\bibitem{ptak2002evidence}
-Susan~E Ptak and Molly Przeworski.
-\newblock {Evidence for population growth in humans is confounded by fine-scale
-  population structure}.
-\newblock {\em Trends in Genetics}, 18(11):559--563, 2002.
-
-\bibitem{ramos2002statistical}
-Sebastian~E Ramos-Onsins and Julio Rozas.
-\newblock {Statistical properties of new neutrality tests against population
-  growth}.
-\newblock {\em Molecular biology and evolution}, 19(12):2092--2100, 2002.
-
 \bibitem{reid2011new}
 Brian~J Reid, Rumen Kostadinov, and Carlo~C Maley.
 \newblock {New strategies in Barrett's esophagus: integrating clonal
@@ -410,17 +331,6 @@ Silvia~C Remolina, Peter~L Chang, Jeff Leips, Sergey~V Nuzhdin, and Kimberly~A
 \newblock {Genomic basis of aging and life-history evolution in Drosophila
   melanogaster}.
 \newblock {\em Evolution}, 66(11):3390--3403, 2012.
-
-\bibitem{ronen2013learning}
-Roy Ronen, Nitin Udpa, Eran Halperin, and Vineet Bafna.
-\newblock {Learning natural selection from the site frequency spectrum}.
-\newblock {\em Genetics}, 195(1):181--193, 2013.
-
-\bibitem{sabeti2006positive}
-P~C Sabeti, S~F Schaffner, B~Fry, J~Lohmueller, P~Varilly, O~Shamovsky,
-  A~Palma, T~S Mikkelsen, D~Altshuler, and E~S Lander.
-\newblock {Positive natural selection in the human lineage}.
-\newblock {\em science}, 312(5780):1614--1620, 2006.
 
 \bibitem{sawyer1992population}
 Stanley~A Sawyer and Daniel~L Hartl.
@@ -460,23 +370,11 @@ Matthias Steinr{\"{u}}cken, Anand Bhaskar, and Yun~S Song.
   time series genetic data}.
 \newblock {\em The annals of applied statistics}, 8(4):2203, 2014.
 
-\bibitem{stephan2006hitchhiking}
-Wolfgang Stephan, Yun~S Song, and Charles~H Langley.
-\newblock {The hitchhiking effect on linkage disequilibrium between linked
-  neutral loci}.
-\newblock {\em Genetics}, 172(4):2647--2663, 2006.
-
 \bibitem{storey2003statistical}
 John~D Storey and Robert Tibshirani.
 \newblock {Statistical significance for genomewide studies}.
 \newblock {\em Proceedings of the National Academy of Sciences},
   100(16):9440--9445, 2003.
-
-\bibitem{tajima1989statistical}
-Fumio Tajima.
-\newblock {Statistical method for testing the neutral mutation hypothesis by
-  DNA polymorphism.}
-\newblock {\em Genetics}, 123(3):585--595, 1989.
 
 \bibitem{Terhorst2015Multi}
 Jonathan Terhorst, Christian Schl{\"{o}}tterer, and Yun~S Song.
@@ -504,11 +402,6 @@ Thomas~L Turner, Andrew~D Stewart, Andrew~T Fields, William~R Rice, and Aaron~M
 \newblock {Population-based resequencing of experimentally evolved populations
   reveals the genetic basis of body size variation in Drosophila melanogaster}.
 \newblock {\em PLoS Genet}, 7(3):e1001336, 2011.
-
-\bibitem{vitti2013detecting}
-Joseph~J Vitti, Sharon~R Grossman, and Pardis~C Sabeti.
-\newblock {Detecting natural selection in genomic data}.
-\newblock {\em Annual review of genetics}, 47:97--120, 2013.
 
 \bibitem{wang2001pseudo}
 Jinliang Wang.

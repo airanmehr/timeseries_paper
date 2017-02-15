@@ -244,30 +244,34 @@ respectively.
 
 Using the general estimated population $\hat{N}=250$, we computed ML
 estimates of $s$, and computed the normalized test statistic $\Hc^*$
-on sliding windows of size of 500 SNPs and step size of 100 variants
+on sliding windows of size of 25Kbp and step size of 5Kbp variants
 over the genome.  We computed null distribution of $\Hc^*$ by creating
-100 chromosome simulations using experimental data parameters and
-length of 20Mbp. After correcting for multiple testing, we identify
+100 simulations according to Section~\ref{sec:sims} with $L=20$Mbp, $\hN=250$ 
+and 
+experimental data coverage and sampling times. 
+Then, $p$-value of each region in the experimental data is calculated
+as the fraction of the 400K null statistics that are greater than or equal of
+test statistic(see~\ref{fig:null-alt}).
+After correcting for multiple 
+testing, we identify
 $5$ contiguous intervals~\ref{fig:man-dmel-region} satisfying
-FDR$\le0.05$, and covering $2,829$ polymorphic sites. To focus on the
-strongest signals, we selected $174$ variants with FDR $\le0.01$\%
-within selected regions using single locus hypothesis testing.  To
-compute $p$-values of $H$ statistics, we calculated single locus
+FDR$\le0.05$, and covering $2,829$ polymorphic sites. We further performed 
+single-locus hypothesis testing on the $2,829$ to identify selected variants.
+$p$-values of $H$ statistics calculated on a set of 90M single locus
 Wright-Fisher simulations for $\widehat{N}=$250, initial frequencies
-and variant depths of real data (see \ref{proc:arya}). We repeated
-forward simulations 50 times for whole genome, to collect $\approx$90M
-pool-seq trajectories with starting frequencies and coverage of real
-data. Then, $p$-value of each variant in the real data is calculated
-as the fraction of null statistics that are greater than or equal of
-test statistic(see~\ref{fig:null-alt})\VB{We need to change this a
-  bit}.  The selected 174 variants fall within 32
-genes~\ref{tab:genes}, including many Serine inhibitory proteases
-(serpins), and other genes involved in endocytosis (Table
-XXX). Recycling of synaptic vesicles is seen to be blocked at high
+and variant depths of real data (see \ref{proc:arya}). 
+$174$ variants with FDR $\le0.01$\%
+within selected regions using single locus hypothesis testing.  
+ The selected 174 variants fall within 32
+genes(Table~\ref{tab:genes})
+ including 
+many Serine inhibitory proteases
+(serpins), and other genes involved in endocytosis. Recycling of synaptic 
+vesicles is seen to be blocked at high
 temperature in temperature sensitive Drosophila
-mutants~\cite{10.1083/jcb.97.2.499KosakaJnlCellBiol1983}. This is also
+mutants~\cite{kosaka1983reversible}. This is also
 supported by GO enrichment analysis, where a single GO term
-`inhibition of prteoolysis' is found to enriched ($p$-val.:0.0041).
+`inhibition of prteoolysis' is found to enriched (corrected $p$-value:0.0041).
 To test for overdominance, we computed $D$ statistic on simulated
 neutral and experimental data, and computed $p$-values accordingly.
 After correcting for multiple testing, 96 variants were discovered
