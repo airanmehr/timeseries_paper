@@ -1,7 +1,7 @@
 \section{Introduction}
 Natural selection is a key force in evolution, and a mechanism by
 which populations can adapt to external `selection'
-constraints. Examples of adaptation abound in the natural
+pressure. Examples of adaptation abound in the natural
 world~\cite{going2016fan}, including for example, classic examples
 like lactose tolerance in Northern
 Europeans~\cite{bersaglieri2004genetic}, human adaptation to high
@@ -10,7 +10,7 @@ resistance in pests~\cite{daborn2001ddt}, HIV~\cite{Feder2016More},
 cancer~\cite{gottesman2002mechanisms,zahreddine2013mechanisms},
 malarial parasite~\cite{ariey2014molecular,nair2007recurrent}, and
 others~\cite{spellberg2008epidemic}. In these examples, understanding
-the genetic basis of adaptation can provide actionable information,
+the genetic basis of adaptation can provide valuable information,
 underscoring the importance of the problem.
 
 
@@ -22,7 +22,7 @@ or natural
 \cite{maldarelli2013hiv,reid2011new,denef2012situ,winters2012development,
   daniels2013genetic,barrett2008natural,bergland2014genomic}
 environment. Recent advances in whole genome sequencing have enabled
-us to sequence populations at a reasonable cost even for large
+us to sequence populations at a reasonable cost, even for large
 genomes. Perhaps more important for experimental evolution studies, we
 can now evolve and resequence (E\&R) multiple replicates of a population to
 obtain \emph{longitudinal time-series data}, in order to investigate
@@ -48,10 +48,8 @@ hypotheses~\cite{feder2014Identifying,Terhorst2015Multi,burke2010genome,bergland
 
 While many E\&R study designs are being
 used~\cite{Barrick2013Genome,schlotterer2015combining}, we restrict
-our attention to the adaptive evolution of multi-cellular sexual
-organisms.  For simplicity, we assume fixed population size, and for
-the most part, positive single locus selection (only one favored
-mutation). This regime has been considered earlier, typically with
+our attention to the adaptive evolution due to standing variation in fixed size 
+populations. This regime has been considered earlier, typically with
 \dmel as the model organism of choice, to identify adaptive genes in
 longevity and aging ~\cite{burke2010genome,remolina2012genomic} (600
 generations), courtship song~\cite{turner2011population} (100
@@ -63,14 +61,14 @@ resistance~\cite{martins2014host} (20 generations), and
 dark-fly~\cite{izutsu2015dynamics} (49 generations).
 
 
-The task of identifying genetic adaptation can be addressed at
+The task of identifying selection signatures can be addressed at
 different levels of specificity. At the coarsest level, identification
 could simply refer to deciding whether some genomic region (or a gene)
 is under selection or not. In the following, we refer to this task as
 \emph{detection}. In contrast, the task of \emph{site-identification}
 corresponds to the process of finding the favored mutation/allele at
 nucleotide level. Finally, \emph{estimation of model parameters}, such
-as strength of selection and overdominance at the site, can provide a
+as strength of selection and dominance at the site, can provide a
 comprehensive description of the selection process.
 
 \ignore{A wide range of computational methods~\cite{vitti2013detecting} have
@@ -103,15 +101,15 @@ contributions of this paper is the extension of SFS based methods to
 analyze time-series data, and the identification of selection regimes
 where these methods perform well.}
 
-In an effort for analyzing E\&R selection experiments many authors
-chose to adopt existing tests that originally used for static data,
-for scanning dynamic data with two time-points. For instance, Zhu
+In an effort for analyzing E\&R selection experiments, many authors
+chose to adopt existing tests that originally used for static data, pairwise 
+comparisons (two time-points) and single replicates to perform a null scan.
+For instance, Zhu
 \emph{et al.}~\cite{zhou2011experimental} used the ratio of the
 estimated population size of case and control populations to compute
 test statistic for each genomic region. Burke \emph{et
   al.}~\cite{burke2010genome} applied Fisher exact test to the last
-observation of data on case and control populations. \VB{Something
-  wrong with the name?} Orozco-terWengel \emph{et
+observation of data on case and control populations.  Orozco-terWengel \emph{et
   al.}~\cite{orozco2012adaptation} used the Cochran-Mantel-Haenszel
 (CMH) test~\cite{agresti2011categorical} to detect SNPs whose read
 counts change consistently across all replicates of two time-point
@@ -119,7 +117,7 @@ data. Turner \emph{et al.}~\cite{turner2011population} proposed the
 diffStat statistic to test whether the change in allele frequencies of
 two populations deviate from the distribution of change in allele
 frequencies of two drifting populations. Bergland \emph{et
-  al.}~\cite{bergland2014genomic} applied $F_{st}$ to populations
+  al.}~\cite{bergland2014genomic} calculated $F_{st}$ to populations
 throughout time to signify their differentiation from ancestral (two
 time-point data) as well as geographically different populations. Jha
 \emph{et al.}~\cite{jha2015whole} computed test statistic of
@@ -134,12 +132,17 @@ Malaspinas
 al.’s method to estimate allele age in ancient-DNA (aDNA).
 }
 
-The problem of parameter estimation in time series selection data was
-first addressed by Bollback \emph{et
-  al.}~\cite{bollback2008estimation}.  They provided a diffusion
-approximation to the continuous Wright Fisher Markov process and
-estimated the selection coefficient $s$ numerically for large
-population sizes.  Steinr\"{u}cken and
+
+Alternatively, \emph{direct} methods are developed to analyze 
+time-series 
+data by taking a likelihood approach, and estimating population genetics 
+parameters.
+Bollback \emph{et al.}~\cite{bollback2008estimation} proposed a Hidden 
+Markov Model (HMM) to     
+estimate
+the selection coefficient $s$ and population size by using a diffusion
+approximation to the continuous Wright Fisher Markov process.  
+Steinr\"{u}cken and
 Song~\cite{steinrucken2014novel} proposed a general diploid selection
 model which takes into account of dominance of the favored allele and
 approximates likelihood analytically.  Mathieson and
@@ -153,7 +156,7 @@ Increment Test (FIT). More recently, Topa \emph{et
 modeling single-locus time-series pool-seq data. Terhorst \emph{et
   al.}~\cite{Terhorst2015Multi} extended GP to compute joint
 likelihood of multiple loci under null and alternative hypotheses.
-Recently, schraiber \emph{et al.}~\cite{schraiber2016bayesian}
+Recently, Schraiber \emph{et al.}~\cite{schraiber2016bayesian}
 proposed a Bayesian framework to estimate parameters using Monte Carlo
 Markov chain sampling.
 
@@ -161,24 +164,24 @@ Markov chain sampling.
 While existing methods have been successfully applied to their
 corresponding application, they make some assumptions which may not
 hold in E\&R studies.  First, they assume that the underlying
-population size is large, so continuous state models can be applied
-for dynamics of allele frequencies.  These methods were originally
+population size is large, so it is reasonable to model dynamics of allele 
+frequencies using continuous state models.  A number of existing methods 
+were originally
 designed to process wide time spans such as ancient DNA
 studies. Finally, they assume that input data is in the form of
 unbiased allele frequencies.
 
-Here, we consider a model similar to Williamson~\emph{et
+Here, we consider a Hidden Markov Model (HMM), similar to Williamson~\emph{et
   al.}~\cite{williamson1999using} and Bollback~\emph{et
   al.}'s~\cite{bollback2008estimation} but under a
-``small-population-size'' scenario. Specifically, we use a discrete
+``small-population-size'' regime. Specifically, we use a discrete
 state (frequency) model.  We show that for small population sizes,
 discrete models can compute likelihood exactly, which improves
 statistical performance, especially for short time-span
 experiments. Additionally, we add another level of sampling-noise to
 the traditional HMM model, allowing for heterogeneous ascertainment
 bias due to uneven coverage among variants. We show that for a wide
-range of parameters, our algorithm \comale\ provides higher power for
-detecting selection, is robust to ascertainment bias due to coverage
-heterogeneity, estimates model parameters consistently, and localizes
+range of parameters,  \comale\ provides higher power for
+detecting selection, estimates model parameters consistently, and localizes
 favored allele more accurately compared to the state-of-the-art
 methods, while being computationally efficient.

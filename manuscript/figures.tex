@@ -1,17 +1,17 @@
 \begin{figure}[H]
 		\centering
 (A)\\
-	\includegraphics[trim=0in 0in .08in 0.02in , 
+	\includegraphics[trim=0in 0in .2in 0.02in , 
 	clip,width=0.7\textwidth]{ExperimentalEvolution.pdf}\\
 
 \begin{tabular}{l|l}
 		\hline\\
 		(B) &(C)\\
-		\raisebox{0.5in}{
+		\raisebox{0.1in}{
 \includegraphics[trim=0in 0.in 0in 
-0.0in,clip,width=0.5\textwidth]{HMMGM.pdf}}
+0.0in,clip,width=0.45\textwidth]{HMMGM.pdf}}
 & 	\includegraphics[trim=0in 0.in 0in 
-0.0in,clip,width=0.6\textwidth]{AF.pdf}	
+0.0in,clip,width=0.45\textwidth]{AF.pdf}	
 
 \end{tabular}
 \hspace{-1in}
@@ -20,9 +20,9 @@
   \dmel.  (B) Graphical model showing dependence of the random
   variables in the single-locus model used to compute \comale\
   statistics. Only shaded variables are observed.  (C) Mean and the
-  95\% confidence interval of the theoretical \VB{Please change the
-    insets to (i,ii,iii,iv)} (a,b) and empirical (b,d) trajectories of
-  the favored allele for hard (a,b) and soft (c,d) sweep scenarios and
+  95\% confidence interval of the theoretical (i,iii) and empirical (ii,iv) 
+  trajectories of
+  the favored allele for hard (i,ii) and soft (iii,iv) sweep scenarios and
   $N=1000$.  The first $50$ generations are shaded in gray to
   represent the sampling span of sampling in short-term experiments,
   implying the difficulty in predicting selection at early stages of
@@ -214,7 +214,7 @@
 	\caption{{\bf Estimating N on simulated and real data.}  Mean
           and 95\% confidence interval of likelihoods of $N$ on
           simulated data with $N=200$ (A), $N=600$(B), and $N=1000$
-          individuals, over 100 simulations. Chromosome-wise (D) and
+          individuals, over 1000 simulations. Chromosome-wise (D) and
           genome-wide (E) estimation of population size for
           \datadm. Chromosome 3R fits population size of 150, while
           genome-wide population size is 250.  (F) Despite large
@@ -227,15 +227,20 @@
 
 \begin{figure}[H]
 	\centering
-	\begin{tabular}{cc}
+	\begin{tabular}{c}
+		(A)\\
 		\includegraphics[trim=0.4in 0.in 0.6in 
-		0in,clip,width=0.9\textwidth]{man-dmel-region.pdf}&
-%		\includegraphics[trim=0in 0.in 0in .0in,clip,width=0.35\textwidth]{{topVariants.dmel.dir}.pdf}
+		0in,clip,width=0.9\textwidth]{man-dmel-region.pdf}\\		
+		(B)\\	
+		\includegraphics[trim=0.3in 0.in 0.6in 
+		.0in,clip,width=0.9\textwidth]{{topVariants.dmel.dir}.pdf}
 	\end{tabular}
-	\caption{{\bf Scan of composite statistic on \datadm.}
-          Manhattan plot of scan for $\Hc^*$ statistic over the
+	\caption{{\bf Scan of \comale\ statistic on \datadm.}
+(A)         Manhattan plot of scan for $\Hc^*$ statistic over the
           genome.  The dashed line represents cutoff for genome-wide
-          FDR$\le0.05$, and identifies 5 contiguous regions.}
+          FDR$\le0.05$, and identifies 5 contiguous intervals, I1-I5, 
+          which are shaded in blue. (B) Trajectories of the selected variants within 
+          intervals I1-I5}
 	\label{fig:man-dmel-region}
 \end{figure}
 
@@ -252,8 +257,9 @@
 		\includegraphics[trim=0in 0.in 0in 
 		0.0in,clip,width=0.35\textwidth]{{topVariants.yeast}.pdf}}
 	\end{tabular}
-	\caption{{\bf Single locus analysis of the \datadm.}\\ Manhattan plot 
-		of scan for testing directional selection (A) and overdominant 
+	\caption{{\bf Single locus analysis of the yeast outcrossing 
+	populations.}\\ Manhattan plot 
+		of scan for testing directional selection (A) and dominant 
 		selection 
 		(C). dashed
 		The dashed line represents cutoff for  genome-wide FDR$\le0.05$.

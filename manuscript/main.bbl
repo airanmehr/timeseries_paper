@@ -121,12 +121,6 @@ Richard Durbin, Sean~R Eddy, Anders Krogh, and Graeme Mitchison.
   and nucleic acids}}.
 \newblock Cambridge university press, 1998.
 
-\bibitem{elyashiv2016genomic}
-Eyal Elyashiv, Shmuel Sattath, Tina~T Hu, Alon Strutsovsky, Graham McVicker,
-  Peter Andolfatto, Graham Coop, and Guy Sella.
-\newblock {A Genomic Map of the Effects of Linked Selection in Drosophila}.
-\newblock {\em PLoS Genet}, 12(8):1--24, 2016.
-
 \bibitem{Ewens2012Mathematical}
 Warren~J Ewens.
 \newblock {\em {Mathematical Population Genetics 1: Theoretical Introduction}},
@@ -426,12 +420,6 @@ Ellen~G Williamson and Montgomery Slatkin.
 \newblock {Using maximum likelihood to estimate population size from temporal
   changes in allele frequencies}.
 \newblock {\em Genetics}, 152(2):755--761, 1999.
-
-\bibitem{williamson2007localizing}
-Scott~H Williamson, Melissa~J Hubisz, Andrew~G Clark, Bret~A Payseur, Carlos~D
-  Bustamante, and Rasmus Nielsen.
-\newblock {Localizing recent adaptive evolution in the human genome}.
-\newblock {\em PLoS Genet}, 3(6):e90, 2007.
 
 \bibitem{winters2012development}
 Mark~A Winters, Robert~M {Lloyd Jr}, Robert~W Shafer, Michael~J Kozal,

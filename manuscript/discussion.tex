@@ -1,9 +1,9 @@
 \section{Discussion}
-We developed a computational method, \comale, that can detect regions
-and variants under selection E\&R experiments of sexual
-populations. Using extensive simulations, we show that \comale\
+We developed a computational tool, \comale, that can detect regions
+and variants under selection E\&R experiments. Using extensive simulations, 
+we show that \comale\
 outperforms existing methods in detecting selection, locating the
-favored allele, and estimating selection parameters.  Also, while
+favored allele, and estimating model parameters.  Also, while
 being computationally efficient, \comale\ provide means for estimating
 populations size and hypothesis testing.
 
@@ -20,8 +20,11 @@ likelihood ratio statistic.
 It should be noted that, even though we described \comale\ for small
 fixed-size populations, the statistic can be adjusted for other
 scenarios, including changing population sizes when the demography is
-known. For large populations, transitions can be computed for a fixed
-size of frequencies instead of raw counts.
+known. For large populations, transitions can be computed on sparse data 
+structures, as for large $N$ the transition matrices become increasingly 
+sparse. Alternatively, transitions can be computed 
+for a fixed
+size of frequencies $\widetilde{N} \ll N$ instead $N+1$ distinct frequencies.
 
 \ignore{
 In our simulations, we found that the power of detection can be
