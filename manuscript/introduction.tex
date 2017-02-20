@@ -101,22 +101,23 @@ contributions of this paper is the extension of SFS based methods to
 analyze time-series data, and the identification of selection regimes
 where these methods perform well.}
 
-In an effort for analyzing E\&R selection experiments, many authors
-chose to adopt existing tests that originally used for static data, pairwise 
-comparisons (two time-points) and single replicates to perform a null scan.
-For instance, Zhu
-\emph{et al.}~\cite{zhou2011experimental} used the ratio of the
-estimated population size of case and control populations to compute
-test statistic for each genomic region. Burke \emph{et
+In the effort to analyze E\&R selection experiments, many authors
+chose to adapt existing tests that were originally used for static
+data, pairwise comparisons (two time-points) and single replicates to
+perform a null scan.  For instance, Zhu \emph{et
+  al.}~\cite{zhou2011experimental} used the ratio of the estimated
+population size of case and control populations to compute test
+statistic for each genomic region. Burke \emph{et
   al.}~\cite{burke2010genome} applied Fisher exact test to the last
-observation of data on case and control populations.  Orozco-terWengel \emph{et
-  al.}~\cite{orozco2012adaptation} used the Cochran-Mantel-Haenszel
-(CMH) test~\cite{agresti2011categorical} to detect SNPs whose read
-counts change consistently across all replicates of two time-point
-data. Turner \emph{et al.}~\cite{turner2011population} proposed the
-diffStat statistic to test whether the change in allele frequencies of
-two populations deviate from the distribution of change in allele
-frequencies of two drifting populations. Bergland \emph{et
+observation of data on case and control populations.  Orozco-terWengel
+\emph{et al.}~\cite{orozco2012adaptation} used the
+Cochran-Mantel-Haenszel (CMH) test~\cite{agresti2011categorical} to
+detect SNPs whose read counts change consistently across all
+replicates of two time-point data. Turner \emph{et
+  al.}~\cite{turner2011population} proposed the diffStat statistic to
+test whether the change in allele frequencies of two populations
+deviate from the distribution of change in allele frequencies of two
+drifting populations. Bergland \emph{et
   al.}~\cite{bergland2014genomic} calculated $F_{st}$ to populations
 throughout time to signify their differentiation from ancestral (two
 time-point data) as well as geographically different populations. Jha
@@ -133,27 +134,23 @@ al.’s method to estimate allele age in ancient-DNA (aDNA).
 }
 
 
-Alternatively, \emph{direct} methods are developed to analyze 
-time-series 
-data by taking a likelihood approach, and estimating population genetics 
-parameters.
-Bollback \emph{et al.}~\cite{bollback2008estimation} proposed a Hidden 
-Markov Model (HMM) to     
-estimate
-the selection coefficient $s$ and population size by using a diffusion
-approximation to the continuous Wright Fisher Markov process.  
-Steinr\"{u}cken and
-Song~\cite{steinrucken2014novel} proposed a general diploid selection
-model which takes into account of dominance of the favored allele and
-approximates likelihood analytically.  Mathieson and
-McVean~\cite{mathieson2013estimating} adopted HMMs to structured
-populations and estimated parameters using an Expectation Maximization
-(EM) procedure on discretized allele frequency.  Feder \emph{et
-  al.}~\cite{feder2014Identifying} modeled increments in allele
-frequency with a Brownian motion process, proposed the Frequency
-Increment Test (FIT). More recently, Topa \emph{et
-  al.}~\cite{topa2015gaussian} proposed a Gaussian Process (GP) for
-modeling single-locus time-series pool-seq data. Terhorst \emph{et
+Alternatively, \emph{direct} methods have been developed to analyze
+time-series data by taking a likelihood approach, and estimating
+population genetics parameters.  Bollback \emph{et
+  al.}~\cite{bollback2008estimation} proposed a Hidden Markov Model
+(HMM) to estimate the selection coefficient $s$ and population size by
+using a diffusion approximation to the continuous Wright Fisher Markov
+process.  Steinr\"{u}cken and Song~\cite{steinrucken2014novel}
+proposed a general diploid selection model which takes into account of
+dominance of the favored allele and approximates likelihood
+analytically.  Mathieson and McVean~\cite{mathieson2013estimating}
+adopted HMMs to structured populations and estimated parameters using
+an Expectation Maximization (EM) procedure on discretized allele
+frequency.  Feder \emph{et al.}~\cite{feder2014Identifying} modeled
+increments in allele frequency with a Brownian motion process,
+proposed the Frequency Increment Test (FIT). More recently, Topa
+\emph{et al.}~\cite{topa2015gaussian} proposed a Gaussian Process (GP)
+for modeling single-locus time-series pool-seq data. Terhorst \emph{et
   al.}~\cite{Terhorst2015Multi} extended GP to compute joint
 likelihood of multiple loci under null and alternative hypotheses.
 Recently, Schraiber \emph{et al.}~\cite{schraiber2016bayesian}
@@ -164,16 +161,16 @@ Markov chain sampling.
 While existing methods have been successfully applied to their
 corresponding application, they make some assumptions which may not
 hold in E\&R studies.  First, they assume that the underlying
-population size is large, so it is reasonable to model dynamics of allele 
-frequencies using continuous state models.  A number of existing methods 
-were originally
-designed to process wide time spans such as ancient DNA
-studies. Finally, they assume that input data is in the form of
-unbiased allele frequencies.
+population size is large, so it is reasonable to model dynamics of
+allele frequencies using continuous state models. A number of existing
+methods were originally designed to process wide time spans such as
+ancient DNA studies. Finally, they assume that input data is in the
+form of unbiased allele frequencies, which may not be valid for
+shotgun sequencing experiments.
 
-Here, we consider a Hidden Markov Model (HMM), similar to Williamson~\emph{et
-  al.}~\cite{williamson1999using} and Bollback~\emph{et
-  al.}'s~\cite{bollback2008estimation} but under a
+Here, we consider a Hidden Markov Model (HMM), similar to
+Williamson~\emph{et al.}~\cite{williamson1999using} and
+Bollback~\emph{et al.}'s~\cite{bollback2008estimation} but under a
 ``small-population-size'' regime. Specifically, we use a discrete
 state (frequency) model.  We show that for small population sizes,
 discrete models can compute likelihood exactly, which improves
@@ -181,7 +178,7 @@ statistical performance, especially for short time-span
 experiments. Additionally, we add another level of sampling-noise to
 the traditional HMM model, allowing for heterogeneous ascertainment
 bias due to uneven coverage among variants. We show that for a wide
-range of parameters,  \comale\ provides higher power for
-detecting selection, estimates model parameters consistently, and localizes
+range of parameters, \comale\ provides higher power for detecting
+selection, estimates model parameters consistently, and localizes
 favored allele more accurately compared to the state-of-the-art
 methods, while being computationally efficient.

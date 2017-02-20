@@ -1,19 +1,14 @@
 \section{Materials and Methods}
 \label{sec:method}
-Consider a panmictic diploid population with fixed size of $N$ individuals. 
-Let
-$\bm{ \nu} =\{\nu_t\}_{t\in\Tc}$ be frequencies of the derived allele 
-at generations
-$t\in\Tc$ for a given variant, 
-where at generations $\Tc= \{\tau_i: 0\le
-\tau_0<\tau_1,\ldots< \tau_T\}$ samples 
-of $n$ individuals are chosen for pooled
-sequencing. 
-The experiment is being done for $R$ replicates and we denote allele 
-frequencies of  $R$ replicates by $\{\bm{\nu}\}_R$.
-To identify the genes and variants
-that are responding to selection pressure, we use the following
-procedure:
+Consider a panmictic diploid population with fixed size of $N$
+individuals.  Let $\bm{ \nu} =\{\nu_t\}_{t\in\Tc}$ be frequencies of
+the derived allele at generations $t\in\Tc$ for a given variant, where
+at generations $\Tc= \{\tau_i: 0\le \tau_0<\tau_1,\ldots< \tau_T\}$
+samples of $n$ individuals are chosen for pooled sequencing. The
+experiment is replicated $R$ times. We denote allele frequencies of
+the $R$ replicates by the set $\{\bm{\nu}\}_R$.  To identify the genes
+and variants that are responding to selection pressure, we use the
+following procedure:
 \begin{enumerate}[(i)]
 \item {\bf Estimating population size.} The procedure starts by
   estimating the effective population size, $\hN$, under the
@@ -26,13 +21,12 @@ procedure:
   likelihood of neutral evolution/drift model is computed. Likelihood
   ratios in a genomic region are combined to compute the \comale\
   statistic for the region.
-\item {\bf Hypothesis testing.} 
-By genome-wide drift simulations, empirical 
-null distribution of the \comale\ statistic is 
-calculated to compute $p$-values and a cutoff for a given FDR.
-Within selected regions we then perform single locus hypothesis testing to 
-identify significant variants and report the intersecting genes with the selected 
-variants.
+\item {\bf Hypothesis testing.} An empirical null distribution of the
+  \comale\ statistic is calculated using genome-wide drift
+  simulations, and used to compute $p$-values and thresholds for a
+  specified FDR. We perform single locus hypothesis testing within
+  selected regions to identify significant variants and report genes
+  that intersect with the selected variants.
 \end{enumerate}
 These steps are described in detail below.
 \subsection{Estimating Population Size}
@@ -40,21 +34,20 @@ Methods for estimating population sizes from temporal neutral
 evolution data have been
 developed~\cite{williamson1999using,anderson2000monte,
   bollback2008estimation, Terhorst2015Multi,jonas2016estimating}.
-We here aim to extend these models to explicitly model the sampling noise 
-that arise in
-pool-seq data. Specifically, we model the variation in sequence
-coverage over different locations, and the noise due to sequencing
-only a subset of the individuals in the population.  In addition, many
-existing
+Here, we aim to extend these models to explicitly model the sampling
+noise that arise in pool-seq data. Specifically, we model the
+variation in sequence coverage over different locations, and the noise
+due to sequencing only a subset of the individuals in the population.
+In addition, many existing
 methods~\cite{bollback2008estimation,feder2014Identifying,topa2015gaussian,Terhorst2015Multi}
 are designed for large populations, and model frequency as a
-continuous quantity. We show that smooth approximations may
-be inadequate for small populations, low starting frequencies and
-sparse sampling (in time) that are typical in experimental evolution
-(see Results, \ref{fig:power}A-C, and \ref{fig:markov}). To this end,
-we model the Wright-Fisher Markov process for generating pool-seq
-data~(\ref{proc:arya}) via a {discrete} HMM (~\ref{fig:1}-B). We
-start by computing a likelihood function for the population size given
+continuous quantity. We show that smooth approximations may be
+inadequate for small populations, low starting frequencies and sparse
+sampling (in time) that are typical in experimental evolution (see
+Results, \ref{fig:power}A-C, and \ref{fig:markov}). To this end, we
+model the Wright-Fisher Markov process for generating pool-seq
+data~(\ref{proc:arya}) via a {discrete} HMM (~\ref{fig:1}-B). We start
+by computing a likelihood function for the population size given
 neutral pool-seq data.
 
 
@@ -113,11 +106,10 @@ heterogeneity, we extend the Markov chain likelihood in
 Eq.~\ref{eq:mkvlik} to a Hidden Markov Model (HMM) for pool-seq data.}
 
 We denote the pool-seq data for that variant as $\{x_t = \langle
-c_t,d_t \rangle\}_{t\in\Tc}$ where $d_t, c_t$ represent the coverage, and the 
-read count of the derived allele, respectively. Let $\{\lambda_t\}_{t\in\Tc}$ be 
-the sequencing coverage at
-different generations, then, the observed data are sampled according
-to 
+c_t,d_t \rangle\}_{t\in\Tc}$ where $d_t, c_t$ represent the coverage,
+and the read count of the derived allele, respectively. Let
+$\{\lambda_t\}_{t\in\Tc}$ be the sequencing coverage at different
+generations. Then, the observed data are sampled according to
 \begin{equation} d_t \sim \poiss(\lambda_t), \hspace{1in} c_t \sim
 \bino(d_t,y_t) 
 \end{equation}
@@ -148,7 +140,7 @@ process for which data is being generated is depicted in~\ref{fig:1}-B
 and~\ref{proc:arya}, respectively.
 
 Finally, the last step is to compute an estimate $\hN$ that maximizes
-the likelihood of all the $M$ variants in whole genome. Let
+the likelihood of all $M$ variants in whole genome. Let
 $\bm{x}_i^{(r)}$ denote the time-series data of the $i$-th variant in
 replicate $r$. Then,
 \begin{equation}
@@ -240,9 +232,9 @@ optimal value of the hyper-parameter $L$ depends upon a number of
 factors, including initial frequency of the favored allele,
 recombination rates, linkage of the favored allele to neighboring
 variants, population size, coverage, and time since the onset of
-selection (duration of the experiment). In~\ref{sec:winSize}, we provide an 
-heuristic 
-to compute a reasonable $L$, based on experimental data parameters.
+selection (duration of the experiment). In~\ref{sec:winSize}, we
+provide a heuristic to compute a reasonable value of $L$, based on
+experimental data.
 
 \ignore{However, we provide a
 heuristic choose size of $L$ for an experiment 
@@ -270,7 +262,7 @@ computed directly. However, Feder \emph{et
   al.}~\cite{feder2014Identifying} showed that when the number of
 independent samples (replicates) is small, $\Xc^2$ is a crude
 approximation to the true null distribution and results in more false positive. 
-Following their suggestion, we compute $p$-values based on the
+Following their suggestion, we computed $p$-values based on the
 empirical distribution of statistic on simulations using the estimated
 population size. See~\ref{proc:arya} for details.  The empirical
 distribution of statistic $H$ is used to compute $p$-values as
@@ -289,7 +281,7 @@ experimental data:
 \hspace{0.5in} \forall i \in \Cc,
 \end{equation} 
 where $\mu_\Cc$ and $\sigma_\Cc$ are the mean and standard deviation
-of $\Hc$ values in a large (entire chromosome) region. The normalize
+of $\Hc$ values in a large (entire chromosome) region. The normalized
 $\Hc$ scores are used to compute $p$-values and FDR using the
 methodology for single locus analysis. After discovering intervals
 that exceed the cut-off for the desired FDR, we further select

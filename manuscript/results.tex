@@ -22,12 +22,14 @@ example, sampling is sparse. Often, the experiment is designed so that
 $10\le\tau\le100$~\cite{kofler2013guide, orozco2012adaptation,
   zhou2011experimental,franssen2015patterns}.
 
-In contrast to the Brownian motion, discrete Markov chain can provide 
-predictions when the the allele is under selection. In addition 
-\ref{fig:markov}A-M
-also shows that Markov chain predictions (Eq.~\ref{eq:mkvs}) are
-highly consistent with empirical data for a wide range of simulation
-parameters.
+% XXX Not sufficient to say 'in contrast to brownian motion, markov...
+% Please check the rewrite of this part
+In contrast to the Brownian motion approximation, discrete Markov
+chain predictions (Eq.~\ref{eq:mkvs}) are highly consistent with
+empirical data for a wide range of simulation parameters
+(\ref{fig:markov}A-M). Moreover, the discrete markov chain can be
+modified to model the case when the the allele is under
+selection. 
 
 \paragraph{Detection Power.} 
 We compared the performance of \comale\ against other methods for
@@ -117,35 +119,31 @@ of time-series SFS based statistics is advantageous.}
 
 
 \paragraph{Site-identification.}
-In general, localizing the favored variant, using pool-seq data is a nontrivial 
-task due to extensive linkage disequilibrium~\cite{tobler2014massive}. 
-To measure performance, we simply sort variants by their $H$ scores and 
-compute rank of the favored allele for each method. For each setting of
-$\nu_0$ and $s$, we conducted $1000$ simulations and computed the rank
-of the favored mutation in each simulation. The cumulative
-distribution of the rank of the favored allele in 1000 simulation for
-each setting (\ref{fig:rank}) shows that \comale\ outperforms
-other statistics.
+In general, localizing the favored variant, using pool-seq data is a
+nontrivial task due to extensive linkage
+disequilibrium~\cite{tobler2014massive}.  To measure performance, we
+sorted variants by their $H$ scores and computed rank of the favored
+allele for each method. For each setting of $\nu_0$ and $s$, we
+conducted $1000$ simulations and computed the rank of the favored
+mutation in each simulation. The cumulative distribution of the rank
+of the favored allele in 1000 simulation for each setting
+(\ref{fig:rank}) shows that \comale\ outperforms other statistics.
 
-An interesting observation is revisiting the contrast between 
-site-identification
-and detection~\cite{long2013massive,tobler2014massive}. 
-When selection 
-strength is high, detection is easier
-(\ref{fig:power}A-F), but site-identification is harder, due to
-the high LD between flanking variants and the favored allele
-(\ref{fig:rank}A-F).  Moreover, site-identification become more difficult 
-whenever the initial frequency of the favored allele is low, i.e., at the onset of 
-selection, LD between favored allele and its nearby variants is high. For 
-example, 
-when
-coverage $\lambda=100$ and selection coefficient $s=0.1$, the
-detection power is 75\% for hard sweep, but 100\% for soft sweep
-(\ref{fig:power}B-E). In contrast, the favored site was ranked as
-the top in 14\% of hard sweep cases, compared to and 95\% of soft
-sweep simulations.  
-\ignore{
-\newcommand*\rot{\rotatebox{-90} }
+An interesting observation is revisiting the contrast between
+site-identification and
+detection~\cite{long2013massive,tobler2014massive}.  When selection
+strength is high, detection is easier (\ref{fig:power}A-F), but
+site-identification is harder, due to the high LD between flanking
+variants and the favored allele (\ref{fig:rank}A-F).  Moreover,
+site-identification becomes more difficult whenever the initial
+frequency of the favored allele is low, i.e., at the onset of
+selection, LD between favored allele and its nearby variants is
+high. For example, when coverage $\lambda=100$ and selection
+coefficient $s=0.1$, the detection power is 75\% for hard sweep, but
+100\% for soft sweep (\ref{fig:power}B-E). In contrast, the favored
+site was ranked as the top in 14\% of hard sweep cases, compared to
+and 95\% of soft sweep simulations.  \ignore{
+  \newcommand*\rot{\rotatebox{-90} }
 \begin{table}[H]
 	\centering
 		\caption{\bf Percentage of simulations which favored allele appears in 
@@ -242,58 +240,52 @@ one replicate at generation 23, one replicate at generation 27, three
 replicates at generation 37 and three replicates at generation
 59. After filtering, we ended up with 1,605,714 variants.
 
-Next, we estimated genome-wide population size $\hat{N}=250$  
-(\ref{fig:estimateN}-E) which is consistent with previous 
-studies~\cite{orozco2012adaptation,jonas2016estimating}. The likelihood 
-curves of \comale\ is
-sharper around the optimum compared to that of Bollback
-et. al~\cite{bollback2008estimation}'s method (see Supplementary Fig. 1
-in~\cite{orozco2012adaptation}).  Also, chromosomes 3L and 3R appear
-to have smaller population size~\ref{fig:estimateN}-D, $\hN=200,150$,
-respectively. This inconsistency is being observed before. In particular, 
-J\'{o}n\'{a}s~\emph{et al.} shown that the 
-chromosome-wise 
-population size is more heterogeneous when it is computed for each replicate 
-separately (see Table 1 in~\cite{jonas2016estimating}). For instance, $\hN$ is 
-131 for chr3R replicate 1, while it is 328 for chrX replicate 2.
-While it would be ideal to compute \comale\ statistic for each replicate and 
-chromosome separately, computing empirical $p$-values and significant 
-regains become computationally intensive, and empirical null distribution of 
-each replicate and each chromosome needs to be computed.
-Hence, we use genome-wide estimate $\hN=250$ to compute $\Hc$ and 
-then compute normalized statistics $\Hc^*$ for each chromosome, separately.
-Specifically, given $\hat{N}=250$, we computed 
-estimates of $s$, and computed the normalized test statistic $\Hc^*$
-on sliding windows of size of 25Kbp and step size of 5Kbp variants
-over the genome.  Empirical null distribution of $\Hc^*$ is estimated by 
-creating
-100 simulations according to Section~\ref{sec:sims} with $L=20$Mbp, $\hN=250$ 
-and 
-experimental data coverage and sampling times. 
-Then, $p$-value of each region in the experimental data is calculated
-as the fraction of the 400K null statistics that are greater than or equal of
-test statistic(see~\ref{fig:null-alt}).
-After correcting for multiple 
-testing, we identify
-$5$ contiguous intervals~\ref{fig:man-dmel-region} satisfying
-FDR$\le0.05$, and covering $2,829$ polymorphic sites. We further performed 
-single-locus hypothesis testing on the $2,829$ to identify selected variants.
+Next, we estimated genome-wide population size $\hat{N}=250$
+(\ref{fig:estimateN}-E) which is consistent with previous
+studies~\cite{orozco2012adaptation,jonas2016estimating}. The
+likelihood curves of \comale\ are sharper around the optimum compared
+to that of Bollback et. al~\cite{bollback2008estimation}'s method (see
+Supplementary Fig. 1 in~\cite{orozco2012adaptation}).  Also,
+chromosomes 3L and 3R appear to have smaller population
+size~\ref{fig:estimateN}-D, $\hN=200,150$, respectively. This
+inconsistency is being observed before. In particular,
+J\'{o}n\'{a}s~\emph{et al.} shown that the chromosome-wise population
+size is more heterogeneous when it is computed for each replicate
+separately (see Table 1 in~\cite{jonas2016estimating}). For instance,
+$\hN$ is 131 for chr3R replicate 1, while it is 328 for chrX replicate
+2.  While it would be ideal to compute \comale\ statistic for each
+replicate and chromosome separately, computing empirical $p$-values
+and significant regains become computationally intensive, and
+empirical null distribution of each replicate and each chromosome
+needs to be computed.  Hence, we use genome-wide estimate $\hN=250$ to
+compute $\Hc$ and then compute normalized statistics $\Hc^*$ for each
+chromosome, separately.  Specifically, given $\hat{N}=250$, we
+computed estimates of $s$, and computed the normalized test statistic
+$\Hc^*$ on sliding windows of size of 25Kbp and step size of 5Kbp
+variants over the genome.  Empirical null distribution of $\Hc^*$ is
+estimated by creating 100 simulations according to
+Section~\ref{sec:sims} with $L=20$Mbp, $\hN=250$ and experimental data
+coverage and sampling times.  Then, $p$-value of each region in the
+experimental data is calculated as the fraction of the 400K null
+statistics that are greater than or equal of test
+statistic(see~\ref{fig:null-alt}).  After correcting for multiple
+testing, we identify $5$ contiguous
+intervals~\ref{fig:man-dmel-region} satisfying FDR$\le0.05$, and
+covering $2,829$ polymorphic sites. We further performed single-locus
+hypothesis testing on the $2,829$ to identify selected variants.
 $p$-values of $H$ statistics calculated on a set of 90M single locus
 Wright-Fisher simulations for $\widehat{N}=$250, initial frequencies
-and variant depths of real data (see \ref{proc:arya}). 
-$174$ variants with FDR $\le0.01$\%
-within selected regions using single locus hypothesis testing.  
- The selected 174 variants fall within 32
-genes(\ref{tab:genes})
- including 
-many Serine inhibitory proteases
-(serpins), and other genes involved in endocytosis. Recycling of synaptic 
-vesicles is seen to be blocked at high
-temperature in temperature sensitive Drosophila
-mutants~\cite{kosaka1983reversible}. This is also
-supported by GO enrichment analysis, where a single GO term
-`inhibition of proteolysis' is found to enriched (corrected $p$-value:0.0041).
-To test for dominant selection, we computed $D$ statistic on simulated
+and variant depths of real data (see \ref{proc:arya}).  $174$ variants
+with FDR $\le0.01$\% within selected regions using single locus
+hypothesis testing.  The selected 174 variants fall within 32
+genes(\ref{tab:genes}) including many Serine inhibitory proteases
+(serpins), and other genes involved in endocytosis. Recycling of
+synaptic vesicles is seen to be blocked at high temperature in
+temperature sensitive Drosophila
+mutants~\cite{kosaka1983reversible}. This is also supported by GO
+enrichment analysis, where a single GO term `inhibition of
+proteolysis' is found to enriched (corrected $p$-value:0.0041).  To
+test for dominant selection, we computed $D$ statistic on simulated
 neutral and experimental data, and computed $p$-values accordingly.
 After correcting for multiple testing, 96 variants were discovered
 with FDR$\le 0.01$~(\ref{fig:man-dmel-snp}).
