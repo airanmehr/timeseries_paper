@@ -234,26 +234,16 @@ recombination rates, linkage of the favored allele to neighboring
 variants, population size, coverage, and time since the onset of
 selection (duration of the experiment). In~\ref{sec:winSize}, we
 provide a heuristic to compute a reasonable value of $L$, based on
-experimental data.
+experimental data. 
 
-\ignore{However, we provide a
-heuristic choose size of $L$ for an experiment 
-\VB{WE cannot use this
-  argument. You are saying that L is very dependent on these
-  parameters and then you say that it can have large impact on the
-  final answer. In that case why should the reviewer allow us to
-  choose arbitrary value? We need to say that the answer \emph{does
-    not} change when L is chosen in a reasonable range. This needs to
-  be discussed and rewritten.}.
-
-In general, as selection acts locally in the genome, size of $L$ have
-a direct effect on the power. For instance, when $L$ is chosen to be a
-large region (e.g.  chromosome), power will be degraded since
-distribution of null and alternative $\Hc$ statistics converge
-together.  Hence, we choose $L$ to be the largest, such that it
-provides enough discoveries that satisfies experiment's FDR.
-}
-
+We work with a normalized value of $\Hc$, given by
+\begin{equation} \Hc_i^*=\frac{\Hc_i-\mu_\Cc}{\sigma_\Cc},
+\hspace{0.5in} \forall i \in \Cc,
+\end{equation} 
+where $\mu_\Cc$ and $\sigma_\Cc$ are the mean and standard deviation
+of $\Hc$ values in a large region $\Cc$. We found different
+chromosomes to have different distribution of $\Hc_i$ values, and
+therefore decided to use single chromosomes as $\Cc$.
 \subsection{Hypothesis Testing}
 \paragraph{Single-Locus tests.}
 Under neutrality, Log-likelihood ratios can be approximated by $\Xc^2$
@@ -261,147 +251,70 @@ distribution~\cite{williams2001weighing}, and $p$-values can be
 computed directly. However, Feder \emph{et
   al.}~\cite{feder2014Identifying} showed that when the number of
 independent samples (replicates) is small, $\Xc^2$ is a crude
-approximation to the true null distribution and results in more false positive. 
-Following their suggestion, we computed $p$-values based on the
-empirical distribution of statistic on simulations using the estimated
-population size. See~\ref{proc:arya} for details.  The empirical
-distribution of statistic $H$ is used to compute $p$-values as
-fraction of null values that exceed the test score.  Finally, we use
-Storey and Tibshirani's method~\cite{storey2003statistical} to control
-for False Discovery Rate in multiple testing.
+approximation to the true null distribution and results in more false
+positive.  Following their suggestion, we first compute the empirical
+null distribution using simulations with the estimated population size
+(See~\ref{proc:arya}). The empirical null distribution of statistic
+$H$ is used to compute $p$-values as the fraction of null values that
+exceed the test score.  Finally, we use Storey and Tibshirani's
+method~\cite{storey2003statistical} to control for False Discovery
+Rate in multiple testing.
 
 
 \paragraph{Composite likelihood tests.}
-Similarly, we compute the null distribution of the $\Hc$ statistic by 
-whole-genome simulations, given the estimated population size.
-As selection is expected to have local effect on the genome, we
-normalize $\Hc$ with respect to each chromosome both in simulated and
-experimental data:
-\begin{equation} \Hc_i^*=\frac{\Hc_i-\mu_\Cc}{\sigma_\Cc},
-\hspace{0.5in} \forall i \in \Cc,
-\end{equation} 
-where $\mu_\Cc$ and $\sigma_\Cc$ are the mean and standard deviation
-of $\Hc$ values in a large (entire chromosome) region. The normalized
-$\Hc$ scores are used to compute $p$-values and FDR using the
-methodology for single locus analysis. After discovering intervals
-that exceed the cut-off for the desired FDR, we further select
-variants within selected intervals that have significant individual
-scores based on single-locus tests, and identify the genes spanning
-those variants.
 
-\ignore{
-\paragraph{Precomputing Transition Matrices.}
-\comale\ requires a one-time computation of matrices
-$Q^{(\tau)}_{s,h}$ for the entire range of $s,h$
-values. Precomputation of $121$ transition matrices for
-$s\in\{-0.5,-0.45\ldots,0.5 \}$ and $h\in \{0,0.5,\ldots,5\}$ took
-less than 3 minutes ($\approx$ 1 second per matrix) on a desktop
-computer with a Intel Core i7 CPU and 16GB of RAM.
-}
-\ignore{
-\subsection{Extending Site Frequency Spectrum  based tests for  time series 
-data}\label{sec:extending-sfs}
-\label{sec:sfs-ts}
-The site frequency spectrum (SFS) is a mainstay of tests of neutrality
-and selection, and can be computed using pool-seq data (does not
-need haplotypes). Following Fu, 1995~\cite{fu1995statistical}, any
-linear combination of the site frequencies is an estimate of
-$\theta$. However, under non-neutral conditions, different linear
-combinations behave differently. Therefore, many popular tests of
-neutrality either compute differences of two estimates of $\theta$, or
-perform cross-population tests comparing the $\theta$ estimates in two
-different
-populations~\cite{achaz2009frequency,ronen2013learning,sabeti2007genome}. 
-
-We asked if SFS-based tests could be adapted for time-series data. A
-simple approach is to use cross-population SFS tests on the
-populations at time $0$ (before onset of selection), and at time
-sample $\tau_t$, for each $t$. Evans \emph{et al.}~\cite{evans2007non} developed
-diffusion equations for evolution of SFS in time series, but they are
-difficult to solve. Instead, we derive a formula for computing $D_t$,
-the dynamic of Tajima's $D$ at generation $t$. 
-Specifically, for
-initial value $D_0$, initial carrier frequency $\nu_0$ and 
-selection coefficient $s$:
-\begin{equation}
-  D_t=D_0-\log(1-\nu_t) \frac{W_0}{\log(2N)} -\nu_t^2 \Pi_0\;,
-  \label{eq:tdt}    
-\end{equation}
-where $W_0$ and $\Pi_0$ are Watterson's and Tajima's estimates of
-$\theta$ in the initial generation (\ref{app:td}).  See
-\ref{fig:sfsts} for comparison to empirical values 
-from
-simulations. Similarly, we show (\ref{app:h}), that the
-dynamics of Fay and Wu's $H$ statistic~\cite{fay2000hitchhiking} are
-directly related to expected value of the of Haplotype Allele
-Frequency (HAF) score~\cite{ronen2015predicting}, and can be written
-as a function of $\nu_t$ as follows:
-\begin{equation}
-  NH_t= \theta \nu_t \left(\frac{\nu_t+1}{2} -
-    \frac{1}{(1-\nu_t)N+1}\right) + \theta
-  (1-\nu_t)\left(\frac{N+1}{2N}-\frac{1}{(1-\nu_t)N+1}\right)
-  \label{eq:ht}
-\end{equation}	
-In both cases, $\nu_t$ itself can be written as a function of $s,t$
-(Eq.~\ref{eq:inf-pop}). This allows us to compute 
-likelihood
-functions $\Lc_S(s; \{D_t\})$ or $\Lc_S(s; \{H_t\})$. Then, a
-likelihood ratio, similar to Eqns.~\ref{eq:mcts},~\ref{eq:hmmml}
-provides a statistic for detecting selection in each window. 
-
-However, as $\nu_0$ and $D_0$ are often unknown in sampling from
-natural populations, we do not directly use
-Eqns.~\ref{eq:tdt},~\ref{eq:ht}. Instead, we heuristically aggregate
-statistics throughout time to compute a time-series score
-(\ref{app:agg}).
-}
-
-
-		
-
+Similar to single-locus tests, we compute the null distribution of the
+$\Hc^*$ statistic using whole-genome simulations with the estimated
+population size, and subsequently compute FDR. The simulations for
+generating the null distribution of $\Hc^*$ are described next. 
 
 \subsection{Simulations}\label{sec:sims}
-We performed extensive simulations using parameters that have been
-used for \dmel experimental
-evolution~\cite{kofler2013guide}. See also \ref{fig:1}-A 
-for
-illustration. To implement real world pool-seq experimental evolution, we 
-conducted simulations as follows:
+We use the same simulation procedure for two purposes. First, we use
+them to test the power of \comale\ against other methods in small
+genomic windows. Second, we use the simulations to generate the
+distribution of null values for the statistic to compute empirical
+$p$-values. We mainly chose parameters that are relevant to \dmel
+experimental evolution~\cite{kofler2013guide}. See also \ref{fig:1}-A
+for illustration. 
 \begin{enumerate}[I.]
 \item {\bf Creating initial founder line haplotypes.} Using
-  \texttt{msms}~\cite{ewing2010msms}, we created neutral populations for $F$
-  founding haplotypes with command \texttt{\$./msms
-    <F> 1 -t <2$\mu$LNe> -r <2rNeL> <L>}, where $F=200$ is number of
-  founder lines, $N_e=10^6$ is effective population size,
+  \texttt{msms}~\cite{ewing2010msms}, we created neutral populations
+  for $F$ founding haplotypes with command \texttt{\$./msms <F> 1 -t
+    <2$\mu$WNe> -r <2rNeW> <W>}, where $F=200$ is number of founder
+  lines, $N_o=10^6$ is effective founder population size,
   $r=2\times10^{-8}$ is recombination rate, $\mu=2\times 10^{-9}$ is
-  mutation rate and $L=50$Kbp is the window size in base pairs which
-  gives $\theta=2\mu N_eL=200$ and $\rho=2N_erL=2000$.
+  mutation rate. The window size $W$ is used to compute $\theta=2\mu
+  N_oW$ and $\rho=2N_orW$. We chose $W=50$Kbp for simulating
+  individual windows for performance evaluations, and $W=20$Mbp for
+  simulating \dmel chromosomes for $p$-value computations.
   
-\item{\bf Creating initial diploid population.} To simulate
-  experimental evolution of diploid organisms, initial haplotypes were
-  first cloned to create $F$ diploid homozygotes. Next, each diploid
-  individual was cloned $N/F$ times to yield diploid population of
-  size $N$.
+\item{\bf Creating initial diploid population.} An initial set of
+  $F=200$ haplotypes was created from step I, and duplicated to create
+  $F$ homozygous diploid individuals to simulate generation of inbred
+  lines. $N$ diploid individuals were generated by sampling with
+  replacement from the $F$ individuals.
 
 \item{\bf Forward Simulation.} We used forward simulations for
   evolving populations under selection. We also consider selection
-  regimes which the favored allele is chosen from standing
-  variation (not \emph{de novo} mutations). Given initial diploid
-  population, position of the site under selection, selection strength
-  $s$, number of replicates $R=3$, recombination rate
-  $r=2\times10^{-8}$ and sampling times $\Tc=\{0,10,20,30,40,50\}$,
+  regimes which the favored allele is chosen from standing variation
+  (not \emph{de novo} mutations). Given initial diploid population,
+  position of the site under selection, selection strength $s$, number
+  of replicates $R=3$, recombination rate $r=2\times10^{-8}$ and
+  sampling times $\Tc=\{0,10,20,30,40,50\}$,
   \texttt{simuPop}~\cite{peng2005simupop} was used to perform forward
   simulation and compute allele frequencies for all of the $R$
   replicates.  For hard sweep (respectively, soft sweep) simulations
   we randomly chose a site with initial frequency of $\nu_0=0.005$
-  (respectively, $\nu_0=0.1$) to be the favored allele.
+  (respectively, $\nu_0=0.1$) to be the favored allele. For generating
+  the null distribution with drift for $p$-value computations, we used
+  this procedure with $s=0$.
+
 \item{\bf Sequencing Simulation.} Given allele frequency trajectories
-  we sampled depth of each site in each replicate identically and independently 
-  from
-  Poisson($\lambda$), where $\lambda \in \{30,100,300\}$ is the
-  coverage for the experiment. Once depth $d$ is drawn for the site
-  with frequency $\nu$, the number of reads $c$ carrying the derived
-  allele are sampled according to Binomial$(d,\nu)$. For experiments
-  with finite depth the tuple $\langle c,d\rangle$ is the input data
-  for each site. 
+  we sampled depth of each site in each replicate identically and
+  independently from Poisson($\lambda$), where $\lambda \in
+  \{30,100,300\}$ is the coverage for the experiment. Once depth $d$
+  is drawn for the site with frequency $\nu$, the number of reads $c$
+  carrying the derived allele are sampled according to
+  Binomial$(d,\nu)$. For experiments with finite depth the tuple
+  $\langle c,d\rangle$ is the input data for each site.
 \end{enumerate}
