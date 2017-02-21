@@ -3,7 +3,73 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\clearpage
 %\newpage
-\section{Window Size}\label{sec:winSize}
+\section{Choosing Window Size}\label{sec:winSize}
+The optimal window size depend on the linkage disequilibrium (LD) between the 
+favored allele and its nearby variants. 
+In an E\&R selection experiment, dynamic of the exact LD between the favored 
+allele to other variants depends on a number of parameters  including 
+recombination rate ($r$), genomic distance ($l$), LD at the onset of selection 
+($\rho_0$), initial frequency of the favored allele ($\nu_0$), strength of 
+selection ($s$) and span of 
+experiment ($\tau$). Moreover, observed LD, additionally depend on  the sample 
+size $n$ and sequencing coverage. For simplicity we exclude sampling noise due 
+to finite sampling for sequencing and finite sequencing coverage in our 
+analysis.
+
+
+Let $\rho_0$ be the LD at time zero between the favored allele and a 
+segregating site $l$ base-pairs away, then under natural selection we have
+\beq
+\rho_\tau= \alpha_\tau\beta_\tau \rho_0=e^{-r\tau l} 
+\left(\frac{K^{(\tau)}}{K^{(0)}}\right)  
+\rho_0\label{eq:ldt}
+\eeq
+where $K^{(\tau)}=2\nu_\tau(1-\nu_\tau)$ is the heterozygousity at the 
+selected 
+site, $r$ is 
+the recombination rate/bp/gen. The 
+\emph{decay factor}, $\alpha_\tau=e^{-r\tau l}$,
+and \emph{growth factor}, $\beta_\tau$ (see Eqs. 30-31 in 
+\cite{stephan2006hitchhiking}), are due to recombination and 
+selection, respectively.  
+Under regular parameter settings, linkage to the favored allele is 
+expected to 
+increases after 
+onset of selection and then starts to decrease 
+(See~\ref{fig:ldf0},~\ref{fig:ldf1},~\ref{fig:ldf2},~\ref{fig:ldf3} for 
+different scenarios).
+While $\rho_0$ is unknown in 
+pool-seq E\&R experiments, aim to find $l$ under which decay and growth factors
+stay in equilibrium $\tau$ generations after onset of selection, i.e., 
+$\alpha_\tau \beta_\tau=1$. In other words, for a given 
+$s$, we aim to compute the smallest window size $L$ over all possible 
+starting 
+frequencies:
+\beq 
+L=2\min_{\nu_0} \left\{ 
+\frac{1}{r\tau}\log\left(\frac{\hat{\nu}_\tau(1-\hat{\nu}_\tau)}{\nu_0(1-\nu_0)}\right)\right\}
+\eeq
+where the term $\hat{\nu}_\tau$ depends on initial 
+frequency $\nu_0$ and selection strength $s$ through 
+Eq.~\ref{eq:transition}.
+
+
+For example, with \dmel dataset parameters, $N=250,r=2\times10^{-8}$ 
+and 
+$\tau=59$ we computed window size for different values of $Ns$, ranging 
+from 
+weak selection to strong selection: $Ns\in\{20,100,200,500\}$, or 
+$s\in\{0.08,0.4,0.8,2\}$ (See~\ref{fig:winSize}). 
+We set $L=30$Kbp with step size 5Kbp, to provide fine resolution for 
+detecting 
+weak selections.
+
+
+
+
+
+
+
 
 %\section*{Main text figure captions}
 \ignore{

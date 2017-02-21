@@ -1,12 +1,14 @@
+\clearpage
+\newpage
 \begin{figure}[H]
  \begin{algorithm}[H]
  	\SetAlgorithmName{Generative Process}
  	\DontPrintSemicolon
  	\SetAlgoNoLine
- 	\KwIn{$N,n,R,\{\lambda_{\tau_0},\ldots,\lambda_{\tau_T}\},\Tc= 
+ 	\KwIn{$N,n,R,\{\lambda_t\}_{t\in\Tc},\Tc= 
  		\{\tau_0,\ldots\tau_T\}$ }
  	\KwOut{Time-series pool-seq data for $R$ replicates of a single locus 
- 		$\{\bfc^{(r)}\}$ and $\{\bfd^{(r)}\}$.}
+ 		$\{\bfc\}_R$ and $\{\bfd\}_R$.}
  	\For{$r\leftarrow 1$ \KwTo $R$}
  	{
  		\For{$t\leftarrow \tau_0$ \KwTo $\tau_T$}
@@ -20,9 +22,11 @@
  			}
  		}
  	}
- 	\caption{The Generative Process for Dynamic Pool-seq Data.} 
+ 	\caption{The Generative Process for Neutral Wright-Fisher 
+ 	Time-series Pool-seq Data.} 
  \end{algorithm}
- \caption{{\bf The Generative Process for Dynamic Pool-seq Data.}}
+ \caption{{\bf The Generative Process for Neutral Wright-Fisher 
+ 		Time-series Pool-seq Data.}}
   	\label{proc:arya}
 \end{figure}	
 \begin{figure}[H]
@@ -148,6 +152,7 @@
 	However, selection causes LD to increase then decrease.}	
 		\label{fig:ld3d}
 \end{figure}
+}
 
 \begin{figure}[H]
 	\centering
@@ -155,20 +160,18 @@
 	\caption{{\bf Interaction between growth and decay factors of LD in 
 	hard 
 	sweep with	weak selection.}\\
-		Expected dynamics of LD under weak selection ($s=0.025$) with hard 
+		Expected dynamics of LD between favored allele and a variant 
+		50Kbp 
+		away, under weak selection ($s=0.025$) and hard 
 		sweep 
 		($\nu_0=0.005$). In addition to 
 		recombination, initial frequency of the favored allele and selection 
-		strength determine the dynamics of LD. The vertical dashed line denotes 
-		the time in which LD start to decrease. LD between the favored 
-		allele 
-		and the rest of genome increase for 
-		$\approx$700 generations after onset of selection, implying 
-		that 
-		localizing adaptive allele in short 
-		term experimental evolution is a difficult task, especially 
-		when the 
-		frequency of the favored allele is low.} \label{fig:ldf0}
+		strength determine the dynamics of LD.
+		The horizontal black line denotes the equilibrium between decay 
+		and scaling factor.
+		 The vertical dashed line represent the time in which decay and 
+		 growth factors stay at equilibrium, after onset of selection.} 
+		 \label{fig:ldf0}
 \end{figure}
 
 \begin{figure}[H]
@@ -177,20 +180,19 @@
 \caption{{\bf Interaction between growth and decay factors of LD in 
 hard 
 		sweep with	strong selection.}\\
-	Expected dynamics of LD under strong selection ($s=0.1$) with hard sweep 
+	Expected dynamics of LD between favored allele and a variant 50Kbp 
+	away, under strong selection ($s=0.1$) and hard sweep 
 	($\nu_0=0.005$). In addition to 
 	recombination, initial frequency of the favored allele and 
 	selection 
 	strength determine the dynamics of LD. The vertical dashed line 
 	denotes 
-	the time in which LD start to decrease. LD between the favored 
-	allele 
-	and the rest of genome increase for 
-	$\approx$200 generations after onset of selection, implying that 
-	localizing adaptive allele in short 
-	term experimental evolution is a difficult task, especially when 
-	the 
-	frequency of the favored allele is low.} \label{fig:ldf1}
+	the time in which LD start to decrease. 		The horizontal 
+	black line denotes the equilibrium between decay 
+	and scaling factor.
+	The vertical dashed line represent the time in which decay and 
+	growth factors stay at equilibrium, after onset of selection.} 
+	\label{fig:ldf1}
 \end{figure}
 \begin{figure}[H]
 	\centering
@@ -198,18 +200,19 @@ hard
 \caption{{\bf Interaction between growth and decay factors of LD in 
 soft 
 		sweep with	weak selection.}\\
-	Expected dynamics of LD under weak selection ($s=0.025$) for soft sweep 
+	Expected dynamics of LD between favored allele and a variant 50Kbp 
+	away, under weak selection ($s=0.025$) and soft sweep 
 	($\nu_0=0.1$).  In addition to 
 	recombination, initial frequency of the favored allele and 
 	selection 
 	strength determine the dynamics of LD. The vertical dashed line 
 	denotes 
-	the time in which LD start to decrease. LD between the favored 
-	allele 
-	and the rest of genome increase for 
-	$\approx$300 generations after onset of selection, implying that 
-	localizing adaptive allele in short 
-	term experimental evolution is a difficult task.} \label{fig:ldf2}
+	the time in which LD start to decrease. 		The horizontal 
+	black line denotes the equilibrium between decay 
+	and scaling factor.
+	The vertical dashed line represent the time in which decay and 
+	growth factors stay at equilibrium, after onset of selection.} 
+	\label{fig:ldf2}
 \end{figure}
 \begin{figure}[H]
 	\centering
@@ -217,20 +220,21 @@ soft
 \caption{{\bf Interaction between growth and decay factors of LD in 
 soft 
 		sweep with	strong selection.}\\
-	Expected dynamics of LD under strong selection ($s=0.1$) for soft sweep 
+	Expected dynamics of LD between favored allele and a variant 50Kbp 
+	away, under strong selection ($s=0.1$) and soft sweep 
 	($\nu_0=0.1$).  In addition to 
 	recombination, initial frequency of the favored allele and 
 	selection 
 	strength determine the dynamics of LD. The vertical dashed line 
 	denotes 
-	the time in which LD start to decrease. LD between the favored 
-	allele 
-	and the rest of genome increase for 
-	$\approx$80 generations after onset of selection, implying that 
-	localizing adaptive allele in short 
-	term experimental evolution is a difficult task.} \label{fig:ldf3}
+	the time in which LD start to decrease. 		The horizontal 
+	black line denotes the equilibrium between decay 
+	and scaling factor.
+	The vertical dashed line represent the time in which decay and 
+	growth factors stay at equilibrium, after onset of selection.} 
+	\label{fig:ldf3}
 \end{figure}
-}
+
 
 \begin{figure}[H]
 	\centering
@@ -260,6 +264,23 @@ soft
            coefficient $s$ and initial carrier frequency.}
 	\label{fig:rankinf}
 \end{figure}
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{{winSize}.pdf}
+	\caption{{\bf Window size for $Ns$.}
+Heuristic window size as function of $Ns$ for \dmel study with 
+$\tau=59,N=250,r=2\times10^{-8}$.
+	}
+	\label{fig:winSize}
+\end{figure}
+
+
+
+
+
+
 
 
 \begin{figure}[H]

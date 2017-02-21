@@ -17,9 +17,20 @@
 \hspace{-1in}
 \caption{{\bf Evolve and Resequence Selection Experiments on \dmel.}
   (A) Typical configuration in which time-series data is collected for
-  \dmel.  (B) Graphical model showing dependence of the random
+  \dmel. A small set of founder lines ($F=200$) is selected from a 
+  large population size population ($N_e=10^{6}$). Then, a population 
+  of N 
+  individuals is created and multiple replicates of the population 
+  evolved and resequenced to collect time-series genomic dataset. For 
+  sequencing, $m$ individuals are randomly selected to be 
+  sequenced with coverage of $\lambda$.
+   (B) Graphical model 
+  showing dependence of the random
   variables in the single-locus model used to compute \comale\
-  statistics. Only shaded variables are observed.  (C) Mean and the
+  statistics. Only shaded variables are observed. Observer variables, 
+  $c,d$, derived allele read count and coverage are shaded. The 
+  variables $\nu,y,\lambda$ represent allele frequency, sampled allele 
+  frequency, and sequencing coverage, respectively. (C) Mean and the
   95\% confidence interval of the theoretical (i,iii) and empirical (ii,iv) 
   trajectories of
   the favored allele for hard (i,ii) and soft (iii,iv) sweep scenarios and
@@ -211,17 +222,20 @@
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{estimateN.pdf}
-	\caption{{\bf Estimating N on simulated and real data.}  Mean
+	\caption{{\bf Maximum likelihood Estimates of $N$.}  Mean
           and 95\% confidence interval of likelihoods of $N$ on
           simulated data with $N=200$ (A), $N=600$(B), and $N=1000$
           individuals, over 1000 simulations. Chromosome-wise (D) and
-          genome-wide (E) estimation of population size for
-          \datadm. Chromosome 3R fits population size of 150, while
-          genome-wide population size is 250.  (F) Despite large
+          genome-wide (E) likelihood of population size for
+          \datadm. Likelihood of the Chromosome 3R is attained at 150, 
+          while genome-wide  maximum likelihood estimate for 
+          population size is 250.  (F) Likelihood of the population 
+          size with respect to all the variants in the yeast dataset.
+          Despite large
           census population size
-          ($10^6-10^7$~\cite{burke2014standing}), Yeast dataset
+          ($10^6-10^7$~\cite{burke2014standing}), this dataset
           exhibits much smaller effective population size
-          ($\hN=2000$).  }
+          ($\hN=2000$). }
 	\label{fig:estimateN}
 \end{figure}
 
@@ -239,8 +253,9 @@
 (A)         Manhattan plot of scan for $\Hc^*$ statistic over the
           genome.  The dashed line represents cutoff for genome-wide
           FDR$\le0.05$, and identifies 5 contiguous intervals, I1-I5, 
-          which are shaded in blue. (B) Trajectories of the selected variants within 
-          intervals I1-I5}
+          which are shaded in blue. (B) Trajectories of the selected 
+          variants within 
+          intervals I1-I5.}
 	\label{fig:man-dmel-region}
 \end{figure}
 
@@ -261,7 +276,7 @@
 	populations.}\\ Manhattan plot 
 		of scan for testing directional selection (A) and dominant 
 		selection 
-		(C). dashed
+		(C).
 		The dashed line represents cutoff for  genome-wide FDR$\le0.05$.
 		Trajectories of the selected variants are depicted in panels (B) and 
 		(D).}

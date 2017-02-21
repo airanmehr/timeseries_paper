@@ -364,6 +364,12 @@ Matthias Steinr{\"{u}}cken, Anand Bhaskar, and Yun~S Song.
   time series genetic data}.
 \newblock {\em The annals of applied statistics}, 8(4):2203, 2014.
 
+\bibitem{stephan2006hitchhiking}
+Wolfgang Stephan, Yun~S Song, and Charles~H Langley.
+\newblock {The hitchhiking effect on linkage disequilibrium between linked
+  neutral loci}.
+\newblock {\em Genetics}, 172(4):2647--2663, 2006.
+
 \bibitem{storey2003statistical}
 John~D Storey and Robert Tibshirani.
 \newblock {Statistical significance for genomewide studies}.

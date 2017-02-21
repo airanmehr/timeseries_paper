@@ -240,36 +240,46 @@ one replicate at generation 23, one replicate at generation 27, three
 replicates at generation 37 and three replicates at generation
 59. After filtering, we ended up with 1,605,714 variants.
 
-Next, we estimated genome-wide population size $\hat{N}=250$
+Next, we estimated genome-wide population size $\hN=250$
 (\ref{fig:estimateN}-E) which is consistent with previous
 studies~\cite{orozco2012adaptation,jonas2016estimating}. The
 likelihood curves of \comale\ are sharper around the optimum compared
 to that of Bollback et. al~\cite{bollback2008estimation}'s method (see
 Supplementary Fig. 1 in~\cite{orozco2012adaptation}).  Also,
 chromosomes 3L and 3R appear to have smaller population
-size~\ref{fig:estimateN}-D, $\hN=200,150$, respectively. Others have
+size~\ref{fig:estimateN}-D, $\hN=200,150$, respectively. 
+Others have
 made similar observations on this data. In particular,
-J\'{o}n\'{a}s~\emph{et al.} shown that the chromosome-wise population
+J\'{o}n\'{a}s~\emph{et al.}~\cite{jonas2016estimating} shown that the 
+chromosome-wise population
 size varies even more when it is computed for each replicate
 separately (see Table 1 in~\cite{jonas2016estimating}). For instance,
-$\hN$ is 131 for chr3R replicate 1, while it is 328 for chrX replicate
-2.  While it would be ideal to compute \comale\ statistic for each
+$\hN$ is 131 for chromosome 3R replicate 1, while it is 328 for chromosome X 
+replicate 2.  
+
+While it would be ideal to compute \comale\ statistic for each
 replicate and chromosome separately, computing empirical $p$-values
-and significant regains become computationally intensive, and
+and significant regions become computationally intensive as
 empirical null distribution of each replicate and each chromosome
-needs to be computed.  Hence, we use genome-wide estimate $\hN=250$ to
-compute $\Hc$ and then compute normalized statistics $\Hc^*$ for each
-chromosome, separately.  Specifically, given $\hat{N}=250$, we
-computed estimates of $s$, and computed the normalized test statistic
-$\Hc^*$ on sliding windows of size of 25Kbp and step size of 5Kbp
-variants over the genome.  Empirical null distribution of $\Hc^*$ is
+needs to be computed.  
+Hence, we use genome-wide estimate $\hN=250$ to
+compute normalized statistics $\Hc^*$ for each
+chromosome, separately.  
+In addition we used a heuristic to determine window size of 30Kbp for the 
+\dmel dataset (See~\ref{sec:winSize}). 
+Given $\hN=250$, we
+ computed the normalized test statistic
+$\Hc^*$ on sliding windows of size of 30Kbp and step size of 5Kbp
+over the genome (See~\ref{fig:man-dmel-region}-A).  
+
+Empirical null distribution of $\Hc^*$ was
 estimated by creating 100 simulations according to
 Section~\ref{sec:sims} with $L=20$Mbp, $\hN=250$ and experimental data
 coverage and sampling times.  Then, $p$-value of each region in the
-experimental data is calculated as the fraction of the 400K null
+experimental data was calculated as the fraction of the 400K null
 statistics that are greater than or equal of test
 statistic(see~\ref{fig:null-alt}).  After correcting for multiple
-testing, we identify $5$ contiguous
+testing, we identified $5$ contiguous
 intervals~\ref{fig:man-dmel-region} satisfying FDR$\le0.05$, and
 covering $2,829$ polymorphic sites. We further performed single-locus
 hypothesis testing on the $2,829$ to identify selected variants.
@@ -277,7 +287,8 @@ $p$-values of $H$ statistics calculated on a set of 90M single locus
 Wright-Fisher simulations for $\widehat{N}=$250, initial frequencies
 and variant depths of real data (see \ref{proc:arya}).  $174$ variants
 with FDR $\le0.01$\% within selected regions using single locus
-hypothesis testing.  The selected 174 variants fall within 32
+hypothesis testing (See~\ref{fig:man-dmel-region}-B).  The selected 174 
+variants fall within 32
 genes(\ref{tab:genes}) including many Serine inhibitory proteases
 (serpins), and other genes involved in endocytosis. Recycling of
 synaptic vesicles is seen to be blocked at high temperature in
@@ -297,8 +308,9 @@ Here is
 }
 
 \subsection{Analysis of Outcrossing Yeast Populations}
-We also applied \comale\ to outcrossing $12$ replicate samples of
-Yeast populations~\cite{burke2014standing}, where samples are taken at
+We also applied \comale\ to  $12$ replicate samples of
+outcrossing yeast populations~\cite{burke2014standing}, where samples are 
+taken at
 generations $\Tc=\{0,180,360,540\}$. We observed a significant
 variation in the genome-wide site frequency spectrum of certain
 populations over different time points for some
