@@ -259,47 +259,42 @@ replicate 2.
 
 While it would be ideal to compute \comale\ statistic for each
 replicate and chromosome separately, computing empirical $p$-values
-and significant regions become computationally intensive as
-empirical null distribution of each replicate and each chromosome
-needs to be computed.  
-Hence, we use genome-wide estimate $\hN=250$ to
-compute normalized statistics $\Hc^*$ for each
-chromosome, separately.  
-In addition we used a heuristic to determine window size of 30Kbp for the 
-\dmel dataset (See~\ref{sec:winSize}). 
-Given $\hN=250$, we
- computed the normalized test statistic
-$\Hc^*$ on sliding windows of size of 30Kbp and step size of 5Kbp
-over the genome (See~\ref{fig:man-dmel-region}-A).  
+and significant regions become computationally intensive as empirical
+null distribution of each replicate and each chromosome needs to be
+computed.  Hence, we use a single genome-wide estimate $\hN=250$ in
+all analyses, but we normalize statistic $\Hc^*$ separately for each
+chromosome.
 
-Empirical null distribution of $\Hc^*$ was
-estimated by creating 100 simulations according to
-Section~\ref{sec:sims} with $L=20$Mbp, $\hN=250$ and experimental data
-coverage and sampling times.  Then, $p$-value of each region in the
-experimental data was calculated as the fraction of the 400K null
-statistics that are greater than or equal of test
+We use a heuristic calculation (See~\ref{sec:winSize}) to choose the
+sliding window size $L$ as the distance where the LD between the
+favored mutation and a site $L/2$bp away remains strong. For \dmel
+parameters, we obtained $L=30$kbp. We computed the normalized test
+statistic $\Hc^*$ on sliding windows of size of 30Kbp and step size of
+5Kbp over the genome (See~\ref{fig:man-dmel-region}-A).
+
+Empirical null distribution of $\Hc^*$ was estimated by creating 100
+whole genome simulations (400K statistic values) as described in
+Section~\ref{sec:sims}. Then, $p$-value of the test statistic in each
+region in the experimental data was calculated as the fraction of the
+null statistic values that are greater than or equal to the test
 statistic(see~\ref{fig:null-alt}).  After correcting for multiple
 testing, we identified $5$ contiguous
-intervals~\ref{fig:man-dmel-region} satisfying FDR$\le0.05$, and
+intervals~(\ref{fig:man-dmel-region}) satisfying FDR$\le0.05$, and
 covering $2,829$ polymorphic sites. We further performed single-locus
-hypothesis testing on the $2,829$ to identify selected variants.
-$p$-values of $H$ statistics calculated on a set of 90M single locus
-Wright-Fisher simulations for $\widehat{N}=$250, initial frequencies
-and variant depths of real data (see \ref{proc:arya}).  $174$ variants
-with FDR $\le0.01$\% within selected regions using single locus
-hypothesis testing (See~\ref{fig:man-dmel-region}-B).  The selected 174 
-variants fall within 32
-genes(\ref{tab:genes}) including many Serine inhibitory proteases
-(serpins), and other genes involved in endocytosis. Recycling of
-synaptic vesicles is seen to be blocked at high temperature in
-temperature sensitive Drosophila
+hypothesis testing on the $2,829$ sites to identify $174$ individual
+variants with FDR $\le0.01$~(\ref{fig:man-dmel-region}-B).
+
+The final set of 174 variants fall within 32 genes(\ref{tab:genes})
+including many Serine inhibitory proteases (serpins), and other genes
+involved in endocytosis. Recycling of synaptic vesicles is seen to be
+blocked at high temperature in temperature sensitive Drosophila
 mutants~\cite{kosaka1983reversible}. This is also supported by GO
 enrichment analysis, where a single GO term `inhibition of
 proteolysis' is found to enriched (corrected $p$-value:0.0041).  To
 test for dominant selection, we computed $D$ statistic on simulated
 neutral and experimental data, and computed $p$-values accordingly.
 After correcting for multiple testing, 96 variants were discovered
-with FDR$\le 0.01$~(\ref{fig:man-dmel-snp}).
+with FDR$\le 0.01$~(\ref{fig:man-dmel-snp}). 
 
 \ignore{
 Here is 
