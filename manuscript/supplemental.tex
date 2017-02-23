@@ -3,7 +3,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\clearpage
 %\newpage
-\section{Choosing Window Size}\label{sec:winSize}
+\section{Choosing Window Size}
 In genome-wide scans for detecting selection, we apply the \comale\
 statistic on sliding windows of length $L$bp. The single locus
 statistic values within the window are averaged to get the composite
@@ -13,7 +13,7 @@ composite signal, and choosing a small window will decrease the power
 of composite likelihoods. Here, we use a systematic calculation to
 choose $L$ as the distance where the LD between the favored mutation
 and a site $L/2$bp away remains strong.
-
+\label{sec:winSize}
 \ignore{
 The optimum
 choice of window size depends on the linkage disequilibrium (LD)
@@ -33,9 +33,11 @@ coverage in our analysis.
 Consider a segregating site $l$ bp away from the favored allele in a
 selective sweep.  Let $\rho_\tau$ be the LD between the favored allele
 and the site, $\tau$ generations after the onset of selection. Then,
-we have (see Eqs. 30-31 in \cite{stephan2006hitchhiking}): \beq
+we have (see Eqs. 30-31 in \cite{stephan2006hitchhiking}): 
+\beq
 \rho_\tau= \alpha_\tau\beta_\tau \rho_0=e^{-r\tau l}
-\left(\frac{K^{(\tau)}}{K^{(0)}}\right)\rho_0\label{eq:ldt}, \eeq
+\left(\frac{K^{(\tau)}}{K^{(0)}}\right)\rho_0\label{eq:ldt}, 
+\eeq
 where $K^{(\tau)}=2\nu_\tau(1-\nu_\tau)$ is the heterozygosity at the
 selected site, $r$ is the recombination rate (crossovers/bp/gen). The
 `decay factor', $\alpha_\tau=e^{-r\tau l}$, and `growth factor',
@@ -43,19 +45,21 @@ $\beta_\tau$, are due to recombination and selection, respectively.
 Under regular parameter settings, linkage to the favored allele is
 expected to increase after onset of selection and then 
 decreases due to crossover events
-(See~\ref{fig:ldf0},~\ref{fig:ldf1},~\ref{fig:ldf2},~\ref{fig:ldf3}
-for different scenarios\VB{Change to one figure}).  While $\rho_0$ is
+(See~\ref{fig:winSize}-A).  While $\rho_0$ is
 unknown in pool-seq E\&R experiments, we compute the value of $l$ so
 that
-\[\alpha_\tau \beta_\tau=1.
-\]
+\beq
+\alpha_\tau \beta_\tau=1.\label{eq:eq}
+\eeq
 In E\&R scenarios, we let $\tau$ be the time of the last sampling. For
 given $s$, we aim to compute the smallest window size $L$ over all
 possible starting frequencies. Specifically,
 
 \beq L=2\min_{\nu_0} \left\{
   \frac{1}{r\tau}\log\left(\frac{\hat{\nu}_\tau(1-\hat{\nu}_\tau)}{\nu_0(1-\nu_0)}\right)\right\},
-\eeq where the term $\hat{\nu}_\tau$ depends on initial frequency
+  \label{eq:winSize}
+\eeq 
+where the term $\hat{\nu}_\tau$ depends on initial frequency
 $\nu_0$ and selection strength $s$ (Eq.~\ref{eq:transition}).
 
 
@@ -63,7 +67,7 @@ We used \dmel dataset parameters, $N=250,r=2\times10^{-8}$ and
 $\tau=59$ to compute the optimal window size for different values of
 $Ns$, ranging from weak selection to strong selection:
 $Ns\in\{20,100,200,500\}$, or $s\in\{0.08,0.4,0.8,2\}$.  We set
-$L=30$Kbp (See~\ref{fig:winSize}) to provide good resolution for
+$L=30$Kbp (See~\ref{fig:winSize}-B) to provide good resolution for
 detecting weak selection.
 
 
@@ -73,88 +77,3 @@ detecting weak selection.
 
 
 
-%\section*{Main text figure captions}
-\ignore{
-\section{Dynamics of Site Frequency Spectrum-based Statistics and Linkage 
-	Disequilibrium under Selection }\label{app}
-\subsection{An approximate logistic function  for allele frequency dynamics} 
-\label{app:af}
-Assume that a site is evolving under selection constraints $s,h\in
-\Rbb$, where $s$ and $h$ denote selection strength and overdominance,
-respectively. Let $\nu_t$ denote the frequency of the site at time
-$\tau_t\in {\cal T}$. Then, $\nusp$, the frequency at time $\tau_t+1$
-can be estimated using:
-\beq
-\hat{\nu}_{t^+}
-=\nu_t+\frac{s(h+(1-2h)\nu_t)\nu_t(1-\nu_t)}{1+s\nu_t(2h+(1-2h)\nu_t))}.
-  \label{eq:transition2}
-\eeq
-We can show that the dynamic of the favored allele can be modeled
-via a logistic function, in the case of directional selection
-($h=0.5$). Taking derivatives of Eq.~\ref{eq:transition2}, we have
-\beq \frac{\bfd \nu_t}{\bfd t} = \frac{s\nu_t(1-\nu_t)}{2+2s\nu_t}
-\eeq To, solve the differential equation, note that for small $s$,
-$2+2s\nu_t \approx 2$. Substituting,
-\begin{equation}
-\nu_t =\frac{1}{1+\frac{1-\nu_0}{\nu_0}e^{-st/2}} = \sigma(st/2+\eta(\nu_0)) 
-\label{eq:inf-pop}
-\end{equation}
-where $\sigma(.)$ is the logistic function and $\eta(.)$ is logit function 
-(inverse of the logistic function). 
-
-\NEW{SFS appendices removed.}
-
-
-\subsection{Linkage Disequilibrium}\label{app:ld}
-Nonrandom associations, Linkage Disequilibrium (LD), between 
-polymorphisms are established in the 
-substitution process, broken by recombination events 
-and reinforced by selection. 
-Although LD can not be measured in pooled sequencing data (phased 
-haplotype data is required), it is still worthwhile 
-to examine the behavior of LD as a result of the interaction between 
-recombination and natural selection. In this part we theoretically overview 
-expected LD in short EEs.
-
-Let $\rho_0$ be the LD at time zero between the favored allele and a 
-segregating site $l$ base-pairs away, then under natural selection we have
-\beq
-\rho_t= \alpha_t\beta_t \rho_0=e^{-rtl} \left(\frac{K_t}{K_0}\right)  
-\rho_0\label{eq:ldt}
-\eeq
-where $K_t=2\nu_t(1-\nu_t)$ is the heterozygousity at the selected site, $r$ is 
-the recombination rate/bp/gen. The 
-\emph{decay factor}, $\alpha_t=e^{-rtl}$,
-and \emph{growth factor}, $\beta_t$ (see Eqs. 30-31 in 
-\cite{stephan2006hitchhiking}), are result of recombination and 
-selection, respectively. \ref{fig:ld3d} presents the expected theoretical 
-value of LD when $\rho_0=0.5$ between favored allele (site at position 500K) 
-and the rest of 
-genome, and $\nu_0=0.1$. For neutral evolution (top), LD decays exponentially 
-through space and time, while in natural selection (bottom), LD increases and 
-then decreases. Interestingly, LD increases to its maximum value, 1, for the 
-nearby region (the plateau in \ref{fig:ld3d} bottom) of the favored 
-allele.
-
-In principle, LD increases after the onset of selection, until $\log(\alpha_t) 
-+\log(\beta_t) 
->0$, see Eq.~\ref{eq:ldt}. 
-Specifically, log of decay term is linear and, using 
-Eq.~\ref{eq:inf-pop}, we write growth 
-factor in term of initial frequency $\nu_0$ and selection strength $s$. 
-\ref{fig:ldf0},~\ref{fig:ldf1},~\ref{fig:ldf2}, and ~\ref{fig:ldf3} 
-depict interaction of 
-decay and growth factors for weak and 
-strong selection and soft and hard sweeps. In all the case, LD of the 
-favored allele with a segregating site 50Kbp away, increases in the first 50 
-generations, which give rise to increasing number of \emph{hitchhikers}. 
-
-Increase of LD in a large (100Kbp) region is particularly advantageous to the 
-task of identifying the region under selection, if the composite statistics is 
-used. As a result, $\Hc$ statistic outperforms existing (single-loci) tools in 
-identifying selection. In contrast, augmentation of LD, increases the 
-number 
-of candidates for 
-the favored allele, which makes it difficult to localize the favored 
-allele.
-}

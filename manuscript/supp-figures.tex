@@ -73,22 +73,7 @@
 		around the true value in all cases with.}
 	\label{fig:stateConditional}
 \end{figure}}
-\begin{figure}[H]
-	\centering
-	\begin{tabular}{c}
-		\includegraphics[trim=.2in 0 .0in 0, 
-		clip,width=0.8\textwidth]{{depthHetero}.pdf}
-	\end{tabular}
-	\caption{{\bf Coverage heterogeneity in time series data.}\\ Each panel
-		shows the read depth for 3
-		replicates of the \datadm\ data (see section~\ref{sec:dmel}). 
-		Heterogeneity in depth of coverage is 
-		seen
-		between replicates, and also at different time points, in
-		all 4 variants. None of these sites pass the the hard filtering with 
-		minimum depth of 30. }
-	\label{fig:depthHetero}
-\end{figure}
+
 
 
 \begin{figure}[H]
@@ -154,86 +139,7 @@
 \end{figure}
 }
 
-\begin{figure}[H]
-	\centering
-		\includegraphics[width=0.8\textwidth]{decayFactors0}	
-	\caption{{\bf Interaction between growth and decay factors of LD in 
-	hard 
-	sweep with	weak selection.}\\
-		Expected dynamics of LD between favored allele and a variant 
-		50Kbp 
-		away, under weak selection ($s=0.025$) and hard 
-		sweep 
-		($\nu_0=0.005$). In addition to 
-		recombination, initial frequency of the favored allele and selection 
-		strength determine the dynamics of LD.
-		The horizontal black line denotes the equilibrium between decay 
-		and scaling factor.
-		 The vertical dashed line represent the time in which decay and 
-		 growth factors stay at equilibrium, after onset of selection.} 
-		 \label{fig:ldf0}
-\end{figure}
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\textwidth]{decayFactors1}	
-\caption{{\bf Interaction between growth and decay factors of LD in 
-hard 
-		sweep with	strong selection.}\\
-	Expected dynamics of LD between favored allele and a variant 50Kbp 
-	away, under strong selection ($s=0.1$) and hard sweep 
-	($\nu_0=0.005$). In addition to 
-	recombination, initial frequency of the favored allele and 
-	selection 
-	strength determine the dynamics of LD. The vertical dashed line 
-	denotes 
-	the time in which LD start to decrease. 		The horizontal 
-	black line denotes the equilibrium between decay 
-	and scaling factor.
-	The vertical dashed line represent the time in which decay and 
-	growth factors stay at equilibrium, after onset of selection.} 
-	\label{fig:ldf1}
-\end{figure}
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\textwidth]{decayFactors2}	
-\caption{{\bf Interaction between growth and decay factors of LD in 
-soft 
-		sweep with	weak selection.}\\
-	Expected dynamics of LD between favored allele and a variant 50Kbp 
-	away, under weak selection ($s=0.025$) and soft sweep 
-	($\nu_0=0.1$).  In addition to 
-	recombination, initial frequency of the favored allele and 
-	selection 
-	strength determine the dynamics of LD. The vertical dashed line 
-	denotes 
-	the time in which LD start to decrease. 		The horizontal 
-	black line denotes the equilibrium between decay 
-	and scaling factor.
-	The vertical dashed line represent the time in which decay and 
-	growth factors stay at equilibrium, after onset of selection.} 
-	\label{fig:ldf2}
-\end{figure}
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\textwidth]{decayFactors3}	
-\caption{{\bf Interaction between growth and decay factors of LD in 
-soft 
-		sweep with	strong selection.}\\
-	Expected dynamics of LD between favored allele and a variant 50Kbp 
-	away, under strong selection ($s=0.1$) and soft sweep 
-	($\nu_0=0.1$).  In addition to 
-	recombination, initial frequency of the favored allele and 
-	selection 
-	strength determine the dynamics of LD. The vertical dashed line 
-	denotes 
-	the time in which LD start to decrease. 		The horizontal 
-	black line denotes the equilibrium between decay 
-	and scaling factor.
-	The vertical dashed line represent the time in which decay and 
-	growth factors stay at equilibrium, after onset of selection.} 
-	\label{fig:ldf3}
-\end{figure}
 
 
 \begin{figure}[H]
@@ -266,20 +172,26 @@ soft
 \end{figure}
 
 
+
+
+
+
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\textwidth]{{winSize}.pdf}
-	\caption{{\bf Window size for $Ns$.}  The selected window size (XXX)
-          as a function of $Ns$ for \dmel study with
-          $\tau=59,N=250,r=2\times10^{-8}$.  }
-	\label{fig:winSize}
+	\begin{tabular}{c}
+		\includegraphics[trim=.2in 0 .0in 0, 
+		clip,width=0.8\textwidth]{{depthHetero}.pdf}
+	\end{tabular}
+	\caption{{\bf Coverage heterogeneity in time series data.}\\ Each panel
+		shows the read depth for 3
+		replicates of the \datadm\ data (see section~\ref{sec:dmel}). 
+		Heterogeneity in depth of coverage is 
+		seen
+		between replicates, and also at different time points, in
+		all 4 variants. None of these sites pass the the hard filtering with 
+		minimum depth of 30. }
+	\label{fig:depthHetero}
 \end{figure}
-
-
-
-
-
-
 
 
 \begin{figure}[H]
@@ -343,5 +255,32 @@ soft
 
 
 
+
+\begin{figure}[H]
+	\centering
+	\begin{tabular}{c|c}	
+		(A)&(B)\\
+		\includegraphics[width=0.45\textwidth]{decayFactors0}
+		& 		\includegraphics[trim=0.35in 0.in 1.4in 
+		.5in,clip, width=0.5\textwidth]{{winSize}.pdf}
+	\end{tabular}
+	
+	\caption{{\bf Choosing window size for \comale\ statistic.}
+          (A) Expected dynamics of LD between favored allele ($s$ =
+          0.025) and a variant 50Kbp away, with initial frequency
+          $\nu_0$ = 0.01. (A-i) depicts the dynamic of the favored
+          allele during the selective sweep. (A-ii) illustrates
+          interaction of the growth and decay factors introduced in
+          Eq.~\ref{eq:ldt}, with the red line describing overall
+          effect of selection and recombination on LD. The vertical
+          dashed line points to the time when the LD value starts to
+          decrease below original LD. (B) Alternatively, we can fix
+          time, and find the window-size at which LD decays below the
+          original LD (Eq.~\ref{eq:winSize}). The plot shows the
+          window size as a function of $Ns$ (20,100,200,500), after
+          fixing other model parameters to match \dmel E\&R
+          experiments ($N = 250$, $r = 2 \times 10^{−8}, \tau=59$).}
+	\label{fig:winSize}
+\end{figure}
 
 

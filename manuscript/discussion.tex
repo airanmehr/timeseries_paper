@@ -20,11 +20,10 @@ likelihood ratio statistic.
 It should be noted that, even though we described \comale\ for small
 fixed-size populations, the statistic can be adjusted for other
 scenarios, including changing population sizes when the demography is
-known. For large populations, transitions can be computed on sparse data 
-structures, as for large $N$ the transition matrices become increasingly 
-sparse. Alternatively, transitions can be computed 
-for a fixed
-size of frequencies $\widetilde{N} \ll N$ instead $N+1$ distinct frequencies.
+known. For large populations, transitions can be computed on sparse
+data structures, as for large $N$ the transition matrices become
+increasingly sparse. Alternatively, frequencies can be binned to
+reduce dimensionality.
 
 \ignore{
 In our simulations, we found that the power of detection can be
@@ -69,9 +68,9 @@ neutrality.}
 
 The comparison of hard and soft sweep scenarios showed that initial
 frequency of the favored allele can have an nontrivial effect on the
-statistical power for identifying selection. Interestingly, while in
-stronger selections it is easier to detect regions of selection, it is
-difficult to locate favored allele in those regions.
+statistical power for identifying selection. Interestingly, while it
+is easier to detect a region undergoing strong selection, it is harder
+to locate the favored allele in that region.
 
 
 There are many directions to improve the analyses presented here.  In
