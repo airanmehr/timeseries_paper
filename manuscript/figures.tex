@@ -76,7 +76,8 @@
           neutral evolution (panels A-F) and selection (panels G-M)
           with different starting frequencies $\nu_0\in\{0.005,0.1\}$
           and sampling times of $\Tc=\{0,\tau\}$, where $\tau \in
-          \{1,10,100\}$.  For each panel, the empirical distribution
+          \{1,10,100\}$ and $N=1000	$.  For each panel, the empirical 
+          distribution
           was computed over 100,000 simulations.  Brownian motion
           (Gaussian approximation) provides poor approximations when
           initial frequency is far from 0.5 (A) or sampling is sparse
@@ -129,12 +130,17 @@
           Detection power for \comale ($\Hc$), Frequency Increment
           Test (FIT), Gaussian Process (GP), and CMH under hard (A-C)
           and soft sweep (D-F) scenarios. $\lambda$, $s$ denote the
-          mean coverage and selection coefficient, respectively. The
-          $y$-axis measures power -- sensitivity with false positive
-          rate FPR $\le 0.05$ -- for $2,000$ simulations with
-          $N=1,000$, $L=50$Kbp. The horizontal line reflects the power
-          of a random classifier.  In all simulations, 3 replicates
-          are evolved and sampled at generations
+          mean coverage and selection coefficient, respectively.
+          Orange hexagons represent the performance of \comale\ when
+          the maximum of the single-locus statistic is used to make a
+          decision for the genomic region, while the red circle
+          corresponds to the performance of \comale\ when single locus
+          statistics are averaged over the region.  The $y$-axis
+          measures power -- sensitivity with false positive rate FPR
+          $\le 0.05$ -- for $2,000$ simulations with $N=1,000$,
+          $L=50$Kbp. The horizontal line reflects the power of a
+          random classifier.  In all simulations, 3 replicates are
+          evolved and sampled at generations
           $\Tc=\{0,10,20,30,40,50\}$.}
            \label{fig:power}
 \end{figure}
@@ -191,7 +197,8 @@
           individual variant \comale\ score ($H$) is used to rank
           variants.  The Area Under Curve (AUC) is computed as an overall
           quantitative measure to compare the performance of methods
-          for each configuration. In all simulations, 3 replicates are evolved and 
+          for each configuration. In all simulations, 3 replicates with $N=1000$ 
+          are evolved and 
           sampled at generations 
           $\Tc=\{0,10,20,30,40,50\}$.}
 	\label{fig:rank}
@@ -217,22 +224,22 @@
 \end{figure}
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{estimateN.pdf}
-	\caption{{\bf Maximum likelihood Estimates of $N$.}  Mean
-          and 95\% confidence interval of likelihoods of $N$ on
-          simulated data with $N=200$ (A), $N=600$(B), and $N=1000$
-          individuals, over 1000 simulations. Chromosome-wise (D) and
-          genome-wide (E) likelihood of population size for
-          \datadm. Likelihood of the Chromosome 3R is attained at 150, 
-          while genome-wide  maximum likelihood estimate for 
-          population size is 250.  (F) Likelihood of the population 
-          size with respect to all the variants in the yeast dataset.
-          Despite large
-          census population size
-          ($10^6-10^7$~\cite{burke2014standing}), this dataset
-          exhibits much smaller effective population size
+	\includegraphics[width=\textwidth]{estimateNMLE.pdf}
+	\caption{{\bf Estimating population size.}  (A) Distribution
+          of bias in estimating $N$, computed on 1000 neutral
+          simulations for each $N\in\{200,600,1000\}$ when $W=10$Mbp and 
+          $r=2\times10^{-8}$. (B) 
+          Estimates
+          of population size for \datadm. For each case, the
+          distribution of estimator is computed by 100 bootstrap
+          computations using 1000 variants each. The multiple modes
+          are an artifact of grid search used to speed up
+          computation. (C) Distribution of the population 	size
+          estimates on the yeast dataset.  Despite large census
+          population size ($10^6-10^7$~\cite{burke2014standing}), this
+          dataset exhibits much smaller effective population size
           ($\hN=2000$). }
-	\label{fig:estimateN}
+	\label{fig:estimateNMLE}
 \end{figure}
 
 \begin{figure}[H]
@@ -246,7 +253,8 @@
 		.0in,clip,width=0.9\textwidth]{{topVariants.dmel.dir}.pdf}
 	\end{tabular}
 	\caption{{\bf Scan of \comale\ statistic on \datadm.}
-(A)         Manhattan plot of scan for $\Hc^*$ statistic over the
+(A)         Manhattan plot of scan for $\Hc^*$ statistic using sliding window of 
+size $L=3000$ over the
           genome.  The dashed line represents cutoff for genome-wide
           FDR$\le0.05$, and identifies 5 contiguous intervals, I1-I5, 
           which are shaded in blue. (B) Trajectories of the selected 
@@ -270,7 +278,8 @@
 	\end{tabular}
 	\caption{{\bf Single locus analysis of the yeast outcrossing 
 	populations.}\\ Manhattan plot 
-		of scan for testing directional selection (A) and dominant 
+		of scan single locus \comale\ statistic ($L=1$) for testing directional 
+		selection (A) and dominant 
 		selection 
 		(C).
 		The dashed line represents cutoff for  genome-wide FDR$\le0.05$.

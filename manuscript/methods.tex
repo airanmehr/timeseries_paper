@@ -3,7 +3,7 @@
 Consider a panmictic diploid population with fixed size of $N$
 individuals.  Let $\bm{ \nu} =\{\nu_t\}_{t\in\Tc}$ be frequencies of
 the derived allele at generations $t\in\Tc$ for a given variant, where
-at generations $\Tc= \{\tau_i: 0\le \tau_0<\tau_1,\ldots< \tau_T\}$
+at generations $\Tc= \{\tau_i: 0\le \tau_0<\tau_1\ldots< \tau_T\}$
 samples of $n$ individuals are chosen for pooled sequencing. The
 experiment is replicated $R$ times. We denote allele frequencies of
 the $R$ replicates by the set $\{\bm{\nu}\}_R$.  To identify the genes
@@ -41,14 +41,14 @@ due to sequencing only a subset of the individuals in the population.
 In addition, many existing
 methods~\cite{bollback2008estimation,feder2014Identifying,topa2015gaussian,Terhorst2015Multi}
 are designed for large populations, and model frequency as a
-continuous quantity. We show that smooth approximations may be
-inadequate for small populations, low starting frequencies and sparse
-sampling (in time) that are typical in experimental evolution (see
-Results, \ref{fig:power}A-C, and \ref{fig:markov}). To this end, we
-model the Wright-Fisher Markov process for generating pool-seq
-data~(\ref{proc:arya}) via a {discrete} HMM (~\ref{fig:1}-B). We start
-by computing a likelihood function for the population size given
-neutral pool-seq data.
+continuous quantity. We observed that using Brownian motion to model
+frequency drift may be inadequate for small populations, low starting
+frequencies and sparse sampling (in time), factors that are common in
+experimental evolution (see Results, \ref{fig:power}A-C, and
+\ref{fig:markov}). To this end, we model the Wright-Fisher Markov
+process for generating pool-seq data~(\ref{proc:arya}) via a
+{discrete} HMM (~\ref{fig:1}-B). We start by computing a likelihood
+function for the population size given neutral pool-seq data.
 
 
 \paragraph{Likelihood for Neutral Model.}
@@ -59,10 +59,13 @@ Binomial distribution. Specifically,
   2N\nu_t|\nu_{t-1} &\sim& \bino(2N,\nu_{t-1}) 
 \end{eqnarray*}
 where $\pi$ is the global distribution of allele frequencies in the
-base population. Here we simply assume is $\pi$ is the site frequency
-spectrum of fixed sized neutral population~\ref{fig:sfs}. Note that $\pi$ may 
-depend on the
-demographic history of the founder lines.
+base population. 
+Note that  $\pi$  
+depends on the
+demographic history of the founder lines and can be estimated from site 
+frequency spectrum(see~\ref{fig:sfs}) of the initial population. For notational 
+convenience, henceforth we omit the dependence of likelihoods to the 
+parameter $\pi$.
 
 To estimate frequency after $\tau$ transitions, it is enough to
 specify the $2N\times2N$ transition matrix $P^{(\tau)}$, where

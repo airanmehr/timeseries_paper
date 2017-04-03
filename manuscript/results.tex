@@ -1,26 +1,25 @@
 \section{Results}
 \paragraph{Modeling Allele Frequency Trajectories in Small Populations.} 
-We first tested the goodness of fit of the discrete versus continuous models in 
-modeling allele frequency trajectories, under general E\&R parameters.  For 
-this 
-purpose, we conducted $100$K
-simulations with two time samples $\Tc=\{0,\tau\}$ where $\tau\in
-\{1,10,100\}$ is the parameter controlling the density of sampling
-in time.  In addition, we repeated simulations for different values of
-starting frequency $\nu_0\in\{0.005,0.1\}$ (i.e., hard and soft sweep)
-and selection strength $s\in\{0,0.1\}$ (i.e., neutral and
-selection). Then, given initial frequency $\nu_0$, we computed
-the expected distribution of the frequency of the next sample $\nu_\tau$
-under two models to make a comparison.  \ref{fig:markov}A-F shows that
-Brownian motion (continuous model) is inadequate when $\nu_0$ is
-far from $0.5$, or when sampling times are sparse ($\tau>1$). If the
-favored allele arises from standing variation in a neutral population,
-it is unlikely to have frequency close to $0.5$, and the starting
-frequencies are usually much smaller (see
-\ref{fig:sfs}). Moreover, in typical \dmel experiments for
-example, sampling is sparse. Often, the experiment is designed so that
-$10\le\tau\le100$~\cite{kofler2013guide, orozco2012adaptation,
-  zhou2011experimental,franssen2015patterns}.
+We first tested the goodness of fit of the discrete versus Brownian motion (a 
+continuous-state model) in modeling allele frequency trajectories, under 
+general E\&R
+parameters.  For this purpose, we conducted $100$K simulations with
+two time samples $\Tc=\{0,\tau\}$ where $\tau\in \{1,10,100\}$ is the
+parameter controlling the density of sampling in time.  In addition,
+we repeated simulations for different values of starting frequency
+$\nu_0\in\{0.005,0.1\}$ (i.e., hard and soft sweep) and selection
+strength $s\in\{0,0.1\}$ (i.e., neutral and selection). Then, given
+initial frequency $\nu_0$, we computed the expected distribution of
+the frequency of the next sample $\nu_\tau$ under two models to make a
+comparison.  \ref{fig:markov}A-F shows that Brownian motion
+(continuous model) is inadequate when $\nu_0$ is far from $0.5$, or
+when sampling times are sparse ($\tau>1$). If the favored allele
+arises from standing variation in a neutral population, it is unlikely
+to have frequency close to $0.5$, and the starting frequencies are
+usually much smaller (see \ref{fig:sfs}). Moreover, in typical \dmel
+experiments for example, sampling is sparse. Often, the experiment is
+designed so that $10\le\tau\le100$~\cite{kofler2013guide,
+  orozco2012adaptation, zhou2011experimental,franssen2015patterns}.
 
 % XXX Not sufficient to say 'in contrast to brownian motion, markov...
 % Please check the rewrite of this part
@@ -33,39 +32,39 @@ selection.
 
 \paragraph{Detection Power.} 
 We compared the performance of \comale\ against other methods for
-detecting selection. For each method we calculated detection power as the 
-percentage of true-positives identified with false-positive rate $\le 0.05$. For 
-each
-configuration (specified with values for selection coefficient $s$,
-starting allele frequency $\nu_0$ and coverage $\lambda$), power of each method 
-is evaluated over $2000$ distinct simulations, half of which modeled neutral 
-evolution
-and the rest modeled positive selection.
+detecting selection. For each method we calculated detection power as
+the percentage of true-positives identified with false-positive rate
+$\le 0.05$. For each configuration (specified with values for
+selection coefficient $s$, starting allele frequency $\nu_0$ and
+coverage $\lambda$), power of each method is evaluated over $2000$
+distinct simulations, half of which modeled neutral evolution and the
+rest modeled positive selection.
 
 
 
 We compared the power of \comale\ with Gaussian process
 (GP)~\cite{Terhorst2015Multi}, FIT~\cite{feder2014Identifying}, and
-CMH~\cite{agresti2011categorical} statistics.  FIT and GP convert read counts
-to allele frequencies prior to computing the test statistic.  \comale\
-shows the highest power in all cases and the power stays relatively
-high even for low coverage (\ref{fig:power} and
-\ref{tab:power}). In particular, the difference in performance
-of \comale\ with other methods is pronounced when starting frequency
-is low. 
-The
-advantage of \comale\ stems from the fact that favored allele with low
-starting frequency might be missed by low coverage sequencing. In this
-case, incorporating the signal from linked sites becomes increasingly
-important. We note that methods using only two time points, such as
-CMH, do relatively well for high selection values and high
-coverage. However, the use of time-series data can increase detection
-power in low coverage experiments or when starting frequency is
-low. Moreover, time-series data provide means for estimating selection
-parameters $s,h$ (see below). Finally, as \comale\ is robust to change
-of coverage, our results (\ref{fig:power}B,C) suggest that taking
-many samples with lower coverage is preferable to sparse sampling with
-higher coverage.
+CMH~\cite{agresti2011categorical} statistics.  FIT and GP convert read
+counts to allele frequencies prior to computing the test statistic.
+\comale\ shows the highest power in all cases and the power stays
+relatively high even for low coverage (\ref{fig:power} and
+\ref{tab:power}). In particular, the difference in performance of
+\comale\ with other methods is pronounced when starting frequency is
+low.  The advantage of \comale\ stems from the fact that favored
+allele with low starting frequency might be missed by low coverage
+sequencing. In this case, incorporating the signal from linked sites
+becomes increasingly important. We note that methods using only two
+time points, such as CMH, do relatively well for high selection values
+and high coverage. However, the use of time-series data can increase
+detection power in low coverage experiments or when starting frequency
+is low. Moreover, time-series data provide means for estimating
+selection parameters $s,h$ (see below). Finally, as \comale\ is robust
+to change of coverage, our results (\ref{fig:power}B,C) suggest that
+taking many samples with lower coverage is preferable to sparse
+sampling with higher coverage. For comparison purposes, we also tested
+\comale\ using the single locus statistic ($L=1$). For the most part,
+\comale\ showed an improvement over other methods even with $L=1$, or
+showed similar performance. The performance improved with higher $L$.
 
 
 \ignore{ Moreover, the observation of
@@ -177,26 +176,25 @@ and 95\% of soft sweep simulations.  \ignore{
 \end{table}
 } 
 \paragraph{Estimating Parameters.}
-\comale\ estimates effective population size $\hN$  and selection parameters, 
-$\hat{s}$ and $\hat{h}$, as
-a byproduct of the hypothesis testing. We computed bias of selection
-fitness ($s-\hat{s}$) and dominance ($h-\hat{h}$) for of \comale\
-and GP for 1000 simulations in each setting. The distribution of the error 
-(bias) for
-100$\times$ coverage is presented in \ref{fig:bias100} for
-different configurations.
-\ref{fig:bias30} and \ref{fig:biasinf} provide the
+\comale\ estimates effective population size $\hN$ and selection
+parameters, $\hat{s}$ and $\hat{h}$, as a byproduct of the hypothesis
+testing. We computed bias of selection fitness ($s-\hat{s}$) and
+dominance ($h-\hat{h}$) for of \comale\ and GP for 1000 simulations in
+each setting. The distribution of the error (bias) for 100$\times$
+coverage is presented in \ref{fig:bias100} for different
+configurations.  \ref{fig:bias30} and \ref{fig:biasinf} provide the
 distribution of estimation errors for 30$\times$, and 300$\times$
 coverage, respectively.  For hard sweep, \comale\ provides estimates
-of $s$ with lower variance of bias (\ref{fig:bias100}A). In soft
-sweep, GP and \comale\ both provide unbiased estimates of $s$ with low
-variance (\ref{fig:bias100}B). \ref{fig:bias100}~C-D shows
-that \comale\ provides unbiased estimates of $h$ as well when 
-$h\in\{0,0.5,1,2\}$ and $s=0.1$.
-We also tested if \comale\ provide unbiased estimates of $N$, by estimating 
-population size on 1000 simulations when $N\in \{200,600,1000\}$. As 
-shown in~\ref{fig:estimateN}A-C, maximum likelihood is attained at true value 
-of the parameter.
+of $s$ with lower variance of bias (\ref{fig:bias100}A and
+\ref{fig:biasNull}). In soft sweep, GP and \comale\ both provide unbiased
+estimates of $s$ with low variance
+(\ref{fig:bias100}B). \ref{fig:bias100}~C-D shows that \comale\
+provides unbiased estimates of $h$ as well when $h\in\{0,0.5,1,2\}$
+and $s=0.1$.  We also tested if \comale\ provide unbiased estimates of
+$N$, by estimating population size on 1000 simulations when $N\in
+\{200,600,1000\}$. As shown in~\ref{fig:estimateNMLE}-A 
+and~\ref{fig:estimateN}A-C, maximum
+likelihood is attained at true value of the parameter.
 
 \paragraph{Running Time.}
 As \comale\ does not compute exact likelihood of a region (i.e., does
@@ -241,13 +239,14 @@ replicates at generation 37 and three replicates at generation
 59. After filtering, we ended up with 1,605,714 variants.
 
 Next, we estimated genome-wide population size $\hN=250$
-(\ref{fig:estimateN}-E) which is consistent with previous
+(\ref{fig:estimateNMLE}-B and \ref{fig:estimateN}-E) which is consistent with 
+previous
 studies~\cite{orozco2012adaptation,jonas2016estimating}. The
 likelihood curves of \comale\ are sharper around the optimum compared
 to that of Bollback et. al~\cite{bollback2008estimation}'s method (see
 Supplementary Fig. 1 in~\cite{orozco2012adaptation}).  Also,
 chromosomes 3L and 3R appear to have smaller population
-size~\ref{fig:estimateN}-D, $\hN=200,150$, respectively. 
+size, $\hN=200,150$, respectively. 
 Others have
 made similar observations on this data. In particular,
 J\'{o}n\'{a}s~\emph{et al.}~\cite{jonas2016estimating} shown that the 
@@ -268,7 +267,7 @@ chromosome.
 We use a heuristic calculation (See~\ref{sec:winSize}) to choose the
 sliding window size $L$ as the distance where the LD between the
 favored mutation and a site $L/2$bp away remains strong. For \dmel
-parameters, we obtained $L=30$kbp. We computed the normalized test
+parameters, we obtained $L=30$Kbp. We computed the normalized test
 statistic $\Hc^*$ on sliding windows of size of 30Kbp and step size of
 5Kbp over the genome (See~\ref{fig:man-dmel-region}-A).
 
@@ -314,7 +313,8 @@ easily identifiable cause. Therefore, we focused analysis on seven
 replicates $r\in\{3,7,8,9,10,11,12\}$ with genome-wide site-frequency
 spectrum over the time range~(\ref{fig:yeast-pca}).
 
-We estimated population size to be $\hN=2000$ haplotypes, and computed
+We estimated population size to be $\hN=2000$ haplotypes 
+(\ref{fig:estimateNMLE}-C and \ref{fig:estimateN}-F), and computed
 $\hs$, $\hh$ and $H$ statistic accordingly. To compute $p$-values, we
 created 1M single-locus neutral simulations according to experimental
 data's initial frequency and coverage. By setting FDR cutoff to

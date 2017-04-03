@@ -1,0 +1,338 @@
+%\documentclass[handout]{beamer} % \pause disabled
+\documentclass[t]{beamer} % \pause enabled
+\input{../manuscript/macros_arya}
+\usepackage{datetime}
+\def\vecbold#1{{\boldsymbol#1}}
+
+\newdateformat{monthyeardate}{%
+  \monthname[\THEMONTH], \THEYEAR}
+\usepackage[ruled]{algorithm2e}
+%\usepackage[linesnumbered,ruled]{algorithm2e}
+\usetheme{Madrid}
+\usepackage{tabularx}
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshortauthor
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+    \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\def\dHAF{\text{-HAF}}
+\makeatother
+\title{Identifying Selection in Experimental Evolution}
+\subtitle{}
+\author[Arya Iranmehr]
+{%
+  \texorpdfstring{
+      \centering
+      Arya Iranmehr\\
+      \href{mailto:airanmehr@ucsd.edu}{airanmehr@ucsd.edu}
+  }
+  {Arya Iranmehr}
+}
+%\email{}
+\institute{
+Bafna Lab\\
+University of California, San Diego}
+\date{
+\monthyeardate\today}
+\subject{Optimization}
+\usefonttheme{serif} % default family is serif
+
+
+\begin{document}
+\begin{frame}
+  \titlepage
+\end{frame}
+
+
+
+
+\begin{frame}{An experiment design for \dmel}
+	\begin{figure}
+		\includegraphics[trim={0.8in 0.0in 0.0in 
+			0in},clip,width=0.8\textwidth]{../figures/ExperimentalEvolution}
+	\end{figure}
+\end{frame}
+
+
+\begin{frame}{Challenges (I)}
+	\begin{itemize}
+		\item Small population size $\Rightarrow$ strong drift
+		\pause
+		\item Partial sweep
+			\begin{figure}
+				\includegraphics[trim={0in 0.0in 0.0in 
+					0in},clip,width=0.6\textwidth]{../figures/AF.pdf}
+			\end{figure}
+			\pause
+		\item Strong selection $\Rightarrow$ Short fixation time $\Rightarrow$  
+		High LD $\Rightarrow$ Difficult to locate favored allele
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Challenges (II)}
+	\begin{itemize}
+		\item Pool-seq data: Heterogeneous coverage for a variant
+		\begin{figure}
+			\includegraphics[trim={0in 0.0in 0.0in 
+				0in},clip,width=0.6\textwidth]{../figures/depthHetero.pdf}
+		\end{figure}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Challenges (III)}
+	\begin{itemize}
+		\item Selection + Demography
+				\begin{figure}
+					\includegraphics[trim={0in 0.0in 0.0in 
+						0in},clip,width=0.3\textwidth]{../figures/HIV.png}
+				\end{figure}
+	\end{itemize}
+		\tiny{Feder \emph{et al.} 2016}
+\end{frame}
+
+\begin{frame}{\comale\ procedure}
+	\begin{figure}
+		\centering
+		\includegraphics[trim={0.0in 0.0in .9in 
+			0in},clip,width=\textwidth]{../figures/flowchart}
+	\end{figure}
+\end{frame}
+
+
+
+
+\begin{frame}{ Simplified Model (I)}
+	\begin{itemize}
+		\item  Suppose we have sequenced a whole (diploid, size=$N$) 
+		population \emphr{every 
+		generation}  and \emphr{exact allele 
+		frequency} are given.
+	\pause
+		\item Wright-Fisher Markov chain, 
+		computes likelihood of a trajectory for a given $N$  (a $2N  \times 
+		2N $ transition matrix $Q$)
+		\begin{figure}
+			\includegraphics[trim={.05in 0in 0.0in 
+				0.5in},clip,width=0.5\textwidth]{../figures/markoveg.png}
+		\end{figure}
+	\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{ Likelihood ratio test}
+	\begin{itemize}
+		\item find $\hat{N}$ and $\hat{s}$ that  maximizes  likelihood of data.
+		\item compute likelihood ratio, $H$ statistic for each SNP:
+		\beqq
+		H&=\frac{\text{likelihood of data as if being under 
+		selection with } \hat{s},\hat{N}}{\text{likelihood 
+		of data as if being neutral with } \hat{N}}
+		\eeqq
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}{ Model (complete)}
+	\begin{itemize}
+		\item  In reality, population is sequenced after some ($\tau$) 
+		generations.\\
+		\emphr{solution: use  $Q^\tau$ in computing likelihoods.}
+		\pause
+		\item Allele frequencies are unknown, and depth of each variant can be 
+		different, and finite sample is taken for sequencing.
+		\pause
+		\begin{figure}
+	\includegraphics[trim={.05in 0in 0.0in 
+		0in},clip,width=0.8\textwidth]{../figures/HMMGM}
+\end{figure}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Composite Likelihood for a Region }
+	\begin{itemize}
+		\item Computing joint likelihoods of SNPs is \emphr{infeasible} 
+		(haplotypes are 
+		required) and \emphr{intractable} (requires estimating covariance).
+		\item A heuristic is to compute composite (aka, pseudo) likelihood of  
+		the 
+		region $L$ to reduce false-positives
+		\beqq
+		\Hc = \frac{1}{|L|}\sum_{\ell \in L}H_\ell
+		\eeqq
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}{ Performance in Detecting Regions under Selection}
+Each point represent power  (TPR when FPR$\le$0.05) of detection in 1000 
+simulations (500 neutral, 500 selection) of a 50Kbp window, for different 
+coverages.
+		\begin{figure}
+			\includegraphics[trim={.05in .0in 0.0in 
+				0in},clip,width=\textwidth]{../figures/power.pdf}
+		\end{figure}
+\end{frame}
+
+
+
+\begin{frame}{ Localizing favored allele}
+Each curve depicts cumulative distribution of the rank  of favored allele among 
+($\approx$ 1150) variants, in 500 simulations.
+
+	\begin{figure}
+		\includegraphics[trim={.05in .0in 0.0in 
+			0in},clip,width=\textwidth]{../figures/{rank100.0}.pdf}
+	\end{figure}
+\end{frame}
+
+
+\begin{frame}{ Estimating parameters (I)}
+Our model estimates strength of selection $s$ and overdominance 
+		$h$ parameter for each variant.
+	\begin{figure}
+			\includegraphics[trim={.0in .0in 0.0in 
+				0in},clip,width=0.5\textwidth]{../figures/{dominance}.pdf}
+	\end{figure}
+		\begin{itemize}
+			\item $h=0$ : recessive adaptive allele
+			\item 				$h=0.5$ : directional selection
+			\item $h=1$:	dominant adaptive allele
+			\item 				$h>1$ :overdominance
+		\end{itemize}
+\end{frame}
+
+
+\begin{frame}{ Estimating parameters (II)}
+	Distribution of bias of parameters in 500 simulations.
+	\begin{figure}
+		\includegraphics[trim={.05in .0in 0.0in 
+			0in},clip,width=0.6\textwidth]{../figures/{bias.100}.pdf}
+	\end{figure}
+\end{frame}
+\begin{frame}{ Estimating parameters (III)}
+	\begin{figure}
+		\includegraphics[trim={.05in .0in 0.0in 
+			0in},clip,width=0.9\textwidth]{../figures/{estimateN}.pdf}
+	\end{figure}
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+\begin{frame}{ Analysis of real data}
+\begin{itemize}
+	\item A population of \dmel is evolved for 59 generations, under 
+	alternative hot and cold temperatures.
+	\item Coverage is different at generations and samples are not synchronized.
+	\item Genome scan for sliding window size=50Kbp,  steps=10Kbp
+	\item $\hat{N}=200$
+\end{itemize}\end{frame}
+\begin{frame}{\dmel}
+\begin{figure}[H]
+	\centering
+	\begin{tabular}{c}
+		(A)\\
+		\includegraphics[trim=0.4in 0.in 0.6in 
+		0in,clip,width=0.9\textwidth]{../figures/man-dmel-region.pdf}\\		
+		(B)\\	
+		\includegraphics[trim=0.3in 0.in 0.6in 
+		.0in,clip,width=0.9\textwidth]{{../figures/topVariants.dmel.dir}.pdf}
+	\end{tabular}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{Outcrossing Yeast populations}
+\begin{itemize}
+	\item 12 replicates of Yeast populations (census size $10^7-10^9$) are 
+	E\&Red for 540 generations.
+	\item $\hat{N}=2000$
+	\item two regions violating FDR cutoff are found.
+	
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Outcrossing Yeast populations}
+		\begin{figure}[H]
+			\centering
+			\begin{tabular}{cc}
+				\includegraphics[trim=0.4in 0.in 0.6in 
+				0.0in,clip,width=0.7\textwidth]{../figures/man-yeast-snp.pdf}\\
+					\includegraphics[trim=0in 0.in 0in 
+					0.0in,clip,width=0.5\textwidth]{{../figures/topVariants.yeast}.pdf}
+			\end{tabular}
+		\end{figure}
+\end{frame}
+
+
+
+
+\begin{frame}{ Discussion}
+	\begin{itemize}
+		\item An efficient method for analyzing \emphr{ full time-series 
+		read-count data} is proposed.
+		\pause
+		\item By computing composite likelihood $\Hc$ statistic is more robust 
+		to false positives.	
+		\pause 
+		\item We can infer demographic changes as well as selection for and 
+		experiment.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{\ }
+	\vspace{1	in}
+	\begin{center}
+		\huge{Thanks!}\\
+	\end{center}
+	
+\end{frame}
+
+
+\begin{frame}{ Modeling genetic drift  via Binomial sampling}
+	\begin{itemize}
+		\item Drift: rate of sampling remain constant  
+		Pr$(\textcolor{red}{i}\rightarrow 
+		j)=B(j;N,\textcolor{red}{i}/N)$
+	\end{itemize}
+	
+	\begin{figure}
+		\includegraphics[trim={.05in 0in 5.0in 
+			0.in},clip,width=0.4\textwidth]{../figures/drift.pdf}
+	\end{figure}
+\end{frame}	
+
+\begin{frame}{ Binomial Sampling with Selection}
+	\begin{itemize}
+		\item 	In selection, we sample favored allele proportional to $1+s$, 
+		and the alternate allele  with weight 1.
+		Pr$(\textcolor{red}{i}\rightarrow 
+		j)=B(j;N,\textcolor{red}{k}/N)$
+	\end{itemize}
+	
+	\begin{figure}
+		\includegraphics[trim={.05in 0in 0.0in 
+			0.in},clip,width=0.7\textwidth]{../figures/selectiondrift.pdf}
+	\end{figure}
+\end{frame}
+
+
+\end{document}
