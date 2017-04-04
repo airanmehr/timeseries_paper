@@ -2,7 +2,8 @@
 \usepackage{url}
 \input{macros_vineet}
 \input{macros_arya}
-\usepackage{lettrine}
+\usepackage{xr}
+\externaldocument{GSA}
 \definecolor{color2}{rgb}{0.0,0.0,0.5}
 \title{\comale: Composition of Likelihoods for Evolve And Resequence 
 Experiments}
@@ -32,27 +33,9 @@ California, San Diego, La Jolla, CA, USA}
 
 \begin{document}
 \maketitle
-\linenumbers
-\input{abstract}
-\input{introduction}
-\input{methods}
-\input{results}
-\input{discussion}
-\input{acknowledgments}
-\input{confilict_of_interest}
-
-\clearpage
-\section*{Figures}
-\input{figures}
-
-%\setcounter{page}{1}
-\setcounter{figure}{0}
-\setcounter{table}{0}
-\setcounter{equation}{0}
-\setcounter{section}{0}
 \renewcommand{\figurename}{}
 \renewcommand{\tablename}{}
-\renewcommand{\thefigure}{Fig~S\arabic{figure}}
+\renewcommand{\thefigure}{Figure~S\arabic{figure}}
 \renewcommand{\thetable}{Table~S\arabic{table}}
 \renewcommand{\theequation}{S\arabic{equation}}
 \renewcommand{\thesection}{S\arabic{section}~Text} 

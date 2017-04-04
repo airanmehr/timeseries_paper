@@ -38,33 +38,6 @@
 \end{figure}
 
 
-%\begin{figure}[H]
-%	\includegraphics[trim=0in 0.in 0in 
-%	0.1in,clip,width=\textwidth]{AF.pdf}
-%	\caption{{
-%	\label{fig:sweep}
-%\end{figure}
-
-
-%\begin{figure}[H]
-%	\centering
-%	\includegraphics[trim=0in 0in .08in 0.02in , 
-%	clip,width=\textwidth]{ExperimentalEvolution.pdf}
-%	\caption{ {\bf Two settings for collecting genomic time series            
-%	data.}\\
-%		 Different settings in which dynamic data is
-%          collected are depicted with typical parameters for \emph{D.
-%            melanogaster}. In both settings, 6 samples (vertical red
-%          dashed lines) are taken every 10 generation.  When sampling
-%          from naturally evolving populations (A), the time of onset
-%          of selection is unknown, and population size is larger. For
-%          (controlled) experimental evolution (B), founder lines are first
-%          sampled from a natural population to create a homogeneous
-%          population. Then, multiple replicates of this population are
-%          evolved and sampled over time. }
-%	\label{fig:ee}
-%\end{figure}
-
 
 \begin{figure}[H]
 	\centering
@@ -87,41 +60,6 @@
           cases.}
 	\label{fig:markov}
 \end{figure}
-\ignore{
-\begin{figure}[H]
-	\centering
-	\includegraphics[trim=.2in 0 .2in 0,
-	clip,width=\textwidth]{{CLRQ}.pdf}
-	\caption{{\bf Average power of \comale\ statistics as function
-            of percentile cutoffs.}\\ Detection power is averaged for
-          $s\in\{0.025,0.05,0.075,0.1\}$ for \comale\ statistics, $\Hc_{\pi}$ and
-          $\Hc^{+}_{\pi}$. We denote
-          $\pi^{*}=\arg\max_{\pi}\{\mbox{Power}(\Hc),\mbox{Power}(\Hc^{+})\}$. Average
-          power was computed using $8000$ simulations for each choice
-          of $\pi$. The appropriate choice of $\pi$ can be used to
-          improve performance for different coverage values.
-          In all simulations, 3 replicates are evolved and sampled at generations
-          $\Tc=\{0,10,20,30,40,50\}$.}
-	\label{fig:clrq}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=\textwidth]{powerCLR.pdf}
-	\caption{{\bf Comparison of power of Markov chain and HMM.}\\
-          Detection power for Markov chain ($\Mc$) and HMM ($\Hc$) under
-          hard (A-C) and
-          soft sweep (D-F) scenarios, for different coverage $\lambda$ and
-          selection strength $s$.  The
-          $y$-axis measures power -- sensitivity with false positive
-          rate FPR $\le 0.05$ -- for $2000$ simulations of $50$Kbp
-          regions. The horizontal line reflects the power of a random
-          classifier.
-          In all simulations, 3 replicates are evolved and sampled at generations
-          $\Tc=\{0,10,20,30,40,50\}$.
-           } \label{fig:powerCLR}
-\end{figure}
-}
 
 \begin{figure}[H]
 	\centering
@@ -159,30 +97,6 @@
 	\label{fig:runTime}
 \end{figure}
 
-\ignore{
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.7\textwidth]{naturalee.pdf}
-	\caption{{\bf Power of SFS based statistics.}\\ Power of
-          detecting selection for Frequency Increment Test (FIT),
-          Gaussian Process (GP), \comale ($\Hc$) on hard sweep
-          natural experimental evolution with $N_e=10^4$ and coverage
-          $\lambda=\infty$. The measurements are conducted for a range
-          of selection coefficients, $s$. Each point represents the
-          mean of 200 simulations. For each simulation, sampling
-          starts at a randomly chosen time, and subsequently 5
-          replicate samples are acquired every $10$ generations.  (A)
-          Start of sampling is chosen randomly throughout the sweep
-          $\tau_1 \sim U\left[1,t_{\nu=1}(s,N_e)\right]$, where
-          $t_{\nu=x}(s,N_e)$ denotes is the expected time to reach
-          carrier frequency $x$ in a hard sweep and $U[a,b]$ is
-          discrete uniform distribution. (B) The start of sampling is
-          chosen near fixation of the favored allele, i.e. $\tau_1
-          \sim
-          U\left[t_{\nu=0.9}(s,N_e),t_{\nu=1}(s,N_e)\right]$.}
-          \label{fig:powerSFS}
-\end{figure}
-}
 
 \begin{figure}[H]
 	\centering
@@ -287,9 +201,6 @@ size $L=3000$ over the
 		(D).}
 	\label{fig:man-yeast-snp}
 \end{figure}
-
-
-
 
 
 \clearpage

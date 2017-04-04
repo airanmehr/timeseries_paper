@@ -9,7 +9,7 @@ experiment is replicated $R$ times. We denote allele frequencies of
 the $R$ replicates by the set $\{\bm{\nu}\}_R$.  To identify the genes
 and variants that are responding to selection pressure, we use the
 following procedure:
-\begin{enumerate}[(i)]
+\begin{enumerate}
 \item {\bf Estimating population size.} The procedure starts by
   estimating the effective population size, $\hN$, under the
   assumption that much of the genome is evolving neutrally.
@@ -71,12 +71,15 @@ To estimate frequency after $\tau$ transitions, it is enough to
 specify the $2N\times2N$ transition matrix $P^{(\tau)}$, where
 $P^{(\tau)}[i,j]$ denotes probability of change in allele frequency
 from ${i}/{2N}$ to ${j}/{2N}$ in $\tau$ generations:
-\begin{eqnarray}
-  P^{(1)}[i,j] &=& \pr\left(\nu_{t+1}=\frac{j}{2N} \left|
-      \nu_{t}=\frac{i}{2N}\right)={2N \choose j} \right.  \nu_{t}^j
-  (1-\nu_{t})^{2N-j}, \;\;\label{eq:P1}\\
-  P^{(\tau)} &=&   P^{(\tau-1)}P^{(1)} \label{eq:Pt}
-\end{eqnarray}
+\beq
+  P^{(1)}[i,j] &= \pr\left(\nu_{t+1}=\frac{j}{2N} \left| \right. 
+  \nu_{t}=\frac{i}{2N}\right)\\
+  &={2N \choose j} s  \nu_{t}^j
+  (1-\nu_{t})^{2N-j}, \label{eq:P1}
+\eeq
+\beq
+  P^{(\tau)} =   P^{(\tau-1)}P^{(1)} \label{eq:Pt}
+\eeq
 Furthermore, in an E\&R experiment, $n\le N$ individuals are randomly
 selected for sequencing. The {sampled allele frequencies},
 $\{y_{t}\}_{t\in\Tc}$, are also Binomially distributed \beq 2ny_{t}
@@ -85,28 +88,6 @@ sampling matrix $Y$, where $Y[i,j]$ stores the probability that the
 sample allele frequency is ${j}/{2n}$ given that the true allele
 frequency is ${i}/{2N}$.
 
-\ignore{In the discussion so far, we assumed that the exact allele 
-frequencies
-are supplied. However, in most cases, allele frequencies are estimated
-from genotype data with small sample size or pool-seq
-data~\cite{lynch2014population}
-(\ref{fig:stateConditional} and 
-\ref{fig:trajectoryReal}).
-In
-pool-seq datasets, the sequencing depth at a site varies for different
-replicates, and different time samples
-(\ref{fig:depthHetero}). Therefore, filtering low 
-coverage
-variants can potentially discard useful information.  For instance, in
-analyzing \datadm~\cite{orozco2012adaptation,franssen2015patterns}, by 
-setting 
-minimum read
-depth at a site to be 50, allowing the site to be retained only if the
-depth for all time points, and all replicates exceeded $50$, the
-number of sites to be analyzed would drop from 1,733,121 to
-11,232 (\ref{fig:depth}). To account for this
-heterogeneity, we extend the Markov chain likelihood in
-Eq.~\ref{eq:mkvlik} to a Hidden Markov Model (HMM) for pool-seq data.}
 
 We denote the pool-seq data for that variant as $\{x_t = \langle
 c_t,d_t \rangle\}_{t\in\Tc}$ where $d_t, c_t$ represent the coverage,
@@ -132,12 +113,12 @@ forward-procedure~\cite{durbin1998biological}:
 \end{align}
 where $\delta_t=\tau_t-\tau_{t-1}$. The joint likelihood of the
 observed data from $R$ independent observations is given by
-\begin{equation}
+\beq
 \Lc(N|\{\bm{x}\}_R, 
-n)=\prod_{r=1}^R\Lc(N|\bm{x}^{(r)},n)=\pr(\{\bm{x}\}_R|N,n) =	
+n)&=\prod_{r=1}^R\Lc(N|\bm{x}^{(r)},n)=\pr(\{\bm{x}\}_R|N,n)\\& =	
 	\prod_{r=1}^R \sum_i\alpha_{T,i}^{(r)}
 	\label{eq:hmmlik}
-\end{equation}
+\eeq
 where $\bm{x}=\{x_t\}_{t\in \Tc}$. The graphical model and the generative 
 process for which data is being generated is depicted in~\ref{fig:1}-B 
 and~\ref{proc:arya}, respectively.
@@ -178,13 +159,15 @@ Let $Q^{(\tau)}_{s,h}[i,j]$ denote the
 probability of transition from ${i}/{2N}$ to ${j}/{2N}$ in
 $\tau$ generations, then (See~\cite{Ewens2012Mathematical}, Pg.~24, 
 Eqn.~$1.58$-$1.59$):
-\begin{eqnarray}
-  Q^{(1)}_{s,h}[i,j] &=& \pr\left(\nusp=\frac{j}{2N} \left\lvert
-      \nu_{t}=\frac{i}{2N};s,h,N \right .\right)={2N \choose j}
-  \hat{\nu}_{t^+}^{j} (1-\hat{\nu}_{t^+})^{2N-j}\label{eq:Q1}\\
-  Q^{(\tau)}_{s,h} &=& Q^{(\tau-1)}_{s,h}Q^{(1)}_{s,h}\label{eq:Qt}
-  \label{eq:mkvs}   
-\end{eqnarray}
+\beq
+  Q^{(1)}_{s,h}[i,j] &= \pr\left(\nusp=\frac{j}{2N} \left\lvert
+      \nu_{t}=\frac{i}{2N};s,h,N \right .\right)\\
+  &    ={2N \choose j}
+  \hat{\nu}_{t^+}^{j} (1-\hat{\nu}_{t^+})^{2N-j}\label{eq:Q1}
+  \eeq
+  \beq
+  Q^{(\tau)}_{s,h} &= Q^{(\tau-1)}_{s,h}Q^{(1)}_{s,h}\label{eq:Qt}  
+\eeq
 The maximum likelihood estimates are given by
 \beq
 \hs,\hh = \underset{s,h}{\arg \max} \prod_{r=1}^R \Lc(s,h|\bm{x}^{(r)},\hN) 
@@ -279,7 +262,7 @@ distribution of null values for the statistic to compute empirical
 $p$-values. We mainly chose parameters that are relevant to \dmel
 experimental evolution~\cite{kofler2013guide}. See also \ref{fig:1}-A
 for illustration. 
-\begin{enumerate}[I.]
+\begin{enumerate}
 \item {\bf Creating initial founder line haplotypes.} Using
   \texttt{msms}~\cite{ewing2010msms}, we created neutral populations
   for $F$ founding haplotypes with command \texttt{\$./msms <F> 1 -t

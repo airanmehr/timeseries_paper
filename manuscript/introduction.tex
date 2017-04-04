@@ -1,5 +1,6 @@
 \section{Introduction}
-Natural selection is a key force in evolution, and a mechanism by
+\lettrine[lines=2]{\color{color2}N}{}atural
+ selection is a key force in evolution, and a mechanism by
 which populations can adapt to external `selection'
 pressure. Examples of adaptation abound in the natural
 world~\cite{going2016fan}, including for example, classic examples
@@ -71,35 +72,6 @@ nucleotide level. Finally, \emph{estimation of model parameters}, such
 as strength of selection and dominance at the site, can provide a
 comprehensive description of the selection process.
 
-\ignore{A wide range of computational methods~\cite{vitti2013detecting} have
-been developed to detect regions under positive selection. A majority
-of the existing methods focus on static data analysis; analysis of a
-single sample of the population at a specific time, either during the
-sweep, or subsequent to fixation of the favored allele. Static
-analysis is focused on reduction in genetic
-diversity~\cite{tajima1989statistical,fay2000hitchhiking,ronen2013learning,garud2015recent}
-shift in allele-frequencies, prevalence of long
-haplotypes~\cite{sabeti2006positive,vitti2013detecting}, population
-differentiation~\cite{holsinger2009genetics,burke2010genome,gunther2013robust}
-in
-multiple-population data and others. Many existing methods use the
-Site Frequency Spectrum (SFS, see \ref{fig:sfs}) to
-identify departure from neutrality. Classical examples including
-Tajima's \emph{D}~\cite{tajima1989statistical}, Fay and Wu's
-\emph{H}~\cite{fay2000hitchhiking}, Composite Likelihood
-Ratio~\cite{nielsen2005genomic}, were all shown to be weighted linear
-combinations of the SFS values~\cite{achaz2009frequency}.  While
-successful, these methods are prone to both, false
-negatives~\cite{messer2013population}, and also false-discoveries due
-to confounding factors such as demography, including bottleneck and
-population expansions, and ascertainment bias ~\cite{ptak2002evidence,
-  ramos2002statistical,akey2009constructing,
-  nielsen2003correcting,messer2013population}. Nevertheless, SFS based
-tests continue to be used successfully, often in combination with
-other tests~\cite{akey2009constructing,vitti2013detecting}. One of the
-contributions of this paper is the extension of SFS based methods to
-analyze time-series data, and the identification of selection regimes
-where these methods perform well.}
 
 In the effort to analyze E\&R selection experiments, many authors
 chose to adapt existing tests that were originally used for static
@@ -123,15 +95,6 @@ throughout time to signify their differentiation from ancestral (two
 time-point data) as well as geographically different populations. Jha
 \emph{et al.}~\cite{jha2015whole} computed test statistic of
 generalized linear-mixed model directly from read counts.
-
-\ignore{Early \emph{direct} methods for analyzing time-series data devoted to
-estimate population size in neutral populations
-~\cite{williamson1999using,anderson2000monte,beaumont2003estimation,berthier2002likelihood,wang2001pseudo},
-using statistical (HMM) and population genetics (Coalescent) models.
-Malaspinas
-\emph{et al.}~\cite{malaspinas2012estimating} extended Bollback et
-al.’s method to estimate allele age in ancient-DNA (aDNA).
-}
 
 
 Alternatively, \emph{direct} methods have been developed to analyze
@@ -190,3 +153,53 @@ range of parameters, \comale\ provides higher power for detecting
 selection, estimates model parameters consistently, and localizes
 favored allele more accurately compared to the state-of-the-art
 methods, while being computationally efficient.
+
+%\lipsum[1-2]
+\begin{figure*}
+	\centering
+	(A)\\
+	\includegraphics[trim=0in 0in .2in 0.02in , 
+	clip,width=0.7\textwidth]{ExperimentalEvolution.pdf}\\
+	
+	\begin{tabular}{l|l}
+		\hline\\
+		(B) &(C)\\
+		\raisebox{0.1in}{
+			\includegraphics[trim=0in 0.in 0in 
+			0.0in,clip,width=0.44\textwidth]{HMMGM.pdf}}
+		& 	\includegraphics[trim=0in 0.in 0in 
+		0.0in,clip,width=0.44\textwidth]{AF.pdf}	
+		
+	\end{tabular}
+	\hspace{-1in}
+	\caption{{\bf Evolve and Resequence Selection Experiments on \dmel.}
+		(A) Typical configuration in which time-series data is 
+		collected for
+		\dmel. A small set of founder lines ($F=200$) is selected from a
+		large population ($N_o=10^{6}$), and used to create a 
+		sub-population
+		of isofemale lines. Multiple replicates of the population are
+		evolved and resequenced to collect time-series genomic data. For
+		sequencing, $n$ individuals are randomly sampled and sequenced 
+		with
+		coverage $\lambda$.  (B) Graphical model showing dependence of 
+		the
+		random variables in the single-locus model used to compute 
+		\comale\
+		statistics. Observed variables, $c$ (derived allele read count) 
+		and
+		$d$ (total read count) are shaded. The variables $\nu,y,\lambda$
+		denote allele frequency, sampled allele frequency, and mean
+		sequencing coverage, respectively. (C) Mean and 95\% confidence
+		interval of the theoretical (i,iii) and empirical (ii,iv)
+		trajectories of the favored allele for hard (i,ii) and soft 
+		(iii,iv)
+		sweep scenarios and $N=1000$.  The first $50$ generations are 
+		shaded
+		in gray to represent the sampling span of sampling in short-term
+		experiments, illustrating the difficulty in predicting 
+		selection at
+		early stages of selective sweep.  }
+	\label{fig:1}
+\end{figure*}
+%\lipsum[3-10]
