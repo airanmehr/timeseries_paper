@@ -13,6 +13,9 @@
 *.fls
 *.out
 *.toc
+figures/*.eps
+GENETICS/GENETICS.pdf
+GENETICS/GENETICS.eps
 ## main.pdf
 .Rhistory
 ## Intermediate documents:
