@@ -1,0 +1,44 @@
+\section{Discussion}
+We developed a computational tool, \comale, that can detect regions
+and variants under selection E\&R experiments. Using extensive simulations, 
+we show that \comale\
+outperforms existing methods in detecting selection, locating the
+favored allele, and estimating model parameters.  Also, while
+being computationally efficient, \comale\ provide means for estimating
+populations size and hypothesis testing.
+
+Many factors such as small population size, finite coverage, linkage
+disequilibrium, finite sampling for sequencing, duration of the
+experiment and the small number of replicates can limit the power of
+tools for analyzing E\&R.  Here, by an discrete modeling, \comale\
+estimates population size, and provides unbiased estimates of
+$s,h$. It adjusts for heterogeneous coverage of pool-seq data, and
+exploits presence of linkage within a region to compute composite
+likelihood ratio statistic.
+
+
+It should be noted that, even though we described \comale\ for small
+fixed-size populations, the statistic can be adjusted for other
+scenarios, including changing population sizes when the demography is
+known. For large populations, transitions can be computed on sparse
+data structures, as for large $N$ the transition matrices become
+increasingly sparse. Alternatively, frequencies can be binned to
+reduce dimensionality.
+
+
+The comparison of hard and soft sweep scenarios showed that initial
+frequency of the favored allele can have an nontrivial effect on the
+statistical power for identifying selection. Interestingly, while it
+is easier to detect a region undergoing strong selection, it is harder
+to locate the favored allele in that region.
+
+
+There are many directions to improve the analyses presented here.  In
+particular, we plan to focus our attention on other organisms with
+more complex life cycles, experiments with variable population size
+and longer sampling-time-spans. As evolve and resequencing experiments
+continue to grow, deeper insights into adaptation will go hand in hand
+with improved computational analysis.
+
+
+

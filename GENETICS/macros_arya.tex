@@ -1,0 +1,629 @@
+%%%%%%%%%%%%%%%%% Arya's
+\usepackage{color,hyperref}
+\hypersetup{colorlinks,breaklinks,linkcolor=darkblue,urlcolor=darkblue, anchorcolor=darkblue,citecolor=darkblue}
+\usepackage{amssymb,amsmath,amsthm,amsfonts}
+\usepackage{mathtools}
+%\usepackage{enumerate}
+\definecolor{darkgreen}{rgb}{0,0.55,0}
+\definecolor{orange}{rgb}{1,0.55,0}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.5}
+\def\Arya#1{{\textcolor{darkgreen}{Arya note: #1}}}
+\def\emphr#1{{\textcolor{red}{#1}}}
+\def\emphg#1{{\textcolor{darkgreen}{#1}}}
+\def\emphb#1{{\textcolor{darkblue}{#1}}}
+\usepackage{pifont}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+\usepackage{bbm}
+\def\datadm{data from a study of \dmel adaptation to alternating temperatures}
+\def\comale{\text{{\sc Clear}}}
+\newcommand{\dataset}{{\cal D}}
+\newcommand{\fracpartial}[2]{\frac{\partial #1}{\partial  #2}}
+\newcommand{\phibp}{\phi_{ \hspace{-0.025in}\scalebox{.45}{\text{ BP}}}}
+\newcommand{\phics}{\phi_{ \hspace{-0.025in}\scalebox{.45}{\text{ CS}}}}
+\newcommand{\lone}{$\ell_1$-norm }
+%\def\lll{\mbox{\ell_1}}
+\def\dmel{\emph{D. melanogaster }}
+
+\DeclareMathOperator{\tw}{tw}
+\DeclareMathOperator{\local}{local}
+\DeclareMathOperator{\range}{range}
+\DeclareMathOperator{\Path}{Path}
+\DeclareMathOperator{\Sg}{Sg}
+\DeclareMathOperator{\spt}{SP}
+\DeclareMathOperator{\avg}{avg}
+\DeclareMathOperator{\nbd}{\mathcal{N}}
+\DeclareMathOperator{\parent}{Pa}
+\DeclareMathOperator{\Cq}{Cq}
+\DeclareMathOperator{\TW}{TW}
+\DeclareMathOperator{\approxML}{ApproxML}
+\DeclareMathOperator{\Bethe}{Bethe}
+\DeclareMathOperator{\TRW}{TRW}
+\DeclareMathOperator{\conv}{Conv}
+\DeclareMathOperator{\dir}{Dir}
+\DeclareMathOperator{\mult}{Mult}
+\DeclareMathOperator{\cat}{Cat}
+\DeclareMathOperator{\crp}{CRP(\gamma)}
+\DeclareMathOperator{\ncrp}{nCRP}
+\DeclareMathOperator{\node}{node}
+\DeclareMathOperator{\nodes}{nodes}
+\DeclareMathOperator{\pr}{Pr}
+\DeclareMathOperator{\dom}{\bf Dom}
+\DeclareMathOperator{\lbp}{LBP}
+\DeclareMathOperator{\Corr}{Corr}
+\DeclareMathOperator{\hCorr}{\widehat{Corr}}
+\DeclareMathOperator{\hSc}{\widehat{\mathcal{S}}}
+\DeclareMathOperator{\tr}{Tr}
+\DeclareMathOperator{\mst}{MST}
+\DeclareMathOperator{\supp}{Supp}
+\DeclareMathOperator{\dtv}{d_{TV}}
+\DeclareMathOperator{\hdtv}{\hd_{TV}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\esssup}{ess\,sup}
+\DeclareMathOperator*{\essinf}{ess\,inf}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\rank}{Rank}
+\DeclareMathOperator{\Krank}{Rank_K}
+\DeclareMathOperator{\Det}{Det}
+\DeclareMathOperator{\poiss}{Poisson}
+\DeclareMathOperator{\bino}{Binomial}
+\DeclareMathOperator{\unif}{Unif} \DeclareMathOperator{\Deg}{Deg}
+\def\simiid{{\overset{i.i.d.}{\sim}}}
+\def\lcv{{\,\,\underset{cv}{\leq}\,\,}}
+\def\gcv{{\,\,\underset{cv}{\geq}\,\,}}
+\def\lcx{{\,\,\underset{cx}{\leq}\,\,}}
+\def\gcx{{\,\,\underset{cx}{\geq}\,\,}}
+\def\leqst{{\,\,\overset{st}{\leq}\,\,}}
+\def\geqst{{\,\,\overset{st}{\geq}\,\,}}
+\def\eqdist{{\,\,\overset{d}{=}\,\,}}
+\def\geqrh{{\,\,\overset{rh}{\geq}\,\,}}
+\def\geqlr{{\,\,\overset{lr}{\geq}\,\,}}
+\def\eqlr{{\,\,\overset{lr}{=}\,\,}}
+\def\tha{{\mbox{\tiny th}}}
+
+\DeclareMathOperator{\Aug}{Aug}
+\DeclareMathOperator{\watts}{Watts}
+\DeclareMathOperator{\girth}{Girth}
+\DeclareMathOperator{\PL}{PL}
+\DeclareMathOperator{\LP}{LP}
+\DeclareMathOperator{\ER}{ER}
+\DeclareMathOperator{\reg}{Reg}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\hSigma}{\widehat{\Sigma}}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Poiss}{Poiss}
+\DeclareMathOperator{\Diag}{Diag}
+\DeclareMathOperator{\Diam}{Diam}
+\def\erf{\mbox{erf}}
+\def\erfc{\mbox{erfc}}
+\def\qfunc{\mbox{Q}}
+%\def\myexp{\mbox{e}}
+\def\snr{\mbox{{SNR}}}
+\def\signum{\mbox{sgn}}
+\def\Card{\mbox{Card}}
+\DeclareMathOperator*{\plim}{plim}
+\def\convd{\overset{d}\rightarrow}
+\def\convp{\overset{p}\rightarrow}
+\newcommand\indep{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
+\def\pl{{\parallel}}
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}
+\DeclarePairedDelimiter\nuclearnorm{\lVert}{\rVert_*}
+\DeclarePairedDelimiter\onenorm{\lVert}{\rVert_1}
+\DeclarePairedDelimiter\znorm{\lVert}{\rVert_0}
+\def\rinfnorm{\rVert_{\infty}}
+\DeclarePairedDelimiter\infnorm{\lVert}{\rinfnorm}
+\def\lnorm{{\lvert\!\lvert\!\lvert}}
+\def\rnorm{{\rvert\!\rvert\!\rvert}}
+\DeclarePairedDelimiter\gennorm{\lnorm}{\rnorm}
+ \DeclarePairedDelimiter\abs{\lvert}{\rvert}
+ \DeclarePairedDelimiter\geninfnorm{\lnorm}{\rnorm_{\infty}}
+ \DeclarePairedDelimiter\genonenorm{\lnorm}{\rnorm_{1}}
+\DeclareMathOperator{\atanh}{atanh}
+ \DeclareMathOperator{\sech}{sech}
+ \def\0{{\bf 0}}
+
+\DeclareMathOperator{\lea}{\overset{(a)}{\leq}}
+\DeclareMathOperator{\leb}{\overset{(b)}{\leq}}
+\DeclareMathOperator{\lec}{\overset{(c)}{\leq}}
+\DeclareMathOperator{\led}{\overset{(d)}{\leq}}
+\DeclareMathOperator{\lee}{\overset{(e)}{\leq}}
+
+\DeclareMathOperator{\eqa}{\overset{(a)}{=}}
+\DeclareMathOperator{\eqb}{\overset{(b)}{=}}
+\DeclareMathOperator{\eqc}{\overset{(c)}{=}}
+\DeclareMathOperator{\eqd}{\overset{(d)}{=}}
+\DeclareMathOperator{\eqe}{\overset{(e)}{=}}
+
+\DeclareMathOperator{\gea}{\overset{(a)}{\geq}}
+\DeclareMathOperator{\geb}{\overset{(b)}{\geq}}
+\DeclareMathOperator{\gec}{\overset{(c)}{\geq}}
+\DeclareMathOperator{\ged}{\overset{(d)}{\geq}}
+\DeclareMathOperator{\gee}{\overset{(e)}{\geq}}
+
+\def\viz{{viz.,\ \/}}
+\def\ie{{i.e.,\ \/}}
+\def\eg{{e.g.,\ \/}}
+\def\etc{{etc.  }}
+\def\ifff{{iff  }}
+\def\as{{a.s.  }}
+\def\st{{s.t.  }}
+\def\wpone{{w.p.}\,1\,\,}
+\def\wpp{{w.p.p.}\,\,}
+\def\for{\,\,\mbox{for}\quad}
+\def\ifmbox{\,\,\mbox{if}\quad}
+\def\nn{\nonumber}
+%\def\qed{\hfill$\Box$}
+
+\def\qed{\hfill\hbox{${\vcenter{\vbox{
+    \hrule height 0.4pt\hbox{\vrule width 0.4pt height 6pt
+    \kern5pt\vrule width 0.4pt}\hrule height 0.4pt}}}$}}
+\def\complx{\mathbb{C}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Color
+
+\def\tcr{\textcolor{red}}
+\def\tcb{\textcolor{blue}}
+\def\tcg{\textcolor{green}}
+\def\tcw{\textcolor{white}}
+\def\tcm{\textcolor{magenta}}
+\def\tccyan{\textcolor{cyan}}
+\def\tcv{\textcolor{violet}}
+\definecolor{myred}{rgb}{0.3,0.0,0.7}
+\definecolor{dkg}{rgb}{0.1,0.7,0.2}
+\definecolor{dkb}{rgb}{0.0,0.2,0.8}
+
+\def\tcdkb{\textcolor{dkb}}
+\def\tcdkg{\textcolor{dkg}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\Amsc}{\mathscr{A}}
+\newcommand{\Cmsc}{\mathscr{C}}
+\newcommand{\Dmsc}{\mathscr{D}}
+\newcommand{\Emsc}{\mathscr{E}}
+\newcommand{\Fmsc}{\mathscr{F}}
+\newcommand{\Gmsc}{\mathscr{G}}
+\newcommand{\Hmsc}{\mathscr{H}}
+\newcommand{\Kmsc}{\mathscr{K}}
+\newcommand{\Nmsc}{\mathscr{N}}
+\newcommand{\Pmsc}{\mathscr{P}}
+\newcommand{\Qmsc}{\mathscr{Q}}
+\newcommand{\Rmsc}{\mathscr{R}}
+\newcommand{\Smsc}{\mathscr{S}}
+\newcommand{\Tmsc}{\mathscr{T}}
+\newcommand{\Umsc}{\mathscr{U}}
+\newcommand{\Xmsc}{\mathscr{X}}
+\newcommand{\Ymsc}{\mathscr{Y}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Hat
+\def\ha{\widehat{a}}
+\def\hb{\widehat{b}}
+\def\hc{\widehat{c}}
+\def\hd{\widehat{d}}
+\def\he{\widehat{e}}
+\def\hf{\widehat{f}}
+\def\hg{\widehat{g}}
+\def\hh{\widehat{h}}
+\def\hi{\widehat{i}}
+\def\hj{\widehat{j}}
+\def\hk{\widehat{k}}
+\def\hl{\widehat{l}}
+\def\hm{\widehat{m}}
+\def\hn{\widehat{n}}
+\def\ho{\widehat{o}}
+\def\hp{\widehat{p}}
+\def\hq{\widehat{q}}
+\def\hr{\widehat{r}}
+\def\hs{\widehat{s}}
+\def\hatt{\widehat{t}}
+\def\hu{\widehat{u}}
+\def\hv{\widehat{v}}
+\def\hw{\widehat{w}}
+\def\hx{\widehat{x}}
+\def\hy{\widehat{y}}
+\def\hz{\widehat{z}}
+
+\def\hA{\widehat{A}}
+\def\hB{\widehat{B}}
+\def\hC{\widehat{C}}
+\def\hD{\widehat{D}}
+\def\hE{\widehat{E}}
+\def\hF{\widehat{F}}
+\def\hG{\widehat{G}}
+\def\hH{\widehat{H}}
+\def\hI{\widehat{I}}
+\def\hJ{\widehat{J}}
+\def\hK{\widehat{K}}
+\def\hL{\widehat{L}}
+\def\hM{\widehat{M}}
+\def\hN{\widehat{N}}
+\def\hO{\widehat{O}}
+\def\hP{\widehat{P}}
+\def\hQ{\widehat{Q}}
+\def\hR{\widehat{R}}
+\def\hS{\widehat{S}}
+\def\hT{\widehat{T}}
+\def\hU{\widehat{U}}
+\def\hV{\widehat{V}}
+\def\hW{\widehat{W}}
+\def\hX{\widehat{X}}
+\def\hY{\widehat{Y}}
+\def\hZ{\widehat{Z}}
+\def\hlambda{\widehat{\lambda}}
+\def\hpi{\widehat{\pi}}
+\def\hnu{\widehat{\nu}}
+\def\hbd{\widehat{\mathbf{d}}}
+\def\bLambda{\mathbf{\Lambda}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Vector
+\def\valpha{\vec{\alpha}}
+\def\va{\vec{a}}
+\def\vb{\vec{b}}
+\def\vc{\vec{c}}
+\def\vd{\vec{d}}
+\def\ve{\vec{e}}
+\def\vf{\vec{f}}
+\def\vg{\vec{g}}
+\def\vh{\vec{h}}
+\def\vi{\vec{i}}
+\def\vj{\vec{j}}
+\def\vk{\vec{k}}
+\def\vl{\vec{l}}
+\def\vm{\vec{m}}
+\def\vn{\vec{n}}
+\def\vo{\vec{o}}
+\def\vp{\vec{p}}
+\def\vq{\vec{q}}
+\def\vr{\vec{r}}
+\def\vs{\vec{s}}
+\def\vt{\vec{t}}
+\def\vu{\vec{u}}
+\def\vv{\vec{v}}
+\def\vw{\vec{w}}
+\def\vx{\vec{x}}
+\def\vy{\vec{y}}
+\def\vz{\vec{z}}
+
+\def\vA{\vec{A}}
+\def\vB{\vec{B}}
+\def\vC{\vec{C}}
+\def\vD{\vec{D}}
+\def\vE{\vec{E}}
+\def\vF{\vec{F}}
+\def\vG{\vec{G}}
+\def\vH{\vec{H}}
+\def\vI{\vec{I}}
+\def\vJ{\vec{J}}
+\def\vK{\vec{K}}
+\def\vL{\vec{L}}
+\def\vM{\vec{M}}
+\def\vN{\vec{N}}
+\def\vO{\vec{O}}
+\def\vP{\vec{P}}
+\def\vQ{\vec{Q}}
+\def\vR{\vec{R}}
+\def\vS{\vec{S}}
+\def\vT{\vec{T}}
+\def\vU{\vec{U}}
+\def\vV{\vec{V}}
+\def\vW{\vec{W}}
+\def\vX{\vec{X}}
+\def\vY{\vec{Y}}
+\def\vZ{\vec{Z}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Bold
+\def\bfalpha{{\boldsymbol {\alpha}}}
+\def\bfnu{{\boldsymbol {\nu}}}
+\def\bfeta{{\boldsymbol {\eta}}}
+\def\bfzero{{\mathbf{0}}}
+\def\bfone{{\mathbf{1}}}
+\def\bfa{{\mathbf a}}
+\def\bfb{{\mathbf b}}
+\def\bfc{{\mathbf c}}
+\def\bfd{{\mathbf d}}
+\def\bfe{{\mathbf e}}
+\def\bff{{\mathbf f}}
+\def\bfg{{\mathbf g}}
+\def\bfh{{\mathbf h}}
+\def\bfi{{\mathbf i}}
+\def\bfj{{\mathbf j}}
+\def\bfk{{\mathbf k}}
+\def\bfl{{\mathbf l}}
+\def\bfm{{\mathbf m}}
+\def\bfn{{\mathbf n}}
+\def\bfo{{\mathbf o}}
+\def\bfp{{\mathbf p}}
+\def\bfq{{\mathbf q}}
+\def\bfr{{\mathbf r}}
+\def\bfs{{\mathbf s}}
+\def\bft{{\mathbf t}}
+\def\bfu{{\mathbf u}}
+\def\bfv{{\mathbf v}}
+\def\bfw{{\mathbf w}}
+\def\bfx{{\mathbf x}}
+\def\bfy{{\mathbf y}}
+\def\bfz{{\mathbf z}}
+
+\def\bfA{{\mathbf A}}
+\def\bfB{{\mathbf B}}
+\def\bfC{{\mathbf C}}
+\def\bfD{{\mathbf D}}
+\def\bfE{{\mathbf E}}
+\def\bfF{{\mathbf F}}
+\def\bfG{{\mathbf G}}
+\def\bfH{{\mathbf H}}
+\def\bfI{{\mathbf I}}
+\def\bfJ{{\mathbf J}}
+\def\bfK{{\mathbf K}}
+\def\bfL{{\mathbf L}}
+\def\bfM{{\mathbf M}}
+\def\bfN{{\mathbf N}}
+\def\bfO{{\mathbf O}}
+\def\bfP{{\mathbf P}}
+\def\bfQ{{\mathbf Q}}
+\def\bfR{{\mathbf R}}
+\def\bfS{{\mathbf S}}
+\def\bfT{{\mathbf T}}
+\def\bfU{{\mathbf U}}
+\def\bfV{{\mathbf V}}
+\def\bfW{{\mathbf W}}
+\def\bfX{{\mathbf X}}
+\def\bfY{{\mathbf Y}}
+\def\bfZ{{\mathbf Z}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Bold Symbols
+\def\alphabf{\hbox{\boldmath$\alpha$\unboldmath}}
+\def\betabf{\hbox{\boldmath$\beta$\unboldmath}}
+\def\gammabf{\hbox{\boldmath$\gamma$\unboldmath}}
+\def\deltabf{\hbox{\boldmath$\delta$\unboldmath}}
+\def\epsilonbf{\hbox{\boldmath$\epsilon$\unboldmath}}
+\def\zetabf{\hbox{\boldmath$\zeta$\unboldmath}}
+\def\etabf{\hbox{\boldmath$\eta$\unboldmath}}
+\def\iotabf{\hbox{\boldmath$\iota$\unboldmath}}
+\def\kappabf{\hbox{\boldmath$\kappa$\unboldmath}}
+\def\lambdabf{\hbox{\boldmath$\lambda$\unboldmath}}
+\def\mubf{\hbox{\boldmath$\mu$\unboldmath}}
+\def\nubf{\hbox{\boldmath$\nu$\unboldmath}}
+\def\xibf{\hbox{\boldmath$\xi$\unboldmath}}
+\def\pibf{\hbox{\boldmath$\pi$\unboldmath}}
+\def\rhobf{\hbox{\boldmath$\rho$\unboldmath}}
+\def\sigmabf{\hbox{\boldmath$\sigma$\unboldmath}}
+\def\taubf{\hbox{\boldmath$\tau$\unboldmath}}
+\def\upsilonbf{\hbox{\boldmath$\upsilon$\unboldmath}}
+\def\phibf{\hbox{\boldmath$\phi$\unboldmath}}
+\def\chibf{\hbox{\boldmath$\chi$\unboldmath}}
+\def\psibf{\hbox{\boldmath$\psi$\unboldmath}}
+\def\omegabf{\hbox{\boldmath$\omega$\unboldmath}}
+\def\inftybf{\hbox{\boldmath$\infty$\unboldmath}}
+\def\hSigmabf{\hbox{$\widehat{\bf \Sigma}$}}
+\def\Sigmabf{\hbox{$\bf \Sigma$}}
+\def\Upsilonbf{\hbox{$\bf \Upsilon$}}
+\def\Omegabf{\hbox{$\bf \Omega$}}
+\def\Deltabf{\hbox{$\bf \Delta$}}
+\def\Gammabf{\hbox{$\bf \Gamma$}}
+\def\Thetabf{\hbox{$\bf \Theta$}}
+\def\Lambdabf{\mbox{$ \bf \Lambda $}}
+\def\Xibf{\hbox{\bf$\Xi$}}
+\def\Pibf{{\bf \Pi}}
+\def\thetabf{{\mbox{\boldmath$\theta$\unboldmath}}}
+\def\Upsilonbf{\hbox{\boldmath$\Upsilon$\unboldmath}}
+\newcommand{\Phibf}{\mbox{${\bf \Phi}$}}
+\newcommand{\Psibf}{\mbox{${\bf \Psi}$}}
+\def\olambda{\mathfrak{o}(\lambda)}
+\def\complex{\mathfrak{C}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Bar
+\def\brzero{{\overline{{0}}}}
+\def\brone{{\overline{{1}}}}
+\def\bra{{\overline{a}}}
+\def\brb{{\overline{b}}}
+\def\brc{{\overline{c}}}
+\def\brd{{\overline{d}}}
+\def\bre{{\overline{e}}}
+\def\brf{{\overline{f}}}
+\def\brg{{\overline{g}}}
+\def\brh{{\overline{h}}}
+\def\bri{{\overline{i}}}
+\def\brj{{\overline{j}}}
+\def\brk{{\overline{k}}}
+\def\brl{{\overline{l}}}
+\def\brm{{\overline{m}}}
+\def\brn{{\overline{n}}}
+\def\bro{{\overline{o}}}
+\def\brp{{\overline{p}}}
+\def\brq{{\overline{q}}}
+\def\brr{{\overline{r}}}
+\def\brs{{\overline{s}}}
+\def\brt{{\overline{t}}}
+\def\bru{{\overline{u}}}
+\def\brv{{\overline{v}}}
+\def\brw{{\overline{w}}}
+\def\brx{{\overline{x}}}
+\def\bry{{\overline{y}}}
+\def\brz{{\overline{z}}}
+
+\def\brA{{\overline{A}}}
+\def\brB{{\overline{B}}}
+\def\brC{{\overline{C}}}
+\def\brD{{\overline{D}}}
+\def\brE{{\overline{E}}}
+\def\brF{{\overline{F}}}
+\def\brG{{\overline{G}}}
+\def\brH{{\overline{H}}}
+\def\brI{{\overline{I}}}
+\def\brJ{{\overline{J}}}
+\def\brK{{\overline{K}}}
+\def\brL{{\overline{L}}}
+\def\brM{{\overline{M}}}
+\def\brN{{\overline{N}}}
+\def\brO{{\overline{O}}}
+\def\brP{{\overline{P}}}
+\def\brQ{{\overline{Q}}}
+\def\brR{{\overline{R}}}
+\def\brS{{\overline{S}}}
+\def\brT{{\overline{T}}}
+\def\brU{{\overline{U}}}
+\def\brV{{\overline{V}}}
+\def\brW{{\overline{W}}}
+\def\brX{{\overline{X}}}
+\def\brY{{\overline{Y}}}
+\def\beZ{{\overline{Z}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Bar Bold 
+\def\bbfzero{{\overline{\mathbf{0}}}}
+\def\bbfone{{\overline{\mathbf{1}}}}
+\def\bbfa{{\overline{\mathbf a}}}
+\def\bbfb{{\overline{\mathbf b}}}
+\def\bbfc{{\overline{\mathbf c}}}
+\def\bbfd{{\overline{\mathbf d}}}
+\def\bbfe{{\overline{\mathbf e}}}
+\def\bbff{{\overline{\mathbf f}}}
+\def\bbfg{{\overline{\mathbf g}}}
+\def\bbfh{{\overline{\mathbf h}}}
+\def\bbfi{{\overline{\mathbf i}}}
+\def\bbfj{{\overline{\mathbf j}}}
+\def\bbfk{{\overline{\mathbf k}}}
+\def\bbfl{{\overline{\mathbf l}}}
+\def\bbfm{{\overline{\mathbf m}}}
+\def\bbfn{{\overline{\mathbf n}}}
+\def\bbfo{{\overline{\mathbf o}}}
+\def\bbfp{{\overline{\mathbf p}}}
+\def\bbfq{{\overline{\mathbf q}}}
+\def\bbfr{{\overline{\mathbf r}}}
+\def\bbfs{{\overline{\mathbf s}}}
+\def\bbft{{\overline{\mathbf t}}}
+\def\bbfu{{\overline{\mathbf u}}}
+\def\bbfv{{\overline{\mathbf v}}}
+\def\bbfw{{\overline{\mathbf w}}}
+\def\bbfx{{\overline{\mathbf x}}}
+\def\bbfy{{\overline{\mathbf y}}}
+\def\bbfz{{\overline{\mathbf z}}}
+
+\def\bbfA{{\overline{\mathbf A}}}
+\def\bbfB{{\overline{\mathbf B}}}
+\def\bbfC{{\overline{\mathbf{C}}}}
+\def\bbfD{{\overline{\mathbf D}}}
+\def\bbfE{{\overline{\mathbf E}}}
+\def\bbfF{{\overline{\mathbf F}}}
+\def\bbfG{{\overline{\mathbf G}}}
+\def\bbfH{{\overline{\mathbf H}}}
+\def\bbfI{{\overline{\mathbf I}}}
+\def\bbfJ{{\overline{\mathbf J}}}
+\def\bbfK{{\overline{\mathbf K}}}
+\def\bbfL{{\overline{\mathbf L}}}
+\def\bbfM{{\overline{\mathbf M}}}
+\def\bbfN{{\overline{\mathbf N}}}
+\def\bbfO{{\overline{\mathbf O}}}
+\def\bbfP{{\overline{\mathbf P}}}
+\def\bbfQ{{\overline{\mathbf Q}}}
+\def\bbfR{{\overline{\mathbf R}}}
+\def\bbfS{{\overline{\mathbf S}}}
+\def\bbfT{{\overline{\mathbf T}}}
+\def\bbfU{{\overline{\mathbf U}}}
+\def\bbfV{{\overline{\mathbf V}}}
+\def\bbfW{{\overline{\mathbf W}}}
+\def\bbfX{{\overline{\mathbf X}}}
+\def\bbfY{{\overline{\mathbf Y}}}
+\def\bbfZ{{\overline{\mathbf Z}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Calligraphic
+\def\Ac{{\cal A}}
+\def\Bc{{\cal B}}
+\def\Cc{{\cal C}}
+\def\Dc{{\cal D}}
+\def\Ec{{\cal E}}
+\def\Fc{{\cal F}}
+\def\Gc{{\cal G}}
+\def\Hc{{\cal H}}
+\def\Ic{{\cal I}}
+\def\Jc{{\cal J}}
+\def\Kc{{\cal K}}
+\def\Lc{{\cal L}}
+\def\Mc{{\cal M}}
+\def\Nc{{\cal N}}
+\def\Oc{{\cal O}}
+\def\Pc{{\cal P}}
+\def\Qc{{\cal Q}}
+\def\Rc{{\cal R}}
+\def\Sc{{\cal S}}
+\def\Tc{{\cal T}}
+\def\Uc{{\cal U}}
+\def\Vc{{\cal V}}
+\def\Wc{{\cal W}}
+\def\Xc{{\cal X}}
+\def\Yc{{\cal Y}}
+\def\Zc{{\cal Z}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Mathbb
+
+\def\Abb{{\mathbb A}}
+\def\BBb{{\mathbb B}}% different
+\def\Cbb{{\mathbb C}}
+\def\Dbb{{\mathbb D}}
+\def\Ebb{{\mathbb E}}
+\def\Fbb{{\mathbb F}}
+\def\Gbb{{\mathbb G}}
+\def\Hbb{{\mathbb H}}
+\def\Ibb{{\mathbb I}}
+\def\Jbb{{\mathbb J}}
+\def\Kbb{{\mathbb K}}
+\def\Lbb{{\mathbb L}}
+\def\Mbb{{\mathbb M}}
+\def\Nbb{{\mathbb N}}
+\def\Obb{{\mathbb O}}
+\def\Pbb{{\mathbb P}}
+\def\Qbb{{\mathbb Q}}
+\def\Rbb{{\mathbb R}}
+\def\Sbb{{\mathbb S}}
+\def\Tbb{{\mathbb T}}
+\def\Ubb{{\mathbb U}}
+\def\Vbb{{\mathbb V}}
+\def\Wbb{{\mathbb W}}
+\def\Xbb{{\mathbb X}}
+\def\Ybb{{\mathbb Y}}
+\def\Zbb{{\mathbb Z}}
+\def\xbb{{\mathbbm x}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Command Abbreviations
+%\newtheorem{theorem}{Theorem}
+%\newtheorem{lemma}{Lemma}
+%\newcommand{\bprfof}{\begin{proof_of}}
+%\newcommand{\eprfof}{\end{proof_of}}
+\newcommand{\bprf}{\begin{proof}}
+\newcommand{\eprf}{\end{proof}}
+%\newcommand{\bp}{\begin{psfrags}}
+%\newcommand{\ep}{\end{psfrags}}
+\newcommand{\bl}{\begin{lemma}}
+\newcommand{\el}{\end{lemma}}
+\newcommand{\bt}{\begin{theorem}}
+\newcommand{\et}{\end{theorem}}
+%\newcommand{\bc}{\begin{center}}
+%\newcommand{\ec}{\end{center}}
+%\newcommand{\bi}{\begin{itemize}}
+%\newcommand{\ei}{\end{itemize}}
+%\newcommand{\ben}{\begin{enumerate}}
+%\newcommand{\een}{\end{enumerate}}
+%\newcommand{\bd}{\begin{definition}}
+%\newcommand{\ed}{\end{definition}}
+\def\beq{\begin{equation}\begin{aligned}}
+\def\eeq{\end{aligned}\end{equation}\noindent}
+\def\beqq{\begin{equation*}\begin{aligned}}
+\def\eeqq{\end{aligned}\end{equation*}\noindent}
+\def\beqn{\begin{eqnarray}}
+\def\eeqn{\end{eqnarray} \noindent}
+%\def\beqnn{  \begin{eqnarray*}}
+%\def\eeqnn{\end{eqnarray*}  \noindent}
+%\def\bcase{  \begin{numcases}}
+%\def\ecase{\end{numcases}   \noindent}
+%\def\bsbcase{  \begin{subnumcases}}
+%\def\esbcase{\end{subnumcases}   \noindent}
+%
+%\def\endproof{\hfill\blacksquare}
+%\def\defeq{{:=}}%{{\stackrel{\Delta}{=}}}
+%
+%

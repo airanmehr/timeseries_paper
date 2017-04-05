@@ -1,0 +1,53 @@
+\documentclass[11pt]{article}
+\usepackage{url}
+\input{macros_vineet}
+\input{macros_arya}
+\usepackage{xr}
+\externaldocument{GSA}
+\definecolor{color2}{rgb}{0.0,0.0,0.5}
+\title{\comale: Composition of Likelihoods for Evolve And Resequence 
+Experiments}
+\author[1]{Arya Iranmehr}
+\author[1]{Ali Akbari}
+\author[2]{Christian Schl\"{o}tterer}
+\author[3]{Vineet Bafna}
+\affil[1]{\footnotesize Department of Electrical and Computer Engineering, 
+University of 
+California, San Diego, La Jolla, CA, USA}
+\affil[2]{\footnotesize Institut f\"{u}r Populationsgenetik, Vetmeduni, Vienna, 
+Austria}
+\affil[3]{\footnotesize Department of Computer Science and Engineering, 
+University of 
+California, San Diego, La Jolla, CA, USA}
+\date{}
+\usepackage[margin=1in]{geometry} %not compatible with PLOS style
+\graphicspath{{../figures/}}
+\renewcommand{\figurename}{}
+\renewcommand{\thefigure}{Fig~\arabic{figure}}
+\renewcommand{\tablename}{}
+\renewcommand{\thetable}{Table~\arabic{table}}
+\usepackage{lineno}
+%\usepackage[linesnumbered,ruled]{algorithm2e}
+\usepackage[algoruled]{algorithm2e}
+
+
+\begin{document}
+\maketitle
+\renewcommand{\figurename}{}
+\renewcommand{\tablename}{}
+\renewcommand{\thefigure}{Figure~S\arabic{figure}}
+\renewcommand{\thetable}{Table~S\arabic{table}}
+\renewcommand{\theequation}{S\arabic{equation}}
+\renewcommand{\thesection}{S\arabic{section}~Text} 
+\renewcommand{\thesubsection}{S\arabic{section}.\arabic{subsection}~Text} 
+
+
+\input{supplemental}
+\input{supp-figures}
+\input{supp-tables}
+\nolinenumbers
+\clearpage
+\bibliographystyle{plain}%\bibliographystyle{Vancouver}
+\bibliography{../library}
+\end{document}
+	
